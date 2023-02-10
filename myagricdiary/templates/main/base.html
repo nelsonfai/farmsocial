@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" maximum-scale=1>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Lexend+Deca:wght@200;400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6077df5cfa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'styles/mainstyle.css'%}">
+    <link rel="stylesheet" href="{% static stylesheet %}">
+
+    <title>My Agric Diary </title>
+</head>
+<body>
+        <header>
+            <div class="logo">
+             <a href="../../../">   <img src="{% static 'images/my agric-diary.png'%}" width="100%"></a>
+            </div>
+            <div class="header-right">
+                    {% if request.user.is_authenticated %}
+                            <span> 
+                                <a href="{% url 'notification' %}">
+                                    <span class="notification-wrapper">
+                                        <span class="notification-counter"> 
+                                               <span><i class="fa-regular fa-bell"> </i> </span>                         
+                                                <span id="counter"> {{count}} </span>                              
+                                        </span>
+                                    </span>
+                                </a> 
+                            </span>
+
+                        <span>
+                            {% if request.user.profile_pic %}
+                            <a href="{% url 'profile' request.user.id %}">
+                                <span class="roundedprofile" style="background:url('{{request.user.profile_pic.url}}') ;background-position: center; background-size: contain;">  </span> </a>   
+                            {% else %}
+                            <a href="{% url 'profile' request.user.id %}">   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="30px"></a>   
+                            {% endif %}
+                        </span>
+                    </a>   
+                    {% else %}
+                        <span> <a href="{% url 'login' %}"> Login </a> </span>
+                        <span> <a href="{% url 'signup' %}"> Signup </a></span>
+                    
+                    {% endif %}
+            </div>
+
+        </header>
+
+        {% for messsage in messages %}
+            <div class="message"> {{ messsage }} </div>
+        {% endfor %}
+
+   
+        {% block content %}
+        {% endblock%}
+
+
+        <footer style="text-align:center;">
+     
+                <a href="../../../"> <i class="fa-solid fa-house"></i> <small>Home </small> </a>
+                <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i> <small>Messages </small>  </a>
+                <a href="{% url 'add_article'%}" class="yellow"> <i class="fa-solid fa-square-plus yellow" ></i> <small> Post</small> </a>
+                <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small> Market </small>  </a>
+                <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout </small> </a>
+        
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'login' %}"> Login </a>
+                    <a href="{% url 'signup' %}"> Signup </a>
+        
+                {% endif %}
+        
+        </footer>
+
+
+</body>
+
+
+<style>
+  
+
+</style>
+</html>

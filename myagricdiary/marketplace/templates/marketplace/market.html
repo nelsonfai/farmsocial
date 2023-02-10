@@ -1,0 +1,183 @@
+{% extends 'main/base.html'%}
+{% block content %}
+
+<div class="grid-container">
+    <div class="sidebar">
+        <nav class="sidebar_nav">
+            <a href="../../../"> <i class="fa-solid fa-house"></i> Home</a>
+            <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a>
+            <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> Notification  </a>
+            <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  Messages </a>
+            <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-globe"></i> My Network </a>
+            <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i> Market  </a>
+    
+            <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Logout </a>
+    
+            {% if not user.is_authenticated %}
+                <a href="{% url 'login' %}"> Login </a>
+                <a href="{% url 'signup' %}"> Signup </a>
+    
+            {% endif %}
+        </nav>
+    
+    </div>
+    <main> 
+                <div class="products-container">
+                <div class="search">   
+                    <form action="{% url 'search' %}" method="post" name="site-search">
+                        {% csrf_token %}
+                    
+                        <input type="search" id="site-search" name="search" placeholder="search a product..">
+                        <button type="submit"> <img src="https://img.icons8.com/material-two-tone/20/000000/search.png"/> </button>
+                    </form>
+                </div>
+                <div class="filter-form"> 
+                        <form action="{% url 'filter' %}" method="post">
+                            {% csrf_token %}
+                        
+                            <select name="filter" id="filter" required>
+                                <option disabled selected value> -- select a category -- </option>
+                                <option value="Vegetables"> Vegetables</option>
+                                <option value="Industrial crops">Industrial crops</option>
+                                <option value="Grains"> Grains </option>
+                                <option value="livestock"> livestock </option>
+                                <option value="Fruits"> Fruits</option>
+                                <option value="Farm inputs">Farm inputs </option>
+                            </select>
+                            <button type="submit"> filter</button>
+
+                        </form>
+                </div>
+
+                <div class="market-links"> 
+                    <h3 style=" margin-bottom:10px">  <a href="{% url 'add_product' %}"> Post a Product </a></h3>
+                            <a href="{% url 'market' %}"> All products </a>
+                </div>
+                    <div class="product">     
+                        <div class="product-grid">
+                        {% for product in productitems %}
+                        
+                            <div class="item">
+                                <div  style="width:100%;height:200px;background:url('{{ product.main_image.url }}') ;background-position: center; background-size: cover;background-repeat: no-repeat;" loading="lazy"> </div>
+                                    <div class="product-info">
+                                        <strong>{{ product.product }}</strong>
+                                        <p class="price"> <strong> <i class="fa-solid fa-hand-holding-dollar"></i>  {{ product.price}}</strong>  </p>
+                                        <p><i class="fa-solid fa-cubes-stacked"></i>    {{ product.quantity}} </p>
+                                        <p class="location"><i class="fa-solid fa-location-dot"></i> {{ product.location }}</p>
+                                        
+                                        <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;margin-top: 0.5rem;"> <a href="{% url 'product' slug=product.id %}" > Details</a></div>
+                                    </div> 
+                            </div>
+                            {% endfor%}
+                        </div>
+                        
+                        <div style="border-block:100px"> 
+                            <p style="text-align:center;"> Page  {{productitems.number }} of  {{ productitems.paginator.num_pages }} </p> 
+                       <div class="pagination11"> 
+                           <p> {% if productitems.has_previous %}
+                               <span style="text-align:left;"> 
+                                       
+                                       <a href="?page={{ productitems.previous_page_number }}"> &laquo; Previous</a>
+                               </span >  
+                           {% endif %}
+                               {% if productitems.has_next %}
+                               <span style="text-align: right; display: block;" >
+                                   <a href="?page={{ productitems.next_page_number }}" >Next <i> &raquo;</i> </a>
+                               </span>
+                               {% endif%}
+                           </p>
+                           </div>  
+                           
+                   </div>
+
+
+
+
+
+
+                </div>
+                </div>
+            </main>
+</div>
+<style>
+.grid-container{
+    display: grid;
+    grid-template-columns: 15% 1fr ;
+    }
+.products-container{
+    width:90%;
+    margin:auto;
+    min-height: 100vh;
+   
+}
+.filter-form{
+    float:right;
+    display: inline;
+}   
+.search{
+    display: inline-block;
+}
+    label {
+    display: block;
+   
+}
+
+input,select
+ {
+    margin: .4rem 0;
+    padding: 5px;
+}
+button{
+    background: none;
+    border:none;
+    padding: 3px;
+    font-size: large;
+}
+button img{
+    margin-bottom: -5px;
+}
+.market-links{
+    margin-block: 20px;
+}
+.product-info{
+    margin-block:5px ;
+    width: 100%;
+}
+.price{
+    color:var(--primary-color);
+    margin-top:10px ;
+}
+.location{
+    color:grey;
+    margin-bottom: 6px;
+}
+.item{
+   background-color: white;
+    padding:0.4rem;
+    width: 250px;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.product-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:2rem;
+    margin-bottom: 2rem;
+}
+@media screen and (max-width:768px) {
+    .grid-container{
+        display: block;
+    }
+.filter-form{
+   float: none;
+    display: block;
+} 
+.products{
+    justify-content: center;
+    
+}  
+    
+}
+</style>
+{% endblock %}

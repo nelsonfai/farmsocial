@@ -1,0 +1,70 @@
+
+
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" maximum-scale=1>
+    <link rel="stylesheet" href="{% static 'styles/login-style.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title> Login -My agric diary </title>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            
+            <div class="left-container">
+                <h1 class="title"> Welcome Back</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Ad, dignissimos, labore deserunt eligendi est explicabo veritatis
+                    sed praesentium similique eius perspiciatis porro. 
+                    Et corporis libero, culpa cumque illum eum rem!
+                </p>
+                <p class="follow-icons">
+                    <i><img src="https://img.icons8.com/ios/35/ffffff/facebook-new.png"/> </i> 
+                    <i> <img src="https://img.icons8.com/ios/30/ffffff/twitter--v1.png"/></i> 
+                    <i><img src="https://img.icons8.com/ios/35/ffffff/linkedin-circled--v2.png"/></i> 
+                </p>
+            </div>
+
+        </div>
+        <div class="right">
+            <h1 class="form-title"> Login</h1>
+            <form action="{% url 'login'%}" method="post">
+                {% csrf_token %}
+                 <div class="errors"> 
+                    <p style="color:red"> 
+                        {% for field, error in form.errors.items %}
+                        {% if field != '__all__' %}{{ field }}{% endif %}
+                        {{ error | striptags }}
+                        {% endfor %}
+                        
+                        {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{request.GET.next}}">
+                        {% endif %}
+
+                    </p>
+                 </div>
+                <p><i> <img src="https://img.icons8.com/external-sbts2018-solid-sbts2018/20/008037/external-farmer-basic-ui-elements-2.3-sbts2018-solid-sbts2018.png"/></i>    {{form.username }} </p> 
+                <p> <i> <img src="https://img.icons8.com/ios-glyphs/20/008037/password--v1.png"/></i>    {{ form.password }}</p>
+                
+               
+                <input type="submit" value="Login" class="submitbtn">
+            </form>
+            <p> Don't have an account ? <a href="{% url 'signup' %}">Signup</a> </p>
+            
+        </div>
+    </div>
+
+  
+</body>
+</html>

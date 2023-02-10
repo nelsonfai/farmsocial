@@ -1,0 +1,39 @@
+{% extends 'main/base.html'%}
+{% block content %}
+
+
+
+<div class="edit-product-container"> 
+        <form action="{% url 'edit_product' slug=productitem.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Update" class="submit">
+        </form>
+</div>
+
+<style>
+.edit-product-container{
+    width:60%;
+    margin:auto
+}
+.subtmit{
+    padding:5px 7px;
+    background-color: var(--primary-color);
+    color:white;
+    border:none;
+    text-align: center;
+    width: 100%;
+    border-radius: 5px;
+}
+input{
+    padding: 1rem;
+}
+
+  @media screen and (max-width:768px) {
+    .edit-product-container{
+    width:100%;
+    
+}
+  }  
+</style>
+{% endblock %}

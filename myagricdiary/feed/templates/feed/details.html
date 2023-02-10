@@ -1,0 +1,163 @@
+{% extends 'main/base.html'%}
+{% load static %}
+{% block content %}
+
+<style>
+  pre {
+overflow-x: auto;
+white-space: pre-wrap;
+white-space: -moz-pre-wrap;
+white-space: -pre-wrap;
+white-space: -o-pre-wrap;
+word-wrap: break-word;
+font-family: 'Lexend Deca', sans-serif; 
+font-size: 16px;
+}
+
+</style>
+
+<div class="article-detail_wrapper"> 
+<div >  <h1> {{article.title}} </h1></div>
+<br>
+  <div class="image">
+    {% if article.article_image %} 
+     <img src="{{ article.article_image.url }}" alt="article image" width="100%">
+     {% endif %}
+    </div>
+<br>
+
+<div>
+  <a href=" {% url 'profile' article.author.id %} ">  Post by: {{article.author.first_name}}  {{article.author.last_name}} </a>
+  <p>  {{article.date}}  </p>
+</div> 
+<br>
+
+<div> {{article.body|safe}} </div>
+
+  {% if user.is_authenticated %}
+
+      <form action="{% url 'like_article' article.slug %}" method="post">
+      {% csrf_token %}
+        <input type="hidden" name="article_id" value="{{ article.id }}" >   
+          {% if user not in article.likes.all %}
+          <button type="submit"  style="background:transparent; border:none; color:transparent;"> <img src="{% static 'images/like.png' %}" alt="like" width ="25px" ></button>
+                    <strong> {{article.likes.all.count}} </strong> 
+                
+            {% else %}
+                <button type="submit" style="background:transparent; border:none; color:transparent;"> <img src="{% static 'images/love.png'%}" alt="liked" width ="25px" ></button>
+                <strong> {{article.likes.all.count}}</strong>
+            
+            {% endif %} 
+            
+            
+  {% endif %} 
+  
+           
+  </form>
+  <br>
+  <hr>
+
+<div class="comments-box">
+    {% for comment in comments %}
+        {% if comment.profile.profile_pic %}
+              <span class="profile_pic"><img src="{{ comment.profile.profile_pic.url }}" alt="" width="100"> </span>
+        {% else %}
+              <span class="profile_pic">
+                  <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/250/000000/external-farmer-farming-icongeek26-outline-icongeek26.png" style="width:40px"/>
+              </span>
+        {% endif %}
+            <strong>  @{{comment.author.get_full_name}} </strong>
+            <div class="comment">   
+              {{comment.comment}}
+            </div> 
+    {% endfor %}
+</div>
+
+
+
+<div class="comment-form">  
+        <h4 > Comments ({{ article.comments.all.count }})  </h4>
+        <br>
+          
+
+        <form action="{% url 'comment' article_slug=article.slug %}" method="post" id="commentform">
+            {% csrf_token %}
+
+            {{ comment_form.comment }}
+            {% if user.is_authenticated %}
+            <br>
+              <input type="submit" value="send" class="submitbtn">
+            {% else %}
+            <br>
+            <input type='button' value="Submit" class="submitbtn" onclick="commentAlert()" >
+            {% endif %}
+
+        </form>
+ <br>
+ <p id="commentalert" style="color: red;"> </p>
+
+<script>
+  function commentAlert(){
+    let commentalert= document.getElementById('commentalert')
+  commentalert.innerText='You must be Logged in to Comment ';
+  setTimeout(() => {
+  
+    commentalert.innerText = '';
+  }, 2000);
+  ;
+}
+
+</script>
+
+
+
+</div>
+</div>
+
+<style>
+  .profile_pic img{
+    height:25px;
+    width:25px;
+    border-radius:50%;
+    
+  }
+  .article-detail_wrapper{
+    width:100%;
+    margin:auto;
+    padding:10px;
+  }
+  .comment_field{
+    width:100%;
+    padding:3%;
+    margin:auto; 
+   
+  }
+  .image{
+    width:50%;
+    
+  }
+  .comments-box{
+    margin-block: 20px;
+  }
+  @media screen and (min-width:768px) {
+    .article-detail_wrapper{
+    width:70%;
+ 
+  }
+  .comment_field{
+    width:100%;
+    padding:3%;
+  
+
+  }
+  .image{
+    width:50%;
+    
+  } 
+  .comment{
+    margin-bottom: 8px;
+  } 
+  }
+ </style>
+
+{% endblock %}

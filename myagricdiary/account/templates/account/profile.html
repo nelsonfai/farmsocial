@@ -1,0 +1,496 @@
+{% extends 'main/base.html'%}
+{% load static %}
+
+{% block content %}
+
+
+<div class="grid-container">
+    <div class="sidebar">
+        <nav class="sidebar_nav">
+            <a href="../../../"> <i class="fa-solid fa-house"></i> Home</a>
+            <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a>
+            <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> Notification  </a>
+            <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  Messages </a>
+            <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-globe"></i> My Network </a>
+            <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i> Market  </a>
+    
+            <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Logout </a>
+    
+            {% if not user.is_authenticated %}
+                <a href="{% url 'login' %}"> Login </a>
+                <a href="{% url 'signup' %}"> Signup </a>
+    
+            {% endif %}
+        </nav>
+    
+    </div>
+    <main> 
+<div class="profile-container">
+    <div class="profile-image-container">
+        <div class="profile-image">
+            {% if profile.profile_pic %}
+                <span class="roundedprofile" style="background:url('{{profile.profile_pic.url}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </span> 
+            {% else %}
+             <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/250/000000/external-farmer-farming-icongeek26-outline-icongeek26.png" style="width:90%"/>
+            {% endif %}
+        </div>
+        <div class="profile-name">
+            <h2 class="name"> {{ profile.get_full_name}}  
+                {% if profile == request.user %}
+                <span class="deletebtnfloat"> <a href="{% url 'editname' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
+                {%endif%}
+            </h2>
+            
+            <div class="sector"> 
+                {% if profile.is_student %}
+
+                    {% if profile.course %}
+                        <p> {{ profile.course}} </p>
+                    {% endif %}
+
+                    {% if profile.instituition %}
+                        <p> {{ profile.instituition}} </p>
+                    {% endif %}
+                {%else%}
+                    {% if profile.profession %}
+                            <p> {{ profile.profession}} </p>
+                    {% endif %}
+
+                    {% if profile.company %}
+                        <p>{{ profile.company }} </p>
+                    {% endif %}
+                {% endif %}
+                <p> <small> <i class="fa-solid fa-location-dot"></i> {{profile.location}} </small></p>
+                    <span class="deletebtnfloat"> 
+                        {% if profile == request.user %}
+                        <span class="deletebtnfloat"> <a href="{% url 'editeducation' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
+                        {%endif%}
+                    </span>
+            </div>
+       <p> <span onclick="closepopup();shownetwork('following22','followers22')" >   Followers- {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')" >  Following {{profile.myfollowing.following.count}}</span> </p>
+            {% if user.is_authenticated %}
+                
+                    {% if profile != request.user %}
+                    <span>
+                        {% if request.user in network.follower.all %}
+                            <button onclick="network(event,url='unfollow', profile_id='{{profile.id}}',id='unfollowbtn')" >Unfollow</button>
+                        {% else %}
+                            <button onclick="network(event,url='follow', profile_id='{{profile.id}}' ,id='followbtn')" >Follow</button>
+                        {% endif %}
+                    </span>
+                        <span> 
+                            <a href="{% url 'createchat' profile.id %}"> <button >Message</button> </a>
+                        </span>
+                    
+                    {% endif %}
+               
+
+
+            {% endif %}
+        </div>
+    </div>
+
+
+    {% if profile.bio %}
+        <div class="about">
+            <h4> About </h4>
+            <br>
+            <p>
+                {{ profile.bio }}  
+            </p>
+            {% if profile == request.user %}
+            <span class="deletebtnfloat"> <a href="{% url 'editbio' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
+            {%endif%}
+        </div>
+     {% endif %}
+    <div class="profile-info-contaner">
+            {% if products %}
+
+                <div class="profile-product-container"> 
+                    <h4>My products</h4>
+                    <br>
+                    <div class="products"> 
+                    {% for product in products %}
+                   
+                        <div class="products">     
+                                <div style="margin-inline:5px ;">
+                                    <div style="background:url('{{ product.main_image.url }}') ;width:100px;height: 100px;background-position: center;background-repeat: no-repeat;background-size: cover;" > </div>
+                                        <div class="product-info">
+                                            <p> {{ product.product | truncatechars:10}} </p>
+                                            <small><a href="{% url 'product' slug=product.id %}"> Details</a> </small>
+                                            <small><a href="{% url 'delete_product' product.id %}"> Delete</a> </small>
+                                        </div>
+                                        <br>     
+                                </div>
+                                <br>
+                        </div>
+                    {% endfor%}
+                </div>
+                </div>
+            {% endif %}
+            {% if products %}
+                <div class="profile-articles">
+                    <h4>My articles </h4>
+                    <br>
+                    {% for article in articles %}
+                    <div class="article-item" id="article{{article.id}}">
+                        {% if article.article_image %}
+                        <div class="image">
+                            <img src="{{ article.article_image.url }}" alt="article image" width="70px">
+                        </div>
+                        {% endif %}
+                        <div>
+                                <a href="{% url 'details' article_slug=article.slug %}">  
+                                    <div> 
+                                        {% if article.title %}
+                                    {{ article.title|truncatechars:90 }}
+                                    {%else%}
+                                    Article title 
+                                    {% endif %} 
+                                </div></a>
+                                <p><a href=" {% url 'details' article_slug=article.slug %}"> Read more...</a></p> 
+                            {% if article.author == request.user %}  
+                            <span class="deletebtnfloat">
+                                <button onclick="deleteConfirm(event,id='article{{article.id}}', article_id='{{article.id}}' )"> <i class="fa-regular fa-trash-can"></i></button>
+                            </span>
+                                {% endif %}          
+                    </div>
+                  
+                    </div>
+                    
+                {% endfor %}
+                </div>
+                {% endif %}
+        </div>
+    </div>
+
+<div id="popup22">
+    <div class="popuphead">
+        <div><button onclick="shownetwork('followers22','following22')"> Follow</button> <button onclick="shownetwork('following22','followers22')">Following</button></div>
+        <button onclick="closepopup()">Close</button>
+    </div>
+    <div class="popupbody">
+        <div id="followers22" >
+                <div> 
+                    <p>Following</p>
+                    <br>
+                    {% for item in profile.myfollowing.following.all %}
+                    <div class="flex flex_outerfollow"> 
+                        <div class="flex" > 
+                            
+                            <a href="{% url 'profile' item.id %}">  <span class="roundedprofile" style="background:url('{{ item.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                                <div>
+                                    <a href="{% url 'profile' item.id %}"> <div class="contact-name"> {{ item.get_full_name|title }} </div>	</a>
+                                </div>
+                            
+                        </div>
+                        <div> 
+                            {% if item != request.user %}
+                            <span>
+                                {% if item in mynetwork.following.all %}
+                                    <button onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</button>
+                                {% else %}
+                                    <button onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</button>
+                                {% endif %}
+                            </span>
+                                <span> 
+                                    <a href="{% url 'createchat' item.id %}"> <button>Message</button> </a>
+                                </span>
+                            
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+        </div>
+        <div id="following22" >
+       
+            <div> 
+                <p>My Followers </p>
+                <br>
+                {% for item in profile.myfollowing.follower.all%}
+                <div class="flex flex_outerfollow"> 
+                    <div class="flex" > 
+                        <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                            <div>
+                                <a href="{% url 'profile' item.id %}"> <div class="contact-name"> {{ item.get_full_name|title }} </div>	</a>
+                            </div>
+                        
+                    </div>
+                    <div> 
+                        {% if item != request.user %}
+                        <span>
+                            {% if item in mynetwork.following.all %}
+                                <button onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</button>
+                            {% else %}
+                                <button onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</button>
+                            {% endif %}
+                        </span>
+                            <span> 
+                                <a href="{% url 'createchat' item.id %}"> <button class="button_one">Message</button> </a>
+                            </span>
+    
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</main>
+
+<div class="sidebar sidebar_right">
+   
+Friend suggestions here
+    
+</div>
+</div>
+<script>
+    document.getElementById('popup22').style.display='none';
+    function closepopup(){
+
+        const popup = document.getElementById('popup22');
+        if(popup.style.display==='none'){
+            popup.style.display='block';
+        }
+        else{
+            popup.style.display='none';
+        }
+    }
+    function shownetwork(show,hide){
+        console.log(show)
+        document.getElementById(show).style.display='block';
+        document.getElementById(hide).style.display='none';
+    }
+</script>
+
+<script>
+
+    function deleteConfirm(event,id,article_id){
+            if (confirm('Do you want to delete this tracker.Action is irreversible')){
+                event.preventDefault();
+                var post = document.getElementById(id)
+                console.log(id)
+                console.log(article_id)
+                $.ajax({
+                    url: '/delete_article/' + article_id ,
+                    type: 'GET',
+                    success: function(result) {
+                    // Handle the success response
+    
+                    post.remove();
+                    }
+                });
+                
+            }
+            else{
+                event.preventDefault();
+    
+    }
+    }
+    
+    </script>
+<script>
+  function messageAlert(){
+    let messagealert= document.getElementById('messagealert')
+    messagealert.innerText='You must be Logged in to Message user';
+  setTimeout(() => {
+  
+    messagealert.innerText = '';
+  }, 2000);
+  ;
+}
+</script>
+<style>
+.products{
+    display: flex;
+}
+.flex_outerfollow{
+        width:100%;
+        max-width: 450px;
+        justify-content: space-between;
+        margin-block: 1rem;
+    }
+#popup22{
+    position:absolute;
+    width:100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #f5f5f5;
+  
+    top:30%;
+    padding: 1rem;
+
+
+}
+.popuphead{
+    display: flex;
+    justify-content: space-between;
+
+}
+.popupbody{
+    margin-block: 1rem;
+}
+main{
+    position: relative;
+    
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 200px 1fr 15%;
+    gap: 3rem;
+    min-height: 80vh;
+    padding-inline: 5%;
+    max-width: 1700px;
+} 
+    .profile-image-container{
+        display:flex; 
+        width:100%; 
+        align-items:center;
+        border-radius: 10px;
+        margin-block: 10px;
+        gap: 20px;
+        background-color: #fff;
+    }
+    .profile-image{
+        width:20%;
+        padding: 1rem;
+    }
+    .profile-name{
+        width:60%;
+    }
+    .name{
+        margin-bottom: 5px;
+        position: relative;
+    }
+    .sector{
+        color:grey;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+    .message{
+    padding: 5px 15px;
+    margin-block:20px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+   
+    color:white
+    }
+    .about{
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 1rem;
+        position: relative;
+    }
+
+    h3,h2,h4,h5{
+        color:var(--primary-color);
+        margin-bottom: 5px;
+    }
+    .profile-articles{
+        background-color: #fff;
+        padding: 1rem;
+    }
+    .article-item{
+        display: flex;  
+        gap:10px;
+       align-items: center;
+       padding:1rem;
+       position: relative;
+    }
+    .article-item:nth-child(odd){
+        background-color: #f5f5f5;
+    }
+
+
+.deletebtnfloat{
+    position: absolute;
+    top:1rem;
+    right: 1rem;
+    
+}
+.profile-product-container{
+    background-color: #fff;
+    padding: 1rem;
+    margin-bottom: 3.5rem;
+}
+
+@media screen and (max-width:768px) {
+    body{
+        padding: 0;
+    }
+    .wrapper{
+        display: block;
+    }
+    .profile-image-container{
+        display:block; 
+    }
+    .profile-name{
+        width:90%;
+        padding:0 0 1rem 2rem;
+        padding-top: 0;
+    }
+    .profile-image{
+        width:40%;   
+    }
+
+
+.grid-container{
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-top: 0;
+}
+.sidebar{
+  display: none;
+}
+main{
+  width: 100%;
+}
+.profile-container{
+  width: 100%;
+}
+
+}
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    function network(event,url,profile_id,id){
+            console.log('logded in')
+            event.preventDefault();
+            var btn = document.getElementById(id)
+            var link = '/friends/' + url + '/' + profile_id
+            console.log(link)
+            $.ajax({
+                url: link,
+                type: 'GET',
+                success: function(result) {
+                // Handle the success response
+                console.log(result)
+                if (result.data === 'follow'){
+        
+                  btn.parentElement.innerHTML = `<button onclick="network(event,url='follow', profile_id='${profile_id}', id='${id}')" > Follow </button>`;
+                  btn.remove();
+                 }
+                else{
+                  
+                  btn.parentElement.innerHTML = `<button onclick="network(event,url='unfollow', profile_id='${profile_id}', id='${id}')"> Unfollow </button>`;
+                  btn.remove();
+  } 
+                }
+            });
+            
+  
+  }
+  
+  </script>
+
+
+{% endblock %}
+

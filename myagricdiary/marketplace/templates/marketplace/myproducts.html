@@ -1,0 +1,68 @@
+{% extends 'main/base.html'%}
+{% block content %}
+<div style="min-height:100vh"> 
+<h2 style="text-align: center;"> My products </h2>
+
+<strong style="text-align: center; display: block; font-size: larger;"> <a href="{% url 'add_product' %}"> Add a product </a> </strong>
+<br>
+  
+  {% if productitems.count is 0 %}
+        <br>
+        
+        <span style="text-align: center; display: block;">You have no listed product /span>
+  {%endif%}
+  
+<div style="width:90%;margin:auto;  " class="products" > 
+{% for product in productitems %}
+
+        <div  class="wrapper-myproducts" style="margin-inline:5px ;">
+           
+            <div  style="width:200px; height:150px " >
+                <img src="{{ product.main_image.url }}" alt="" width="100%" height="100%">
+            </div>
+ 
+            <div style="margin-bottom: 15px;">  
+                    <p > <strong style="font-size: 20px;"> {{ product.product }} </strong> </p>
+                    <p style="color: var(--primary-color);"> <strong>{{ product.price }}</strong> </p>
+                   
+                       
+                    <p style="margin:auto;"> 
+                            <form action=" {% url 'delete_product' slug=product.id %} " method="post" onsubmit="deleteConfirm(event)">
+                                {% csrf_token %}
+                                <button type="submit" class="submitbtn btn1">Delete </button>
+                                <a href="{% url 'edit_product' slug=product.id %}" class="submitbtn btn1"> Edit  </a>
+                            </form> 
+                            
+                    </p> 
+                    <p>
+                        <a href="{% url 'product' slug=product.id %}" class="submitbtn btn2" > View Details</a>
+                    </p> 
+            </div>
+        </div>
+        {% endfor%}
+</div>
+</div>
+<style>
+    .wrapper-myproducts{
+        border: 1px solid green;
+        padding:5px;
+
+    }
+   
+    .btn2{
+        width: 100% !important;
+    }
+    p{
+    margin-bottom: 0;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+
+
+{% endblock %}

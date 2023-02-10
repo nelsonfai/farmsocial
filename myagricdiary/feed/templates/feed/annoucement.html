@@ -1,0 +1,161 @@
+{% extends 'main/base.html'%}
+{% block content %}
+<style>
+    h2{
+        color:var(--primary-color)
+    }
+    form{
+        margin-block:20px
+    }
+    form select,option{
+        padding:5px 20px;
+ 
+    }
+    input{
+        width:100%;
+        padding:15px 20px;
+        margin-top: 5px;
+        border-radius: 5px; 
+    }
+    .submitbtn{
+        padding: 8px 15px;
+    }
+    .indicator{
+        height: 15px;
+        width: 15px;
+        border-radius:50%;
+        display: inline-block;
+    }
+    .description{
+        margin-top: 10px;
+        background-color: #F5F5F5;
+        padding:20px
+    }
+    p{
+        margin-bottom: 10px;
+    }
+    .annoucement_wrapper{
+        width:100%;
+        margin: auto;
+    }
+    .annoucement_container{
+        display: flex;
+        flex-wrap: wrap;  
+    }
+    .first{
+        width:100%;
+    }
+    .second{
+        margin-right: 5px;
+    }
+@media screen and (min-width:768px) {
+    .annoucement_wrapper{
+        width:80%
+    } 
+    .first{
+        width:85%;
+    } 
+}       
+ </style> 
+<div class="annoucement_wrapper" style="min-height: 90vh;">
+    <h2> Farm  Announcements </h2>
+        <form action="{% url 'annoucement' %}" id="annoucement" method="POST">
+            {% csrf_token %}
+            
+            <label for="annouce_type"> Annoucement Type :</label>
+            <select name="annouce_type" id="annouce_type" form="annoucement" required>
+            <option disabled selected value>Select one</option>
+            <option value="I need">Make a Request</option>
+            <option value="I have">Make an offer</option>
+            
+            </select>
+            
+            <input type="text" id="annoucement" name="annoucement" placeholder="e.g I have 3 tonnes of maize for sale " maxlength="280" required>
+          
+            
+            <div class="description">
+                <p> * Announcement must be a maximum of 280 characters</p>
+                <p> * Select annoucement type to save under the appropriate category</p>
+                <p> * Annoucements are valid for a maximum of 30days after which it will be deleted!</p>
+                <p> *   <span class="indicator" style="background-color: var(--primary-color);"> </span> Green indicates Buyers </p>
+                <p> *   <span class="indicator" style="background-color: brown;"> </span> Brown nidicates Sellers </p>
+            </div>
+            {% if user.is_authenticated %}
+            <button type="submit" class="submitbtn">Submit</button>
+            {% else %}
+            <br>
+            <span  class="submitbtn" onclick="alert()" > Submit </span>
+            <br>
+            <br>
+            <p class="alertmessage">  </p>
+            <br>
+            {% endif %}
+ 
+        </form>
+        <hr>
+        {% for annoucement in annoucements %}
+        <div class="annoucement_container"> 
+            <div class="first">
+                    {{annoucement.annoucement }}
+            </div>
+            <div class="second"> 
+                <span >   
+                    {% if annoucement.annoucement_type == 'I need'  %}
+                
+                        <span class="indicator" style="background-color: var(--primary-color);"> </span>
+                        <strong> <a href="{% url 'profile'  annoucement.profile.user_profile.id %} "> contact buyer</a></strong> 
+                    {% elif annoucement.annoucement_type == 'I have' %}
+                
+                        <span class="indicator" style="background-color: brown;"> </span> 
+                        <strong> <a href="{% url 'profile'  annoucement.profile.user_profile.id %} "> contact seller </a></strong> 
+                    {% else %}
+                
+                        <span class="indicator" style="background-color: black;"> </span> 
+                        <strong> <a href="{% url 'profile'  annoucement.profile.user_profile.id %} "> contact user </a></strong> 
+                    {% endif %}                        
+                </span> 
+                {% if annoucement.profile.user_profile.id == request.user.id %} 
+
+                
+                <span style="margin:auto;"> 
+                    <form action=" {% url 'delete_annoucement' slug=annoucement.id %} " method="post" onsubmit="deleteConfirm(event)">
+                        {% csrf_token %}
+                        <button type="submit" class="submibtn btn1"> <strong>delete </strong>     </button>
+                        
+                        
+                    </form> 
+                    
+                </span>
+            
+        {% endif %} 
+            </div> 
+           
+               
+
+        </div>
+        <p style="color: grey;">{{ annoucement.whenpublished }}</p>
+        <br>
+        <hr>
+        {% endfor %}
+</div>
+
+
+{% if not user.is_authenticated %}
+<script>
+function alert(){
+    let alertmessage=document.getElementsByClassName('alertmessage')
+    for (let i = 0; i < alertmessage.length; i++) {
+        alertmessage[i].innerText='You must me logged in to make an annoucement!';
+    alertmessage[i].style.color='red'
+    setTimeout(() => {
+  
+    alertmessage[i].innerText='';
+}, 3000);
+
+}
+
+
+}
+</script>
+{% endif %}
+{% endblock %}

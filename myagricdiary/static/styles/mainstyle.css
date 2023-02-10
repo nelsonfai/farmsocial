@@ -1,0 +1,280 @@
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: 'Lexend Deca', sans-serif; 
+}
+:root{
+    --primary-color:black;
+    --secondary-color:#043323;
+}
+body{
+    background-color: #f5f5f5;
+    background-color: #f2f1ef;
+}
+a{
+    text-decoration:none;
+    color:var(--primary-color);
+}
+a:hover{
+    color: #d4c44b;
+}
+
+header{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-inline:5%;
+    padding-block: 1.2rem;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    background-color: white;
+    color: #4ba064;
+    z-index: 100;
+}
+header a{
+    color: #4ba064;
+}
+.header-right{
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+
+.notification-counter{
+    position:relative;
+    margin-right: 1rem;
+}
+#counter{
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0px 5px;
+  }
+nav{
+    display: flex;
+    flex-direction: column;
+}
+.message{
+    width:90%;
+    text-align: center;
+    margin:auto;
+    padding:5px;
+    background-color: #F5F5F5;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: 20% 1fr 25%;
+    gap: 3rem;
+    min-height: 80vh;
+    padding-inline: 5%;
+    margin: auto;
+    max-width: 1700px;
+}
+.sidebar{
+height: 85vh;
+ position:sticky;
+ top: 100px;
+ padding: 1rem;
+ border-radius: 10px;
+
+} 
+
+.sidebar_right{
+    background-color: #fff;
+}
+.sidebar_nav{
+    width: 150px; 
+    height: 100%;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #fff;
+}
+.sidebar_nav a{
+    padding-block: 1rem;
+
+}
+button{
+    background-color: transparent;
+    border: none;
+
+    text-align: center;
+}
+.products{
+    display:flex;
+    flex-wrap:wrap;
+    
+}
+.productform{
+    width:100%;
+    padding:10px 10px;
+    display:block;
+}
+
+.menu{
+    display: none;
+}
+.down1{
+    display: none;
+}
+
+.btn1{
+    background-color: white;
+    color: var(--primary-color);
+    border:1px solid var(--primary-color);
+    width: 60%;
+}
+.flex{
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	gap: 20px;
+}
+
+input,select,button,textarea {
+    -webkit-border-radius:0;
+    border-radius:0;
+}
+footer{
+    width: 100%;
+    padding: 1rem;
+    z-index: -1;
+    margin-top: 30px;
+    border-top: 1px solid grey;
+    display: none;
+  }
+  footer a {
+    padding:2%
+  }
+
+  .roundedprofile{
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 50%;
+   display: inline-block;
+    object-fit: contain;
+}
+button.button_one{
+    color: #d4c44b;
+    color: black;
+    padding: 0.3rem;
+    background-color: rgba(212,196,75,.7);
+
+  }
+@media screen and (max-width:780px) {
+ 
+.article-list-container {
+    width:100%;
+    margin:auto;
+}  
+.article-item{
+    display:block;
+}
+.article_image{
+    width:100%
+}
+.article-body{
+    width:100%
+}
+.menu{
+    display:block;
+    position:absolute;
+    right:10%;
+    z-index:40000000000200; 
+    position: fixed;        
+}
+nav .navlinks{
+    position: absolute;
+       display: flex;
+       flex-direction:column;
+       background-color: var(--primary-color);
+       text-align: center;
+       top:0;
+        display: none;
+        z-index: 20000000000200;
+        left:0;
+        min-height: 100vh;
+        width: 100%;
+        color: white;
+        position: fixed;
+    
+    }
+    .navlinks a{
+        display: block;
+        text-align: center;
+        padding:5px;
+        margin-block: 7%;
+        color:var(--secondary-color)
+    
+    }   
+    .dropdown-content{
+        width:100%;
+        background-color: var(--primary-color);
+        
+        padding:5px;
+      
+    }
+    .dropdown-content a{
+        margin-block: 3%;
+        text-align: center;
+      
+    }
+
+    .down1{
+        display: inline;
+    }
+    .down2{
+        display: none;
+    }
+    footer{
+      font-size: small;
+      display: block;
+      position: fixed;
+      padding: 1rem;
+      background-color: white;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+    
+      }
+      .yellow{
+        color: #d4c44b;
+      }
+      footer i{
+        display: block;
+        font-size: 1.2rem;
+      }
+      footer a{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .grid-container{
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 100px;
+    }
+    .sidebar{
+        display: none;
+    }
+    .sidebar_right{
+        display: block;
+        height: auto;
+    }
+    main{
+        width: 100%;
+        border: none;   
+ }
+    .profile-container{
+        width: 100%;
+    }
+       
+}
+

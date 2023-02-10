@@ -1,0 +1,279 @@
+
+{% extends 'main/base.html'%}
+{% block content %}
+{% load static %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'styles/chat.css' %}">
+
+		
+
+<div class="grid-container">
+
+<div>
+    <div class="chat-sidebar card-body msg_card_body">
+					
+		{% for thread in threads %}
+					<div class="contact-item" id="thread{{thread.id}}">
+						 
+							<a href=" {% url 'chatroom' thread.id %}">
+								{% if thread.first_person == user %}
+								
+									<div class="flex" > 
+                                        {% if thread.second_person.profile_pic %}
+                                            <span class="roundedprofile" style="background:url('{{ thread.second_person.profile_pic.url}}') ;background-position: center; background-size: contain;"> 
+                                            </span> 
+                                        {%else%}
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="50px">
+                                        {%endif%}
+										<div>
+											<div class="contact-name"> {{ thread.second_person.get_full_name|title }} </div>	
+											<div class="lastmessage"> {{thread.chatmessage_thread.last.message | truncatechars:40 }} </div>
+											<span> {{thread.chatmessage_thread.last.message.whenpublished}}</span>
+
+										</div>
+									</div>
+									
+							
+								{% else %}
+								<div class="flex" > 
+                                    {% if thread.first_person.profile_pic %}
+									<span class="roundedprofile" style="background:url('{{ thread.first_person.profile_pic.url}}') ;background-position: center; background-size: contain;"> 
+									</span> 
+                                    {%else%}
+                                    <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/250/000000/external-farmer-farming-icongeek26-outline-icongeek26.png" style="width:90%"/>
+
+                                    {%endif%}
+									<div>
+										<div class="contact-name"> {{ thread.first_person.get_full_name|title }} </div>	
+										<div class="lastmessage"> {{thread.chatmessage_thread.last.message | truncatechars:30 }} </div>
+										<span> {{thread.chatmessage_thread.last.message.whenpublished}}</span>
+
+									</div>
+								</div>
+                                
+								{% endif %}
+					
+							</a>
+
+					</div>
+				
+		{% endfor %}
+ 
+		
+	</div>
+</div>
+<main> 
+            {% if user.is_authenticated %}
+                <input type="hidden" id="logged-in-user" value="{{ activeuser.id }}" >
+                <input type="hidden" id="thread-id" value="{{ threadid }}">
+
+            {% endif %}
+               
+                       
+                       
+                            <div class="card">
+                                {% for thread in thread_room %}
+                                    <div class="messages-wrapper  {% if forloop.first %}hide is_active{% else %}hide{% endif %}" chat-id="chat_{{ thread.id }}" other-user-id="{% if thread.first_person == user %} {{ thread.second_person.id }}{% else %} {{ thread.first_person.id }} {% endif %}">
+                                        <div class="card-header msg_head">
+                                            <button onclick="history.go(-1)" id="backbtn"> <i class="fa-solid fa-arrow-left"> </i> Back </button>
+                                            {% if thread.first_person == user %}
+                                            <input type="hidden" name="" class="send-to-user" value=" {{thread.second_person.id}} ">
+                                            <a href="{% url 'profile' thread.second_person.id %}"> 
+                                                <div class="flex" > 
+                                                    {% if thread.second_person.profile_pic %}
+                                                <span class="roundedprofile" style="background:url('{{ thread.second_person.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> 
+                                                    {%else%}
+                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="35rem">
+
+                                                    {%endif%}
+                                                <div>
+                                                        <div class="contact-name"> {{ thread.second_person.get_full_name|title }} </div>	
+                                                    </div>
+                                                
+                                                </div>
+                                            </a>
+                                    
+                                        {% else %}
+                                        <input type="hidden" name="" class="send-to-user" value="{{thread.first_person.id}}">
+                                        <a href="{% url 'profile' thread.first_person.id %}"> 
+                                            <div class="flex" > 
+                                                {% if thread.first_person.profile_pic %}
+                                                <span class="roundedprofile" style="background:url('{{ thread.first_person.profile_pic.url}}') ;background-position: center; background-size: contain;"> 
+                                                </span> 
+                                                {%else%}
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="50px">
+
+                                                {%endif%}
+                                                <div>
+                                                    <div class="contact-name"> {{ thread.first_person.get_full_name|title }} </div>	
+                                                
+                                                </div>
+                                            </div>
+                                            </a> 
+                                        {% endif %}
+                                         </div>   
+                                        <div class="card-body msg_card_body">
+                                            <!------- messages ------->
+                                            {% for chat in thread.chatmessage_thread.all %}
+                                                {% if chat.user == user %}
+                                                    <div class=" replied">
+                                                        <div class="msg_cotainer_send">
+                                                          <p> {{ chat.message }} </p>  
+                                                            <div class="msg_time_send msg_time">{{ chat.timestamp|date:"d D" }}, {{ chat.timestamp|time:"H:i" }}</div>
+                                                            
+                                                        </div>
+                                                  
+                                                    </div>
+                                                {% else %}
+                                                    <div>
+                                                   
+                                                    <div class="msg_cotainer">
+                                                        <p>{{ chat.message }} </p> 
+                                                        
+                                                        <div class="msg_time">{{ chat.timestamp|date:"d D" }}, {{ chat.timestamp|time:"H:i" }}</div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
+                                            {% endfor %}
+        
+        
+                                            <!------- messages ------->
+                                        </div>
+        
+                                    </div>
+                                {% endfor %}
+                                
+                            </div>
+
+                            <div class="card-footer">
+                                <form id="send-message-form">
+                                    <div class="input-group">
+                                        
+                                        <input type="text" name="" id="input-message"  placeholder="Type your message..." autocomplete="off">
+                                        
+                                            <button class="btnsend " type="submit"> <i class="fa-regular fa-paper-plane"></i></button>                                        
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+        
+        <script src="{% static 'scripts/chat.js' %}"></script>
+    </main>
+
+ 
+    <script>
+        let id = document.getElementById('thread-id').value;
+        id = 'thread' + id
+        document.getElementById(id).style.backgroundColor ="#f5f5f5"
+    </script>
+    </div>
+    <style>
+    .grid-container{
+        display: grid;
+        grid-template-columns: 25% 1fr;
+        gap: 3rem;
+        min-height: 80vh;
+        padding-inline: 5%;
+        max-width: 1700px;
+    }
+    main{
+        background-color: white;
+        padding: 1rem;
+        border-radius: 20px;
+        margin-bottom: 0;
+    }
+    .sidebars{
+        position: sticky;
+        top:50px
+    }
+
+    .contact-item{
+        padding: .5rem;
+        margin-bottom: 10px;
+        border-bottom: 0.1px solid grey;
+    }
+    .contact-item:hover{
+        background-color: #f5f5f5;
+        border-radius: 20px;
+    
+    }
+    .contact-name{
+    color: black;
+    }
+    .lastmessage{
+        margin-top: 5px;
+    }
+    .msg_time{
+        color: grey;
+        font-size: small;
+        margin-top: -10px;
+    }
+    .chat-sidebar{
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 1rem;
+    }
+    .flex{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+    #backbtn{
+        display: none;
+  
+    }
+    .btnsend{
+        font-size: 1rem;
+        background-color: #d4c44b;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+    @media screen and (max-width:780px) {
+        body{
+    background-color: #fff;
+}
+.grid-container{
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+}
+header,
+.chat-sidebar{
+    display: none;
+}
+main{
+    width: 100%;
+    border: none;
+    padding: none;
+    background-color: transparent;
+padding: 0rem;
+border-radius: 0px;
+
+}
+.profile-container{
+    width: 100%;
+}
+.contact-item:hover{
+background-color: transparent;
+}
+footer{
+    display: none;
+}
+.card-header{
+  border-bottom: 0px;
+  background-color: #f5f5f5;
+  display:flex;
+  gap: 6rem;
+  position: sticky;
+  top: 0;
+}
+#backbtn{
+        display: block;
+    }
+    }
+    </style>
+    {%endblock%}

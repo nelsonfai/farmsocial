@@ -1,0 +1,104 @@
+*{
+    padding: 0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: 'Lexend Deca', sans-serif;
+}
+body{
+    width:100%;
+    
+}
+:root{
+    --primary-color:#008037;
+    --secondary-color:#471605;
+}
+.container{
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    width:100%;
+}
+.left{
+    width:50%;
+    background-color:var(--primary-color);
+    height: 100vh;
+    display: flex;
+    text-align:center;
+    flex-direction:column;
+    justify-content:center;
+    color:white;
+}
+.right{
+    width:50%;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    
+}
+.form_control{
+    width: 60%;
+    padding: 10px;
+    margin-block: 10px;
+    border: none;
+    background-color: #F5F5F5;
+    list-style: none;
+   
+
+}
+.form-title{
+    color:var(--primary-color);
+    margin-bottom: 10px;
+    
+
+}
+.submitbtn{
+    padding: 8px 15%;
+    margin-block: 20px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: none;
+    color:white
+}
+.submitbtn:disabled,
+.submitbtn[disabled]{
+opacity: .4;
+}
+.left-container{
+    width:70%;
+    margin: auto;
+}
+.title{
+    margin-bottom: 20px;
+    font-size: 70px;
+}
+.follow-icons{
+    width:100%;
+    margin-block: 30px;
+}
+.follow-icons i{
+    margin-inline: 10%;
+
+}
+.errors{
+    text-align: center;
+    width:90%;
+    color:red;
+    
+
+}
+@media screen and (max-width:880px)  {
+    .container{
+        display: block;
+    }
+   .left{
+    display:none;
+   } 
+    .right{
+        width:100%
+    }
+    .form_control{
+        width:70%
+    }
+}
