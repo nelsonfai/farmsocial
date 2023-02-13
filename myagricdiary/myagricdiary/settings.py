@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'notification',
     'Friends',
     'chat',
-    'marketplace'
+    'marketplace',
     
 ]
 
