@@ -101,4 +101,7 @@ opacity: .4;
     .form_control{
         width:70%
     }
+    footer{
+        display: none;
+      }
 }

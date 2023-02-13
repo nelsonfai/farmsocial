@@ -19,7 +19,7 @@
             <span>
                 {% if request.user.profile_pic %}
                 <a href="{% url 'profile' request.user.id %}">
-                    <span class="roundedprofile" style="background:url('{{request.user.profile_pic.url}}') ;background-position: center; background-size: contain;">  </span> </a>   
+                    <div class="roundedprofile" style="background:url('{{request.user.profile_pic.url}}') ;background-position: center; background-size: contain;">  </div> </a>   
                 {% else %}
                 <a href="{% url 'profile' request.user.id %}">   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="30px"></a>   
                 {% endif %}

@@ -26,6 +26,8 @@ class EmailForm(UserCreationForm):
     def __init__(self,*args,**kwargs):
         super(EmailForm,self).__init__(*args,**kwargs)
         del self.fields['password2']
+        self.fields['password1'].help_text = None
+
     def cleaned_data(self):
         cleaned_data = super().clean()
         email = cleaned_data.get("email")

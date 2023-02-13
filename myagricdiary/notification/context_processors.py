@@ -7,10 +7,7 @@ def notificationCount(request):
             user = request.user
             notification = NotificationUser.objects.get(user = user)
             count = notification.mynotification.all().filter(is_read = False)
-
-            # get network
-            network = Network.objects.get(user=request.user)
-            return {'count':count.count,'mynetwork':network}
+            return {'count':count.count}
         
         else:
                 return {}

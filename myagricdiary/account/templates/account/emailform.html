@@ -1,13 +1,23 @@
 {% extends "main/base.html" %}
 {% load i18n %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'styles/login-style.css' %}">
 
 {% block head %}
 {{ wizard.form.media }}
 {% endblock %}
 
 {% block content %}
+<div class="container">
+<div class="right">
 <p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form   method="POST" enctype="multipart/form-data">{% csrf_token %}
+  <p> 
+    {% for field, error in form.errors.items %}
+    {% if field != '__all__' %}{{ field }}{% endif %}
+    {{ error | striptags }}
+    {% endfor %}
+</p>
 <table>
 {{ wizard.management_form }}
 {% if wizard.form.forms %}
@@ -23,15 +33,44 @@
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
 <button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
 {% endif %}
-<input type="submit" value="{% trans 'submit' %}"/>
+
+<button class="button_one" value="{% trans 'submit' %}">  Send</button>
 </form>
-
+</div>
+</div>
 <style>
+  .button_one{
+    font-size: 1rem;
+    padding: 1.5rem;
+    width: 100%;
+  }
+input,form{
+  padding: 1rem;
+  width: 100%;
+  font-size: 1rem;
+}
+table{
+  width: 100%;
+}
+tr,td{
+  display: block;
+  width: 100%;
+  margin-block: 0.6rem;
+}
 
-    .form_control{
-        padding: 1rem;
-        width: 300px;
-    }
+.container{
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    width:100%;
+    margin: auto;
+}
+.right{
+    width:100%;
+    max-width: 600px;
+
+    
+}
 </style>
 
 <script>

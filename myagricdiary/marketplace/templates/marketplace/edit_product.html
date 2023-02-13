@@ -7,14 +7,16 @@
         <form action="{% url 'edit_product' slug=productitem.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.as_p}}
-            <input type="submit" value="Update" class="submit">
+            <button type="submit" value="Update" class="submit">
         </form>
 </div>
 
 <style>
 .edit-product-container{
-    width:60%;
-    margin:auto
+    width:100%;
+    margin: auto;
+    max-width: 800px;
+    padding: 1rem;
 }
 .subtmit{
     padding:5px 7px;
@@ -29,11 +31,6 @@ input{
     padding: 1rem;
 }
 
-  @media screen and (max-width:768px) {
-    .edit-product-container{
-    width:100%;
-    
-}
-  }  
+ 
 </style>
 {% endblock %}

@@ -57,3 +57,5 @@ class CustomUser(AbstractUser):
    
 
     objects = UserManager()
+    def __str__(self):
+        return self.last_name

@@ -1,68 +1,181 @@
+
 {% extends 'main/base.html'%}
 {% block content %}
-<div style="min-height:100vh"> 
-<h2 style="text-align: center;"> My products </h2>
 
-<strong style="text-align: center; display: block; font-size: larger;"> <a href="{% url 'add_product' %}"> Add a product </a> </strong>
-<br>
-  
-  {% if productitems.count is 0 %}
-        <br>
-        
-        <span style="text-align: center; display: block;">You have no listed product /span>
-  {%endif%}
-  
-<div style="width:90%;margin:auto;  " class="products" > 
-{% for product in productitems %}
+<div class="grid-container">
+    <main> 
+                <div class="products-container">
 
-        <div  class="wrapper-myproducts" style="margin-inline:5px ;">
-           
-            <div  style="width:200px; height:150px " >
-                <img src="{{ product.main_image.url }}" alt="" width="100%" height="100%">
-            </div>
- 
-            <div style="margin-bottom: 15px;">  
-                    <p > <strong style="font-size: 20px;"> {{ product.product }} </strong> </p>
-                    <p style="color: var(--primary-color);"> <strong>{{ product.price }}</strong> </p>
-                   
-                       
-                    <p style="margin:auto;"> 
-                            <form action=" {% url 'delete_product' slug=product.id %} " method="post" onsubmit="deleteConfirm(event)">
-                                {% csrf_token %}
-                                <button type="submit" class="submitbtn btn1">Delete </button>
-                                <a href="{% url 'edit_product' slug=product.id %}" class="submitbtn btn1"> Edit  </a>
-                            </form> 
+
+                    <button class="button_one" style=" margin-bottom:10px">  <a href="{% url 'add_product' %}" class="button_one"><i class="fa-solid fa-plus"></i> Add New Product </a></button>
+                    <br>
+                    <br>
+                      
+                      {% if productitems.count is 0 %}
+                            <br>
                             
-                    </p> 
-                    <p>
-                        <a href="{% url 'product' slug=product.id %}" class="submitbtn btn2" > View Details</a>
-                    </p> 
-            </div>
-        </div>
-        {% endfor%}
-</div>
+                            <span style="text-align: center; display: block;">You have no listed product /span>
+                      {%endif%}
+                      <div class="product"> 
+                        <div class="product-grid">
+                        {% for product in productitems %}
+                        
+                            <div class="item">
+                                <div class="product_image" style="background:url('{{ product.main_image.url }}') ;background-position: center; background-size: cover;background-repeat: no-repeat;" loading="lazy"> </div>
+                                    <div class="product-info">
+                                        <strong>{{ product.product }}</strong>
+                                        <p class="price"> <strong> <i class="fa-solid fa-hand-holding-dollar"></i>  {{ product.price}}</strong>  </p>
+                                        <p><i class="fa-solid fa-cubes-stacked"></i>    {{ product.quantity}} </p>
+                                        <p class="location"><i class="fa-solid fa-location-dot"></i> {{ product.location }}</p>
+                                        
+                                        <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;margin-top: 0.5rem;"> <a href="{% url 'product' slug=product.id %}" > Details</a>
+                                            <small><a href="{% url 'delete_product' product.id %}"> Delete</a> </small>
+                                            <small><a href="{% url 'edit_product' product.id %}"> Edit</a> </small>
+                                        </div>
+                                    </div> 
+                            </div>
+                            {% endfor%}
+                        </div>
+                        
+                        <div style="border-block:100px"> 
+                            <p style="text-align:center;"> Page  {{productitems.number }} of  {{ productitems.paginator.num_pages }} </p> 
+                       <div class="pagination11"> 
+                           <p> {% if productitems.has_previous %}
+                               <span style="text-align:left;"> 
+                                       
+                                       <a href="?page={{ productitems.previous_page_number }}"> &laquo; Previous</a>
+                               </span >  
+                           {% endif %}
+                               {% if productitems.has_next %}
+                               <span style="text-align: right; display: block;" >
+                                   <a href="?page={{ productitems.next_page_number }}" >Next <i> &raquo;</i> </a>
+                               </span>
+                               {% endif%}
+                           </p>
+                           </div>  
+                           
+                   </div>
+
+
+
+
+
+
+                </div>
+                </div>
+            </main>
 </div>
 <style>
-    .wrapper-myproducts{
-        border: 1px solid green;
-        padding:5px;
-
+.grid-container{
+    display: block;
+    width:100%;
     }
+.products-container{
+    width:90%;
+    margin:auto;
+    min-height: 100vh;
    
-    .btn2{
-        width: 100% !important;
+}
+.filter-form{
+    float:right;
+    display: inline;
+}   
+.search{
+    display: inline-block;
+}
+    label {
+    display: block;
+   
+}
+
+input,select
+ {
+    margin: .4rem 0;
+    padding: 5px;
+}
+button{
+    background: none;
+    border:none;
+    padding: 3px;
+    font-size: large;
+}
+button img{
+    margin-bottom: -5px;
+}
+.market-links{
+    margin-block: 20px;
+}
+.product-info{
+    margin-block:5px ;
+    width: 100%;
+}
+.price{
+    color:var(--primary-color);
+    margin-top:10px ;
+}
+.location{
+    color:grey;
+    margin-bottom: 6px;
+}
+.item{
+   background-color: white;
+    padding:0.4rem;
+    width: 250px;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.product-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap:2rem;
+    margin-bottom: 2rem;
+}
+.product_image{
+    width:100%;height:200px;
+}
+@media screen and (max-width:768px) {
+.grid-container{
+        display: block;
+        margin: auto;
     }
-    p{
-    margin-bottom: 0;
+.filter-form{
+   float: none;
+    display: block;
+} 
+.products{
+    justify-content: center;
+    
+}  
+  .item{
+    width: 170px;
+  }
+  .product_image{
+    width:100%;height:140px;
+}
+  .product-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap:1rem;
+    margin: auto;
+    margin-bottom: 5rem;
+    justify-items: center;
+}  
+}
+@media screen and (max-width:320px) {
+    .item{
+    width: 100%;
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+  .product_image{
+    width:100%;height:180px;
+}
+.product-grid{
+    display: block;
+    margin-bottom: 5rem;
+} 
 }
 </style>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
-
-
-
 {% endblock %}
+

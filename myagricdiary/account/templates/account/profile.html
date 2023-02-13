@@ -5,31 +5,13 @@
 
 
 <div class="grid-container">
-    <div class="sidebar">
-        <nav class="sidebar_nav">
-            <a href="../../../"> <i class="fa-solid fa-house"></i> Home</a>
-            <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a>
-            <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> Notification  </a>
-            <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  Messages </a>
-            <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-globe"></i> My Network </a>
-            <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i> Market  </a>
-    
-            <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Logout </a>
-    
-            {% if not user.is_authenticated %}
-                <a href="{% url 'login' %}"> Login </a>
-                <a href="{% url 'signup' %}"> Signup </a>
-    
-            {% endif %}
-        </nav>
-    
-    </div>
+
     <main> 
 <div class="profile-container">
     <div class="profile-image-container">
         <div class="profile-image">
             {% if profile.profile_pic %}
-                <span class="roundedprofile" style="background:url('{{profile.profile_pic.url}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </span> 
+                <div class="roundedprofile" style="background:url('{{profile.profile_pic.url}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </div> 
             {% else %}
              <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/250/000000/external-farmer-farming-icongeek26-outline-icongeek26.png" style="width:90%"/>
             {% endif %}
@@ -45,11 +27,11 @@
                 {% if profile.is_student %}
 
                     {% if profile.course %}
-                        <p> {{ profile.course}} </p>
+                        <p><i class="fa-solid fa-graduation-cap"></i>  {{ profile.course}} </p>
                     {% endif %}
 
                     {% if profile.instituition %}
-                        <p> {{ profile.instituition}} </p>
+                        <p><i class="fa-solid fa-building-columns"></i>  {{ profile.instituition}} </p>
                     {% endif %}
                 {%else%}
                     {% if profile.profession %}
@@ -91,18 +73,21 @@
     </div>
 
 
-    {% if profile.bio %}
         <div class="about">
             <h4> About </h4>
             <br>
+            {% if profile.bio %}
             <p>
                 {{ profile.bio }}  
             </p>
+            {%else%}
+            ....
+            {% endif %}
             {% if profile == request.user %}
             <span class="deletebtnfloat"> <a href="{% url 'editbio' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
             {%endif%}
         </div>
-     {% endif %}
+   
     <div class="profile-info-contaner">
             {% if products %}
 
@@ -119,6 +104,8 @@
                                             <p> {{ product.product | truncatechars:10}} </p>
                                             <small><a href="{% url 'product' slug=product.id %}"> Details</a> </small>
                                             <small><a href="{% url 'delete_product' product.id %}"> Delete</a> </small>
+                                            <small><a href="{% url 'edit_product' product.id %}"> Edit</a> </small>
+                                       
                                         </div>
                                         <br>     
                                 </div>
@@ -166,14 +153,14 @@
 
 <div id="popup22">
     <div class="popuphead">
-        <div><button onclick="shownetwork('followers22','following22')"> Follow</button> <button onclick="shownetwork('following22','followers22')">Following</button></div>
+        <div><button onclick="shownetwork('followers22','following22')" > Follow</button> <button onclick="shownetwork('following22','followers22')">Following</button></div>
         <button onclick="closepopup()">Close</button>
     </div>
     <div class="popupbody">
         <div id="followers22" >
                 <div> 
                     <p>Following</p>
-                    <br>
+                    
                     {% for item in profile.myfollowing.following.all %}
                     <div class="flex flex_outerfollow"> 
                         <div class="flex" > 
@@ -205,10 +192,8 @@
                 </div>
         </div>
         <div id="following22" >
-       
             <div> 
                 <p>My Followers </p>
-                <br>
                 {% for item in profile.myfollowing.follower.all%}
                 <div class="flex flex_outerfollow"> 
                     <div class="flex" > 
@@ -245,14 +230,38 @@
 
 <div class="sidebar sidebar_right">
    
-Friend suggestions here
+    <div class="networksugestion">
+        <p>People you might know </p>
+
+        {% for item in friendsuggestions%}
+        <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
+            <div class="flex" > 
+                <a href="{% url 'profile' item.user.id %}"> <span class="roundedprofile" style="background:url('{{ item.user.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                    <div>
+                        <a href="{% url 'profile' item.user.id %}"> <div class="contact-name"> {{ item.user.get_full_name|title }} </div>	</a>
+                    </div>
+            </div>
+            <div> 
+                {% if item.user != request.user %}
+                <span>
+                    {% if item.user in mynetwork.following.all %}
+                        <button onclick="network(event,url='unfollow', profile_id='{{item.user.id}}',id='itembtn')" >Unfollow</button>
+                    {% else %}
+                        <button onclick="network(event,url='follow', profile_id='{{item.user.id}}' ,id='itembtn')" >Follow</button>
+                    {% endif %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+       
+    </div>
     
 </div>
 </div>
 <script>
     document.getElementById('popup22').style.display='none';
     function closepopup(){
-
         const popup = document.getElementById('popup22');
         if(popup.style.display==='none'){
             popup.style.display='block';
@@ -306,6 +315,11 @@ Friend suggestions here
 }
 </script>
 <style>
+    .grid-container{
+
+  width: 100%;
+
+}
 .products{
     display: flex;
 }
@@ -320,17 +334,15 @@ Friend suggestions here
     width:100%;
     height: 100%;
     overflow-y: scroll;
-    background-color: #f5f5f5;
-  
-    top:30%;
+    background-color: #fff;
+    top:0;
     padding: 1rem;
-
-
 }
 .popuphead{
     display: flex;
     justify-content: space-between;
-
+    background-color: #f5f5f5;
+    padding: 1rem;
 }
 .popupbody{
     margin-block: 1rem;
@@ -340,14 +352,6 @@ main{
     
 }
 
-.grid-container{
-    display: grid;
-    grid-template-columns: 200px 1fr 15%;
-    gap: 3rem;
-    min-height: 80vh;
-    padding-inline: 5%;
-    max-width: 1700px;
-} 
     .profile-image-container{
         display:flex; 
         width:100%; 
@@ -363,6 +367,7 @@ main{
     }
     .profile-name{
         width:60%;
+        padding: 1rem;
     }
     .name{
         margin-bottom: 5px;

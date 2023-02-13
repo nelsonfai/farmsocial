@@ -2,25 +2,7 @@
 {% block content %}
 {% load static %}
 <div class="grid-container">
-<div class="sidebar">
-    <nav class="sidebar_nav">
-        <a href="../../../"> <i class="fa-solid fa-house"></i> Home</a>
-        <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a>
-        <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> Notification  </a>
-        <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  Messages </a>
-        <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-globe"></i> My Network </a>
-        <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i> Market  </a>
 
-        <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Logout </a>
-
-        {% if not user.is_authenticated %}
-            <a href="{% url 'login' %}"> Login </a>
-            <a href="{% url 'signup' %}"> Signup </a>
-
-        {% endif %}
-    </nav>
-
-</div>
 <main> 
             <div style="margin-bottom:20px">
                 {% if user.is_authenticated %}
@@ -66,8 +48,7 @@
                                     <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')">...</span>
                                     <div id="myDropdown{{article.id}}" class="dropdown-content">
                                       <span><button onclick="deleteConfirm(event,id='article{{article.id}}', article_id='{{article.id}}' )">Delete</button></span>
-                                      <span><a href="#">Link 3</a> </span>
-                                      <span> <a href="#">Link 3</a> </span>
+
                                     </div>
                                   </div>
                                   
@@ -151,25 +132,43 @@
       
     </div> 
     <div class="networksugestion">
+        <p>My Followers </p>
 
+        {% for item in friendsuggestions%}
+        <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
+            <div class="flex" > 
+                <a href="{% url 'profile' item.user.id %}"> <span class="roundedprofile" style="background:url('{{ item.user.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                    <div>
+                        <a href="{% url 'profile' item.user.id %}"> <div class="contact-name"> {{ item.user.get_full_name|title }} </div>	</a>
+                    </div>
+            </div>
+            <div> 
+                {% if item.user != request.user %}
+                <span>
+                    {% if item.user in mynetwork.following.all %}
+                        <button onclick="network(event,url='unfollow', profile_id='{{item.user.id}}',id='itembtn')" >Unfollow</button>
+                    {% else %}
+                        <button onclick="network(event,url='follow', profile_id='{{item.user.id}}' ,id='itembtn')" >Follow</button>
+                    {% endif %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+       
+    </div>
+    <div> 
     </div>
 </div>
 
 </div>
-
+</main>
 <style>
   .sidebar_right{
     padding: 0;
     background-color: transparent;
   }
-  .filter{
-    width: 100%;
-    height: auto;
-    padding: 1rem;
-    border-radius: 10px;
-    background-color: #fff;
-    margin-bottom: 10px;
-  }
+
   .filter form{
     width: 100%;
     display: flex;
@@ -325,54 +324,6 @@ function deleteConfirm(event,id,article_id){
 </script>
 
 
-<style> 
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropbtn {
-width: 30px;
-height: 30px;
-padding: 5px;
-border-radius: 50%;
-font-size: 1.4rem;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.dropbtn:hover{
-    background-color: #f5f5f5;
-}
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 1;
-  right: 0;
-}
-
-.dropdown-content span{
-
-  color: black;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.show {
-  display: block;
-}
-
-</style>
 
 {% endblock %}

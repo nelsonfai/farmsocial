@@ -35,11 +35,24 @@
                         <span>
                             {% if request.user.profile_pic %}
                             <a href="{% url 'profile' request.user.id %}">
-                                <span class="roundedprofile" style="background:url('{{request.user.profile_pic.url}}') ;background-position: center; background-size: contain;">  </span> </a>   
+                                <div class="roundedprofile" style="background:url('{{request.user.profile_pic.url}}') ;background-position: center; background-size: contain;">  </div> </a>   
                             {% else %}
                             <a href="{% url 'profile' request.user.id %}">   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="30px"></a>   
                             {% endif %}
                         </span>
+                            <span class="dropdown">
+                                <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')"> <i class="fa-solid fa-caret-down"></i></span>
+                                <div id="myDropdown{{article.id}}" class="dropdown-content">
+                                  <span>
+                                    <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a>
+                                    <a href="{% url 'myproducts'   %}"> <i class="fa-solid fa-cubes-stacked"></i> My products</a>
+                                    <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Logout  </a>
+
+                                </span>
+
+                                </div>
+                              </span>
+                        
                     </a>   
                     {% else %}
                         <span> <a href="{% url 'login' %}"> Login </a> </span>
@@ -54,10 +67,23 @@
             <div class="message"> {{ messsage }} </div>
         {% endfor %}
 
-   
+   <div class="flex-container">
+    <div class="bodynav_right">
+        <a href="../../../"> <i class="fa-solid fa-house"></i> <small> Home </small></a>
+        <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i><small>  Profile</small> </a>
+        <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> <small> Notification </small>  </a>
+        <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small> Messages </small></a>
+        <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small>  Market </small> </a>
+
+        <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout  </small></a>
+
+
+    </div>
+
         {% block content %}
         {% endblock%}
 
+    </div>
 
         <footer style="text-align:center;">
      
@@ -65,7 +91,6 @@
                 <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i> <small>Messages </small>  </a>
                 <a href="{% url 'add_article'%}" class="yellow"> <i class="fa-solid fa-square-plus yellow" ></i> <small> Post</small> </a>
                 <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small> Market </small>  </a>
-                <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout </small> </a>
         
                 {% if not user.is_authenticated %}
                     <a href="{% url 'login' %}"> Login </a>
@@ -75,12 +100,69 @@
         
         </footer>
 
-
+        <script>
+            function myFunction(id) {      
+          let elt =document.getElementById(id);
+          console.log(elt)
+          elt.classList.toggle("show")
+            }
+        </script>
 </body>
 
 
-<style>
-  
+<style> 
 
-</style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropbtn {
+
+    font-size: 1.4rem;
+        margin-top: -5px;
+  
+    }
+    .dropbtn:hover{
+        background-color: #f5f5f5;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+      right: 0;
+
+    }
+    
+    .dropdown-content span{
+    
+      color: black;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+      font-size: 1rem;
+    }
+        .dropdown-content span a{
+        color: black;
+    }
+    .show {
+      display: block;
+    }
+
+    .flex-container{
+        display: flex;
+        align-items: flex-start;
+        display: flex;
+	justify-content: left;
+
+	gap: 20px;
+    }
+
+    </style>
 </html>

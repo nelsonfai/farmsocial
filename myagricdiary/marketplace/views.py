@@ -69,10 +69,12 @@ def product (request,slug):
 def search (request):
     if request.method=='POST':
         searched_product = request.POST.get('search')
-        print(searched_product)
-        productitems=ProductItem.objects.get(product__contains=searched_product)
+        productitems=ProductItem.objects.filter(product__contains=searched_product)
+        p=Paginator(productitems,per_page=8)
+        page=request.GET.get('page')
+        paginated_product=p.get_page(page)
         context={
-        "productitems":productitems
+        "productitems": paginated_product
     }
     return render (request,'marketplace/market.html', context)
 
@@ -81,19 +83,25 @@ def filter (request):
         category= request.POST.get('filter')
         print(category)
         productitems=ProductItem.objects.filter(product_category__contains=category)
+        p=Paginator(productitems,per_page=8)
+        page=request.GET.get('page')
+        paginated_product=p.get_page(page)
         context={
-        "productitems":productitems
+        "productitems":paginated_product
     }
     return render (request,'marketplace/market.html', context)
 
 @login_required(login_url='login')
 def myproducts(request):
-    profile=CustomUser.objects.get(user_profile=request.user)
+    profile=request.user
     productitems=ProductItem.objects.filter(user_profile=profile)
-
+    p=Paginator(productitems,per_page=8)
+    page=request.GET.get('page')
+    paginated_product=p.get_page(page)
     context={
-        "productitems":productitems
+        "productitems":paginated_product
     }
+    
 
     return render (request, 'marketplace/myproducts.html', context)
 
@@ -102,7 +110,7 @@ def myproducts(request):
 def edit_product (request,slug): 
     productitem=get_object_or_404(ProductItem,id=slug)
 
-    if productitem.user_profile.user_profile == request.user:
+    if productitem.user_profile== request.user:
 
         if request.method == 'POST':
             form=ProductUpdate(request.POST or None, request.FILES or None, instance=productitem)
@@ -114,24 +122,8 @@ def edit_product (request,slug):
                 return redirect ('myproducts' ) 
 
         else:    
-            form = ProductUpdate(
+            form = ProductUpdate(instance=productitem)
 
-            initial= {
-                'product':productitem.product,
-                'product_description':productitem.product_description,
-                'quantity':productitem.quantity,
-                'price':productitem.price,
-                'location':productitem.location,
-                'product_category':productitem.product_category,
-                'main_image':productitem.main_image,
-                'image2':productitem.image2,
-                'image3':productitem.image3,
-
-
-            }
-        )
-
-        
             context={
                 "form":form,
                 'productitem':productitem

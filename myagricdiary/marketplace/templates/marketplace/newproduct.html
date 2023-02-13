@@ -15,25 +15,21 @@
     Image2:{{form.image2}} <br>
     Image3:{{form.image3}} <br>
     Category:{{form.product_category}}
-
-  <p style="text-align: center;"> <input type="submit" value="submit" class="submitbtn"> </p>
+<br>
+  <button class="button_one"> Send</button>
 </form>
 </div>
 
 
 <style>
    div.addproduct_container{
-    width:60%;
+    width:100%;
     margin: auto;
+    max-width: 800px;
+    padding: 1rem;
+    margin-bottom: 100px;
    }
-   @media screen and (max-width:786px){
-    div.addproduct_container{
-    width:90%;
-   
-   }
-   
-   
-   }
+
 
 </style>
 {% endblock %}
