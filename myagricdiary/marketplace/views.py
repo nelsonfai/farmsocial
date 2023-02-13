@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 
 
 # Create your view
+@login_required   
 def market (request):
     productitems=ProductItem.objects.all()
     p=Paginator(productitems,per_page=8)

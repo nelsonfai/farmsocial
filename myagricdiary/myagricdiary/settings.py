@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'Friends',
     'chat',
     'marketplace',
+    'myagricai',
     
 ]
 
@@ -167,5 +168,5 @@ CHANNEL_LAYERS = {
     }
 }
 
-
+LOGIN_URL='/account/login'
 TAGGIT_FORCE_LOWERCASE = True

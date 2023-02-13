@@ -4,30 +4,57 @@
 
 {% load static %}
 <style>
+body{
+  background-color: #fff;
+}
+.flex-container{
+    display: block;
+  }
+header{
+  background-color: #f5f5f5;
+}
+.bodynav_right{
+    display: none;
+  }
   .home-wrapper{
+    padding-top: 3rem;
     width:90%;
+    max-width: 1500px;
     display:flex;
     margin:auto;
-    height:60vh;
-    
+    margin-bottom: 2rem;
+
   }
   .home_main_text {
    width:50%;
-   display:flex;
-   align-items:center;
-   margin-left:auto;
+   font-size: 2rem;
+   padding-left: 5rem;
   }
+
   .home_main_text h2{
-    font-size:50px;
+    font-size:4rem;
     margin-block: 20px;
     font-weight:700;
-    color:var(--primary-color)
+    color:var(--primary-color);
+    margin-left: auto;
+
+  }
+  .button_three{
+    padding: .7rem 2rem;
+    background-color: #d4c44b;
+    border-radius: 4rem;
+  }
+  .button_two{
+    padding: .7rem 2rem;
+    border: 1px solid #d4c44b;
+    border-radius: 4rem;
+
   }
 .hero-image{
-  width:40%;
-  margin-right:auto;
-  margin-top:100px;
-  margin-right:auto
+  width: 50%;
+  height:100% ;
+  margin-right: auto ;
+  object-fit: cover;
 }
 .home_main_text p{
   width:60%;
@@ -36,26 +63,33 @@
   font-size:18px; 
 }
 section{
-  min-height:100vh;
-  padding: 4%;
-  padding-bottom: 0;
+  padding: 3rem 1rem;
+}
+.about-us{
+  background-color: #f5f5f5;
 }
 .about-us-wrapper{
   width:90%;
   margin:auto;
+
+  padding: 3rem;
 }
 .card-container{
   display:flex;
   width:100%;
   justify-content:space-between;
+
   
 }
 .card{
 width:30%;
 border-radius:5px;
 background-color: var(--primary-color);
-opacity:.8;
 margin-bottom:10px;
+opacity:.8;
+padding: 1rem;
+min-height:300px;
+
 }
 .section-title{
   color: var(--primary-color);
@@ -63,9 +97,13 @@ margin-bottom:10px;
   font-family: 'Architects Daughter', cursive;
 }
 .card-icon{
-  height:40%;
-text-align: center;
-margin-block: 20px;
+  text-align: center;
+  padding: 1rem;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.card-icon i{
+  color:white
 }
 .card-text{
   padding: 2px 15px;
@@ -75,17 +113,19 @@ margin-block: 20px;
 }
 .card-text h4{
   margin-bottom: 5px;
+ color: #d4c44b;
 }
 .values-wrapper{
   display:flex;
   width:100%;
   align-items: center;
+  justify-content: center;
+  padding: 3rem;
 }
 ul {
   list-style: none;
   margin-block: 25px;
   color:var(--primary-color);
-  margin-left: 30px;
 
 }
 ul li:before {
@@ -100,11 +140,9 @@ ul li{
 }
 .values-text{
   width:50%;
-  margin: auto;
 }
 .values-text p{
   width:90%;
-  margin:auto;
   margin-block: 20px;
 }
 
@@ -112,7 +150,8 @@ ul li{
   display: flex !important;;
   width: 100% !important;
   flex-wrap: wrap !important;
-  margin-top: 30px;
+padding: 2rem;
+background-color: #f5f5f5;
 }
 .circle{
   border:2px solid var(--primary-color);
@@ -129,66 +168,21 @@ ul li{
   height: 250px;
   
 }
-.carousel-item{
-  height:400px;
-  background-color:rgba(241,254,244,0.95)
-}
-.carousel-item p{
-  width:60%;
-  text-align: center;
-  margin: auto;
-  margin-top: 5%;
-}
-.carousel-control-next,
-.carousel-control-prev /*, .carousel-indicators */ {
-    filter: invert(100%);
-}
 
-section.contact{
-    text-align: center;
-    margin-top: -100px;
-}
-input{
-    padding:2% 4%;
-    margin-block: 10px;
-    border:none;
-    border-bottom: 1px solid black;
-    width:100%;
-    margin-block: 5px
-}
-textarea{
-    padding: 2%;
-    border:none;
-    border-bottom: 1px solid black;
-    width: 100%;
-    margin-block: 5px;
-}
-.form-container{
-    width:50%;
-    margin:auto;   
-}
-.container-contact{
-    display:flex;
-    padding: 5%;
-    width: 80%;
-    margin: auto;  
-}
-.infobox{
-    width:45%;
-    padding:3%;
-   text-align:left;
-   border-left: 1px solid black;  
-}
 
-@media screen and (max-width:880px) {
+@media screen and (max-width:900px) {
+  .flex-container{
+    display: block;
+  }
   .home_main_text {
     width: 100% !important;
-    min-height:60vh;
+ 
+   padding-left:0;
   }
   .home_main_text h2{
-    font-size :35px;;
+    font-size:2.1rem;
   } 
-.home_main_text p{
+  .home_main_text p{
   width:80%;
   font-size:16px;  
 }
@@ -196,8 +190,8 @@ textarea{
     display: block; 
   }
   .hero-image{
-    display: none;
-    width:0%
+width: 100%;
+background-color: #d4c44b;
   }
 .card-container{
   display:block;
@@ -215,92 +209,74 @@ textarea{
 .values-text{
   width:100%
 }
-  .carousel-item p{
-  width:90%;
-}
+
 .section-title{
   font-size: 30px;
 }
-.container-contact{
-        display:block;
-        width:100%
-    }
-    .form-container{
-        width:90%;
-        margin: auto;
-    }
-    .infobox{
-        width:80%;
-        margin: auto;
-        margin-top: 5%;
-        border:none;
-        
-       
-    }
+
 
 }
 
 </style>
 
-
+ <div>
+<div>
 <div class="home-wrapper">
-
     <div class="home_main_text" >
       <div>
           <h2> A Good harvest needs a Great Market </h2>
             <p><strong> We provide you the best information to get you a great harvest and a ready market to ensure a Great Sale </strong> </p>
-          <a href="{% url 'signup'  %}" class=" submitbtn" > Join us today </a>
+        <br>
+         <p>  <a href="{% url 'signup'  %}" class="submitbtn" > <button class="button_two"> Login In</button> </a>
+          <a href="{% url 'signup'  %}">  <button class="button_three">Sign Up</button> </a></p>
+
       </div>
     </div>
-    
+
     <div class="hero-image">
-      <div> <img src="{% static 'images/herofarmer.jpg' %}" alt="hero-farmer" width="100%"></div>
+      <img src="{% static 'images/herofarmer.jpg' %}" alt="hero-farmer" width="100%">
     </div>
   
-</div >
-
-
+</div>
 
 </div>
-<br>
-<br>
+
+
+
 
 
 <section class="about-us">
   <div class="about-us-wrapper">
      <h2 class="section-title"> What we offer ! <span> <img src="https://img.icons8.com/doodle/50/000000/plant-under-sun--v1.png"/></span></h2>
      <br>
-  
-    
   <div class="card-container">
     <div class="card">
           <div class="card-icon">
-            <img src="https://img.icons8.com/dotty/100/ffffff/groups.png"/>
+            <i class="fa-solid fa-store"></i>
           </div>
           <div class="card-text">
             <h4>Community </h4>
-            A network of Farmers from all sectors of Agriculture to enable sharing of information and resources.
+           A network of Farmers from all sectors of Agriculture to enable sharing of information and resources.
 
           </div>
     </div>
 
     <div class="card">
         <div class="card-icon">
-          <img src="https://img.icons8.com/pastel-glyph/70/ffffff/market--v2.png"/>
+          <i class="fa-solid fa-store"></i>
         </div>
         <div class="card-text">
           <h4> Market </h4>
-A marketplace to facilitate the Buying and selling of Agricultural inputs and outputs of all categories.
+            A marketplace to facilitate the Buying and selling of Agricultural inputs and outputs of all categories.
         </div>
   </div>
-
   <div class="card">
       <div class="card-icon">
-        <img src="https://img.icons8.com/ios/70/ffffff/information--v1.png"/>
+        <i class="fa-solid fa-info"></i>
       </div>
       <div class="card-text">
         <h4> Information </h4>
-Provision of information to enable farmers make the best decisions for better yields.Information provided ranges  from News affecting the agricultural sector to real time Market prices and Weather information. 
+         Provision of information to enable farmers make the best decisions for better yields.Information provided ranges  from News affecting the agricultural sector to real time Market prices and Weather information. 
       </div>
   </div>
     
@@ -313,31 +289,26 @@ Provision of information to enable farmers make the best decisions for better yi
  
   <div class="values-wrapper"> 
       <div class="values-image">
-        
         <img src="{% static 'images/valuesimg.jpg' %}" alt="hero-farmer" width="100%">
-
       </div>
         <div class="values-text">
               <p>
                 <h2 class="section-title"> Who we are !</h2>
               </p>
-              <p style="font-size:18px">  We are a digital platform specialized in providing information and market opportunities to Farmers in all Sectors of the Agricultural industry.
+              <p >  
+                We are a digital platform specialized in providing information and market opportunities to Farmers in all Sectors of the Agricultural industry.
               <br>  At My Agric-Diary helping farmers succeed is at the core of our culture <br>
               </p>
-
               <ul>
-                    
                     <li> Society is built on the hard work of farmers.We help build the farmers. </li>
                     <li> We believe Farmers can live comfortable lives too. </li>
                     <li> We serve the common good. </li>
-                    <li> We embrace the challenge and seek improvement. </li>
-                    
+                    <li> We embrace the challenge and seek improvement. </li>              
               </ul>
-          
         </div>
 </div>
 
-<div class=" mission-container ">
+<div class="mission-container">
   <div class="circle">
                          <p style="margin-top:10px">
                           <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/60/008037/external-goals-user-interface-flatart-icons-outline-flatarticons.png"/>
@@ -358,106 +329,9 @@ Provision of information to enable farmers make the best decisions for better yi
 </div>
 </section>
 
-<section class="testimony">
-<div style="margin-block: 10px; text-align:center;">
-  <h2 class="section-title"> What people say about us  <span> <img src="https://img.icons8.com/doodle/50/000000/plant-under-sun--v1.png"/></span></h2>
- 
+
 
 </div>
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum quisquam provident, at odit suscipit fugit. Facilis natus optio fuga eligendi eaque eius! Similique deserunt facilis blanditiis voluptas labore, eos architecto?
-        </p>
-      </div>
-      <div class="carousel-item">
-        
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum quisquam provident, at odit suscipit fugit. Facilis natus optio fuga eligendi eaque eius! Similique deserunt facilis blanditiis voluptas labore, eos architecto?
-        </p>
-      </div>
-      <div class="carousel-item">
-        
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum quisquam provident, at odit suscipit fugit. Facilis natus optio fuga eligendi eaque eius! Similique deserunt facilis blanditiis voluptas labore, eos architecto?
-        </p>
-      </div>
-    </div>
-    <a class="carousel-control-prev " href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon " aria-hidden="true"></span>
-      <span class="sr-only " >Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only .bg-success">Next</span>
-    </a>
-  </div>
-</section>
-
-
-<section class="contact">
- 
-  <h1  class="section-title">  Get in touch !</h1>
- 
-  <div class="container-contact"> 
-  <div class="form-container">  
-          <form id="form" onsubmit="sendmail(); reset(); return false;" method="post">
-            {% csrf_token %}
-                      <input type="text" name="name" id="name" placeholder="Name" required>
-                      <br>
-                      <input type="email" placeholder="Email" id="email" required>
-                      <br>
-                      <input type="text" placeholder="Subject" id="subject" required>
-
-                      <textarea name="message" id="message" cols="30" rows="8" placeholder="Message" required></textarea>
-                      <br>
-                      
-                      <button type="submit" class="submitbtn">Submit</button>
-          </form>
-  </div>
-
-      <div class="infobox">
-          <div class="contactitem" >
-              <p>
-                   <a href="mailto:nelsonfai21@yahoo.com"> <span> <img src="https://img.icons8.com/ios-filled/27/008037/circled-envelope.png"/> </span> 
-                  <span style="color: var(--primary-color);" >nelsonfai21@yahoo.com</span>
-              </p>
-          </a> 
-
-          </div>
-          <br>
-          
-          <div class="contactitem">
-              <p>
-                  <span><img src="https://img.icons8.com/ios-filled/25/008037/phone.png"/ alt="iconphone"> </span>
-                  <span style="color: var(--primary-color);"> +49 15214773540</span>
-              </p>
-          </div>
-          <br>
-          <div class="contactitem" >
-              <p>
-                   <span> <img src="https://img.icons8.com/material-sharp/25/008037/marker.png"/ alt="iconaddress"></span>
-                  <span style="color: var(--primary-color);"> Duisburg, NRW Germany</span>
-              </p>
-
-          </div>
-          
-      </div>
-      
-  </div>
-</div>  
-
-  
-</section>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
 {% endblock %}

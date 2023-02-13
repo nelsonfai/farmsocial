@@ -5,7 +5,7 @@
 <div class="grid-container">
 
 <main> 
-	<div class="card-body msg_card_body">
+	
 					
 		{% for thread in threads %}
 					<div class="contact-item">
@@ -55,7 +55,7 @@
 		{% endfor %}
  
 		
-	</div>
+	
 </main>
 
 
@@ -65,9 +65,7 @@
 
 <style>
 	.grid-container{
-    display: grid;
-    grid-template-columns:  1fr 40%;
-    gap: 3rem;
+    display: block;
     min-height: 80vh;
     padding-inline: 5%;
     width: 100%;

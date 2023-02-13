@@ -32,7 +32,7 @@ def chat_room(request,slug):
     }
     print(f' in chat room')
     return render(request, 'chat/chat_room.html', context)
- 
+@login_required    
 def createchat(request,slug):
     print(type(slug))
     user= request.user
@@ -56,13 +56,8 @@ def search_chat(request):
         user=request.user
         searched=request.POST.get('search')
         threads= Thread.objects.filter( Q( first_person = user.id ) & Q(second_person__contains=searched) | Q( first_person__contains= searched) & Q( second_person = user.id))
-    
         context = {
             'threads': threads
         }
         return render(request, 'chat/chat.html', context)
     
-
-
-
-

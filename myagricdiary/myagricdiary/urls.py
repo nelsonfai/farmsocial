@@ -26,8 +26,9 @@ urlpatterns = [
     path('friends/' ,include('Friends.urls')),
     path('account/', include('account.urls') ),
     path('', include('feed.urls') ),
-     path('market/', include('marketplace.urls') ),
-     path('chat/', include('chat.urls') ),
+    path('market/', include('marketplace.urls') ),
+    path('chat/', include('chat.urls') ),
+    path('ai/', include('myagricai.urls') ),
 
 ]
 urlpatterns+=staticfiles_urlpatterns()

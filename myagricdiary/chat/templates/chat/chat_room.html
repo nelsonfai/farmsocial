@@ -73,10 +73,11 @@
                        
                        
                             <div class="card">
+                                <button onclick="history.go(-1)" id="backbtn"> <i class="fa-solid fa-arrow-left"> </i> Back </button>
                                 {% for thread in thread_room %}
                                     <div class="messages-wrapper  {% if forloop.first %}hide is_active{% else %}hide{% endif %}" chat-id="chat_{{ thread.id }}" other-user-id="{% if thread.first_person == user %} {{ thread.second_person.id }}{% else %} {{ thread.first_person.id }} {% endif %}">
                                         <div class="card-header msg_head">
-                                            <button onclick="history.go(-1)" id="backbtn"> <i class="fa-solid fa-arrow-left"> </i> Back </button>
+                            
                                             {% if thread.first_person == user %}
                                             <input type="hidden" name="" class="send-to-user" value=" {{thread.second_person.id}} ">
                                             <a href="{% url 'profile' thread.second_person.id %}"> 
