@@ -22,15 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vnpbb=4@k=4z6+b1o)gda$e^x2mm1w#6)q$(vbzk=zf$x!^asg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# ALLOWED_HOSTS = []
-
-
-
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -216,13 +209,17 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
+EMAIL_HOST = 'in-v3.mailjet.com'
+MAILJET_API_KEY = "4d241f132c3c42e6a6c10cdfac9c80b1"
+MAILJET_API_SECRET = "d64e97e6c10bf3b335f128acb46c383d"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'CodingWithMitch Team <noreply@codingwithmitch.com>'
+EMAIL_USE_SSL = False
+EMAIL_TIMEOUT = 30
+DEFAULT_FROM_EMAIL = 'Pryclet <pryclet@gmail.com>'
 
 
-BASE_URL = "http://<ip_from_digital_ocean>"
+
+
+BASE_URL = "http://46.101.121.242"
