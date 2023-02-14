@@ -12,9 +12,9 @@ class LogInForm(AuthenticationForm):
     def __init__(self,*args,**kwargs):
         super(LogInForm,self).__init__(*args,**kwargs)
         self.fields['username'].widget.attrs['class']='form_control'
-        self.fields['username'].widget.attrs['placeholder']='Username'
+        self.fields['username'].widget.attrs['placeholder']='e.g mail@myagricdiary.com'
         self.fields['password'].widget.attrs['class']='form_control'
-        self.fields['password'].widget.attrs['placeholder']='Enter Password'
+        self.fields['password'].widget.attrs['placeholder']='**********'
 
 
 
