@@ -153,7 +153,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
-CHANNEL_LAYERS = {
+"""CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
         # 'CONFIG': {
@@ -161,6 +161,16 @@ CHANNEL_LAYERS = {
         # }
     }
 }
+"""
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+    },
+}
+
 
 LOGIN_URL='/account/login'
 TAGGIT_FORCE_LOWERCASE = True
