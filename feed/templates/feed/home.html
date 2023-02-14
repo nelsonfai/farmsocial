@@ -213,10 +213,14 @@ background-color: #d4c44b;
 .section-title{
   font-size: 30px;
 }
-
-
+.about-us-wrapper{
+  padding: 0;
 }
 
+}
+.footer{
+  display: none;
+}
 </style>
 
  <div>
@@ -227,7 +231,7 @@ background-color: #d4c44b;
           <h2> A Good harvest needs a Great Market </h2>
             <p><strong> We provide you the best information to get you a great harvest and a ready market to ensure a Great Sale </strong> </p>
         <br>
-         <p>  <a href="{% url 'signup'  %}" class="submitbtn" > <button class="button_two"> Login In</button> </a>
+         <p>  <a href="{% url 'login'  %}" class="submitbtn" > <button class="button_two"> Login In</button> </a>
           <a href="{% url 'signup'  %}">  <button class="button_three">Sign Up</button> </a></p>
 
       </div>

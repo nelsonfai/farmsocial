@@ -10,14 +10,9 @@
 {% block content %}
 <div class="container">
 <div class="right">
-<p>Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+<p style="padding-left: 1rem;">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form   method="POST" enctype="multipart/form-data">{% csrf_token %}
-  <p> 
-    {% for field, error in form.errors.items %}
-    {% if field != '__all__' %}{{ field }}{% endif %}
-    {{ error | striptags }}
-    {% endfor %}
-</p>
+
 <table>
 {{ wizard.management_form }}
 {% if wizard.form.forms %}
