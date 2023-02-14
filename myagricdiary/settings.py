@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = config('DEBUG', default=False, cast=bool)
-
+SECRET_KEY = config("SECRET_KEY")
 ALLOWED_HOSTS = ["46.101.121.242",]
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
