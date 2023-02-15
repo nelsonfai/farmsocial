@@ -172,7 +172,7 @@ CHANNEL_LAYERS = {
 }
 
 
-LOGIN_URL='/account/login'
+LOGIN_URL='/account/login/'
 TAGGIT_FORCE_LOWERCASE = True
 
 
