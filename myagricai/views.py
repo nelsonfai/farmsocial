@@ -5,13 +5,13 @@ from .models import UserQA
 # Create your views here.
 
 
-@login_required(messages.error('You must log in to view this page!'))     
+  @login_required(messages.error(request, ('You must log in to view this page!'))     
 
 def myagricAi(request):
     chat = UserQA.objects.filter(user=request.user)
     return render(request, 'ai/chatroom.html',{'chatbot':chat})
 
-@login_required(messages.error('You must log in to view this page!'))     
+  @login_required(messages.error(request, ('You must log in to view this page!'))     
  
 def aiChat_room(request,):
     question = request.POST['question']

@@ -16,7 +16,7 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-@login_required(messages.error('You must log in to view this page!'))     
+  @login_required(messages.error(request, ('You must log in to view this page!'))     
    
 def add_article(request):
     if request.method=='POST':
@@ -88,7 +88,7 @@ def article_details(request,article_slug):
         
     }
     return render(request, 'feed/details.html',context)
-@login_required(messages.error('You must log in to view this page!'))     
+  @login_required(messages.error(request, ('You must log in to view this page!'))     
    
 def comment(request,article_slug):
     if request.method=='POST':
@@ -108,7 +108,7 @@ def comment(request,article_slug):
            
 
     return redirect('details' ,article_slug=article.slug)   
-@login_required(messages.error('You must log in to view this page!'))     
+  @login_required(messages.error(request, ('You must log in to view this page!'))     
    
 def like_article(request, article_id):
         user=request.user
@@ -161,7 +161,7 @@ def annoucement (request):
     }
     return render(request, 'feed/annoucement.html',context)
 
-@login_required(messages.error('You must log in to view this page!'))     
+  @login_required(messages.error(request, ('You must log in to view this page!'))     
    
 def delete_article (request,slug):
         articleitem=Articles.objects.get(id=slug)
