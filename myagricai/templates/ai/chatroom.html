@@ -53,7 +53,7 @@
                                     {%csrf_token%}
                                     <div class="input-group">
                                         
-                                        <input type="text" name="" id="input-message"  placeholder="Type your message..." autocomplete="off">
+                                        <input type="text" name="" id="input-message"  placeholder="Type your message..." autocomplete="off" required>
                                         
                                             <button class="btnsend " type="submit"> <i class="fa-regular fa-paper-plane"></i></button>                                        
                                 </div>
@@ -61,6 +61,16 @@
                             </div>              
         
     </main>
+
+<script>
+    setTimeout(function() {
+    document.getElementById('message').appendChild = `<div class="msg_cotainer">
+                                                         <p> Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out</p>
+                                                     <div class="msg_time">now</div>
+                                                                 </div>`    ;
+}, 2000);
+
+</script>    
 <script>
 
     $(document).ready(function(){

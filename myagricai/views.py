@@ -5,12 +5,12 @@ from .models import UserQA
 # Create your views here.
 
 
-  @login_required
+@login_required
 def myagricAi(request):
     chat = UserQA.objects.filter(user=request.user)
     return render(request, 'ai/chatroom.html',{'chatbot':chat})
 
-  @login_required 
+@login_required 
 def aiChat_room(request,):
     question = request.POST['question']
     try:    
@@ -21,7 +21,7 @@ def aiChat_room(request,):
         return JsonResponse({'response': answer })
     except Exception as e:
         print(e)
-        return JsonResponse({'response': 'No information available at this moment 7'})
+        return JsonResponse({'response': 'No information available at this moment.Please try again later '})
 
 def openai(question):
     import os
@@ -39,5 +39,7 @@ def openai(question):
     presence_penalty=0.0,
     )
     print(response)
-    answer = response.choices[0].text
+    if response.choices[0].text:
+      answer = response.choices[0].text
+    
     return answer
