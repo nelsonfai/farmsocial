@@ -36,7 +36,7 @@ class CustomUser(AbstractUser):
 
     bio=models.CharField(max_length=400,blank=True, null=True)
     location = CountryField(blank_label='(select country)')
-    profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png',])])
+    profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg'])])
    
     is_student = models.BooleanField(default=False)
     course = models.CharField(max_length=100 ,blank=True, null=True)
@@ -59,3 +59,8 @@ class CustomUser(AbstractUser):
     objects = UserManager()
     def __str__(self):
         return self.last_name
+    def profilepic (self):
+        if self.profile_pic:
+            return self.profile_pic.url
+        else:
+            return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU'

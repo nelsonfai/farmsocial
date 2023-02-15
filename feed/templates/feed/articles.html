@@ -9,11 +9,8 @@
                     <a href="{% url 'add_article'%}">
                         <div class="create-post">
                            <div class="left">
-                            {% if user.profile_pic%}
-                            <span class="roundedprofile" style="background:url('{{user.profile_pic.url}}') ;background-position: center; background-size: contain;">  </span> 
-                            {% else %}
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="40px">
-                            {% endif %}
+                            <span class="roundedprofile" style="background:url('{{user.profilepic}}') ;background-position: center; background-size: contain;">  </span> 
+
                             <span> Share a thought</span>
                            </div>
                            <div class="right">                        
@@ -29,13 +26,7 @@
                     <div class="article-item" id="article{{article.id}}"> 
                         <div class="author-info">
                             <div class="right"> 
-                              {% if not article.author.profile_pic %}
-                              <span> 
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="30px"> 
-                              </span>
-                              {% else %}
-                              <span class="roundedprofile" style="background:url('{{article.author.profile_pic.url}}') ;background-position: center; background-size: contain;">  </span> 
-                              {% endif %}
+                              <span class="roundedprofile" style="background:url('{{article.author.profilepic}}') ;background-position: center; background-size: contain;">  </span> 
                               <div> 
                                     <a href="{%  url 'profile' article.author.id %}"><span> {{ article.author.first_name|title}} {{ article.author.last_name|title }} </span></a> 
                                     <p> {{ article.whenpublished }}</p>
@@ -137,7 +128,7 @@
         {% for item in friendsuggestions%}
         <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
             <div class="flex" > 
-                <a href="{% url 'profile' item.user.id %}"> <span class="roundedprofile" style="background:url('{{ item.user.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                <a href="{% url 'profile' item.user.id %}"> <span class="roundedprofile" style="background:url('{{ item.user.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                     <div>
                         <a href="{% url 'profile' item.user.id %}"> <div class="contact-name"> {{ item.user.get_full_name|title }} </div>	</a>
                     </div>

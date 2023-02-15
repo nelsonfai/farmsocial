@@ -14,13 +14,10 @@
 								{% if thread.first_person == user %}
 								
 									<div class="flex"> 
-										{% if thread.second_person.profile_pic %}
-										 <span class="roundedprofile" style="background:url('{{ thread.second_person.profile_pic.url}}') ;background-position: center; background-size: contain;"> 
+										
+										 <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain;"> 
 										</span> 
-										{% else %}
-										<span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="30px"></span>
-
-										{% endif%}
+				
 										<div>
 											<div class="contact-name"> {{ thread.second_person.get_full_name|title }} </div>	
 											<div class="lastmessage"> {{thread.chatmessage_thread.last.message | truncatechars:40 }} </div>
@@ -32,13 +29,9 @@
 							
 								{% else %}
 								<div class="flex"> 
-									{% if thread.first_person.profile_pic %}
-									<span class="roundedprofile" style="background:url('{{ thread.first_person.profile_pic.url}}') ;background-position: center; background-size: contain;"> 
+									<span class="roundedprofile" style="background:url('{{ thread.first_person.profilepic}}') ;background-position: center; background-size: contain;"> 
 									</span> 
-									{%else%}
-									<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="30px">
-
-									{%endif%}
+			
 									<div>
 										<div class="contact-name"> {{ thread.first_person.get_full_name|title }} </div>	
 										<div class="lastmessage"> {{thread.chatmessage_thread.last.message | truncatechars:30 }} </div>

@@ -65,13 +65,11 @@
 
     {% for comment in comments %}
     <div class="flex">
-      {% if user.profile_pic%}
+  
       <div style="width:30px"> 
-      <div class="roundedprofile" style="background:url('{{comment.author.profile_pic.url}}') ;background-position: center; background-size: contain;" >  </div> 
+      <div class="roundedprofile" style="background:url('{{comment.author.profilepic}}') ;background-position: center; background-size: contain;" >  </div> 
     </div>
-      {% else %}
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU" alt="" width="30px">
-      {% endif %}
+
       <div> 
         <div> {{comment.author.get_full_name}}</div> 
         <div class="comment">   

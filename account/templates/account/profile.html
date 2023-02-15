@@ -10,11 +10,7 @@
 <div class="profile-container">
     <div class="profile-image-container">
         <div class="profile-image">
-            {% if profile.profile_pic %}
-                <div class="roundedprofile" style="background:url('{{profile.profile_pic.url}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </div> 
-            {% else %}
-             <img src="https://img.icons8.com/external-icongeek26-outline-icongeek26/250/000000/external-farmer-farming-icongeek26-outline-icongeek26.png" style="width:90%"/>
-            {% endif %}
+                <div class="roundedprofile" style="background:url('{{profile.profilepic}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </div> 
         </div>
         <div class="profile-name">
             <h2 class="name"> {{ profile.get_full_name}}  
@@ -165,10 +161,10 @@
                     <div class="flex flex_outerfollow"> 
                         <div class="flex" > 
                             
-                            <a href="{% url 'profile' item.id %}">  <span class="roundedprofile" style="background:url('{{ item.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                            <a href="{% url 'profile' item.id %}">  <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                                 <div>
                                     <a href="{% url 'profile' item.id %}"> <div class="contact-name"> {{ item.get_full_name|title }} </div>	</a>
-                                </div>
+                            </div>
                             
                         </div>
                         <div> 
@@ -197,7 +193,7 @@
                 {% for item in profile.myfollowing.follower.all%}
                 <div class="flex flex_outerfollow"> 
                     <div class="flex" > 
-                        <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                        <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                             <div>
                                 <a href="{% url 'profile' item.id %}"> <div class="contact-name"> {{ item.get_full_name|title }} </div>	</a>
                             </div>
@@ -236,7 +232,7 @@
         {% for item in friendsuggestions%}
         <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
             <div class="flex" > 
-                <a href="{% url 'profile' item.user.id %}"> <span class="roundedprofile" style="background:url('{{ item.user.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                <a href="{% url 'profile' item.user.id %}"> <span class="roundedprofile" style="background:url('{{ item.user.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                     <div>
                         <a href="{% url 'profile' item.user.id %}"> <div class="contact-name"> {{ item.user.get_full_name|title }} </div>	</a>
                     </div>

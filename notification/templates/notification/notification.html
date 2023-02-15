@@ -16,7 +16,7 @@
             {% for obj in notification %}
             <div class="item flex" > 
                     <div class="flex" > 
-                       <a href="{% url 'profile' obj.trigger.id%}"> <span class="roundedprofile" style="background:url('{{ obj.trigger.profile_pic.url}}') ;background-position: center; background-size: contain;" > </span> </a>
+                       <a href="{% url 'profile' obj.trigger.id%}"> <span class="roundedprofile" style="background:url('{{ obj.trigger.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                             <div>
                                 <div class="contact-name"><div>{{obj.message}} </div> </div>	
                             </div>
