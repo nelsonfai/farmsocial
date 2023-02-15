@@ -9,8 +9,7 @@ from account.models import CustomUser
 # Create your views here.
 
 
-@login_required(messages.error(request,'You must log in to view this page!'))     
-
+@login_required
 def chat (request):
     threads =Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
     print(f' NUM OF {threads}')
@@ -19,8 +18,7 @@ def chat (request):
     }
     return render(request, 'chat/chat.html', context)
 
-@login_required(messages.error(request,'You must log in to view this page!'))     
-   
+@login_required   
 def chat_room(request,slug):
     #
     thread_room = Thread.objects.filter(id=slug).prefetch_related('chatmessage_thread').order_by('timestamp')
@@ -34,8 +32,7 @@ def chat_room(request,slug):
     }
     print(f' in chat room')
     return render(request, 'chat/chat_room.html', context)
-@login_required(messages.error(request,'You must log in to view this page!'))     
-    
+@login_required    
 def createchat(request,slug):
     print(type(slug))
     user= request.user

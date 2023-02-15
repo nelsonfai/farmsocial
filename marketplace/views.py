@@ -8,8 +8,7 @@ from django.core.paginator import Paginator
 
 
 # Create your view
-  @login_required(messages.error(request, ('You must log in to view this page!'))     
-   
+  @login_required   
 def market (request):
     productitems=ProductItem.objects.all()
     p=Paginator(productitems,per_page=8)
@@ -22,8 +21,7 @@ def market (request):
 
     return render (request,'marketplace/market.html', context)
 
-  @login_required(messages.error(request, ('You must log in to view this page!'))     
-(login_url='login')
+  @login_required(login_url='login')
    
 def add_product (request):
     if request.method =='POST':
@@ -94,8 +92,7 @@ def filter (request):
     }
     return render (request,'marketplace/market.html', context)
 
-  @login_required(messages.error(request, ('You must log in to view this page!'))     
-(login_url='login')
+  @login_required(login_url='login')
 def myproducts(request):
     profile=request.user
     productitems=ProductItem.objects.filter(user_profile=profile)
@@ -110,8 +107,7 @@ def myproducts(request):
     return render (request, 'marketplace/myproducts.html', context)
 
 
-  @login_required(messages.error(request, ('You must log in to view this page!'))     
-(login_url='login')
+  @login_required(login_url='login')
 def edit_product (request,slug): 
     productitem=get_object_or_404(ProductItem,id=slug)
 
@@ -143,8 +139,7 @@ def edit_product (request,slug):
 
 
 
-  @login_required(messages.error(request, ('You must log in to view this page!'))     
-(login_url='login')
+  @login_required(login_url='login')
 def delete_product (request,slug):
 
     if request.method=='POST':

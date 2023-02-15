@@ -83,8 +83,7 @@ def edit_profile(request):
 
  
         return render (request,'account/editprofile.html',context)
-@login_required(messages.error(request,'You must log in to view this page!'))     
-           
+@login_required           
 def edit_name(request):
         if request.method == 'POST':
             form=PersonalInfoForm(request.POST or None,instance =request.user)
@@ -108,8 +107,7 @@ def edit_name(request):
                     }
             return render (request,'account/editprofile.html',context)
 
-@login_required(messages.error(request, ('You must log in to view this page!'))     
-       
+@login_required       
 def edit_bio(request):
         if request.method == 'POST':
             form=ProfileInfo(request.POST or None ,request.FILES,instance=request.user)
@@ -135,8 +133,7 @@ def edit_bio(request):
                     }
             return render (request,'account/editprofile.html',context)
 
-@login_required(messages.error(request,'You must log in to view this page!'))     
-       
+@login_required       
 def edit_education(request):
 
         if request.method == 'POST':
