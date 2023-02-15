@@ -56,7 +56,8 @@ def logout_view(request):
         messages.success(request, ("You were succesfully logged out"))
         return redirect('articles')
     
-@login_required     
+@login_required(messages.error('You must log in to view this page!'))     
+(messages.error('You must log in to view this page!'))     
 def profile(request,slug):
     
     profile=CustomUser.objects.get(id = slug )
@@ -72,7 +73,8 @@ def profile(request,slug):
             }
      
     return render(request ,'account/profile.html',context)
-@login_required   
+@login_required(messages.error('You must log in to view this page!'))     
+   
 def edit_profile(request):
         user = request.user
         form = PersonalInfoForm(instance=user)
@@ -83,7 +85,8 @@ def edit_profile(request):
 
  
         return render (request,'account/editprofile.html',context)
-@login_required           
+@login_required(messages.error('You must log in to view this page!'))     
+           
 def edit_name(request):
         if request.method == 'POST':
             form=PersonalInfoForm(request.POST or None,instance =request.user)
@@ -107,7 +110,8 @@ def edit_name(request):
                     }
             return render (request,'account/editprofile.html',context)
 
-@login_required       
+@login_required(messages.error('You must log in to view this page!'))     
+       
 def edit_bio(request):
         if request.method == 'POST':
             form=ProfileInfo(request.POST or None ,request.FILES,instance=request.user)
@@ -133,7 +137,8 @@ def edit_bio(request):
                     }
             return render (request,'account/editprofile.html',context)
 
-@login_required       
+@login_required(messages.error('You must log in to view this page!'))     
+       
 def edit_education(request):
 
         if request.method == 'POST':
