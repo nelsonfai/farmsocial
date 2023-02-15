@@ -22,8 +22,8 @@ class ProductItem(models.Model):
     price=models.CharField(max_length=200 )
     location=models.CharField(max_length=200)
     main_image=models.ImageField()
-    image2=models.ImageField(blank=True, null=True)
-    image3=models.ImageField(blank=True, null=True)
+    image2=models.ImageField(blank=True, null=True ,help_text='Optional')
+    image3=models.ImageField(blank=True, null=True,help_text='Optional')
     product_category=models.CharField(choices=category, max_length=20, default='none')
     view_count=models.IntegerField(default=0 )
     

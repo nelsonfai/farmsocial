@@ -11,11 +11,8 @@
                     <br>
                     <br>
                       
-                      {% if productitems.count is 0 %}
-                            <br>
-                            
-                            <span style="text-align: center; display: block;">You have no listed product /span>
-                      {%endif%}
+                      {% if productitems %}
+       
                       <div class="product"> 
                         <div class="product-grid">
                         {% for product in productitems %}
@@ -62,6 +59,10 @@
 
 
                 </div>
+                {%else%}
+                <br>
+                <div style="text-align: center; ">You have no listed product </div>
+                {%endif%}
                 </div>
             </main>
 </div>
