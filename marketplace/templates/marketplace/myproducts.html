@@ -25,8 +25,12 @@
                                         <p><i class="fa-solid fa-cubes-stacked"></i>    {{ product.quantity}} </p>
                                         <p class="location"><i class="fa-solid fa-location-dot"></i> {{ product.location }}</p>
                                         
-                                        <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;margin-top: 0.5rem;"> <a href="{% url 'product' slug=product.id %}" > Details</a>
-                                            <small><a href="{% url 'delete_product' product.id %}"> Delete</a> </small>
+                                        <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;margin-top: 0.5rem;"> 
+                                           
+                                            <small><a href="{% url 'product' slug=product.id %}" > Details</a>  </small> 
+                                            <form action="{% url 'delete_product' product.id %}" method="POST">
+                                                <small> <button> Delete</button> </small>
+                                            </form>
                                             <small><a href="{% url 'edit_product' product.id %}"> Edit</a> </small>
                                         </div>
                                     </div> 
@@ -109,6 +113,7 @@ button img{
 .product-info{
     margin-block:5px ;
     width: 100%;
+    padding-left: 1rem;
 }
 .price{
     color:var(--primary-color);
@@ -128,8 +133,8 @@ button img{
 
 .product-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap:2rem;
+    grid-template-columns: repeat(auto-fit, min(200px));
+    gap:4rem;
     margin-bottom: 2rem;
 }
 .product_image{
@@ -156,12 +161,13 @@ button img{
 }
   .product-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, min(140px));
     gap:1rem;
-    margin: auto;
     margin-bottom: 5rem;
-    justify-items: center;
 }  
+}
+input,select{
+    width: calc(100% - 4rem);
 }
 @media screen and (max-width:320px) {
     .item{

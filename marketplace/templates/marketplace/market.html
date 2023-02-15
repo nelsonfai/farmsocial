@@ -146,8 +146,8 @@ button img{
 
 .product-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap:2rem;
+    grid-template-columns: repeat(auto-fit, min(200px));
+    gap:4rem;
     margin-bottom: 2rem;
 }
 .product_image{
@@ -172,14 +172,12 @@ button img{
   .product_image{
     width:100%;height:140px;
 }
-  .product-grid{
+.product-grid{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, min(140px));
     gap:1rem;
-    margin: auto;
     margin-bottom: 5rem;
-    justify-items: center;
-}  
+}   
 }
 @media screen and (max-width:320px) {
     .item{

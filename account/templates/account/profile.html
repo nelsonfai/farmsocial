@@ -149,7 +149,7 @@
 
 <div id="popup22">
     <div class="popuphead">
-        <div><span onclick="shownetwork('followers22','following22')" id="followers22Indicate"> Follow</span> <span onclick="shownetwork('following22','followers22')" id="following22Indicate">Following</span></div>
+        <div> <span onclick="shownetwork('followers22','following22')" id="followers22Indicate"> Follow</span> <span onclick="shownetwork('following22','followers22')" id="following22Indicate">Following</span></div>
         <span onclick="closepopup()">Close</span>
     </div>
     <div class="popupbody">
@@ -269,7 +269,7 @@
         document.getElementById(show +'Indicate').style.borderBottomWidth = "2px";
         document.getElementById(show).style.display='block';
 
-        document.getElementById(hide +'Indicate').styleborderBottomWidth = "2px";
+        document.getElementById(hide +'Indicate').styleborderBottomWidth = "0px";
         document.getElementById(hide).style.display='none';
 
     }
@@ -326,7 +326,7 @@
     top:0;
     padding: 1rem;
 }
-#followers22,#following22{
+#followers22Indicate,#following22Indicate{
     padding: 1rem 2rem;
     border-bottom-style: solid;
     border-bottom-color: #d4c44b;
