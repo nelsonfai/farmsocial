@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 SECRET_KEY = config("SECRET_KEY")
-ALLOWED_HOSTS = ["46.101.121.242",]
+ALLOWED_HOSTS = ["46.101.121.242", "myagricdiary.com","www.myagricdiary.com"]
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
