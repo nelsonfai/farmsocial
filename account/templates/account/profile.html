@@ -266,10 +266,10 @@
     }
     function shownetwork(show,hide){
         console.log(show)
-        document.getElementById(show +'Indicate').style.borderBottomWidth = "2px";
+        document.getElementById(show +'Indicate').style.backgroundColor = "#d4c44b";
         document.getElementById(show).style.display='block';
 
-        document.getElementById(hide +'Indicate').styleborderBottomWidth = "0px";
+        document.getElementById(hide +'Indicate').style.backgroundColor = "transparent";
         document.getElementById(hide).style.display='none';
 
     }
@@ -328,8 +328,6 @@
 }
 #followers22Indicate,#following22Indicate{
     padding: 1rem 2rem;
-    border-bottom-style: solid;
-    border-bottom-color: #d4c44b;
 }
 .popuphead{
     display: flex;
