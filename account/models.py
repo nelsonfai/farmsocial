@@ -63,4 +63,4 @@ class CustomUser(AbstractUser):
         if self.profile_pic:
             return self.profile_pic.url
         else:
-            return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9RzmCAKhjBMu6GN8LHxNLTw8Vt347xfIXWA&usqp=CAU'
+            return 'https://myagricdiary-space.fra1.cdn.digitaloceanspaces.com/agric-static%2Fimages%2Fimages-removebg-preview.png'

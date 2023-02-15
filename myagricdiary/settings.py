@@ -222,4 +222,4 @@ DEFAULT_FROM_EMAIL = 'Pryclet <pryclet@gmail.com>'
 
 
 
-BASE_URL = "http://46.101.121.242"
+BASE_URL = "http://myagricdiary.com"

@@ -36,6 +36,7 @@
                             <button class="button_one"> <a href="{% url 'market' %}" class="button_one"> All products </a> </button>
                 </div>
                     <div class="product"> 
+                        {%if product items %}
                         <div class="product-grid">
                         {% for product in productitems %}
                         
@@ -72,11 +73,11 @@
                            
                    </div>
 
+                    {%else%}
 
+                   <div> No item at the moment </div>
 
-
-
-
+                   {%endif%}
                 </div>
                 </div>
             </main>
@@ -98,8 +99,8 @@
     float:right;
     display: inline;
 }   
-.search{
-    display: inline-block;
+.search form{
+    padding: 1.3rem;
 }
     label {
     display: block;
@@ -128,7 +129,7 @@ button img{
     width: 100%;
 }
 .price{
-    color:var(--primary-color);
+    color:black;
     margin-top:10px ;
 }
 .location{

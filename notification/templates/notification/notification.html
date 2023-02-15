@@ -12,7 +12,7 @@
 
         <div class="wrapper"> 
             {% if notification %}
-            <div> You have no notifications at the moment </div>
+         
             {% for obj in notification %}
             <div class="item flex" > 
                     <div class="flex" > 
@@ -24,6 +24,8 @@
                     <div> <small> {{obj.whencreated}}</small> </div>
             </div>
             {% endfor %}
+            {%else%}
+            <div> You have no notifications at the moment </div>
             {%endif%}
         </div>
     </main>
