@@ -57,7 +57,6 @@ def logout_view(request):
         return redirect('articles')
     
 @login_required(messages.error('You must log in to view this page!'))     
-(messages.error('You must log in to view this page!'))     
 def profile(request,slug):
     
     profile=CustomUser.objects.get(id = slug )
