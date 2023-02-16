@@ -21,9 +21,9 @@ class ProductItem(models.Model):
     quantity=models.CharField(max_length=200 )
     price=models.CharField(max_length=200 )
     location=models.CharField(max_length=200)
-    main_image=models.ImageField()
-    image2=models.ImageField(blank=True, null=True ,help_text='Optional')
-    image3=models.ImageField(blank=True, null=True,help_text='Optional')
+    main_image=models.ImageField(upload_to='market/',)
+    image2=models.ImageField(blank=True, null=True ,help_text='Optional',upload_to='market/',)
+    image3=models.ImageField(blank=True, null=True,help_text='Optional', upload_to='market/')
     product_category=models.CharField(choices=category, max_length=20, default='none')
     view_count=models.IntegerField(default=0 )
     

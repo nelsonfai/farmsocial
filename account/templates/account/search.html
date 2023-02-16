@@ -7,7 +7,7 @@
     <main>
 
         <div class="wrapper"> 
-            <div style="width: 100%;margin-top: 1rem;" >
+            <div>
                
                 <form>
                     <input type="search" name="" id="search-box" placeholder="Search User">
@@ -44,8 +44,16 @@
                         var link = $('<a></a>');
                         link.text(result.text);
                         link.attr('href', '/account/profile/' + result.id);
+                        link.addClass('flex')
+
+                        var span = $('<span></span>')
+                        span.css('background-image', 'url(' + result.profilepic + ')');
+                        span.addClass('roundedprofile')
+
                         var option = $('<li></li>');
+                        option.append(span);
                         option.append(link);
+                    
                         resultsList.append(option);
                     });
                     resultsList.show();
@@ -64,13 +72,18 @@
 <style>
 
 .wrapper{
-    padding: 1rem;
+    padding-block: 1.5rem;
 }
 li{
     padding-block: 1rem;
+    list-style: none;
 }
-#searchusertop{
+#searchuserbottom{
     display: none;
+}
+#search-box{
+padding: 1rem;
+background-color: #fff;
 }
 </style>
 {% endblock %}

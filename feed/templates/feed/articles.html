@@ -273,7 +273,7 @@ for (let i = 0; i < elements.length; i++) {
 
   const element = elements[i];
   const fullText = element.innerText;
-  const shortText = fullText.substring(0, 100) + `<span style="color:#d4c44b"> ... show more</span>`;
+  const shortText = fullText.substring(0, 100) + ' ... show more';
   element.innerText = shortText;
   let isTruncated = false;
   element.addEventListener("click", function() {

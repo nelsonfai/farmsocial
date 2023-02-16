@@ -70,6 +70,7 @@
                     {% endif %}
             </div>
             </div>
+            {% if request.user.is_authenticated %}
             <div style="width: 100%;margin-top: 1rem;" id="searchuserbottom">
                 <a href="{% url 'searchpage' %}">
                 <form>
@@ -78,6 +79,9 @@
                   </form>
                 </a> 
             </div>
+            {% endif %}
+
+
         </header>
 
         {% for messsage in messages %}
