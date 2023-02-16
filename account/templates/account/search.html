@@ -45,9 +45,8 @@
                     console.log(results)
                     resultsList.empty();
                     $.each(results, function(index, result) {
-                        var option = $('<li></li>');
-                        option.text(result.text);
-                        option.attr('data-id', result.id);
+                        var option = $(`<li> <a href=" {% url 'profile' ${result.id} %}">${result.text}</a> </li>`);
+                    
                         resultsList.append(option);
                     });
                     resultsList.show();
@@ -68,13 +67,11 @@
 </script>
 <style>
 
-.item{
+.wrapper{
     padding: 1rem;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    background-color: #fff;
 }
-
+li{
+    padding-block: 1rem;
+}
 </style>
 {% endblock %}
