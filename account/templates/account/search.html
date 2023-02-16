@@ -2,15 +2,12 @@
 {% extends 'main/base.html'%}
 {% load static %}
 
-
-
 {% block content %}
-
 <div class="grid-container">
     <main>
 
         <div class="wrapper"> 
-            <div style="width: 100%;margin-top: 1rem;" id="searchuserbottom">
+            <div style="width: 100%;margin-top: 1rem;" >
                
                 <form>
                     <input type="search" name="" id="search-box" placeholder="Search User">
@@ -72,6 +69,9 @@
 }
 li{
     padding-block: 1rem;
+}
+#searchusertop{
+    display: none;
 }
 </style>
 {% endblock %}
