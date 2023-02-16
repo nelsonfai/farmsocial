@@ -1,3 +1,4 @@
+/*
 let input_message = $('#input-message')
 let message_body = $('.msg_card_body')
 let send_message_form = $('#send-message-form')
@@ -5,7 +6,7 @@ const USER_ID = $('#logged-in-user').val()
 let threadId = $('#thread-id').val()
 let receiver = $('.send-to-user')
 
-/*
+
 let loc = window.location
 let wsStart = 'ws://'
 
@@ -128,11 +129,13 @@ function get_active_thread_id(){
 
 
 
-$(document).ready(function(){
+
 $('#send-message-form').submit(function(e){
 e.preventDefault();
-var msg = input_message;
-var id =threadId
+
+var msg = $('#input-message').val();
+var id= $('#thread-id').val();
+
 $.ajax({
   url: '/chat/sendmessage/',
   dataType: 'json',
@@ -146,19 +149,16 @@ $.ajax({
    let questiondiv = ` <div class="replied">
    <div class="msg_cotainer_send">
    <p> ${msg} </p>  
-       <div class="msg_time_send msg_time">${data}</div>
+       <div class="msg_time_send msg_time">now</div>
    </div>
 </div>
 
 `
 let message_body = $('.messages-wrapper[chat-id="' + chat_id + '"] .msg_card_body')
 message_body.append($(questiondiv))
-message_body.animate({
-    scrollTop: $(document).height()
-}, 100);
 input_message.val(null);
   }
 });
 })
-});
+
 

@@ -137,6 +137,8 @@
 
                             <div class="card-footer">
                                 <form id="send-message-form">
+                                    {%csrf_token%}
+
                                     <div class="input-group">
                                         
                                         <input type="text" name="" id="input-message"  placeholder="Type your message..." autocomplete="off">
