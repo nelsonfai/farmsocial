@@ -15,7 +15,7 @@
                 </form>
                
             </div>
-            <ul class="search-results"></ul>
+            <div id="contenthere"></div>
 
         </div>
     </main>
@@ -27,7 +27,7 @@
 <script>
     $(document).ready(function() {
     var resultsList = $('<ul class="search-results"></ul>');
-    $('#search-box').after(resultsList);
+    $('#contenthere').after(resultsList);
     
     $('#search-box').keyup(function() {
         var query = $(this).val();
@@ -44,7 +44,6 @@
                         var link = $('<a></a>');
                         link.text(result.text);
                         link.attr('href', '/account/profile/' + result.id);
-                        link.addClass('flex')
 
                         var span = $('<span></span>')
                         span.css('background-image', 'url(' + result.profilepic + ')');
@@ -53,6 +52,8 @@
                         var option = $('<li></li>');
                         option.append(span);
                         option.append(link);
+                        option.addClass('flex')
+
                     
                         resultsList.append(option);
                     });
@@ -72,10 +73,9 @@
 <style>
 
 .wrapper{
-    padding-block: 1.5rem;
+    padding-inline: 1rem;
 }
 li{
-    padding-block: 1rem;
     list-style: none;
 }
 #searchuserbottom{
@@ -84,6 +84,7 @@ li{
 #search-box{
 padding: 1rem;
 background-color: #fff;
+width: calc(100%-4rem);
 }
 </style>
 {% endblock %}

@@ -219,6 +219,7 @@ def search_users(request):
     for user in users:
         data['results'].append({
             'id': user.id,
-            'text': user.get_full_name()
+            'text': user.get_full_name(),
+            'profilepic':user.profilepic
         })
     return JsonResponse(data)
