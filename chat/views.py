@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from chat.models import Thread
+from chat.models import Thread,ChatMessage
 from django.db.models import Q
+from django.http import JsonResponse
+
 
 from account.models import CustomUser
 #from django.contrib.auth.models import User
@@ -60,4 +62,11 @@ def search_chat(request):
             'threads': threads
         }
         return render(request, 'chat/chat.html', context)
-    
+
+def sendmessage(request):
+    if request.method=='POST':
+        message = request.POST('message')
+        id =request.POST('id')
+        thread = Thread.objects.get(id=id)
+        new= ChatMessage.objects.create(thread=thread, user=request.user, message=request.msg)
+        return JsonResponse({'date':new.date})
