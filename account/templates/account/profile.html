@@ -13,7 +13,7 @@
                 <div class="roundedprofile" style="background:url('{{profile.profilepic}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </div> 
         </div>
         <div class="profile-name">
-            <h2 class="name"> {{ profile.get_full_name}}  
+            <h2 class="name"> {{ profile.get_full_name|title}}  
                 {% if profile == request.user %}
                 <span class="deletebtnfloat"> <a href="{% url 'editname' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
                 {%endif%}
@@ -51,13 +51,13 @@
                     {% if profile != request.user %}
                     <span>
                         {% if request.user in network.follower.all %}
-                            <span onclick="network(event,url='unfollow', profile_id='{{profile.id}}',id='unfollowbtn')" >Unfollow</span>
+                            <span onclick="network(event,url='unfollow', profile_id='{{profile.id}}',id='unfollowbtn')" style="cursor: pointer;">Unfollow</span>
                         {% else %}
-                            <span onclick="network(event,url='follow', profile_id='{{profile.id}}' ,id='followbtn')" >Follow</span>
+                            <span onclick="network(event,url='follow', profile_id='{{profile.id}}' ,id='followbtn')"style="cursor: pointer;" >Follow</span>
                         {% endif %}
                     </span>
                         <span> 
-                            <a href="{% url 'createchat' profile.id %}"> <button >Message</button> </a>
+                            <a href="{% url 'createchat' profile.id %}"> <span  class="button_three" style="cursor: pointer;">Message</span> </a>
                         </span>
                     
                     {% endif %}
@@ -88,7 +88,11 @@
             {% if products %}
 
                 <div class="profile-product-container"> 
-                    <h4>My products</h4>
+                    <h4>My products
+                    {% if profile == request.user %}
+                    <span > <a href="{% url 'myproducts' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;">(view all products) </a></span>
+                    {%endif%}
+                </h4>
                     <br>
                     <div class="products"> 
                     {% for product in products %}
@@ -98,8 +102,7 @@
                                     <div style="background:url('{{ product.main_image.url }}') ;width:100px;height: 100px;background-position: center;background-repeat: no-repeat;background-size: cover;" > </div>
                                         <div class="product-info">
                                             <p> {{ product.product | truncatechars:10}} </p>
-                                            <small><a href="{% url 'product' slug=product.id %}"> Details</a> </small>
-                                            <small><a href="{% url 'delete_product' product.id %}"> Delete</a> </small>
+                                            <small><a href="{% url 'product' slug=product.id %}">View</a> </small>
                                             <small><a href="{% url 'edit_product' product.id %}"> Edit</a> </small>
                                        
                                         </div>
@@ -111,7 +114,7 @@
                 </div>
                 </div>
             {% endif %}
-            {% if products %}
+            {% if articles %}
                 <div class="profile-articles">
                     <h4>My articles </h4>
                     <br>
@@ -149,13 +152,12 @@
 
 <div id="popup22">
     <div class="popuphead">
-        <div> <span onclick="shownetwork('followers22','following22')" id="followers22Indicate"> Follow</span> <span onclick="shownetwork('following22','followers22')" id="following22Indicate">Following</span></div>
+        <div> <span onclick="shownetwork('followers22','following22')" id="followers22Indicate"> Followers</span> <span onclick="shownetwork('following22','followers22')" id="following22Indicate">Following</span></div>
         <span onclick="closepopup()">Close</span>
     </div>
     <div class="popupbody">
         <div id="followers22" >
                 <div> 
-                    <small>Following </small>
                     
                     {% for item in profile.myfollowing.following.all %}
                     <div class="flex flex_outerfollow"> 
@@ -171,13 +173,13 @@
                             {% if item != request.user %}
                             <span>
                                 {% if item in mynetwork.following.all %}
-                                    <button onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</button>
+                                    <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</span>
                                 {% else %}
-                                    <button onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</button>
+                                    <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</span>
                                 {% endif %}
                             </span>
-                                <span> 
-                                    <a href="{% url 'createchat' item.id %}"> <button>Message</button> </a>
+                                <span class="button_three"> 
+                                    <a href="{% url 'createchat' item.id %}"> Message</a>
                                 </span>
                             
                             {% endif %}
@@ -189,7 +191,6 @@
         </div>
         <div id="following22" >
             <div> 
-                <small>My Followers </small>
                 {% for item in profile.myfollowing.follower.all%}
                 <div class="flex flex_outerfollow"> 
                     <div class="flex" > 
@@ -203,9 +204,9 @@
                         {% if item != request.user %}
                         <span>
                             {% if item in mynetwork.following.all %}
-                                <button onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')"  class="button_one">Unfollow</button>
+                                <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')"  class="button_one">Unfollow</span>
                             {% else %}
-                                <button onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" class="button_one">Follow</button>
+                                <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" class="button_one">+Follow</span>
                             {% endif %}
                         </span>
     
@@ -240,7 +241,7 @@
                     {% if item.user in mynetwork.following.all %}
                         <span onclick="network(event,url='unfollow', profile_id='{{item.user.id}}',id='itembtn')" class="button_one">Unfollow</span>
                     {% else %}
-                        <span onclick="network(event,url='follow', profile_id='{{item.user.id}}' ,id='itembtn')" class="button_one">Follow</span>
+                        <span onclick="network(event,url='follow', profile_id='{{item.user.id}}' ,id='itembtn')" class="button_one"> +Follow</span>
                     {% endif %}
                 </span>
                 {% endif %}
@@ -420,6 +421,17 @@ i{
     font-size: 1rem;
     color: grey;
 }
+.button_three{
+    padding: .7rem 1.3rem;
+    background-color: #d4c44b;
+    border-radius: 4rem;
+    cursor: pointer;
+
+  }
+  span.button_one{
+    color: #d4c44b;
+    cursor: pointer;
+  }
 @media screen and (max-width:768px) {
     body{
         padding: 0;
@@ -475,7 +487,7 @@ main{
                 console.log(result)
                 if (result.data === 'follow'){
         
-                  btn.parentElement.innerHTML = `<span onclick="network(event,url='follow', profile_id='${profile_id}', id='${id}')" class="button_one"> Follow </span>`;
+                  btn.parentElement.innerHTML = `<span onclick="network(event,url='follow', profile_id='${profile_id}', id='${id}')" class="button_one"> +Follow </span>`;
                   btn.remove();
                  }
                 else{

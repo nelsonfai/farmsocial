@@ -21,6 +21,8 @@
                     </a>
                 {% endif %}  
             </div>
+            {% if slug %}
+            <div> Your search result for query :{{slug}} </div>
             {% if articles %}
             {% for article in articles %}
                     <div class="article-item" id="article{{article.id}}"> 
@@ -57,7 +59,7 @@
                         </div>
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}} </p>
-                                    <button id="toggle-button"> show less </button>
+                                    <button id="toggle-button" style="color:#d4c44b"> show less </button>
                         </div>
 
                         {% if article.article_image %} 
@@ -92,7 +94,8 @@
                 <p> {% if articles.has_previous %}
                     <span style="text-align:left;padding-left:1rem;"> 
                             <a href="?page={{ articles.previous_page_number }}"> &laquo; Previous</a>
-                    </span >  
+                    </span > 
+                  {%else%}
                 {% endif %}
                     {% if articles.has_next %}
                     <span style="text-align: right; display: block; padding-right:1rem;" >
@@ -109,7 +112,7 @@
 
 <div class="sidebar sidebar_right">
     <div class="filter">
-      <form action="">
+      <form action="{{}}" method="post">
         <input type="search" name="" id="" placeholder="Search article">
         <button> <i class="fa-solid fa-magnifying-glass" style="font-size: 1.4rem; color:grey" ></i></button>
       </form>
@@ -269,8 +272,7 @@ for (let i = 0; i < elements.length; i++) {
 
   const element = elements[i];
   const fullText = element.innerText;
-  const shortText = fullText.substring(0, 100) + "... show more";
- 
+  const shortText = fullText.substring(0, 100) + `<span style="color:#d4c44b"> ... show more</span>`;
   element.innerText = shortText;
   let isTruncated = false;
   element.addEventListener("click", function() {

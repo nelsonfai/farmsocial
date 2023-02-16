@@ -6,6 +6,7 @@ from django.contrib import messages
 from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm
 from formtools.wizard.views import SessionWizardView
 from .models import CustomUser
+from django.http import JsonResponse
 
 from feed.models import Articles
 from marketplace.models import ProductItem
@@ -19,6 +20,7 @@ from .models import CustomUser
 from notification.models import NotificationUser
 from Friends.models import Network
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Q
 
 
 
@@ -205,4 +207,18 @@ class FirstProfile(SessionWizardView):
         user.save()
         print('updated')
         return redirect('articles')
+def searchpage(request):
+    
+     return render (request,'account/search.html',)
 
+     
+def search_users(request):
+    query = request.GET.get('query', '')
+    users = CustomUser.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query))[:10]
+    data = {'results': []}
+    for user in users:
+        data['results'].append({
+            'id': user.id,
+            'text': user.get_full_name()
+        })
+    return JsonResponse(data)

@@ -1,0 +1,80 @@
+
+{% extends 'main/base.html'%}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="grid-container">
+    <main>
+
+        <div class="wrapper"> 
+            <div style="width: 100%;margin-top: 1rem;" id="searchuserbottom">
+               
+                <form>
+                    <input type="search" name="" id="search-box" placeholder="Search User">
+                    <button> <i class="fa-solid fa-magnifying-glass" style="font-size: 1.4rem; color:grey" ></i></button>
+                  </form>
+               
+            </div>
+            <ul class="search-results"></ul>
+
+        </div>
+    </main>
+    <div></div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    var resultsList = $('<ul class="search-results"></ul>');
+    $('#search-box').after(resultsList);
+    
+    $('#search-box').keyup(function() {
+        var query = $(this).val();
+        if (query.length >= 2) {
+            $.ajax({
+                url: '/queryusers/',
+                data: {
+                    'query': query
+                },
+                success: function(data) {
+                    var results = data.results;
+                    console.log(results)
+                    resultsList.empty();
+                    $.each(results, function(index, result) {
+                        var option = $('<li></li>');
+                        option.text(result.text);
+                        option.attr('data-id', result.id);
+                        resultsList.append(option);
+                    });
+                    resultsList.show();
+                }
+            });
+        } else {
+            resultsList.hide();
+        }
+    });
+    
+    $(document).on('click', '.search-results li', function() {
+        var userId = $(this).attr('data-id');
+        // do something with the selected user ID
+        resultsList.hide();
+    });
+});
+
+</script>
+<style>
+
+.item{
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+</style>
+{% endblock %}

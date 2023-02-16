@@ -17,11 +17,20 @@
 </head>
 <body>
         <header>
+            <div class="header-flex">
             <div class="logo">
              <a href="../../../">   <img src="{% static 'images/my agric-diary.png'%}" width="100%"></a>
             </div>                           
             <div class="header-right">
                     {% if request.user.is_authenticated %}
+                            <span style="width: 250px;" id="searchusertop">
+                                <a href="{% url 'searchpage' %}">
+                                <form>
+                                    <input type="search" name="" id="" placeholder="Search User">
+                                    <button> <i class="fa-solid fa-magnifying-glass" style="font-size: 1.4rem; color:grey" ></i></button>
+                                  </form>
+                                  </a>
+                            </span>
                             <span> 
                                 <a href="{% url 'notification' %}">
                                     <span class="notification-wrapper">
@@ -60,12 +69,21 @@
 
                     {% endif %}
             </div>
-
+            </div>
+            <div style="width: 100%;margin-top: 1rem;" id="searchuserbottom">
+                <a href="{% url 'searchpage' %}">
+                <form>
+                    <input type="search" name="" id="" placeholder="Search User">
+                    <button> <i class="fa-solid fa-magnifying-glass" style="font-size: 1.4rem; color:grey" ></i></button>
+                  </form>
+                </a> 
+            </div>
         </header>
 
         {% for messsage in messages %}
             <div class="message"> {{ messsage }} </div>
         {% endfor %}
+
 
    <div class="flex-container">
     <div class="bodynav_right">
@@ -98,6 +116,9 @@
           elt.classList.toggle("show")
             }
         </script>
+
+
+
 </body>
 
 

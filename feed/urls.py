@@ -11,7 +11,8 @@ urlpatterns = [
     path('filter/<slug:tag>',views.filter_article, name='filter'),
     path('add-article/',views.add_article, name='add_article'),
     path('<slug:article_slug>/comment',views.comment, name='comment'),
-   
+    path('search_article/<slug:slug>',views.search, name='search-article'),
+
     path('annoucement/',views.annoucement, name='annoucement'),
      path('delete_article/<slug:slug>',views.delete_article , name='delete_article'),
     path('delete_annoucement/<slug:slug>',views.delete_annoucement , name='delete_annoucement'),

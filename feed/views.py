@@ -133,9 +133,22 @@ def like_article(request, article_id):
 
 
 
-def search(request):
-    pass
-    return render(request, 'blog/details.html')
+def search(request,slug):
+        articles=Articles.objects.filter(body__icontains=slug)
+        p=Paginator(articles,per_page=5)
+        page=request.GET.get('page')
+        paginated_article=p.get_page(page)
+        top_n = 5
+        most_used_tags = Tag.objects.annotate(num_times=Count('taggit_taggeditem_items')).order_by('-num_times')[:top_n]
+        
+        context={
+            'articles':paginated_article,
+            'stylesheet':'styles/feed.css',
+            'tags':most_used_tags,
+            'query':slug
+        }
+
+        return render (request, 'feed/articles.html', context)
 
 
 def annoucement (request):
