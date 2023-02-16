@@ -23,6 +23,7 @@
             </div>
             {% if slug %}
             <div> Your search result for query :{{slug}} </div>
+            {%endif%}
             {% if articles %}
             {% for article in articles %}
                     <div class="article-item" id="article{{article.id}}"> 

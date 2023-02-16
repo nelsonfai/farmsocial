@@ -39,11 +39,13 @@
                 },
                 success: function(data) {
                     var results = data.results;
-                    console.log(results)
                     resultsList.empty();
                     $.each(results, function(index, result) {
-                        var option = $(`<li> <a href=" {% url 'profile' ${result.id} %}">${result.text}</a> </li>`);
-                    
+                        var link = $('<a></a>');
+                        link.text(result.text);
+                        link.attr('href', '/account/profile/' + result.id);
+                        var option = $('<li></li>');
+                        option.append(link);
                         resultsList.append(option);
                     });
                     resultsList.show();
@@ -54,13 +56,10 @@
         }
     });
     
-    $(document).on('click', '.search-results li', function() {
-        var userId = $(this).attr('data-id');
-        // do something with the selected user ID
+    $(document).on('click', '.search-results li a', function() {
         resultsList.hide();
     });
 });
-
 </script>
 <style>
 
