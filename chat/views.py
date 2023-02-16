@@ -68,5 +68,5 @@ def sendmessage(request):
         message = request.POST('message')
         id =request.POST('id')
         thread = Thread.objects.get(id=id)
-        ChatMessage.objects.create(thread=thread, user=request.user, message=request.msg)
+        ChatMessage.objects.create(thread=thread, user=request.user, message=message)
         return JsonResponse({'date':'success'})
