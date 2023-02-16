@@ -220,6 +220,6 @@ def search_users(request):
         data['results'].append({
             'id': user.id,
             'text': user.get_full_name(),
-            'profilepic':user.profilepic
+            'profilepic':user.profilepic()
         })
     return JsonResponse(data)
