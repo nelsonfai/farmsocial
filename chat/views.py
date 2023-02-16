@@ -65,8 +65,10 @@ def search_chat(request):
 
 def sendmessage(request):
     if request.method=='POST':
-        message = request.POST('message')
-        id =request.POST('id')
+        message = request.POST['message']
+        id =request.POST['id']
         thread = Thread.objects.get(id=id)
-        ChatMessage.objects.create(thread=thread, user=request.user, message=message)
+        new =ChatMessage(thread=thread, user=request.user, message=message)
+        new.save()
         return JsonResponse({'date':'success'})
+    
