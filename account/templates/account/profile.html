@@ -47,7 +47,7 @@
             </div>
        <p> <span onclick="closepopup();shownetwork('following22','followers22')" >   Followers- {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')" >  Following {{profile.myfollowing.following.count}}</span> </p>
             {% if user.is_authenticated %}
-                
+                <br>
                     {% if profile != request.user %}
                     <span>
                         {% if request.user in network.follower.all %}
@@ -422,7 +422,7 @@ i{
     color: grey;
 }
 .button_three{
-    padding: .7rem 1.3rem;
+    padding: .3rem .9rem;
     background-color: #d4c44b;
     border-radius: 4rem;
     cursor: pointer;

@@ -15,7 +15,7 @@
                 <form>
                     <input type="search" name="" id="search-box" placeholder="Search User">
                     <button> <i class="fa-solid fa-magnifying-glass" style="font-size: 1.4rem; color:grey" ></i></button>
-                  </form>
+                </form>
                
             </div>
             <ul class="search-results"></ul>
@@ -36,7 +36,7 @@
         var query = $(this).val();
         if (query.length >= 2) {
             $.ajax({
-                url: '/queryusers/',
+                url: '/account/queryusers/',
                 data: {
                     'query': query
                 },
