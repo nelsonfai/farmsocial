@@ -5,7 +5,9 @@
 <div class="grid-container">
 
 <main> 
-	
+		{%if not threads %}
+		<p> No Converstions </p>
+		{%endif%}
 					
 		{% for thread in threads %}
 					<div class="contact-item">

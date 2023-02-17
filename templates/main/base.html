@@ -84,14 +84,19 @@
 
         </header>
 
-        {% for messsage in messages %}
-            <div class="message"> {{ messsage }} </div>
-            <br>
-        {% endfor %}
-        {% if request.user.is_authenticated %}
-            {% if  not request.user.is_verified %}
-            <p style="text-align: center; margin-bottom: 1rem; font-size: small; padding: 1rem;"> An email was sent to {{request.user.email}}.Please click on the verifcation link to veriry your account </p>
-            {%endif%}
+ 
+      
+            <p style="text-align: center;margin-bottom: 1rem;font-size: small;padding: 1rem;background-color: #d1eadb;">
+                {% if request.user.is_authenticated %}
+                    {% if  not request.user.is_verified %}
+                        <p > An email was sent to {{request.user.email}}.Please click on the verifcation link to veriry your account</p> 
+                    {%endif%}
+                    {% for messsage in messages %}
+                      <p style="margin-bottom: 2px;">{{ messsage }}  </p>
+                {% endfor %}
+                {%endif%}
+                 </p>
+          
         {%endif%}
 
 
