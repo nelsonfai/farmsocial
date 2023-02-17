@@ -10,7 +10,7 @@ def friendSuggestions(request):
             network = Network.objects.get(user=user)
             #friends = network.following.all().values_list('id', flat=True)
             friendsuggestions =CustomUser.objects.exclude(id=user.id)
-          
+
             # get network
             #friendsuggestions= suggestions(request,network=network)
             return {'friendsuggestions':friendsuggestions,'mynetwork':network}

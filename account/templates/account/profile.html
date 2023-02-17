@@ -234,18 +234,18 @@
         {% for item in friendsuggestions%}
         <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
             <div class="flex" > 
-                <a href="{% url 'profile' item.user.id %}"> <span class="roundedprofile" style="background:url('{{ item.user.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
+                <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                     <div>
-                        <a href="{% url 'profile' item.user.id %}"> <div class="contact-name"> {{ item.user.get_full_name|title }} </div>	</a>
+                        <a href="{% url 'profile' item.id %}"> <div class="contact-name"> {{ item.get_full_name|title }} </div>	</a>
                     </div>
             </div>
             <div> 
-                {% if item.user != request.user %}
+                {% if item != request.user %}
                 <span>
-                    {% if item.user in mynetwork.following.all %}
-                        <span onclick="network(event,url='unfollow', profile_id='{{item.user.id}}',id='itembtn')" class="button_one">Unfollow</span>
+                    {% if item in mynetwork.following.all %}
+                        <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" class="button_one">Unfollow</span>
                     {% else %}
-                        <span onclick="network(event,url='follow', profile_id='{{item.user.id}}' ,id='itembtn')" class="button_one"> +Follow</span>
+                        <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" class="button_one"> +Follow</span>
                     {% endif %}
                 </span>
                 {% endif %}
