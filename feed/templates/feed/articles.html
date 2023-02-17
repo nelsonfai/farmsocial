@@ -126,9 +126,10 @@
       {%endfor%}
       
     </div> 
+    {% if item %}
     <div class="networksugestion">
         <p>My Followers </p>
-
+     
         {% for item in friendsuggestions%}
         <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
             <div class="flex" > 
@@ -152,6 +153,7 @@
         {% endfor %}
        
     </div>
+    {% if item %}
     <div> 
     </div>
 </div>

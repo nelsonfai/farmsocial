@@ -258,7 +258,7 @@ def verify_email(request,token):
     try:
             user=CustomUser.objects.get(token=token)
             user.is_verified= True
-            profile.save()
+            user.save()
             messages.success(request, ("Email verified !"))
 
             return redirect('articles')
