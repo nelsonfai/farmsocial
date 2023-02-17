@@ -128,10 +128,10 @@
     </div> 
     {% if friendsuggestions %}
     <div class="networksugestion">
-        <p>My Followers </p>
-     
+        <p> People you may Know </p>
+          <br>
         {% for item in friendsuggestions%}
-        <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
+        <div class="flex flex_outerfollow" style="justify-content: space-between;margin-bottom: 1rem;"> 
             <div class="flex" > 
                 <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                     <div>

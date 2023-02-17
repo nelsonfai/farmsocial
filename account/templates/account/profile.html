@@ -225,9 +225,9 @@
 
 </main>
 
+{% if friendsuggestions %}
 <div class="sidebar sidebar_right">
 
-    {% if friendsuggestions %}
     <div class="networksugestion">
         <p>People you might know </p>
 
@@ -254,9 +254,10 @@
         {% endfor %}
        
     </div>
-    {% endif %}
+   
     
 </div>
+{% endif %}
 </div>
 <script>
     document.getElementById('popup22').style.display='none';
@@ -348,7 +349,9 @@ main{
     position: relative;
     
 }
-
+.sidebar_right{
+    background-color: transparent;
+}
     .profile-image-container{
         display:flex; 
         width:100%; 
