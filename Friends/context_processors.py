@@ -17,8 +17,7 @@ def friendSuggestions(request):
         
         else:
                 return {}
-
-
+"""
 def suggestions(request, network):
      # Get the current user's profile
     #profile = user
@@ -30,3 +29,6 @@ def suggestions(request, network):
     suggestions =Network.objects.filter(
         following__in = friends).exclude(id=network.id).distinct()
     return suggestions
+
+"""
+

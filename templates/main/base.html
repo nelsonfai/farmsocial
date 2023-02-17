@@ -90,7 +90,7 @@
         {% endfor %}
         {% if request.user.is_authenticated %}
             {% if  not request.user.is_verified %}
-            <p style="text-align: center; margin-bottom: 1rem; font-size: small;"> An email was sent to {{request.user.email}}.Please click on the verifcation link to veriry your account </p>
+            <p style="text-align: center; margin-bottom: 1rem; font-size: small; padding: 1rem;"> An email was sent to {{request.user.email}}.Please click on the verifcation link to veriry your account </p>
             {%endif%}
         {%endif%}
 
