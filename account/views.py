@@ -21,7 +21,8 @@ from notification.models import NotificationUser
 from Friends.models import Network
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
-
+from django.http import HttpResponse
+import uuid
 
 
 
@@ -169,14 +170,19 @@ def edit_education(request):
 class SignupWizard(SessionWizardView):
     form_list = [EmailForm, PersonalInfoForm]
     template_name = 'account/emailform.html'
+   
 
     def done(self, form_list, **kwargs):
+        token = str(uuid.uuid4())
         print(form_list[0]['password1'].value())
         user = CustomUser.objects.create_user(
         email=form_list[0].cleaned_data['email'],
         password=form_list[0].cleaned_data['password1'],
        first_name=form_list[1].cleaned_data['first_name'],
-       last_name=form_list[1].cleaned_data['last_name'])
+       last_name=form_list[1].cleaned_data['last_name'],
+       token = token
+       )
+        
         user.save()
 
         #create user Notification 
@@ -184,6 +190,10 @@ class SignupWizard(SessionWizardView):
         # create user Network
         usernetwork = Network.objects.create(user=user)
         login(self.request ,user)
+        subject = 'Account Verification My agric Diary'
+        message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/account/verify/{token}'
+        sendto = user.email
+        email(subject=subject,message=message,sendto=sendto)
         return redirect('firstProfile')
 
 class FirstProfile(SessionWizardView):
@@ -223,3 +233,35 @@ def search_users(request):
             'profilepic':user.profilepic()
         })
     return JsonResponse(data)
+
+def email(subject,message,sendto):
+                # send email
+            """
+            subject = f'Verify your email address'
+            message = f'Hi {new_profile.user.username} Thanks for joining. Activate your email  address by clicking the following link: https://www.pryclet.site/account/verify/{new_profile.token} '
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [new_profile.user.email,]
+            send_mail( subject, message, email_from, recipient_list )
+            print(  'A')
+            context={'email':new_profile.user.email}
+            #return 'done'"""
+
+            subject = subject
+            message = message
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [sendto,]
+            send_mail( subject, message, email_from, recipient_list )
+            context={'email':sendto}
+            return 'done'
+
+def verify_email(request,token):
+    try:
+            user=CustomUser.objects.get(token=token)
+            user.is_verified= True
+            profile.save()
+            messages.success(request, ("Email verified !"))
+
+            return redirect('articles')
+    except:
+        return HttpResponse('Invalid url')
+

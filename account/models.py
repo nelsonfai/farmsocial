@@ -47,6 +47,9 @@ class CustomUser(AbstractUser):
 
     date_joined = models.DateTimeField( auto_now_add=True)
     is_active = models.BooleanField( default=True)
+    is_verified = models.BooleanField( default=False)
+    token = models.CharField(max_length=200,default=1)
+
     #following = models.ManyToManyField('self', through='Follow', related_name='followed_by', symmetrical=False)
 
     #username = models.CharField(max_length=100 ,blank=True, null=True, unique=False)

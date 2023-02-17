@@ -7,9 +7,12 @@ from django.db.models import Q
 def friendSuggestions(request):
         if request.user.is_authenticated:
             user = request.user
+            network = Network.objects.get(user=user)
+            friends = network.following.all().values_list('id', flat=True)
+            friendsuggestions =CustomUser.objects.exclude(id=user.id).exclude(id__in =friends)
+          
             # get network
-            network = Network.objects.get(user=request.user)
-            friendsuggestions= suggestions(request,network=network)
+            #friendsuggestions= suggestions(request,network=network)
             return {'friendsuggestions':friendsuggestions,'mynetwork':network}
         
         else:

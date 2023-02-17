@@ -9,6 +9,8 @@ urlpatterns = [
     path('login/',views.login_view, name='login'),
     path('logout/',views.logout_view, name='logout'),
     path('signup/', views.SignupWizard.as_view(), name='signup'),
+    path('verify/<str:token>', views.verify_email, name = 'verify'),
+
     path('firstprofile/', views.FirstProfile.as_view(), name='firstProfile'),
     path('profile/<slug:slug>',views.profile, name='profile'),
     path('editprofile/name/',views.edit_name, name='editname'),

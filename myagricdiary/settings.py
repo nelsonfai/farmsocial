@@ -217,7 +217,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_TIMEOUT = 30
-DEFAULT_FROM_EMAIL = 'Pryclet <pryclet@gmail.com>'
+DEFAULT_FROM_EMAIL = 'My agricDiary <contact@myagricdiary.com>'
 
 
 

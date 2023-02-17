@@ -86,7 +86,13 @@
 
         {% for messsage in messages %}
             <div class="message"> {{ messsage }} </div>
+            <br>
         {% endfor %}
+        {% if request.user.is_authenticated %}
+            {% if request.user.is_verified %}
+            <p style="text-align: center; margin-bottom: 1rem;"> An email was sent to {{request.user.email}}.Please click on the verifcation link to veriry your account </p>
+            {%endif%}
+        {%endif%}
 
 
    <div class="flex-container">

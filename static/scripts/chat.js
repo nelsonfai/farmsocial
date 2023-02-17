@@ -154,9 +154,9 @@ $.ajax({
 </div>
 
 `
-let message_body = $('.messages-wrapper[chat-id="' + chat_id + '"] .msg_card_body')
+let message_body = $('.card-body')
 message_body.append($(questiondiv))
-input_message.val(null);
+$('#input-message').val(null);
   }
 });
 })
