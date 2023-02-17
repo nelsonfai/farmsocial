@@ -226,7 +226,8 @@
 </main>
 
 <div class="sidebar sidebar_right">
-   
+
+    {% if friendsuggestions %}
     <div class="networksugestion">
         <p>People you might know </p>
 
@@ -253,6 +254,7 @@
         {% endfor %}
        
     </div>
+    {% endif %}
     
 </div>
 </div>
