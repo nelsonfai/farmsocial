@@ -16,7 +16,6 @@
             {% endif %}
                             <div class="card">
                                 
-                                    <div class="messages-wrapper">
                                         <div class="card-header msg_head">
                                             <button onclick="history.go(-1)" id="backbtn"> <i class="fa-solid fa-arrow-left"> </i> Back </button>
 
@@ -44,21 +43,22 @@
                                             <!------- messages ------->
                                                     {%endfor%}
                                     </div>
+                                    <div class="card-footer">
+                                        <form method="POST" id="form">
+                                            {%csrf_token%}
+                                            <div class="input-group">
+                                                
+                                                <input type="text" name="" id="input-message"  placeholder="Type your message..." autocomplete="off" required>
+                                                
+                                                    <button class="btnsend " type="submit"> <i class="fa-regular fa-paper-plane"></i></button>                                        
+                                        </div>
+                                        </form>
+                                    </div>     
                             </div>
 
 
-                            </div> 
-                            <div class="card-footer">
-                                <form method="POST" id="form">
-                                    {%csrf_token%}
-                                    <div class="input-group">
-                                        
-                                        <input type="text" name="" id="input-message"  placeholder="Type your message..." autocomplete="off" required>
-                                        
-                                            <button class="btnsend " type="submit"> <i class="fa-regular fa-paper-plane"></i></button>                                        
-                                </div>
-                                </form>
-                            </div>              
+                             
+               
         
     </main>
 
@@ -105,7 +105,7 @@
 <script>
     $(document).ready(function() {
   setTimeout(function() {
-    var newDiv = $('<div>').text('Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out').addClass('msg_cotainer');
+    var newDiv = $('<div class="msg_container">').text('Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out').addClass('msg_cotainer');
     $('#messagebody').append(newDiv);
   }, 2000);
 });

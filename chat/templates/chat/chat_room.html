@@ -101,7 +101,7 @@
                                         {% endif %}
                                         <span></span>
                                          </div>   
-                                        <div class="card-body msg_card_body">
+                                        <div class="card-body msg_card_body"  id="messagebody">
                                             <!------- messages ------->
                                             {% for chat in thread.chatmessage_thread.all %}
                                                 {% if chat.user == user %}

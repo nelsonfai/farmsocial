@@ -127,8 +127,11 @@ function get_active_thread_id(){
 */
 
 
-
-
+let message_body = $('#messagebody')
+message_body.animate({
+    scrollTop: $(document).height()
+}, 100);
+  
 
 $('#send-message-form').submit(function(e){
 e.preventDefault();
@@ -154,9 +157,13 @@ $.ajax({
 </div>
 
 `
-let message_body = $('.card-body')
+let message_body = $('#messagebody')
 message_body.append($(questiondiv))
 $('#input-message').val(null);
+
+message_body.animate({
+    scrollTop: $(document).height()
+}, 100);
   }
 });
 })
