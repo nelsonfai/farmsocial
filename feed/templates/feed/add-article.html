@@ -10,26 +10,10 @@
    
         <label for="body">Body</label>
        
-        <textarea rows="5" name="body" oninput="auto_grow(this)" placeholder="Write Text here..."></textarea>
+        <textarea rows="5" name="body" oninput="auto_grow(this)" placeholder="Write Text here..." required></textarea>
 
     <br>
-   
-    <div class="create-post">
-        <div class="left">
-            <span>
-          
-                <a href="{% url 'profile' request.user.id %}">
-                    <div class="roundedprofile" style="background:url('{{request.user.profilepic}}') ;background-position: center; background-size: contain;">
-                      </div> 
-                </a>   
- 
-            </span>         <span>{{request.user.get_full_name}}</span>
-        </div>
-        <div class="right">                        
-             <button type="submit"  style="width:100%" id="buttonpost" class="button_one" disabled> Submit </button>
-        </div>
-     </div>
-     <hr>
+    <button type="submit"  style="width:100%;margin-bottom: 100px;" id="buttonpost" class="button_one" disabled> Post </button>
      
     </form>
 
@@ -46,7 +30,6 @@
     form{
         width:100%;
         font-family: 'Open sans',sans-serif;
-        margin-bottom: 100px;
 
     }
     form input{
@@ -121,4 +104,3 @@
   </script>
 
 {% endblock %}
-style="height:20px;width:400px;"
