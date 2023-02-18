@@ -117,10 +117,12 @@ message_body.animate({
 <script>
 
     $(document).ready(function() {
-  setTimeout(function() {
-    var newDiv = $('<div >').addClass('msg_container').text('Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out').addClass('msg_cotainer');
+
+    var newDiv = $('<div >')
+        newDiv.addClass('msg_container')
+        newDiv.text('Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out').addClass('msg_cotainer');
     $('#messagebody').append(newDiv);
-  }, 2000);
+;
 });
 
 </script>
@@ -189,9 +191,7 @@ message_body.animate({
         height: 3rem;
         border-radius: 50%;
     }
-.card-body{
-    min-height: 60vh;
-}
+
     @media screen and (max-width:780px) {
         body{
     background-color: #fff;
