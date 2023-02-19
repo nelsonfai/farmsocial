@@ -55,6 +55,10 @@ class ProfileInfo(UserCreationForm):
         fields=('bio','location','profile_pic')
         labels = {'bio': 'About me'}
 
+        widgets ={
+            
+            'bio': forms.Textarea(attrs={'class':'form_contol','placeholder':'Write a short self-description to introduce yourself to the community...', 'rows':3,})
+        }   
     def __init__(self,*args,**kwargs):
         super(ProfileInfo,self).__init__(*args,**kwargs)
         del self.fields['password2']

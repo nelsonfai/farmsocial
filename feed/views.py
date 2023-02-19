@@ -24,8 +24,9 @@ def add_article(request):
             if article_form.is_valid():
                 obj=article_form.save(commit=False)
                 obj.author = request.user
+                
                 obj.body=f'<pre>{body}</pre>'
-                obj.slug = slug_generator(obj)
+                obj.slug = slug_generator(title=obj.title[:5],body=body[:5])
                 
                 obj.save()
                 return redirect('articles')      
@@ -38,11 +39,11 @@ def add_article(request):
 
         return render (request, 'feed/add-article.html',{'form':article_form,'stylesheet':'styles/feed.css'} )
 
-def slug_generator(instance):
-    if instance.title:
-        new_title = instance.title
+def slug_generator(title,body):
+    if title:
+        new_title = title
     else:
-        new_title =" ".join(instance.body.split(" ")[3:9])
+        new_title =" ".join(body.split(" "))
     random_string = secrets.token_hex(5)
     print(random_string)
     slug_string = " ".join([new_title, random_string])

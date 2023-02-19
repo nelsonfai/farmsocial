@@ -58,6 +58,7 @@
                                 </span>
                             </div>
                         </div>
+                       {%if article.title %} <p> <strong>{{article.title|safe}} </strong></p>{%endif%}
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}} </p>
                                     <button id="toggle-button" style="color:#d4c44b"> show less </button>

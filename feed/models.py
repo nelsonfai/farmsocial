@@ -84,10 +84,10 @@ def timefuntion(date):
 
 class Articles (models.Model):
     author=models.ForeignKey(CustomUser, related_name='profile' ,on_delete= models.CASCADE)
-    title = models.CharField( max_length=200, blank=True, null=True)
+    title = models.CharField( max_length=400, blank=True, null=True)
     #body = models.TextField()
     body = RichTextField( blank=True, null=True ,db_index=True)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
     article_image = models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png',])])
     likes =models.ManyToManyField(CustomUser, default=None,blank=True, related_name='liked')
