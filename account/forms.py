@@ -53,18 +53,24 @@ class ProfileInfo(UserCreationForm):
     class Meta:
         model=CustomUser
         fields=('bio','location','profile_pic')
+        labels = {'bio': 'About me'}
+
     def __init__(self,*args,**kwargs):
         super(ProfileInfo,self).__init__(*args,**kwargs)
         del self.fields['password2']
         del self.fields['password1']
         self.fields['bio'].widget.attrs['class']='form_control'
         self.fields['location'].widget.attrs['class']='form_control'
+        self.fields['bio'].widget.attrs['placeholder']='Write a short self-description to introduce yourself to the community... '
+
 
 
 class EducationForm(UserCreationForm):
     class Meta:
         model=CustomUser
         fields=('is_student','course','instituition','profession','company')
+        labels = {'is_student': 'I am a student'}
+
     def __init__(self,*args,**kwargs):
             super(EducationForm,self).__init__(*args,**kwargs)
             del self.fields['password1']
