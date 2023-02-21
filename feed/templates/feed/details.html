@@ -38,11 +38,11 @@
       <span class="likes">{{article.likes.all.count}} </span>
   </span> 
 
-  <a href=" {% url 'details' article_slug=article.slug %}"><span> Share </span></a>
+  <a href=" "><span> Share </span></a>
   <span> Comment ({{ article.comments.all.count }})</span>
 </div>
 
-<div class="comments-box">
+<div class="comments-box" id="comments-box">
   <h4 > Comments ({{ article.comments.all.count }})  </h4>
   <br>
 
@@ -54,7 +54,7 @@
     </div>
 
       <div> 
-        <div> {{comment.author.get_full_name}}</div> 
+        <div> <a href=" {% url 'profile' comment.author.id %}">{{comment.author.get_full_name}} </a></div> 
         <div class="comment">   
           {{comment.comment}}
         </div> 
@@ -86,18 +86,7 @@
  <p id="commentalert" style="color: red;"> </p>
 </main>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-  function commentAlert(){
-    let commentalert= document.getElementById('commentalert')
-  commentalert.innerText='You must be Logged in to Comment ';
-  setTimeout(() => {
-  
-    commentalert.innerText = '';
-  }, 2000);
-  ;
-}
 
-</script>
 <script>
   $(document).ready(function(){
 $(".like-button").click(function(e){
@@ -111,6 +100,7 @@ var likes_span = $(this).siblings('.likes');
 $.ajax({
 url: '/' + post_id + '/like',
 dataType: 'json',
+
 success: function(data) {
   likes_span.text(data.likes);
   if (data.userLike === true) {
@@ -118,7 +108,45 @@ success: function(data) {
   } else {
       likeButton.html(`<img src="{% static 'images/like.png' %}" width="25px">`)
   }
-     
+}
+});
+});
+});
+
+</script>
+
+<script>
+  $(document).ready(function(){
+$(".commentform").submit(function(e){
+e.preventDefault();
+var comment = $('#id_comment').val();
+var id =` {{ article.slug }}`;
+
+$.ajax({
+url: '/' + id + '/comment',
+dataType: 'json',
+  method:'POST',
+  data : {
+    'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+  'comment' : comment,
+},
+  success:function(data) {
+   let div = `<div class="flex">
+  
+              <div style="width:30px"> 
+              <div class="roundedprofile" style="background:url('{{request.user.profilepic}}') ;background-position: center; background-size: contain;">  </div> 
+            </div>
+            <div> 
+              <div> <a href=" {% url 'profile' request.user.id %}"> {{request.user.get_full_name}} </a> </div> 
+              <div class="comment">   
+                ${comment}
+              </div> 
+            </div>
+
+        </div>
+`
+$('#comments-box').append($(div))
+
 }
 });
 });
@@ -126,8 +154,6 @@ success: function(data) {
 
 
 </script>
-
-
 </div>
 </div>
 

@@ -90,23 +90,19 @@ def article_details(request,article_slug):
     return render(request, 'feed/details.html',context)
 @login_required   
 def comment(request,article_slug):
-    if request.method=='POST':
-            article=Articles.objects.get(slug=article_slug)
-            comment_form = CommentForm(request.POST)
-            if comment_form.is_valid():
-                obj=comment_form.save(commit=False)
+                article=Articles.objects.get(slug=article_slug)
+                comment = request.POST['comment']
+                obj = CommentForm()
                 obj.article = article
                 obj.author = request.user
+                obj.comment = comment
                 obj.save()
                 message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
                 notification_signal.send(message =message,target=article.author,trigger=request.user,sender=None)
 
-                return redirect('details' ,article_slug=article.slug)      
-            else:
-                comment_form =CommentForm()
-           
+                return JsonResponse({'success':1 })
 
-    return redirect('details' ,article_slug=article.slug)   
+
 @login_required   
 def like_article(request, article_id):
         user=request.user

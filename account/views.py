@@ -30,51 +30,63 @@ import uuid
 
 # Create your views here.
 def login_view(request):
-    if request.method == 'POST':
-        form =LogInForm(data=request.POST)
-        if form.is_valid():
-            user=form.get_user()
-            login(request,user)
-            if 'next' in request.POST:
-                messages.success(request, ("You were succesfully logged in"))
-                return redirect(request.POST.get('next'))
-            else:
-                messages.success(request, ("You were succesfully logged in"))
-                return redirect('articles')
-            
-    else:
-        form=LogInForm()
+    try:
+        if request.method == 'POST':
+            form =LogInForm(data=request.POST)
+            if form.is_valid():
+                user=form.get_user()
+                login(request,user)
+                if 'next' in request.POST:
+                    messages.success(request, ("You were succesfully logged in"))
+                    return redirect(request.POST.get('next'))
+                else:
+                    messages.success(request, ("You were succesfully logged in"))
+                    return redirect('articles')
+                
+        else:
+            form=LogInForm()
 
-    context={
-                'form':form,
+        context={
+                    'form':form,
 
-    }
+        }
+        return render(request ,'account/login.html',context)
 
-    return render(request ,'account/login.html',context)
 
+    except:
+        messages.error(request,('Oops Something went wrong.Please try again later.'))
+        return render(request ,'account/login.html',context)
 
 def logout_view(request):
-    
-        logout(request)
-        messages.success(request, ("You were succesfully logged out"))
-        return redirect('articles')
-    
+        try:
+            logout(request)
+            messages.success(request, ("You were succesfully logged out"))
+            return redirect('articles')
+        except:
+            messages.error(request,('Oops Something went wrong.Please try again later.'))
+            return redirect('articles')
+
+        
 @login_required()     
 def profile(request,slug):
-    
-    profile=CustomUser.objects.get(id = slug )
-    products=ProductItem.objects.filter(user_profile=profile)
-    articles=Articles.objects.filter(author=profile)
-    followers = Network.objects.get(user=profile)
+    try:    
+        profile=CustomUser.objects.get(id = slug )
+        products=ProductItem.objects.filter(user_profile=profile)
+        articles=Articles.objects.filter(author=profile)
+        followers = Network.objects.get(user=profile)
 
-    context={
-                'profile':profile,
-                'products':products,
-                'articles':articles,
-                'network':followers
-            }
-     
-    return render(request ,'account/profile.html',context)
+        context={
+                    'profile':profile,
+                    'products':products,
+                    'articles':articles,
+                    'network':followers
+                }
+        return render(request ,'account/profile.html',context)
+
+    except:
+            messages.error(request,('Oops Something went wrong.Please try again later.'))
+            return render(request ,'account/profile.html',context)
+    
 @login_required   
 def edit_profile(request):
         user = request.user
@@ -88,6 +100,7 @@ def edit_profile(request):
         return render (request,'account/editprofile.html',context)
 @login_required           
 def edit_name(request):
+    
         if request.method == 'POST':
             form=PersonalInfoForm(request.POST or None,instance =request.user)
             if form.is_valid():

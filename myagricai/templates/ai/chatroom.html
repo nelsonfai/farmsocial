@@ -118,10 +118,8 @@ message_body.animate({
 
     $(document).ready(function() {
 
-    var newDiv = $('<div >')
-        newDiv.addClass('msg_container')
-        newDiv.text('Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out').addClass('msg_cotainer');
-    $('#messagebody').append(newDiv);
+    let welcome = $(`<div class='msg_cotainer'> <p>Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out </p></div> ;`)
+    $('#messagebody').append($(welcome));
 ;
 });
 
