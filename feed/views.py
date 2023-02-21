@@ -14,6 +14,7 @@ from notification.signals import notification_signal
 from taggit.models import Tag
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
+from .models import Comments
 
 # Create your views here.
 @login_required   
@@ -92,15 +93,16 @@ def article_details(request,article_slug):
 def comment(request,article_slug):
                 article=Articles.objects.get(slug=article_slug)
                 comment = request.POST['comment']
-                obj = CommentForm()
+                obj = Comments()
                 obj.article = article
                 obj.author = request.user
                 obj.comment = comment
+                obj.article_id = article.id
                 obj.save()
                 message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
                 notification_signal.send(message =message,target=article.author,trigger=request.user,sender=None)
 
-                return JsonResponse({'success':1 })
+                return JsonResponse({'success':'succes' })
 
 
 @login_required   

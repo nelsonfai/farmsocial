@@ -117,7 +117,7 @@ success: function(data) {
 
 <script>
   $(document).ready(function(){
-$(".commentform").submit(function(e){
+$("#commentform").submit(function(e){
 e.preventDefault();
 var comment = $('#id_comment').val();
 var id ='{{ article.slug }}';
@@ -125,19 +125,19 @@ var id ='{{ article.slug }}';
 $.ajax({
 url: '/' + id + '/comment',
 dataType: 'json',
-  method:'POST',
-  data : {
+method:'POST',
+data : {
     'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
   'comment' : comment,
 },
-  success:function(data) {
+success:function(data) {
    let div = `<div class="flex">
   
               <div style="width:30px"> 
               <div class="roundedprofile" style="background:url('{{request.user.profilepic}}') ;background-position: center; background-size: contain;">  </div> 
             </div>
             <div> 
-              <div> <a href=" {% url 'profile' request.user.id %}"> {{request.user.get_full_name}} </a> </div> 
+              <div> <a href=" {% url 'profile' request.user.id %}" style="color: #333;> {{request.user.get_full_name}} </a> </div> 
               <div class="comment">   
                 ${comment}
               </div> 
@@ -146,6 +146,8 @@ dataType: 'json',
         </div>
 `
 $('#comments-box').append($(div))
+$('#id_comment').val(null)
+
 
 }
 });

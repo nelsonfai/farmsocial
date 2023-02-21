@@ -34,9 +34,8 @@
         if (query.length >= 2) {
             $.ajax({
                 url: '/account/queryusers/',
-                data: {
-                    'query': query
-                },
+
+                
                 success: function(data) {
                     var results = data.results;
                     resultsList.empty();
