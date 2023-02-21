@@ -54,7 +54,7 @@
     </div>
 
       <div> 
-        <div> <a href=" {% url 'profile' comment.author.id %}">{{comment.author.get_full_name}} </a></div> 
+        <div> <a href=" {% url 'profile' comment.author.id %}" style="color: #333;">{{comment.author.get_full_name}} </a></div> 
         <div class="comment">   
           {{comment.comment}}
         </div> 
@@ -120,7 +120,7 @@ success: function(data) {
 $(".commentform").submit(function(e){
 e.preventDefault();
 var comment = $('#id_comment').val();
-var id =` {{ article.slug }}`;
+var id ='{{ article.slug }}';
 
 $.ajax({
 url: '/' + id + '/comment',
