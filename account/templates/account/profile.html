@@ -123,7 +123,7 @@
                     <br>
                     {% for article in articles %}
                     <div class="article-item" id="article{{article.id}}">
-                        {% if article.article_image %}
+                        {% if article.thumpnail %}
                         <div class="image">
                             <img src="{{ article.article_image.url }}" alt="article image" width="70px">
                         </div>
