@@ -23,6 +23,7 @@ from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 from django.http import HttpResponse
 import uuid
+from PIL import Image
 
 
 
@@ -132,7 +133,10 @@ def edit_bio(request):
                 user = request.user
                 user.bio=form.cleaned_data['bio']
                 user.location=form.cleaned_data['location']
-                user.profile_pic=form.cleaned_data['profile_pic']
+                if user.profile_pic == form.cleaned_data['profile_pic']:
+                        pass
+                else:
+                     user.profile_pic == thumpnail(form.cleaned_data['profile_pic'])
 
                 user.save()
                 return redirect('profile',request.user.id)
@@ -220,13 +224,15 @@ class FirstProfile(SessionWizardView):
         print(form_list)
         user.bio=form_list[0].cleaned_data['bio']
         user.location=form_list[0].cleaned_data['location']
-        user.profile_pic=form_list[0].cleaned_data['profile_pic']
+        #user.profile_pic=form_list[0].cleaned_data['profile_pic']
+        user.profile_pic= thumpnail(form_list[0].cleaned_data['profile_pic'])
         user.is_student=form_list[1].cleaned_data['is_student']
         user.course=form_list[1].cleaned_data['course']
         user.instituition=form_list[1].cleaned_data['instituition']
         user.profession =form_list[1].cleaned_data['profession']
         user.company=form_list[1].cleaned_data['company']
         print(user.profile_pic)
+
         user.save()
         print('updated')
         return redirect('articles')
@@ -278,3 +284,22 @@ def verify_email(request,token):
     except:
         return HttpResponse('Invalid url')
 
+
+
+def image_commpress(image):
+    img = Image.open(image)
+    # Resize the image to a maximum width of 1000 pixels
+    if img.width > 1000:
+        img.thumbnail((1000, 1000))
+    # Save the image in JPEG format with 80% quality
+    img.save("optimized.jpg", "JPEG", quality=85,exif="")
+    return img
+
+def thumpnail(image):
+    img = Image.open(image)
+    # Resize the image to a maximum width of 1000 pixels
+    if img.width > 1000:
+        img.thumbnail((500, 500))
+    # Save the image in JPEG format with 80% quality
+    img.save("optimized.jpg", "JPEG", quality=85,exif="")
+    return img

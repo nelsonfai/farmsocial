@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from django_countries.fields import CountryField
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MaxFileSizeValidator
 #from network.models import Follow
 
 
@@ -36,8 +36,7 @@ class CustomUser(AbstractUser):
 
     bio=models.CharField(max_length=400,blank=True, null=True)
     location = CountryField(blank_label='(select country)')
-    profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg'])])
-   
+    profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']), MaxFileSizeValidator(10 * 1024 * 1024)])
     is_student = models.BooleanField(default=False)
     course = models.CharField(max_length=100 ,blank=True, null=True)
     instituition = models.CharField(max_length=100 ,blank=True, null=True)
