@@ -225,7 +225,7 @@ class FirstProfile(SessionWizardView):
         user.bio=form_list[0].cleaned_data['bio']
         user.location=form_list[0].cleaned_data['location']
         #user.profile_pic=form_list[0].cleaned_data['profile_pic']
-        user.profile_pic= thumpnail(form_list[0].cleaned_data['profile_pic'])
+        user.profile_pic=form_list[0].cleaned_data['profile_pic']
         user.is_student=form_list[1].cleaned_data['is_student']
         user.course=form_list[1].cleaned_data['course']
         user.instituition=form_list[1].cleaned_data['instituition']
