@@ -2,9 +2,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from django_countries.fields import CountryField
-from django.core.validators import FileExtensionValidator, MaxFileSizeValidator
+from django.core.validators import FileExtensionValidator
 #from network.models import Follow
 
+from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
+
+
+def validate_file_size(value):
+    filesize = value.size
+    if filesize > 10 * 1024 * 1024:
+        raise ValidationError(
+            _("The file size must be less than 10MB.")
+        )
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
@@ -36,7 +46,7 @@ class CustomUser(AbstractUser):
 
     bio=models.CharField(max_length=400,blank=True, null=True)
     location = CountryField(blank_label='(select country)')
-    profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']), MaxFileSizeValidator(10 * 1024 * 1024)])
+    profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),  validate_file_size])
     is_student = models.BooleanField(default=False)
     course = models.CharField(max_length=100 ,blank=True, null=True)
     instituition = models.CharField(max_length=100 ,blank=True, null=True)

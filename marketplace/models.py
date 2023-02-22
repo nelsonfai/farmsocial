@@ -1,8 +1,20 @@
 from unicodedata import category
 from django.db import models
-from django.core.validators import FileExtensionValidator, MaxFileSizeValidator
+from django.core.validators import FileExtensionValidator
 
 from account.models import CustomUser
+
+
+from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
+
+def validate_file_size(value):
+    filesize = value.size
+    if filesize > 10 * 1024 * 1024:
+        raise ValidationError(
+            _("The file size must be less than 10MB.")
+        )
+
 # Create your models here.
 category=(
     ("none","none"),
@@ -22,7 +34,7 @@ class ProductItem(models.Model):
     quantity=models.CharField(max_length=200 )
     price=models.CharField(max_length=200 )
     location=models.CharField(max_length=200)
-    main_image=models.ImageField(upload_to='market/',validators=[FileExtensionValidator(['jpg','png','jpeg']), MaxFileSizeValidator(10 * 1024 * 1024)])
+    main_image=models.ImageField(upload_to='market/',validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size])
     image2=models.ImageField(blank=True, null=True ,help_text='Optional',upload_to='market/',validators=[FileExtensionValidator(['jpg','png','jpeg']), MaxFileSizeValidator(10 * 1024 * 1024)])
     image3=models.ImageField(blank=True, null=True,help_text='Optional', upload_to='market/',validators=[FileExtensionValidator(['jpg','png','jpeg']), MaxFileSizeValidator(10 * 1024 * 1024)])
     product_category=models.CharField(choices=category, max_length=20, default='none')

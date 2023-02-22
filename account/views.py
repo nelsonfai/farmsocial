@@ -298,7 +298,7 @@ def image_commpress(image):
 def thumpnail(image):
     img = Image.open(image)
     # Resize the image to a maximum width of 1000 pixels
-    if img.width > 1000:
+    if img.width > 500:
         img.thumbnail((500, 500))
     # Save the image in JPEG format with 80% quality
     img.save("optimized.jpg", "JPEG", quality=85,exif="")
