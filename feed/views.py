@@ -27,12 +27,13 @@ def add_article(request):
                 obj=article_form.save(commit=False)
                 obj.author = request.user
                 obj.article_image = image_commpress(obj.article_image)
-                obj.thumpnail= thumpnail(obj.article_image)
+                
                 
                 obj.body=f'<pre>{body}</pre>'
                 obj.slug = slug_generator(title=obj.title[:5],body=body[:5])
                 
-                obj.save()
+                newarticle = obj.save()
+                newarticle.thumpnail= thumpnail(obj.article_image)
                 return redirect('articles')      
             else:
                 article_form =ArticleForm()
