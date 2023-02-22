@@ -288,6 +288,8 @@ def verify_email(request,token):
 
 def image_commpress(image):
     img = Image.open(image)
+    if img.mode == 'RGBA':
+        img=img.convert('RGB')
     # Resize the image to a maximum width of 1000 pixels
     if img.width > 1000:
         img.thumbnail((1000, 1000))
@@ -297,6 +299,8 @@ def image_commpress(image):
 
 def thumpnail(image):
     img = Image.open(image)
+    if img.mode == 'RGBA':
+        img=img.convert('RGB')
     # Resize the image to a maximum width of 1000 pixels
     if img.width > 200:
         img.thumbnail((200, 200))

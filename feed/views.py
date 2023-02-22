@@ -23,17 +23,16 @@ def add_article(request):
     if request.method=='POST':
             body=request.POST.get('body')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
+            image = request.FILES['article_image']
             if article_form.is_valid():
                 obj=article_form.save(commit=False)
                 obj.author = request.user
-                obj.article_image = image_commpress(obj.article_image)
                 
                 
                 obj.body=f'<pre>{body}</pre>'
                 obj.slug = slug_generator(title=obj.title[:5],body=body[:5])
                 
-                newarticle = obj.save()
-                newarticle.thumpnail= thumpnail(obj.article_image)
+                obj.save()
                 return redirect('articles')      
             else:
                 article_form =ArticleForm()
@@ -207,6 +206,8 @@ def filter_article(request,tag):
 def image_commpress(image):
     img = Image.open(image)
     # Resize the image to a maximum width of 1000 pixels
+    if img.mode == 'RGBA':
+        img=img.convert('RGB')
     if img.width > 1000:
         img.thumbnail((1000, 1000))
     # Save the image in JPEG format with 70% quality
@@ -215,6 +216,8 @@ def image_commpress(image):
 
 def thumpnail(image):
     img = Image.open(image)
+    if img.mode == 'RGBA':
+        img=img.convert('RGB')
     # Resize the image to a maximum width of 1000 pixels
     if img.width > 200:
         img.thumbnail((200, 200))

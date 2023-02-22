@@ -103,7 +103,7 @@ class Articles (models.Model):
     slug = models.SlugField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
     article_image = models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png',]),validate_file_size])
-    thumpnail = models.ImageField( upload_to='articlepics/thumbnails/',blank=True, null=True ,default='https://via.placeholder.com/150x150.jpeg?text=Image' )
+    thumpnail = models.ImageField( upload_to='articlepics/thumbnails/',blank=True, null=True ,default='/images/articleholder.jpg' )
     likes =models.ManyToManyField(CustomUser, default=None,blank=True, related_name='liked')
     #tagline=models.CharField(max_length=100 ,blank=True,null=True)
     tag = TaggableManager(blank=True)
