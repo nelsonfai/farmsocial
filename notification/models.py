@@ -3,6 +3,7 @@ import math
 from django.db import models
 from account.models import CustomUser
 from django.utils import timezone
+from company.models import Company
 
 def timefuntion(date):
         now = timezone.now()
@@ -73,18 +74,19 @@ def timefuntion(date):
 # Create your models here.
 class Notification(models.Model):
     message= models.CharField(max_length=200)
-    trigger = models.ForeignKey(CustomUser, on_delete=models.CASCADE,related_name='trigger')
-    target = models.ForeignKey(CustomUser, on_delete=models.CASCADE,related_name='target')
+    trigger = models.ForeignKey(CustomUser, on_delete=models.CASCADE,related_name='trigger', blank=True,null=True)
+    trigger_page= models.ForeignKey(Company, on_delete=models.CASCADE,related_name='trigger_page', blank=True,null=True)
     time = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
+    url=models.CharField( default='/articles', max_length=400)
     def __str__(self):
        return self.message
     def whencreated(self):
         return timefuntion(self.time)
 
 class NotificationUser(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE,related_name='usernotification')
     mynotification = models.ManyToManyField(Notification)
     def __str__(self):
        return self.user.email

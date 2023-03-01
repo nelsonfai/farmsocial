@@ -5,8 +5,10 @@ from django.contrib import messages
 from account.models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-
-
+from PIL import Image
+from company.models import Company
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import io
 # Create your view
 @login_required   
 def market (request):
@@ -30,31 +32,49 @@ def add_product (request):
             'user_profile':profile
         }
         form = ProductitemForm(request.POST, request.FILES)
+        mainimage= request.FILES.get('main_image')
+        image2= request.FILES.get('image2')
+        image3= request.FILES.get('image3')
         form.user_profile=request.user
+        company = request.POST.get('company')
         print(form.user_profile)
 
         if form.is_valid:
-            
-            form.save()
+            obj = form.save(commit=False)
+            if company !='None':
+                companypage = Company.objects.get(identifier=company)
+                obj.companypage = companypage
+            if mainimage:
+                obj.main_image=thumpnail(mainimage)
+            if image2:
+                obj.image2=thumpnail(image2)
+            if image3:
+                obj.image3=thumpnail(image3)
+            obj.save()
             messages.success(request,'Product added succesfully')
             return redirect ('market')
         else:
+            options = request.user.company_admin.all()
             messages.success(request,'Product add failed Try again')
             form = ProductitemForm()
             context={
-            "form":form
+            "form":form,
+            'options':options
               }
             return render (request,'marketplace/newproduct.html',context)
+    else:
+        profile=request.user
+        initial_data={
+                'user_profile':profile
+            }
+        form = ProductitemForm(initial=initial_data)
+        options = request.user.company_admin.all()
 
-    profile=request.user
-    initial_data={
-            'user_profile':profile
+        context={
+            "form":form,
+            'options':options
         }
-    form = ProductitemForm(initial=initial_data)
-    context={
-        "form":form
-    }
-    return render (request,'marketplace/newproduct.html',context)
+        return render (request,'marketplace/newproduct.html',context)
 
 def product (request,slug):
     productitem=ProductItem.objects.get(id=slug)
@@ -115,13 +135,23 @@ def edit_product (request,slug):
 
         if request.method == 'POST':
             form=ProductUpdate(request.POST or None, request.FILES or None, instance=productitem)
+            mainimage= request.FILES.get('main_image')
+            image2= request.FILES.get('image2')
+            image3= request.FILES.get('image3')
+            form.user_profile=request.user
             if form.is_valid():
                 obj= form.save(commit=False)
                 obj.save()
                 productitem = obj
                 messages.success(request,'Product succesfully updated')
-                return redirect ('myproducts' ) 
-
+                
+                if mainimage:
+                    obj.main_image=thumpnail(mainimage)
+                if image2:
+                    obj.image2=thumpnail(image2)
+                if image3:
+                    obj.image3=thumpnail(image3)
+                return redirect ('myproducts' )  
         else:    
             form = ProductUpdate(instance=productitem)
 
@@ -150,3 +180,13 @@ def delete_product (request,slug):
     else:
         return redirect('myproducts')
 
+
+def thumpnail(image):
+    img = Image.open(image)
+    max_size = (250, 250)
+    img.thumbnail(max_size,Image.ANTIALIAS)
+    output = io.BytesIO()
+    img.save(output,format='png', quality=80)
+    output.seek(0)
+    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+    return compressed_image

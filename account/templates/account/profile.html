@@ -3,6 +3,7 @@
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'styles/profile.css' %}">
 
 <div class="grid-container">
 
@@ -21,7 +22,6 @@
                 <span class="deletebtnfloat"> <a href="{% url 'editname' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
                 {%endif%}
             </h2>
-            
             <div class="sector"> 
                 {% if profile.is_student %}
 
@@ -52,11 +52,11 @@
             {% if user.is_authenticated %}
                 <br>
                     {% if profile != request.user %}
-                    <span>
+                    <span class="button_three" style="background-color: #f5f5f5;">
                         {% if request.user in network.follower.all %}
-                            <span onclick="network(event,url='unfollow', profile_id='{{profile.id}}',id='unfollowbtn')" style="cursor: pointer;">Unfollow</span>
+                            <span onclick="network(event,url='unfollow', profile_id='{{profile.id}}',id='unfollowbtn')" style="cursor: pointer;">followingffff</span>
                         {% else %}
-                            <span onclick="network(event,url='follow', profile_id='{{profile.id}}' ,id='followbtn')"style="cursor: pointer;" >Follow</span>
+                            <span onclick="network(event,url='follow', profile_id='{{profile.id}}' ,id='followbtn')"style="cursor: pointer;" >Follow fff</span>
                         {% endif %}
                     </span>
                         <span> 
@@ -97,17 +97,14 @@
                     {%endif%}
                 </h4>
                     <br>
-                    <div class="products"> 
+                    <div class="products-container"> 
                     {% for product in products %}
                    
                         <div class="products">     
                                 <div style="margin-inline:5px ;">
                                     <div style="background:url('{{ product.main_image.url }}') ;width:100px;height: 100px;background-position: center;background-repeat: no-repeat;background-size: cover;" > </div>
                                         <div class="product-info">
-                                            <p> {{ product.product | truncatechars:10}} </p>
-                                            <small><a href="{% url 'product' slug=product.id %}">View</a> </small>
-                                            <small><a href="{% url 'edit_product' product.id %}"> Edit</a> </small>
-                                       
+                                            <p style="padding-block: .5rem;margin-bottom: .5rem; border-bottom: 1px solid grey;"> <a href="{% url 'product' slug=product.id %}" style="color: #333;"> {{ product.product | truncatechars:10}} </a></p>
                                         </div>
                                         <br>     
                                 </div>
@@ -174,16 +171,14 @@
                         </div>
                         <div> 
                             {% if item != request.user %}
-                            <span>
+                            <span class="button_three" style="background-color: #f5f5f5;">
                                 {% if item in mynetwork.following.all %}
-                                    <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</span>
+                                    <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >following</span>
                                 {% else %}
-                                    <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</span>
+                                    <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')">Follow</span>
                                 {% endif %}
                             </span>
-                                <span class="button_three"> 
-                                    <a href="{% url 'createchat' item.id %}"> Message</a>
-                                </span>
+
                             
                             {% endif %}
 
@@ -205,11 +200,11 @@
                     </div>
                     <div> 
                         {% if item != request.user %}
-                        <span>
+                        <span class="button_three" style="background-color: #f5f5f5;">
                             {% if item in mynetwork.following.all %}
-                                <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')"  class="button_one">Unfollow</span>
+                                <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >following</span>
                             {% else %}
-                                <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" class="button_one">+Follow</span>
+                                <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >+Follow</span>
                             {% endif %}
                         </span>
     
@@ -241,11 +236,11 @@
             </div>
             <div> 
                 {% if item != request.user %}
-                <span>
+                <span class="button_three" style="background-color: #f5f5f5;">
                     {% if item in mynetwork.following.all %}
-                        <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" class="button_one">Unfollow</span>
+                        <span onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >following</span>
                     {% else %}
-                        <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" class="button_one"> +Follow</span>
+                        <span onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" > +Follow</span>
                     {% endif %}
                 </span>
                 {% endif %}
@@ -309,177 +304,8 @@
     
     </script>
 
-<style>
-    .grid-container{
 
-  width: 100%;
-
-}
-.products{
-    display: flex;
-}
-.flex_outerfollow{
-        width:100%;
-        max-width: 450px;
-        justify-content: space-between;
-        margin-block: 1rem;
-    }
-#popup22{
-    position:absolute;
-    width:100%;
-    height: 100%;
-    overflow-y: scroll;
-    background-color: #fff;
-    top:0;
-    padding: 1rem;
-}
-#followers22Indicate,#following22Indicate{
-    padding: 1rem 2rem;
-}
-.popuphead{
-    display: flex;
-    justify-content: space-between;
-    background-color: #f5f5f5;
-    padding: 1rem;
-}
-.popupbody{
-    margin-block: 1rem;
-}
-main{
-    position: relative;
-    
-}
-.sidebar_right{
-    background-color: transparent;
-}
-    .profile-image-container{
-        display:flex; 
-        width:100%; 
-        align-items:center;
-        border-radius: 10px;
-        margin-block: 10px;
-        gap: 20px;
-        background-color: #fff;
-    }
-    .profile-image{
-        width:20%;
-        padding: 1rem;
-    }
-    .profile-name{
-        width:60%;
-        padding: 1rem;
-    }
-    .name{
-        margin-bottom: 5px;
-        position: relative;
-    }
-    .sector{
-        color:grey;
-        margin-bottom: 1rem;
-        position: relative;
-    }
-    .message{
-    padding: 5px 15px;
-    margin-block:20px;
-    border-radius: 5px;
-   
-    color:white
-    }
-    .about{
-        margin-bottom: 20px;
-        background-color: #fff;
-        padding: 1rem;
-        position: relative;
-    }
-
-    h3,h2,h4,h5{
-        margin-bottom: 5px;
-    }
-    .profile-articles{
-        background-color: #fff;
-        padding: 1rem;
-    }
-    .article-item{
-        display: flex;  
-        gap:10px;
-       align-items: center;
-       padding:1rem;
-       position: relative;
-    }
-    .article-item:nth-child(odd){
-        background-color: #f5f5f5;
-    }
-
-
-.deletebtnfloat{
-    position: absolute;
-    top:1rem;
-    right: 1rem;
-    
-}
-.profile-product-container{
-    background-color: #fff;
-    padding: 1rem;
-    margin-bottom: 3.5rem;
-}
-.button_one{
-width: 100%;
-}
-i{
-    font-size: 1rem;
-    color: grey;
-}
-.button_three{
-    padding: .3rem .9rem;
-    background-color: #d4c44b;
-    border-radius: 4rem;
-    cursor: pointer;
-
-  }
-  span.button_one{
-    color: #d4c44b;
-    cursor: pointer;
-  }
-@media screen and (max-width:768px) {
-    body{
-        padding: 0;
-    }
-    .wrapper{
-        display: block;
-    }
-    .profile-image-container{
-        display:block; 
-    }
-    .profile-name{
-        width:90%;
-        padding:0 0 1rem 2rem;
-        padding-top: 0;
-    }
-    .profile-image{
-        width:40%;   
-    }
-
-
-.grid-container{
-  display: block;
-  width: 100%;
-  padding: 0;
-  margin-top: 0;
-}
-.sidebar{
-  display: none;
-}
-main{
-  width: 100%;
-}
-.profile-container{
-  width: 100%;
-}
-
-}
-</style>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
 <script>
     function network(event,url,profile_id,id){
             console.log('logded in')
@@ -487,6 +313,7 @@ main{
             var btn = document.getElementById(id)
             var link = '/friends/' + url + '/' + profile_id
             console.log(link)
+            console.log(btn)
             $.ajax({
                 url: link,
                 type: 'GET',
@@ -495,12 +322,12 @@ main{
                 console.log(result)
                 if (result.data === 'follow'){
         
-                  btn.parentElement.innerHTML = `<span onclick="network(event,url='follow', profile_id='${profile_id}', id='${id}')" class="button_one"> +Follow </span>`;
+                  btn.parentElement.innerHTML = `<span onclick="network(event,url='follow', profile_id='${profile_id}', id='${id}')" > +Follow </span>`;
                   btn.remove();
                  }
                 else{
                   
-                  btn.parentElement.innerHTML = `<span onclick="network(event,url='unfollow', profile_id='${profile_id}', id='${id}')" class="button_one"> Unfollow </span>`;
+                  btn.parentElement.innerHTML = `<span onclick="network(event,url='unfollow', profile_id='${profile_id}', id='${id}')" > following </span>`;
                   btn.remove();
   } 
                 }

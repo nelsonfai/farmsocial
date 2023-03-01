@@ -5,10 +5,13 @@
 <div class="grid-container">
 
 
-  <main> 
-
+<main> 
+  {% if article.title %}
 <div> <h1 style="word-wrap: break-word;"> {{article.title|capfirst}} </h1></div>
 <br>
+{% endif %}
+
+
 
     {% if article.article_image %} 
      <div class="article_image" > 
@@ -20,7 +23,11 @@
 <br>
 
 <div>
+  {%if article.author %}
   <a href=" {% url 'profile' article.author.id %} ">  Post by: {{article.author.first_name}}  {{article.author.last_name}} </a>
+  {%else%}
+  <a href="{%  url 'companyprofile' article.company.identifier article.company.name %}"> Post by: {{article.company.name}}</a>
+ {%endif%}
   <p>  {{article.date}}  </p>
 </div> 
 <br>
@@ -43,18 +50,25 @@
 </div>
 
 <div class="comments-box" id="comments-box">
-  <h4 > Comments ({{ article.comments.all.count }})  </h4>
+  <h4> Comments ({{ article.comments.all.count }}) </h4>
   <br>
 
     {% for comment in comments %}
     <div class="flex">
-  
+      {% if comment.author %}
       <div style="width:30px"> 
       <div class="roundedprofile" style="background:url('{{comment.author.profilepic}}') ;background-position: center; background-size: contain;" >  </div> 
     </div>
+    <div> 
+      <div> <a href=" {% url 'profile' comment.author.id %}" style="color: #333;">{{comment.author.get_full_name}} </a></div> 
+    {%else%}
+    <div style="width:30px"> 
+      <div class="roundedprofile" style="background:url('{{comment.companyauthor.logopic}}') ;background-position: center; background-size: contain;" >  </div> 
+    </div>
+    <div> 
+      <div> <a href="{%  url 'companyprofile' comment.companyauthor.identifier comment.companyauthor.name %}" style="color: #333;">{{comment.companypage.name}} </a></div> 
+    {%endif%}
 
-      <div> 
-        <div> <a href=" {% url 'profile' comment.author.id %}" style="color: #333;">{{comment.author.get_full_name}} </a></div> 
         <div class="comment">   
           {{comment.comment}}
         </div> 
@@ -67,20 +81,27 @@
 
 
 <div class="comment-form">  
-
         <form action="{% url 'comment' article_slug=article.slug %}" method="post" id="commentform">
             {% csrf_token %}
-
             {{ comment_form.comment }}
+            {% if options %}
+            <select name="author" id="articleauthor" required>
+                <option value=""> select one</option>
+                <option value='user'>
+                      {{request.user.get_full_name}}</option>
+                {%for item in options %}
+                <option value={{item.identifier}}>
+                    {{item.name}}</option>
+                {%endfor%}
+            </select>
+            {%endif%}
             {% if user.is_authenticated %}
             <br>
-
-              <button class="button_one" >Comment </button>
+              <button class="button_one button_fulllegnth" >Comment </button>
             {% else %}
             <br>
             <input type='button' value="Submit" class="submitbtn" onclick="commentAlert()" >
             {% endif %}
-
         </form>
  <br>
  <p id="commentalert" style="color: red;"> </p>
@@ -121,7 +142,7 @@ $("#commentform").submit(function(e){
 e.preventDefault();
 var comment = $('#id_comment').val();
 var id ='{{ article.slug }}';
-
+var author =$('#articleauthor').val()
 $.ajax({
 url: '/' + id + '/comment',
 dataType: 'json',
@@ -129,17 +150,18 @@ method:'POST',
 data : {
     'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
   'comment' : comment,
+  'author':author
 },
 success:function(data) {
    let div = `<div class="flex">
   
               <div style="width:30px"> 
-              <div class="roundedprofile" style="background:url('{{request.user.profilepic}}') ;background-position: center; background-size: contain;">  </div> 
+              <div class="roundedprofile" style="background:url('${data.img}') ;background-position: center; background-size: contain;">  </div> 
             </div>
             <div> 
-              <div> <a href=" {% url 'profile' request.user.id %}" style="color: #333;> {{request.user.get_full_name}} </a> </div> 
+              <div> <a href=" {% url 'profile' request.user.id %}" style="color: #333;> ${data.name} </a> </div> 
               <div class="comment">   
-                ${comment}
+                ${data.comment}
               </div> 
             </div>
 

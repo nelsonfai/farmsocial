@@ -1,16 +1,17 @@
 {% extends "main/base.html" %}
 {% load i18n %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'styles/login-style.css' %}">
 
 {% block head %}
 {{ wizard.form.media }}
 {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'styles/login-style.css' %}">
+
 <div class="container">
-<div class="right">
-<p style="padding-left: 1rem;">Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
+
+<p >Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form   method="POST" enctype="multipart/form-data">{% csrf_token %}
 
 <table>
@@ -26,44 +27,15 @@
 </table>
 
 
-<button class="button_one" value="{% trans 'submit' %}">  Send</button>
+<button class="button_one button_fulllength" value="{% trans 'submit' %}">  Send</button>
 </form>
 </div>
 </div>
 <style>
-  .button_one{
-    font-size: 1rem;
-    padding: 1.5rem;
-    width: 100%;
-  }
-input,form{
-  padding: 1rem;
+select,textarea{
   width: 100%;
-  font-size: 1rem;
-}
-table{
-  width: 100%;
-}
-tr,td{
-  display: block;
-  width: 100%;
-  margin-block: 0.6rem;
 }
 
-.container{
-    height:100vh;
-    display:flex;
-    justify-content: center;
-    width:100%;
-    margin: auto;
-}
-.right{
-    width:100%;
-    max-width: 600px;  
-}
-.bodynav_right{
-    display: none;
-  }
 </style>
 
 <script>

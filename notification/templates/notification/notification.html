@@ -15,10 +15,15 @@
          
             {% for obj in notification %}
             <div class="item flex" > 
+                
                     <div class="flex" > 
+                        {% if obj.trigger %}
                        <a href="{% url 'profile' obj.trigger.id%}"> <span class="roundedprofile" style="background:url('{{ obj.trigger.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
+                       {% else %}
+                       <a href="{%  url 'companyprofile' obj.trigger_page.identifier obj.trigger_page.name %}"> <span class="roundedprofile" style="background:url('{{ obj.trigger_page.logopic}}') ;background-position: center; background-size: contain;" > </span> </a>
+                       {%endif%}
                             <div>
-                                <div class="contact-name"><div>{{obj.message}} </div> </div>	
+                                <div class="contact-name"> <a href="{{obj.url}}"><div>{{obj.message}} </div></a> </div>	
                             </div>
                     </div>
                     <div> <small> {{obj.whencreated}}</small> </div>

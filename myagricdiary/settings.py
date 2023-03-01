@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'chat',
     'marketplace',
     'myagricai',
+    'company',
+
     
 ]
 
@@ -98,13 +100,7 @@ TEMPLATES = [
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}"""
+
 
 
 
@@ -166,7 +162,8 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            #"hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            'hosts': [('127.0.0.1', 6379)],
         },
     },
 }
@@ -221,5 +218,21 @@ DEFAULT_FROM_EMAIL = 'My agricDiary <contact@myagricdiary.com>'
 
 
 
-
 BASE_URL = "http://myagricdiary.com"
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+
+# Celery results configuration
+CELERY_RESULT_EXPIRES = 60 * 60 * 24  # 1 day
+
+
+
+# Celery worker configuration
+CELERYD_CONCURRENCY = 1
+CELERYD_MAX_TASKS_PER_CHILD = 1
+

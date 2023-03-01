@@ -1,0 +1,252 @@
+{% extends 'main/base.html'%}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'styles/profile.css' %}">
+<link rel="stylesheet" href="{% static 'styles/profile.css' %}">
+
+
+<div class="grid-container">
+
+    <main> 
+<div class="profile-container">
+    <div class="profile-image-container">
+        <div class="profile-image">
+                <div class="roundedprofile" style="background:url('{{profile.logopic}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </div> 
+        </div>
+        <div class="profile-name">
+            <h2 class="name"> {{ profile.name|title}} </h2>
+
+            
+            <div class="sector"> 
+                    {% if profile.sector %}
+                        <p><i class="fa-solid fa-graduation-cap"></i>  {{ profile.sector}} </p>
+                    {% endif %}
+
+                    {% if profile.address %}
+                        <p> <small> <i class="fa-solid fa-location-dot"></i> Headquaters: {{profile.address}} </small></p>
+                    {% endif %}
+
+            </div>
+       <p> <span >   Followers {{profile.pagefollowers.all.count}} </span> </p>
+            {% if user.is_authenticated %}
+                <br>
+                    
+                    <span class="button_three" style="background-color: #f5f5f5;">
+                        {% if request.user in profile.pagefollowers.all %}
+                            <span id='companyfollowbtn'  onclick="network(event, profile_id='{{profile.identifier}}',id ='companyfollowbtn' )" style="cursor: pointer;" >Following</span>
+                        {% else %}
+                            <span  id='companyunfollowbtn' onclick="network(event, profile_id='{{profile.identifier}}', id='companyunfollowbtn' )" style="cursor: pointer;" >Follow</span>
+                        {% endif %}
+                    </span>
+                        <span style="margin-left: 1rem;"> 
+                               <a href="{{profile.website}}" target="_blank"> <span  class="button_three" style="cursor: pointer;"> visit Website</span> </a>
+                        </span>
+                    {% if profile.user == request.user %}
+                    <span class="button_three" style="background-color: #f5f5f5;"><a href="{%  url 'dashboard' profile.identifier  %} " style=" color:#333"> View as Admin</a> </span>
+                    {% endif %}
+               
+
+
+            {% endif %}
+        </div>
+    </div>
+
+    {% if profile.description %}
+        <div class="about">
+            <h4> About </h4>
+            <p>{{ profile.description }} </p>
+        </div>
+        {% endif %}
+
+        <div class="about">
+            <h4> Contact </h4>
+            
+            {% if profile.email %}
+            <p>
+                <i class="fa-solid fa-envelope"></i>  {{ profile.email }}  
+            </p>
+            {% endif %}
+
+            {% if profile.website %}
+            <p>
+                <i class="fa-solid fa-globe"></i>  {{ profile.website }}  
+            </p>
+            {% endif %}
+
+            {% if profile.founded_on %}
+            <p>
+                <i class="fa-solid fa-calendar-days"></i>  {{ profile.founded_on}}  
+            </p>
+            {% endif %}
+            {% if profile.phonenumber %}
+            <p>
+                <i class="fa-solid fa-phone"></i>   {{ profile.phonenumber }}  
+            </p>
+            {% endif %}
+        </div>
+       
+        <div class="about">
+            <h4> Socials </h4>
+        
+            {% if profile.linkedin %}
+            <p>
+                <i class="fa-brands fa-linkedin"></i> <a href=" {{ profile.linkedin }}  "target="_blank"> visit our linkedin page</a>
+            </p>
+            {%endif%}
+            {% if profile.instagram %}
+            <p>
+                <i class="fa-brands fa-instagram"></i> <a href="{{ profile.instagram }} " target="_blank"> visit our instagram page</a>
+            </p>
+            {%endif%}
+            {% if profile.twitter %}
+            <p>
+                <i class="fa-brands fa-twitter"></i>   <a href="{{ profile.twitter}} " target="_blank"> visit our twitter page</a>
+            </p>
+            {%endif%}
+            {% if profile.facebook %}
+            <p>
+                <i class="fa-brands fa-facebook"></i>   <a href="{{ profile.facebook}}  " target="_blank"> visit our facebook page</a>
+            </p>
+            {%endif%}
+        </div>
+   
+    <div class="profile-info-contaner">
+            {% if products %}
+
+                <div class="profile-product-container"> 
+                    <h4>My products
+                    {% if profile == request.user %}
+                    <span > <a href="{% url 'myproducts' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;">(view all products) </a></span>
+                    {%endif%}
+                </h4>
+                    <br>
+                    <div class="products-container"> 
+                    {% for product in products %}
+                   
+                        <div class="products">     
+                                <div style="margin-inline:5px ;">
+                                    <div style="background:url('{{ product.main_image.url }}') ;width:100px;height: 100px;background-position: center;background-repeat: no-repeat;background-size: cover;" > </div>
+                                        <div class="product-info">
+                                            <p style="padding-block: .5rem;margin-bottom: .5rem; border-bottom: 1px solid grey;"> <a href="{% url 'product' slug=product.id %}" style="color: #333;"> {{ product.product | truncatechars:10}} </a></p>
+                                        </div>
+                                        <br>     
+                                </div>
+                                <br>
+                        </div>
+                    {% endfor%}
+                </div>
+                </div>
+            {% endif %}
+            {% if profile.companyprofile %}
+                <div class="profile-articles">
+                    <h4>Posts </h4>
+                    <br>
+                    {% for article in profile.companyprofile.all %}
+                    <div class="article-item" id="article{{article.id}}">
+                        {% if article.article_image %}
+                        <div class="image">
+                            <img src="{{ article.article_image.url}}" alt="article image" width="70px">
+                        </div>
+                        {% endif %}
+                        <div>
+                                <a href="{% url 'details' article_slug=article.slug %}">  
+                                    <div> 
+                                        {% if article.title %}
+                                    {{ article.title|truncatechars:90 }}
+                                    {%else%}
+                                    Article title 
+                                    {% endif %} 
+                                </div></a>
+                                <p><a href=" {% url 'details' article_slug=article.slug %}"> Read more...</a></p> 
+                            {% if article.author == request.user %}  
+                            <span class="deletebtnfloat">
+                                <button onclick="deleteConfirm(event,id='article{{article.id}}', article_id='{{article.id}}' )"> <i class="fa-regular fa-trash-can"></i></button>
+                            </span>
+                                {% endif %}          
+                    </div>
+                  
+                    </div>
+                    
+                {% endfor %}
+                </div>
+                {% endif %}
+        </div>
+    </div>
+
+
+
+    </main> 
+
+{% if friendsuggestions %}
+<div class="sidebar sidebar_right">
+
+    <div class="networksugestion">
+        <p>Discover similar companies</p>
+
+        {% for item in companysuggestions%}
+        <div class="flex flex_outerfollow" style="justify-content: space-between;"> 
+            <div class="flex" > 
+                <a href="{%  url 'companyprofile' item.identifier item.name %}"> <span class="roundedprofile" style="background:url('{{ item.logopic}}') ;background-position: center; background-size: contain;" > </span> </a>
+                    <div>
+                        <a href="{%  url 'companyprofile' item.identifier item.name %}"> <div class="contact-name"> {{ item.name|title }} </div>	</a>
+                    </div>
+            </div>
+            <div> 
+                {% if item.user != request.user %}
+                <span class="button_three" style="background-color: #f5f5f5;">
+                    {% if request.user in item.pagefollowers.all %}
+                        <span id='itemcompanyfollowbtn{{item.id}}'  onclick="network(event, profile_id='{{item.identifier}}',id ='itemcompanyfollowbtn{{item.id}} ' )" style="cursor: pointer;" >Following</span>
+
+                    {% else %}
+                        <span  id='itemcompanyunfollowbtn{{item.id}}' onclick="network(event, profile_id='{{item.identifier}}', id='itemcompanyunfollowbtn{{item.id}}' )" style="cursor: pointer;" >Follow</span>
+
+                    {% endif %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+       
+    </div>
+   
+    
+</div>
+{% endif %}
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    function network(url,profile_id,id){
+            console.log('logded in')
+            console.log(id)
+            var btn = document.getElementById(id)
+            var link = '/company/followpage/' + profile_id
+            console.log(id)
+
+            console.log(btn)
+            $.ajax({
+                url: link,
+                type: 'GET',
+                success: function(result) {
+                // Handle the success response
+                console.log(result)
+                if (result.success === 'follow'){
+                  btn.parentElement.innerHTML = `<span  id='${id}' onclick="network(event, profile_id='${profile_id}', id='${id}' )" style="cursor: pointer;" >Follow</span>`;
+                  btn.remove();
+                 }
+                else{
+                  btn.parentElement.innerHTML = `<span id='${id}'  onclick="network(event, profile_id='${profile_id}',id='${id}' )" style="cursor: pointer;" >Following</span>`;
+                  btn.remove();
+  } 
+                }
+            });     
+  
+  }
+  
+  </script>
+
+
+{% endblock %}
+

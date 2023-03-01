@@ -1,80 +1,81 @@
 {% extends 'main/base.html'%}
 {% block content %}
 
-<div class="wrapper"> 
- 
+<div class="grid-container"> 
+
     <form action="{% url 'add_article' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <label for="author">Write article as:</label>
+        {% if options %}
+        <select name="author" id="aticleauthor" required>
+            <option value=""> select one</option>
+            <option value='user'>
+                  {{request.user.get_full_name}}</option>
+            {%for item in options %}
+            <option value={{item.identifier}}>
+                {{item.name}}</option>
+            {%endfor%}
+        </select>
+        {%else%}
+        
+        <select name="author" id="aticleauthor" required>
+            <option value='user'> {{request.user.get_full_name}}</option>
+        </select>
+        {%endif%}
         {{form.as_p}}
         <br>
-   
         <label for="body">Body</label>
        
         <textarea rows="5" name="body" oninput="auto_grow(this)" placeholder="Write Text here..." required></textarea>
-
     <br>
-    <button type="submit"  style="width:100%;margin-bottom: 100px;" id="buttonpost" class="button_one" disabled> Post </button>
+    <button type="submit"  style="width:100%;margin-bottom: 100px;" id="buttonpost" class="button_one" > Post </button>
      
     </form>
-
-
 </div>
 <style>
-    .wrapper{
-        max-width: 900px;
-        padding: 1rem;
-        margin-inline: auto;
 
-    }
     form{
         width:100%;
         font-family: 'Open sans',sans-serif;
 
     }
-    form input{
+    form input,select{
         padding:15px;
         margin-bottom:10px;
         margin-top: 5px;
         width:100%;
         border: 1px solid grey;
         background-color: transparent;
+        background-color: white;
     }
+
     textarea{
         width: 100%;
         padding: 1rem;
         border: none;
         border: 1px solid grey;
-        background-color: transparent;
+        background-color: white;
         margin-top: 1rem;
     }
     h2{
         color:var(--primary-color);
         margin-bottom: 20px;
     }
-    p,label{
-        color:grey
-    }       
+
     button#buttonpost{
-    color: #d4c44b;
     color: black;
     padding: 0.3rem;
     background-color: rgba(212,196,75,.7);
 
   }
-  button#buttonpost:disabled{
-    background-color: grey;
-  }
-    @media screen  and (min-width:780px){
-        form{
-            width:60%;
-            margin:auto;
-        }
-        body{
-            background-color: white;
-        }
-        
-    }
 
+@media screen and (max-width:768px) {
+.grid-container{
+    margin-top: 200px;
+    padding: 1rem;
+}
+    
+}
 
 </style>
 

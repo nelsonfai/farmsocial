@@ -16,14 +16,15 @@ body{
 
    
 }
-
 .flex-container{
-    display: flex;
-    align-items: flex-start;
-    display: flex;
-justify-content: left;
-gap: 20px;
+    display: grid;
+    grid-template-columns:  200px 1fr;
+    grid-template-rows: auto;
+  grid-template-areas: "sidebar main";
+  position: relative;
+
 }
+
 a{
     text-decoration:none;
     color:var(--primary-color);
@@ -32,25 +33,26 @@ a:hover{
     color: #d4c44b;
 }
 .bodynav_right{
-    padding: 1rem;        
-    height: 100vh;
+    padding: 1rem;
     background-color: #fff;
-    position: sticky;
-    top:80px;
+    grid-area: sidebar; /* place this element in the "sidebar" area defined in grid-template-areas */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 150px;
     display: flex;
     flex-direction: column;
-    grid-area: 1rem;
+    padding-top: 100px;
 }
 .bodynav_right a{
     padding-block: 1rem;
     width: 100px;
 }
 header{
-
-    margin-bottom: 25px;
     padding-inline:5%;
     padding-block: 1.2rem;
-    position: sticky;
+    position: fixed;
     width: 100%;
     top: 0;
     background-color: white;
@@ -95,6 +97,8 @@ nav{
     background-color: #F5F5F5;
 }
 .grid-container{
+    margin-top: 100px;
+    grid-area: main;
     display: grid;
     grid-template-columns:  1fr 35%;
     gap: 2rem;
@@ -102,7 +106,8 @@ nav{
     padding-inline: 5%;
     margin-inline: auto;
     min-width: 80%;
-    max-width: 1700px;
+    max-width: 1000px;
+    padding: 1rem;
 }
 .sidebar{
 height: 85vh;
@@ -134,6 +139,7 @@ height: 85vh;
     background-color: #fff;
     margin-bottom: 10px;
   }
+
 button{
     background-color: transparent;
     border: none;
@@ -175,7 +181,7 @@ select {
   padding: 10px; /* Increase the padding to 10 pixels */
   -webkit-appearance: none; /* Disable iOS styling */
   -moz-appearance: none; /* Disable Firefox styling */
-  appearance: none; /* Disable default styling */
+  appearance: menulist; /* Disable default styling */
 }
 
 footer{
@@ -198,7 +204,10 @@ footer{
     object-fit: contain;
     ;background-position: center; 
     background-size: contain;
+    background-repeat: no-repeat;
 }
+
+/* buttons */
 button.button_one{
     color: #d4c44b;
     color: black;
@@ -209,6 +218,9 @@ button.button_one{
   }
   button.button_one a:hover{
     color:black
+  }
+  .button_fulllength{
+    width: 100%;
   }
   .engagment{
     padding: 1rem;
@@ -226,8 +238,15 @@ input{
         display: none;
     } 
 @media screen and (max-width:780px) {
+    .flex-container{
+        display: block;
+    }
+    .grid-container{
+        width: 100%;
+        margin-top: 150px;
+    }
     .bodynav_right{
-display: none;
+    display: none;
     }
 .article-list-container {
     width:100%;

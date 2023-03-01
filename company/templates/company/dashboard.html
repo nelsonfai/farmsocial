@@ -1,0 +1,52 @@
+{% extends 'main/base.html'%}
+{% load static %}
+
+{% block content %}
+
+
+<div class="grid-container">
+    <main> 
+        <form  method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{profile.as_p}}
+            <button class="button_one button_fulllength">Update</button>
+        </form>
+    </main> 
+    <div class="sidebar sidebar_right">
+       <div class="filter"> 
+        <p>View as memeber</p>
+        <br>
+            <div class="flex"> 
+                <span class="roundedprofile" style="background:url('{{company.logopic}}') ;background-position: center; background-size: contain;">  </span> 
+                <div> 
+                    <a href="{%  url 'companyprofile' company.identifier company.name %} "><span> {{ company.name|title}}   </span></a> 
+                </div>
+            </div>
+       </div> 
+    </div>
+ </div>
+ <style>
+    .grid-container{
+        padding-top: 50px;
+        margin-bottom: 50px;
+        position: relative;
+    }
+    .bodynav_right{
+        padding-top: 120px;
+    }
+    input,textarea{
+        width: 100%;
+        margin-block:1rem ;
+        padding: 1rem;
+    }
+
+    .sidebar{
+        position: sticky;
+        top:150px;
+        right:0;
+        background-color: transparent;
+
+    }
+</style>
+{% endblock %}
+

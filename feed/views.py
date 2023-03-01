@@ -6,8 +6,7 @@ from .models import Articles,Like,Announcements
 from feed.models import CustomUser
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.http import  HttpResponseRedirect, JsonResponse
-from django.urls import reverse
+from django.http import   JsonResponse
 from .forms import CommentForm,ArticleForm
 from django.utils.text import slugify
 from notification.signals import notification_signal
@@ -16,32 +15,52 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from .models import Comments
 from PIL import Image
+from company.models import Company
+import io
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Create your views here.
 @login_required   
 def add_article(request):
     if request.method=='POST':
             body=request.POST.get('body')
+            author = request.POST.get('author')
+            tags= request.POST.get('tag')
+            photo= request.FILES.get('article_image')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
-            image = request.FILES['article_image']
             if article_form.is_valid():
+                #print(article_form.tag)
                 obj=article_form.save(commit=False)
-                obj.author = request.user
-                
-                
+                print(author)
+                if author == 'user':
+                    user = request.user
+                    obj.author = user
+                else:
+                     company = Company.objects.get(identifier = author)
+                     obj.company = company  
                 obj.body=f'<pre>{body}</pre>'
-                obj.slug = slug_generator(title=obj.title[:5],body=body[:5])
-                
+                if obj.title:
+                     title = obj.title[:5]
+                else:
+                     title=''
+                obj.slug = slug_generator(title=title,body=body[:5])
+                obj.tag=tags
+                if photo:
+                     obj.article_image =image_commpress(photo)
                 obj.save()
+
+
                 return redirect('articles')      
             else:
                 article_form =ArticleForm()
+                
+                print(options)
                 return render (request, 'feed/add-article.html', {'form':article_form,'stylesheet':'styles/feed.css'} )
     
     else:
         article_form =ArticleForm()
-
-        return render (request, 'feed/add-article.html',{'form':article_form,'stylesheet':'styles/feed.css'} )
+        options = request.user.company_admin.all()
+        return render (request, 'feed/add-article.html',{'form':article_form,'stylesheet':'styles/feed.css','options':options} )
 
 def slug_generator(title,body):
     if title:
@@ -63,11 +82,13 @@ def articles (request):
         paginated_article=p.get_page(page)
         top_n = 10
         most_used_tags = Tag.objects.annotate(num_times=Count('taggit_taggeditem_items')).order_by('-num_times')[:top_n]
-        
+        options = request.user.company_admin.all()
+
         context={
             'articles':paginated_article,
             'stylesheet':'styles/feed.css',
-            'tags':most_used_tags
+            'tags':most_used_tags,
+            'options':options
         }
 
         return render (request, 'feed/articles.html', context)
@@ -84,28 +105,45 @@ def article_details(request,article_slug):
      #comment form
     comment_form = CommentForm()
     comments=article.comments.all().order_by('-date')[0:5]
+    options = request.user.company_admin.all()
 
     context={
         'article':article,
         'comment_form':comment_form,
         'comments':comments,
-        
+        'options':options
+
     }
     return render(request, 'feed/details.html',context)
 @login_required   
 def comment(request,article_slug):
                 article=Articles.objects.get(slug=article_slug)
                 comment = request.POST['comment']
+                author= request.POST.get('author')
                 obj = Comments()
                 obj.article = article
-                obj.author = request.user
+                print('......................')
+                print(author)
+                if author == 'user':
+                    
+                    obj.author = request.user
+                else:
+                     companypage = Company.objects.get(identifier= author)
+                     obj.companyauthor=companypage
                 obj.comment = comment
                 obj.article_id = article.id
                 obj.save()
                 message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
-                notification_signal.send(message =message,target=article.author,trigger=request.user,sender=None)
+                if obj.author :
+                    name=obj.author.get_full_name()
+                    img_url = obj.author.profilepic()
+                    url ='/' + obj.article.slug
 
-                return JsonResponse({'success':'succes' })
+                    notification_signal.send(message =message,target=obj.author,trigger=request.user,sender=None,url=url)
+                else:
+                     name= obj.companyauthor.name
+                     img_url= obj.companyauthor.logopic()
+                return JsonResponse({'comment':obj.comment,'name':name ,'img':img_url})
 
 
 @login_required   
@@ -120,7 +158,9 @@ def like_article(request, article_id):
             article.likes.add(user)
             inliked = True
             message =f'{request.user.get_full_name()} liked your post {article.body[5:30]}...'
-            notification_signal.send(message =message,target=article.author,trigger=request.user,sender=None)
+            if article.author:
+                url ='/' + article.slug
+                notification_signal.send(message =message,target=article.author,trigger=request.user,sender=None,url=url)
 
         like, created =Like.objects.get_or_create(user=user,article_id=article_id)
         if not created:
@@ -135,8 +175,9 @@ def like_article(request, article_id):
 
 
 
-def search(request,slug):
-        articles=Articles.objects.filter(body__icontains=slug)
+def search(request):
+        query= request.POST.get('search-query')
+        articles=Articles.objects.filter(body__icontains=query)
         p=Paginator(articles,per_page=5)
         page=request.GET.get('page')
         paginated_article=p.get_page(page)
@@ -147,7 +188,7 @@ def search(request,slug):
             'articles':paginated_article,
             'stylesheet':'styles/feed.css',
             'tags':most_used_tags,
-            'query':slug
+            'query':query
         }
 
         return render (request, 'feed/articles.html', context)
@@ -177,7 +218,6 @@ def annoucement (request):
 def delete_article (request,slug):
         articleitem=Articles.objects.get(id=slug)
         articleitem.delete()
-        messages.success(request,'Article has been deleted')
         return JsonResponse({'status': 'success'})   
 def delete_annoucement (request,slug):
 
@@ -204,23 +244,12 @@ def filter_article(request,tag):
 
 
 def image_commpress(image):
-    img = Image.open(image)
-    # Resize the image to a maximum width of 1000 pixels
-    if img.mode == 'RGBA':
-        img=img.convert('RGB')
-    if img.width > 1000:
-        img.thumbnail((1000, 1000))
-    # Save the image in JPEG format with 70% quality
-    img.save("optimized.jpg", "JPEG", quality=70,exif="")
-    return img
 
-def thumpnail(image):
     img = Image.open(image)
-    if img.mode == 'RGBA':
-        img=img.convert('RGB')
-    # Resize the image to a maximum width of 1000 pixels
-    if img.width > 200:
-        img.thumbnail((200, 200))
-    # Save the image in JPEG format with 70% quality
-    img.save("optimized.jpg", "JPEG", quality=70,exif="")
-    return img
+    max_size = (1280, 720)
+    img.thumbnail(max_size,Image.ANTIALIAS)
+    output = io.BytesIO()
+    img.save(output,format='png', quality=70)
+    output.seek(0)
+    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+    return compressed_image

@@ -18,7 +18,7 @@ urlpatterns = [
     path('editprofile/education/',views.edit_education, name='editeducation'),
     path('searchpage/',views.searchpage, name='searchpage'),
 
-    path('queryusers/',views.search_users, name='search_users'),
+    path('queryusers/<slug:slug>',views.search_users, name='search_users'),
     path('reset_password/', auth_views.PasswordResetView.as_view(), name='reset_password'),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),

@@ -1,23 +1,18 @@
 
 {% extends 'main/base.html' %}
 {% block content %}
-<div class="wrapper"> 
-{% for messsage in messages %}
-<div> {{ messsage }} </div>
-{% endfor %}
+<div class="grid-container"> 
+
  <form method="POST"  enctype="multipart/form-data">
   {% csrf_token %}
-{{profile.as_p}}
-<br>
+    {{profile.as_p}}
+  <br>
 <button type="submit" class="button_one">Update</button>
 </form>
 
 </div>
 <style>
-.wrapper{
-  width: 100%;
-  max-width: 700px;
-  margin-inline: auto;
+.grid-container{
   padding: 1rem;
 }
 .form_control{
@@ -28,15 +23,7 @@
 .button_one{
 width: 100%;
 }
-@media screen  and (max-width:768px) {
-  .edit-wrapper{
-    display: block;
-  }
-  .main{
-    width:100%
-  }
 
-}
 </style>
 
 {% endblock %}

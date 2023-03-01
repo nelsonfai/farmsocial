@@ -24,10 +24,10 @@ from django.db.models import Q
 from django.http import HttpResponse
 import uuid
 from PIL import Image
+from company.models import Company
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
-
-
-
+import io
 
 # Create your views here.
 def login_view(request):
@@ -128,15 +128,15 @@ def edit_name(request):
 def edit_bio(request):
         if request.method == 'POST':
             form=ProfileInfo(request.POST or None ,request.FILES,instance=request.user)
-            filess= ProfileInfo(request.FILES)
+            photo= request.FILES.get('profile_pic')
             if form.is_valid():
                 user = request.user
                 user.bio=form.cleaned_data['bio']
                 user.location=form.cleaned_data['location']
-                if user.profile_pic == form.cleaned_data['profile_pic']:
-                        pass
-                else:
-                     user.profile_pic == thumpnail(form.cleaned_data['profile_pic'])
+
+                if  photo:
+                   thumpnail_image= thumpnail(photo)
+                   user.profile_pic = thumpnail_image
 
                 user.save()
                 return redirect('profile',request.user.id)
@@ -195,9 +195,9 @@ class SignupWizard(SessionWizardView):
         user = CustomUser.objects.create_user(
         email=form_list[0].cleaned_data['email'],
         password=form_list[0].cleaned_data['password1'],
-       first_name=form_list[1].cleaned_data['first_name'],
-       last_name=form_list[1].cleaned_data['last_name'],
-       token = token
+        first_name=form_list[1].cleaned_data['first_name'],
+        last_name=form_list[1].cleaned_data['last_name'],
+        token = token
        )
         
         user.save()
@@ -225,7 +225,7 @@ class FirstProfile(SessionWizardView):
         user.bio=form_list[0].cleaned_data['bio']
         user.location=form_list[0].cleaned_data['location']
         #user.profile_pic=form_list[0].cleaned_data['profile_pic']
-        user.profile_pic=form_list[0].cleaned_data['profile_pic']
+        user.profile_pic=thumpnail(form_list[0].cleaned_data['profile_pic'])
         user.is_student=form_list[1].cleaned_data['is_student']
         user.course=form_list[1].cleaned_data['course']
         user.instituition=form_list[1].cleaned_data['instituition']
@@ -241,15 +241,25 @@ def searchpage(request):
      return render (request,'account/search.html',)
 
      
-def search_users(request):
-    query = request.GET.get('query', '')
+def search_users(request,slug):
+    query = slug
+    print(query)
     users = CustomUser.objects.filter(Q(first_name__icontains=query) | Q(last_name__icontains=query))[:10]
+    pages = Company.objects.filter(Q(name__icontains= query))
     data = {'results': []}
     for user in users:
         data['results'].append({
+            'type':'user',
             'id': user.id,
             'text': user.get_full_name(),
             'profilepic':user.profilepic()
+        })
+    for user in pages:
+        data['results'].append({
+             'type':'page',
+            'id': user.identifier,
+            'text': user.name,
+            'profilepic':user.logopic()
         })
     return JsonResponse(data)
 
@@ -286,24 +296,14 @@ def verify_email(request,token):
 
 
 
-def image_commpress(image):
-    img = Image.open(image)
-    if img.mode == 'RGBA':
-        img=img.convert('RGB')
-    # Resize the image to a maximum width of 1000 pixels
-    if img.width > 1000:
-        img.thumbnail((1000, 1000))
-    # Save the image in JPEG format with 70% quality
-    img.save("optimized.jpg", "JPEG", quality=70,exif="")
-    return img
 
 def thumpnail(image):
     img = Image.open(image)
-    if img.mode == 'RGBA':
-        img=img.convert('RGB')
-    # Resize the image to a maximum width of 1000 pixels
-    if img.width > 200:
-        img.thumbnail((200, 200))
-    # Save the image in JPEG format with 70% quality
-    img.save("optimized.jpg", "JPEG", quality=70,exif="")
-    return img
+    max_size = (200, 200)
+    img.thumbnail(max_size,Image.ANTIALIAS)
+    output = io.BytesIO()
+    img.save(output,format='png', quality=60)
+    output.seek(0)
+    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+    return compressed_image
+

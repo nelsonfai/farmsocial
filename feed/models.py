@@ -1,22 +1,13 @@
 from django.db import models
-
 # Create your models here.
-
-from django.db import models
-
-# Create your models here.
-
 from account.models import CustomUser
 from ckeditor.fields import RichTextField
 from account.models import CustomUser
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from django.core.validators import FileExtensionValidator
-
+from company.models import Company
 import math
-
-
-
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 
@@ -96,7 +87,8 @@ def timefuntion(date):
 
 
 class Articles (models.Model):
-    author=models.ForeignKey(CustomUser, related_name='profile' ,on_delete= models.CASCADE)
+    author=models.ForeignKey(CustomUser, related_name='profile' ,on_delete= models.CASCADE ,blank=True, null=True)
+    company = models.ForeignKey(Company,related_name='companyprofile' ,on_delete= models.CASCADE, blank=True, null=True)
     title = models.CharField( max_length=400, blank=True, null=True)
     #body = models.TextField()
     body = RichTextField( blank=True, null=True ,db_index=True)
@@ -132,7 +124,9 @@ class Comments (models.Model):
     article= models.ForeignKey(Articles, related_name='comments' ,on_delete= models.CASCADE)
     comment= models.TextField()
     date= models.DateTimeField(auto_now=True)
-    author=models.ForeignKey(CustomUser,on_delete= models.CASCADE) 
+    author=models.ForeignKey(CustomUser,on_delete= models.CASCADE,blank=True,null=True) 
+    companyauthor=models.ForeignKey(Company,on_delete= models.CASCADE,blank=True,null=True) 
+
     
 
     def __str__(self):
@@ -142,7 +136,8 @@ LIKE_CHOICES=(
     ('Like','Like'), ('Unlike','Unlike'))
 
 class Like(models.Model):
-    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    user=models.ForeignKey(CustomUser,on_delete=models.CASCADE,blank=True,null=True)
+    company=models.ForeignKey(Company,on_delete= models.CASCADE,blank=True,null=True) 
     article=models.ForeignKey(Articles,on_delete=models.CASCADE)
     value =models.CharField(choices =LIKE_CHOICES, default='Like', max_length=10)
 

@@ -1,13 +1,11 @@
 
 {% extends "main/base.html" %}
-
 {% load static %}
+{% block content %}
 <link rel="stylesheet" href="{% static 'styles/login-style.css' %}">
 
-
-{% block content %}
 <div class="container">
-<div class="right">
+
     <h1 class="form-title" style="text-align: center;"> Login</h1>
     <form action="{% url 'login'%}" method="post">
         {% csrf_token %}
@@ -16,45 +14,16 @@
                 {% endif %}
 
          {{form.as_p}}
-        <button class="button_one"> Login</button>
+        <button class="button_fulllength button_one"> Login</button>
     </form>
-    <p style="text-align: center;"> Don't have an account ? <a href="{% url 'signup' %}">Signup</a> </p>
+    <p style="text-align: center; margin-top: 10px;"> Don't have an account ? <a href="{% url 'signup' %}">Signup</a> </p>
     
-</div>
-</div>
-<style>
-li{
-    text-decoration: none;
-}
-  .button_one{
-    font-size: 1rem;
-    padding: 1.5rem;
-    width: 100%;
-  }
-input,form{
-  padding: 1rem;
-  width: 100%;
-  font-size: 1rem;
-  margin-top: 1rem;
-}
-p{
-    margin-bottom: 1rem;
-}
-.container{
-    height:100vh;
-    display:flex;
-    justify-content: center;
-    width:100%;
-    margin: auto;
-}
-.right{
-    width:100%;
-    max-width: 600px;  
-}
-.bodynav_right{
-    display: none;
-  }
-</style>
 
+</div>
+
+<style>
+
+
+</style>
 
 {% endblock %}

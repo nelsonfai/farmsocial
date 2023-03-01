@@ -1,11 +1,8 @@
 from django.urls import path
-from . import views
+from notification import views
 
 
 
 urlpatterns = [
-    
     path('',views.getnotification, name='notification'),
-    
-  
 ]

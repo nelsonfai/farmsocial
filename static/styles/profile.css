@@ -1,0 +1,155 @@
+
+.products-container{
+    display: flex;
+    overflow-x: scroll;
+    width: 100%;
+}
+.networksugestion{
+    height:80vh ;
+    overflow: scroll;
+  }
+.flex_outerfollow{
+        width:100%;
+        justify-content: space-between;
+        margin-block: 1rem;
+    }
+#popup22{
+    position:absolute;
+    width:100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #fff;
+    top:0;
+    padding: 1rem;
+}
+#followers22Indicate,#following22Indicate{
+    padding: 1rem 2rem;
+}
+.popuphead{
+    display: flex;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    padding: 1rem;
+}
+.popupbody{
+    margin-block: 1rem;
+}
+main{
+    position: relative;
+    
+}
+.sidebar_right{
+    background-color: transparent;
+    padding: 0;
+}
+    .profile-image-container{
+        display:flex; 
+        width:100%; 
+        align-items:center;
+        border-radius: 10px;
+        margin-block: 10px;
+        gap: 20px;
+        background-color: #fff;
+    }
+    .profile-image{
+        width:20%;
+        padding: 1rem;
+    }
+    .profile-name{
+        width:60%;
+        padding: 1rem;
+    }
+    .name{
+        margin-bottom: 5px;
+        position: relative;
+    }
+    .sector{
+        color:grey;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+    .message{
+    padding: 5px 15px;
+    margin-block:20px;
+    border-radius: 5px;
+   
+    color:white
+    }
+    .about{
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 1rem;
+        position: relative;
+    }
+
+    h3,h2,h4,h5{
+        margin-bottom: 5px;
+    }
+    .profile-articles{
+        background-color: #fff;
+        padding: 1rem;
+    }
+    .article-item{
+        display: flex;  
+        gap:10px;
+       align-items: center;
+       padding:1rem;
+       position: relative;
+    }
+    .article-item:nth-child(odd){
+        background-color: #f5f5f5;
+    }
+
+
+.deletebtnfloat{
+    position: absolute;
+    top:1rem;
+    right: 1rem;
+    
+}
+.profile-product-container{
+    background-color: #fff;
+    padding: 1rem;
+    margin-bottom: 3.5rem;
+}
+.button_one{
+width: 100%;
+}
+i{
+    font-size: 1rem;
+    color: grey;
+}
+.button_three{
+    padding: .3rem .9rem;
+    background-color: #d4c44b;
+    border-radius: 4rem;
+    cursor: pointer;
+
+  }
+  span.button_one{
+    color: #d4c44b;
+    cursor: pointer;
+  }
+@media screen and (max-width:768px) {
+
+    .profile-image-container{
+        display:block; 
+    }
+    .profile-name{
+        width:90%;
+        padding:0 0 1rem 2rem;
+        padding-top: 0;
+    }
+    .profile-image{
+        width:40%;   
+    }
+.sidebar{
+  display: none;
+}
+.sidebar_right{
+    display: block;
+    margin-top: 20px;
+    height: auto;
+}
+
+}

@@ -3,232 +3,9 @@
 {% block content %}
 
 {% load static %}
-<style>
-body{
-  background-color: #fff;
-}
-.flex-container{
-    display: block;
-  }
-header{
-  background-color: #f5f5f5;
-}
-.bodynav_right{
-    display: none;
-  }
-  .home-wrapper{
-    padding-top: 3rem;
-    width:90%;
-    max-width: 1500px;
-    display:flex;
-    margin:auto;
-    margin-bottom: 2rem;
+<link rel="stylesheet" href="{% static 'styles/home.css'%}">
 
-  }
-  .home_main_text {
-   width:50%;
-   font-size: 2rem;
-   padding-left: 5rem;
-  }
-
-  .home_main_text h2{
-    font-size:4rem;
-    margin-block: 20px;
-    font-weight:700;
-    color:var(--primary-color);
-    margin-left: auto;
-
-  }
-  .button_three{
-    padding: .7rem 2rem;
-    background-color: #d4c44b;
-    border-radius: 4rem;
-  }
-  .button_two{
-    padding: .7rem 2rem;
-    border: 1px solid #d4c44b;
-    border-radius: 4rem;
-
-  }
-.hero-image{
-  width: 50%;
-  height:100% ;
-  margin-right: auto ;
-  object-fit: cover;
-}
-.home_main_text p{
-  width:60%;
-  line-height:25px;
-  color:grey;
-  font-size:18px; 
-}
-section{
-  padding: 3rem 1rem;
-}
-.about-us{
-  background-color: #f5f5f5;
-}
-.about-us-wrapper{
-  width:90%;
-  margin:auto;
-
-  padding: 3rem;
-}
-.card-container{
-  display:flex;
-  width:100%;
-  justify-content:space-between;
-
-  
-}
-.card{
-width:30%;
-border-radius:5px;
-background-color: var(--primary-color);
-margin-bottom:10px;
-opacity:.8;
-padding: 1rem;
-min-height:300px;
-
-}
-.section-title{
-  color: var(--primary-color);
-  font-size: 50px;
-  font-family: 'Architects Daughter', cursive;
-}
-.card-icon{
-  text-align: center;
-  padding: 1rem;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-.card-icon i{
-  color:white
-}
-.card-text{
-  padding: 2px 15px;
-  color:white;
-  line-height: 25px;
-  padding-bottom: 20px;
-}
-.card-text h4{
-  margin-bottom: 5px;
- color: #d4c44b;
-}
-.values-wrapper{
-  display:flex;
-  width:100%;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-}
-ul {
-  list-style: none;
-  margin-block: 25px;
-  color:var(--primary-color);
-
-}
-ul li:before {
-  content: '✓';
-  color: var(--primary-color);
-}
-ul li{
-  margin-top: 5px;
-}
-.values-image{
-  width:40%;
-}
-.values-text{
-  width:50%;
-}
-.values-text p{
-  width:90%;
-  margin-block: 20px;
-}
-
-.mission-container{
-  display: flex !important;;
-  width: 100% !important;
-  flex-wrap: wrap !important;
-padding: 2rem;
-background-color: #f5f5f5;
-}
-.circle{
-  border:2px solid var(--primary-color);
-  text-align:center;
-  margin:auto;
-  font-size:18px;
-  display:flex;
-  justify-content:center;
-  flex-direction:column;
-  color:var(--primary-color);
-  padding:10px;
-  width:500px;
-  margin-bottom:20px;
-  height: 250px;
-  
-}
-
-
-@media screen and (max-width:900px) {
-  .flex-container{
-    display: block;
-  }
-  .home_main_text {
-    width: 100% !important;
- 
-   padding-left:0;
-  }
-  .home_main_text h2{
-    font-size:2.1rem;
-  } 
-  .home_main_text p{
-  width:80%;
-  font-size:16px;  
-}
-  .home-wrapper{
-    display: block; 
-  }
-  .hero-image{
-width: 100%;
-background-color: #d4c44b;
-  }
-.card-container{
-  display:block;
-  margin:auto; 
-}
-.card{
-  width:100%
-}
-.values-wrapper{
-  display: block;
-}
-.values-image{
-  width: 80%;
-}
-.values-text{
-  width:100%
-}
-
-.section-title{
-  font-size: 30px;
-}
-.about-us-wrapper{
-  padding: 0;
-}
-.values-wrapper{
-
-  padding: 1rem;
-}
-
-}
-footer{
-  display: none !important;
-}
-</style>
-
- <div>
-<div>
+<div class="container">
 <div class="home-wrapper">
     <div class="home_main_text" >
       <div>
@@ -236,8 +13,7 @@ footer{
             <p><strong> We provide you the best information to get you a great harvest and a ready market to ensure a Great Sale </strong> </p>
         <br>
          <p>  <a href="{% url 'login'  %}" class="submitbtn" > <button class="button_two"> Login In</button> </a>
-          <a href="{% url 'signup'  %}">  <button class="button_three">Sign Up</button> </a></p>
-
+          <a href="{% url 'signup'  %}">  <button class="button_round_big">Sign Up</button> </a></p>
       </div>
     </div>
 
@@ -317,7 +93,7 @@ footer{
 </div>
 
 <div class="mission-container">
-  <div class="circle">
+  <div class="mission-box">
                          <p style="margin-top:10px">
                           <img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/60/008037/external-goals-user-interface-flatart-icons-outline-flatarticons.png"/>
                          </p> 
@@ -325,10 +101,10 @@ footer{
                           Giving the worlds 'hardest workers' a better chance
                          </p>
      </div>
-     <div class="circle"> <p style="margin-top:10px"> <img src="https://img.icons8.com/ios-filled/60/008037/mission-of-a-company.png"/></p>
+     <div class="mission-box"> <p style="margin-top:10px"> <img src="https://img.icons8.com/ios-filled/60/008037/mission-of-a-company.png"/></p>
       <p> <span style="text-decoration:underline;">how we do it </span>  ...  We provide farmers the best information needed to enable a great harvest and a ready market to ensure a Great Sale
        </div> 
-  <div class="circle"> <p style="margin-top:10px"> <img src="https://img.icons8.com/ios-filled/60/008037/morale.png"/></p>
+  <div class="mission-box"> <p style="margin-top:10px"> <img src="https://img.icons8.com/ios-filled/60/008037/morale.png"/></p>
 
     <p><span style="text-decoration:underline;">why we do it !</span> ...Because we are Farmers at heart and share in the Vision of Sustainable growth</p>
 
@@ -346,5 +122,5 @@ footer{
 
 </div>
 
-
+</div>
 {% endblock %}

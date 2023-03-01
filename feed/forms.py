@@ -24,5 +24,5 @@ class ArticleForm(forms.ModelForm):
         widgets ={
             
             'tag': forms.TextInput(attrs={'class':'comment_field','placeholder':'e.g : climate change,soil', 'row':3,})
-        }        
+        }     
 

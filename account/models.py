@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from django_countries.fields import CountryField
+#from cities_light.models import Country,Region,City
 from django.core.validators import FileExtensionValidator
 #from network.models import Follow
 
@@ -46,6 +47,8 @@ class CustomUser(AbstractUser):
 
     bio=models.CharField(max_length=400,blank=True, null=True)
     location = CountryField(blank_label='(select country)')
+
+
     profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),  validate_file_size])
     is_student = models.BooleanField(default=False)
     course = models.CharField(max_length=100 ,blank=True, null=True)
@@ -76,3 +79,4 @@ class CustomUser(AbstractUser):
             return self.profile_pic.url
         else:
             return 'https://myagricdiary-space.fra1.cdn.digitaloceanspaces.com/agric-static%2Fimages%2Fimages-removebg-preview.png'
+    

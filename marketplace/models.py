@@ -1,7 +1,7 @@
 from unicodedata import category
 from django.db import models
 from django.core.validators import FileExtensionValidator
-
+from company.models import Company
 from account.models import CustomUser
 
 
@@ -29,6 +29,7 @@ category=(
 )
 class ProductItem(models.Model):
     user_profile=models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    companypage = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True,null=True,related_name='companyproduct')
     product=models.CharField(max_length=200 )
     product_description=models.CharField(max_length=400 )
     quantity=models.CharField(max_length=200 )

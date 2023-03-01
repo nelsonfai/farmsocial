@@ -2,7 +2,7 @@
 {% block content %}
 
 
-
+<div class="grid-container">
 <div class="edit-product-container"> 
         <form action="{% url 'edit_product' slug=productitem.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -11,7 +11,7 @@
             <button type="submit" value="Update" class="button_one">Update </button>
         </form>
 </div>
-
+</div>
 <style>
 .edit-product-container{
     width:100%;
@@ -25,10 +25,17 @@
 }
 input{
     padding: 1rem;
+    background-color: white;
 }
-input,p{
+select,input,p{
     margin-block: 1rem;
+
 }
- 
+.bodynav_right{
+    padding-top: 130px;
+} 
+select{
+
+}
 </style>
 {% endblock %}

@@ -5,15 +5,12 @@
 {% block content %}
 <div class="grid-container">
     <main>
-
         <div class="wrapper"> 
             <div>
-               
-                <form>
-                    <input type="search" name="" id="search-box" placeholder="Search User">
-                    <button> <i class="fa-solid fa-magnifying-glass" style="font-size: 1.4rem; color:grey" ></i></button>
+                <form style="display: flex;">
+                    <input type="search" name="" id="search-box" placeholder="Search Users or Pages">
+                    <button class="button_one"> <i class="fa-solid fa-magnifying-glass" style="font-size: 2.1rem; color:grey;" ></i></button>
                 </form>
-               
             </div>
             <div id="contenthere" style="margin-bottom: 1rem;"></div>
 
@@ -33,13 +30,12 @@
         var query = $(this).val();
         if (query.length >= 2) {
             $.ajax({
-                url: '/account/queryusers/',
-
-                
+                url: `/account/queryusers/${query}`,
                 success: function(data) {
                     var results = data.results;
                     resultsList.empty();
                     $.each(results, function(index, result) {
+                        if(result.type =='user'){
                         var link = $('<a></a>');
                         link.text(result.text);
                         link.attr('href', '/account/profile/' + result.id);
@@ -55,6 +51,26 @@
 
                     
                         resultsList.append(option);
+
+                        }
+                        else{
+                            var link = $('<a></a>');
+                        link.text(result.text);
+                        link.attr('href', '/company/companyprofile/' + result.id + '/'+ result.text);
+
+                        var span = $('<span></span>')
+                        span.css('background-image', 'url(' + result.profilepic + ')');
+                        span.addClass('roundedprofile')
+
+                        var option = $('<li></li>');
+                        option.append(span);
+                        option.append(link);
+                        option.addClass('flex')
+
+                    
+                        resultsList.append(option);
+                        }
+
                     });
                     resultsList.show();
                 }
@@ -76,6 +92,7 @@
 }
 li{
     list-style: none;
+    margin-bottom: 1rem;
 }
 #searchuserbottom{
     display: none;

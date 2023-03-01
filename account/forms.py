@@ -57,7 +57,7 @@ class ProfileInfo(UserCreationForm):
 
         widgets ={
             
-            'bio': forms.Textarea(attrs={'class':'form_contol','placeholder':'Write a short self-description to introduce yourself to the community...', 'rows':3,})
+            'bio': forms.Textarea(attrs={'class':'form_contol','placeholder':'Write a short self-description to introduce yourself to the community...', 'rows':6,})
         }   
     def __init__(self,*args,**kwargs):
         super(ProfileInfo,self).__init__(*args,**kwargs)

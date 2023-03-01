@@ -1,6 +1,10 @@
 
 
 
+.networksugestion{
+    height: 300px;
+    overflow: scroll;
+}
 .colors{
     color: #4ca065;
     color: #043323;

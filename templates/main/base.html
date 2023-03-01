@@ -26,7 +26,7 @@
                             <span style="width: 250px;" id="searchusertop">
                                 <a href="{% url 'searchpage' %}">
                                 <form>
-                                    <input type="search" name="" id="" placeholder="Search User">
+                                    <input type="search" name="" id="" placeholder="Search Users or Pages">
                                   </form>
                                   </a>
                             </span>
@@ -40,7 +40,6 @@
                                     </span>
                                 </a> 
                             </span>
-
                         <span>
                             
                             <a href="{% url 'profile' request.user.id %}">
@@ -48,19 +47,32 @@
                              </div> 
                             </a>   
                         </span>
-                            <span class="dropdown">
+                        <span class="dropdown">
                                 <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')"> <i class="fa-solid fa-caret-down"></i></span>
                                 <div id="myDropdown{{article.id}}" class="dropdown-content">
-                                  <span>
-                                    <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a>
-                                    <a href="{% url 'myproducts'   %}"> <i class="fa-solid fa-cubes-stacked"></i> My products</a>
-                                    <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Logout  </a>
-
-                                </span>
+                                  
+                                    <li> <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a> </li>
+                                    <li>  <a href="{% url 'myproducts'   %}"> <i class="fa-solid fa-cubes-stacked"></i> My products</a></li>
+                                <li><i class="fa-regular fa-building"></i> Pages  </li> 
+                                <li> 
+                                    <a href=" "><small style="margin-left: 10px;"> <i class="fa-sharp fa-solid fa-plus"></i> Create Page  </small></a> 
+                                </li>                                
+                                {% if mypages %}
+                                <li style="margin-top: 10px;"> Manage Pages </li>
+                                    {%for pages in mypages %}
+                              
+                                    <li> 
+                                          <a href="{%  url 'dashboard' pages.identifier  %} "><small style="margin-left: 10px;">>  {{ pages.name|title}}  </small></a> 
+                                      </li>
+                                 
+                                    {%endfor%}
+                                
+                                {%endif%}
+                                <li> <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout  </small></a></li>
 
                                 </div>
-                              </span>
-                        
+                        </span>
+
                     </a>   
                     {% else %}
                         <span> <a href="{% url 'login' %}"> Login </a> </span>
@@ -73,7 +85,7 @@
             <div style="width: 100%;margin-top: 1rem;" id="searchuserbottom">
                 <a href="{% url 'searchpage' %}">
                 <form>
-                    <input type="search" name="" id="" placeholder="Search User">
+                    <input type="search" name="" id="" placeholder="Search Users or Pages ">
                   </form>
                 </a> 
             </div>
@@ -104,7 +116,9 @@
         <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> <small> Notification </small>  </a>
         <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small> Messages </small></a>
         <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small>  Market </small> </a>
-        <a href="{% url 'ai_room' %}"> <i class="fa-solid fa-circle-info"></i><small> ai chat </small>  </a>
+        <a href="{% url 'ai_room' %}"> <i class="fa-solid fa-circle-info"></i><small> Ai chat </small>  </a>
+        <a href="{% url 'create-company' %}"> <i class="fa-sharp fa-solid fa-plus"></i><small> Create page </small>  </a>
+
         <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout  </small></a>
 
     </div>
@@ -117,7 +131,7 @@
                 <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i> <small>Messages </small>  </a>
                 <a href="{% url 'add_article'%}" class="yellow"> <i class="fa-solid fa-square-plus yellow" ></i> <small> Post</small> </a>
                 <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small> Market </small>  </a>
-                <a href="{% url 'ai_room' %}"><i class="fa-solid fa-circle-info"></i><small> Chatbot </small>  </a>
+                <a href="{% url 'ai_room' %}"><i class="fa-solid fa-circle-info"></i><small> ai chat </small>  </a>
 
         </footer>
 
@@ -125,10 +139,13 @@
             function myFunction(id) {      
           let elt =document.getElementById(id);
           console.log(elt)
-          elt.classList.toggle("show")
+          elt.classList.toggle("show");
+         
             }
         </script>
+<script>
 
+</script>
 
 
 </body>
@@ -147,33 +164,33 @@
         margin-top: -5px;
   
     }
-    .dropbtn:hover{
-        background-color: #f5f5f5;
-    }
+
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #f1f1f1;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      padding: 12px 16px;
+      background-color: white;
+      min-width: 200px;
+      padding: 1rem;
+      top:40px;
       z-index: 1;
       right: 0;
+        border-radius: 7px;
+        font-size: medium;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     }
     
-    .dropdown-content span{
-    
-      color: black;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-end;
-      font-size: 1rem;
+    .dropdown-content li{
+        list-style: none;
+        padding-block: 1rem;
+        color:grey;
+        border-bottom:1px solid #f5f5f5 ;
     }
         .dropdown-content span a{
-        color: black;
+        color: grey;
+    }
+    li a{
+        color: grey;
     }
     .show {
       display: block;

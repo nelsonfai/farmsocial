@@ -5,15 +5,31 @@
     <h2> add new products</h2>
 <form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data" >
     {% csrf_token %}
+
+    
+    <label for="author">Display item as </label>
+    <select name="company" id="companyproduct" required>
+
+        <option value="None"> {{request.user.get_full_name}}</option>
+        {% if options %}
+       
+            No</option>
+        {%for item in options %}
+        <option value={{item.identifier}}>
+            post as {{item.name}}</option>
+            {%endfor%}
+            {%endif%}
+    </select>
+   
     {{form.user_profile.as_hidden}} <br>
-    Product: {{form.product}} <br>
+    Product Name: {{form.product}} <br>
     Description:{{form.product_description}} <br>
     Price:{{form.price}} <br>
-    quantity:{{form.quantity}} <br>
+    Quantity:{{form.quantity}} <br>
     Location:{{form.location}} <br>
-    Main image:{{form.main_image}} <br>
-    Image2:{{form.image2}} <br>
-    Image3:{{form.image3}} <br>
+    Main image:<small>(*required) </small>{{form.main_image}} <br>
+    Image2: <small>(Optional) </small>{{form.image2}} <br>
+    Image3:<small>(Optional) </small>{{form.image3}} <br>
     Category:{{form.product_category}}
 <br>
   <button class="button_one"> Send</button>
@@ -24,7 +40,9 @@
 <style>
    div.addproduct_container{
     width:100%;
+    grid-area: main;
     margin: auto;
+    margin-top: 100px;
     max-width: 800px;
     padding: 1rem;
     margin-bottom: 100px;
@@ -32,7 +50,10 @@
    .button_one{
 width: 100%;
 }
-
+input,textarea,select{
+    margin-top: 1rem;
+    width:100%
+}
 a{
     color: black;
 }
