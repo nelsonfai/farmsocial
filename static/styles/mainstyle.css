@@ -40,7 +40,6 @@ a:hover{
     display: flex;
     flex-direction: column;
     grid-area: 1rem;
-    margin-top: -23px;
 }
 .bodynav_right a{
     padding-block: 1rem;
@@ -102,6 +101,7 @@ nav{
     min-height: 80vh;
     padding-inline: 5%;
     margin-inline: auto;
+    min-width: 80%;
     max-width: 1700px;
 }
 .sidebar{
@@ -169,7 +169,15 @@ button{
 input,select,button,textarea {
     -webkit-border-radius:0;
     border-radius:0;
+
 }
+select {
+  padding: 10px; /* Increase the padding to 10 pixels */
+  -webkit-appearance: none; /* Disable iOS styling */
+  -moz-appearance: none; /* Disable Firefox styling */
+  appearance: none; /* Disable default styling */
+}
+
 footer{
     width: 100%;
     padding: 1rem;
@@ -188,6 +196,8 @@ footer{
     width: 30px !important;
     border-radius: 50%;
     object-fit: contain;
+    ;background-position: center; 
+    background-size: contain;
 }
 button.button_one{
     color: #d4c44b;
@@ -207,9 +217,14 @@ button.button_one{
     justify-content: space-around;
 }
 input{
-    width: 100% !important;;
+    padding: 7px;
   
   }
+      #searchusertop{display:inline-block;
+    }
+    #searchuserbottom{
+        display: none;
+    } 
 @media screen and (max-width:780px) {
     .bodynav_right{
 display: none;
@@ -321,6 +336,13 @@ nav .navlinks{
     .profile-container{
         width: 100%;
     }
-       
+    #searchusertop{display: none;
+    }
+    #searchuserbottom{
+        display: block;
+    }   
+        #searchuserbottom input{
+        width:90%;
+    }
 }
 
