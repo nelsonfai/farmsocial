@@ -94,7 +94,13 @@
                     {{item.name}}</option>
                 {%endfor%}
             </select>
+            {%else%}
+            <select name="author" id="articleauthor">
+              <option value='user' selected>
+                {{request.user.get_full_name}}</option>
+          </select>
             {%endif%}
+            
             {% if user.is_authenticated %}
             <br>
               <button class="button_one button_fulllegnth" >Comment </button>

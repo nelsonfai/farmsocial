@@ -47,6 +47,7 @@ def add_article(request):
                 obj.tag=tags
                 if photo:
                      obj.article_image =image_commpress(photo)
+                     obj.thumpnail = thumpnail(photo)
                 obj.save()
 
 
@@ -122,8 +123,7 @@ def comment(request,article_slug):
                 author= request.POST.get('author')
                 obj = Comments()
                 obj.article = article
-                print('......................')
-                print(author)
+
                 if author == 'user':
                     
                     obj.author = request.user
@@ -250,6 +250,17 @@ def image_commpress(image):
     img.thumbnail(max_size,Image.ANTIALIAS)
     output = io.BytesIO()
     img.save(output,format='png', quality=70)
+    output.seek(0)
+    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+    return compressed_image
+
+def thumpnail(image):
+
+    img = Image.open(image)
+    max_size = (200, 200)
+    img.thumbnail(max_size,Image.ANTIALIAS)
+    output = io.BytesIO()
+    img.save(output,format='png', quality=65)
     output.seek(0)
     compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
     return compressed_image

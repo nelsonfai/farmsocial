@@ -95,7 +95,7 @@ class Articles (models.Model):
     slug = models.SlugField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
     article_image = models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png',]),validate_file_size])
-    thumpnail = models.ImageField( upload_to='articlepics/thumbnails/',blank=True, null=True ,default='/images/articleholder.jpg' )
+    thumpnail = models.ImageField( upload_to='articlepics/thumbnails/',blank=True, null=True )
     likes =models.ManyToManyField(CustomUser, default=None,blank=True, related_name='liked')
     #tagline=models.CharField(max_length=100 ,blank=True,null=True)
     tag = TaggableManager(blank=True)
@@ -114,7 +114,11 @@ class Articles (models.Model):
     def whenpublished(self):
         return timefuntion(self.date)
        
-    
+    def thumpnailpic(self):
+        if self.thumpnail:
+            return self.thumpnail.url
+        else:
+            return 'https://myagricdiary-space.fra1.cdn.digitaloceanspaces.com/agric-static%2Fimages%2Farticleholder.jpg'
     @property
     def num_likes(self):
         return self.liked.all().count()
