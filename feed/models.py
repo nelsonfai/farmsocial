@@ -94,7 +94,7 @@ class Articles (models.Model):
     body = RichTextField( blank=True, null=True ,db_index=True)
     slug = models.SlugField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
-    article_image = models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png',]),validate_file_size])
+    article_image = models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size])
     thumpnail = models.ImageField( upload_to='articlepics/thumbnails/',blank=True, null=True )
     likes =models.ManyToManyField(CustomUser, default=None,blank=True, related_name='liked')
     #tagline=models.CharField(max_length=100 ,blank=True,null=True)

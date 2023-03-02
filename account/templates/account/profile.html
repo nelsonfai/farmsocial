@@ -102,7 +102,7 @@
                    
                         <div class="products">     
                                 <div style="margin-inline:5px ;">
-                                    <div style="background:url('{{ product.main_image.url }}') ;width:100px;height: 100px;background-position: center;background-repeat: no-repeat;background-size: cover;" > </div>
+                                    <div style="background:url('{{ product.thumpnail.url }}') ;width:100px;height: 100px;background-position: center;background-repeat: no-repeat;background-size: cover;" > </div>
                                         <div class="product-info">
                                             <p style="padding-block: .5rem;margin-bottom: .5rem; border-bottom: 1px solid grey;"> <a href="{% url 'product' slug=product.id %}" style="color: #333;"> {{ product.product | truncatechars:10}} </a></p>
                                         </div>

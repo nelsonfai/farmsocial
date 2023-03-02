@@ -46,6 +46,7 @@ def add_product (request):
                 obj.companypage = companypage
             if mainimage:
                 obj.main_image=thumpnail(mainimage)
+                obj.thumpnail=thumpnailpic(mainimage)
             if image2:
                 obj.image2=thumpnail(image2)
             if image3:
@@ -183,7 +184,17 @@ def delete_product (request,slug):
 
 def thumpnail(image):
     img = Image.open(image)
-    max_size = (250, 250)
+    max_size = (500, 500)
+    img.thumbnail(max_size,Image.ANTIALIAS)
+    output = io.BytesIO()
+    img.save(output,format='png', quality=80)
+    output.seek(0)
+    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+    return compressed_image
+
+def thumpnailpic(image):
+    img = Image.open(image)
+    max_size = (100, 100)
     img.thumbnail(max_size,Image.ANTIALIAS)
     output = io.BytesIO()
     img.save(output,format='png', quality=80)

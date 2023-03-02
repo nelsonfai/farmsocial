@@ -35,6 +35,7 @@ class ProductItem(models.Model):
     quantity=models.CharField(max_length=200 )
     price=models.CharField(max_length=200 )
     location=models.CharField(max_length=200)
+    thumpnail=models.ImageField(upload_to='market/thumpnail')
     main_image=models.ImageField(upload_to='market/',validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size])
     image2=models.ImageField(blank=True, null=True ,help_text='Optional',upload_to='market/',validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size])
     image3=models.ImageField(blank=True, null=True,help_text='Optional', upload_to='market/',validators=[FileExtensionValidator(['jpg','png','jpeg']), validate_file_size])
@@ -43,3 +44,5 @@ class ProductItem(models.Model):
     
     def __str__(self):
         return self.product
+   
+        
