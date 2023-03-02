@@ -54,9 +54,9 @@
                     {% if profile != request.user %}
                     <span class="button_three" style="background-color: #f5f5f5;">
                         {% if request.user in network.follower.all %}
-                            <span onclick="network(event,url='unfollow', profile_id='{{profile.id}}',id='unfollowbtn')" style="cursor: pointer;">followingffff</span>
+                            <span onclick="network(event,url='unfollow', profile_id='{{profile.id}}',id='unfollowbtn')" style="cursor: pointer;">Following</span>
                         {% else %}
-                            <span onclick="network(event,url='follow', profile_id='{{profile.id}}' ,id='followbtn')"style="cursor: pointer;" >Follow fff</span>
+                            <span onclick="network(event,url='follow', profile_id='{{profile.id}}' ,id='followbtn')"style="cursor: pointer;" >Follow </span>
                         {% endif %}
                     </span>
                         <span> 
