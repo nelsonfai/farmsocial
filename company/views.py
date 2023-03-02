@@ -11,7 +11,7 @@ def create_company(request):
             obj=form.save(commit=False)
             obj.user = request.user
             obj.save()
-            return redirect('dashboard')
+            return redirect('dashboard', obj.identifier)
         else:
             form = CompanyCreationForm()
             context={
