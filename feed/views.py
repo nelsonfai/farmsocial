@@ -25,7 +25,7 @@ def add_article(request):
     if request.method=='POST':
             body=request.POST.get('body')
             author = request.POST.get('author')
-            tags= request.POST.get('tag')
+            tags=request.POST.get('tag')
             photo= request.FILES.get('article_image')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
             if article_form.is_valid():
@@ -54,9 +54,8 @@ def add_article(request):
                 return redirect('articles')      
             else:
                 article_form =ArticleForm()
-                
-                print(options)
-                return render (request, 'feed/add-article.html', {'form':article_form,'stylesheet':'styles/feed.css'} )
+                options = request.user.company_admin.all()
+                return render (request, 'feed/add-article.html', {'form':article_form,'stylesheet':'styles/feed.css','options':options} )
     
     else:
         article_form =ArticleForm()

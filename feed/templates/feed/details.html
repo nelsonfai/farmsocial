@@ -85,7 +85,8 @@
             {% csrf_token %}
             {{ comment_form.comment }}
             {% if options %}
-            <select name="author" id="articleauthor" required>
+            <br>
+            <select name="author" id="articleauthor" required class="form_control">
                 <option value=""> select one</option>
                 <option value='user'>
                       {{request.user.get_full_name}}</option>
@@ -95,7 +96,7 @@
                 {%endfor%}
             </select>
             {%else%}
-            <select name="author" id="articleauthor">
+            <select name="author" id="articleauthor" class="form_control" hidden>
               <option value='user' selected>
                 {{request.user.get_full_name}}</option>
           </select>
