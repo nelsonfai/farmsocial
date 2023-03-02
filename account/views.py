@@ -202,10 +202,6 @@ class SignupWizard(SessionWizardView):
         
         user.save()
 
-        #create user Notification 
-        usernotification = NotificationUser.objects.create(user=user)
-        # create user Network
-        usernetwork = Network.objects.create(user=user)
         login(self.request ,user)
         subject = 'Account Verification My agric Diary'
         message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/account/verify/{token}'

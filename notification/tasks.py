@@ -1,10 +1,11 @@
-from .models import Notification
+from .models import Notification,NotificationUser
 from celery import Celery
 from account.models import CustomUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from feed.models import Articles
 from marketplace.models import ProductItem
+from Friends.models import Network
 
 app = Celery('tasks', broker='redis://localhost:6379/0', result_backend='redis://localhost:6379/0')
 
@@ -64,3 +65,17 @@ def productnotify(instance):
                 follower.usernotification.mynotification.add(new_notification)
     else:
          pass
+
+
+#should be in the signal.py 
+@receiver(post_save,sender=CustomUser)
+def create_notification(created ,instance ,**kwargs):
+        if created:
+            notificationuser = NotificationUser.objects.create(user=instance)
+
+
+#should be in the signal.py 
+@receiver(post_save,sender=CustomUser)
+def create_network(created ,instance ,**kwargs):
+        if created:
+            network = Network.objects.create(user=instance)
