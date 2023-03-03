@@ -28,6 +28,7 @@
             {% if articles %}
             {% for article in articles %}
                     <div class="article-item" id="article{{article.id}}"> 
+                      <div class="article-top"> 
                         <div class="author-info">
                           
                             <div class="right"> 
@@ -77,8 +78,9 @@
                                     <p id ='text'>{{article.body|safe}} </p>
                                     <button id="toggle-button" style="color:#d4c44b"> show less </button>
                         </div>
-
+                      </div>
                         {% if article.article_image %} 
+
                         <div class="article_image">     
                             <img src="{{ article.article_image.url }}" alt="article image" width="100%">
                         </div>
@@ -179,6 +181,9 @@
 </div>
 
 <style>
+  main{
+    padding: 0 !important;
+  }
   .sidebar_right{
     padding: 0;
     background-color: transparent;
