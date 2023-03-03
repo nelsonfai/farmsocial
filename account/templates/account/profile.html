@@ -16,7 +16,13 @@
         <div class="profile-name">
             <h2 class="name"> {{ profile.get_full_name|title}} 
                 {% if request.user.is_verified %}
-                 <span style="color: #d4c44b; font-size: 1rem;"> <i class="fa-solid fa-circle-check"></i></span>
+                 <span style="color: #d4c44b !important ; font-size: 1.1rem;"> <i class="fa-solid fa-circle-check"></i></span>
+                 {%else%}
+                 <span style=" font-size: 1.1rem;"> <i class="fa-regular fa-circle-question"></i></span>
+                 {% if request.user == profile %}
+                 <p> <small> ( Please verify your account thought the verification email sent to you! ) </small> </p>
+                 <br>
+                 {%endif%}
                  {%endif%}
                 {% if profile == request.user %}
                 <span class="deletebtnfloat"> <a href="{% url 'editname' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>

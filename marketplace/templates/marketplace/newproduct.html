@@ -2,7 +2,8 @@
 {% block content %}
 
 <div class="addproduct_container">
-    <h2> add new products</h2>
+    <h2> Add new products</h2>
+    <br>
 <form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data" >
     {% csrf_token %}
 
@@ -32,7 +33,7 @@
     Image3:<small>(Optional) </small>{{form.image3}} <br>
     Category:{{form.product_category}}
 <br>
-  <button class="button_one"> Send</button>
+  <button class="button_one"> Add New product</button>
 </form>
 </div>
 
@@ -57,5 +58,9 @@ input,textarea,select{
 a{
     color: black;
 }
+@media screen and (max-width: 780px){
+div.addproduct_container {
+margin-top: 0;
+}}
 </style>
 {% endblock %}
