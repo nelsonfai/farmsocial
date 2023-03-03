@@ -18,10 +18,8 @@
                 {% if request.user.is_verified %}
                  <span style="color: #d4c44b !important ; font-size: 1.1rem;"> <i class="fa-solid fa-circle-check"></i></span>
                  {%else%}
-                 <span style=" font-size: 1.1rem;"> <i class="fa-regular fa-circle-question"></i></span>
-                 {% if request.user == profile %}
-                 <p> <small> ( Please verify your account thought the verification email sent to you! ) </small> </p>
-                 <br>
+                 <span style=" font-size: 1.3rem;"> <i class="fa-regular fa-circle-question"></i></span>
+           
                  {%endif%}
                  {%endif%}
                 {% if profile == request.user %}
