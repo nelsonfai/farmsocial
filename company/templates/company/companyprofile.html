@@ -32,7 +32,7 @@
        <p> <span >   Followers {{profile.pagefollowers.all.count}} </span> </p>
             {% if user.is_authenticated %}
                 <br>
-                    
+                <div class="flex-buttons flex">   
                     <span class="button_three" style="background-color: #f5f5f5;">
                         {% if request.user in profile.pagefollowers.all %}
                             <span id='companyfollowbtn'  onclick="network(event, profile_id='{{profile.identifier}}',id ='companyfollowbtn' )" style="cursor: pointer;" >Following</span>
@@ -40,14 +40,14 @@
                             <span  id='companyunfollowbtn' onclick="network(event, profile_id='{{profile.identifier}}', id='companyunfollowbtn' )" style="cursor: pointer;" >Follow</span>
                         {% endif %}
                     </span>
-                        <span style="margin-left: 1rem;"> 
+                        <span > 
                                <a href="{{profile.website}}" target="_blank"> <span  class="button_three" style="cursor: pointer;"> visit Website</span> </a>
                         </span>
                     {% if profile.user == request.user %}
                     <span class="button_three" style="background-color: #f5f5f5;"><a href="{%  url 'dashboard' profile.identifier  %} " style=" color:#333"> View as Admin</a> </span>
                     {% endif %}
                
-
+                </div> 
 
             {% endif %}
         </div>

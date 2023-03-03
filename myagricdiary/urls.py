@@ -19,6 +19,14 @@ from django.urls import path,include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
+from django.shortcuts import render
+
+def error404(request,exception=None):
+    return render(request,'main/error404.html',status=404)
+
+def error500(request,exception=None):
+    return render(request,'main/error505.html',status=500)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,7 +38,8 @@ urlpatterns = [
     path('chat/', include('chat.urls') ),
     path('company/', include('company.urls') ),
     path('ai/', include('myagricai.urls') ),
-
+    path('error/404/',error404),
+    path('error/500/',error500)
 ]
 urlpatterns+=staticfiles_urlpatterns()
 urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
