@@ -30,7 +30,8 @@
                                         <small><a href="{% url 'product' slug=product.id %}" > Details</a> </small> 
                                         <small>
                                             <form action="{% url 'delete_product' product.id%}" method="POST" onsubmit="deleteConfirm(event)">
-                                                <button> Delete</button>
+                                                {% csrf_token %}
+                                               <small> <button> Delete</button> </small>
                                             </form>
                                         </small>
                                         <small><a href="{% url 'edit_product' product.id %}"> Edit</a> </small>
@@ -138,6 +139,7 @@ a{
 }
 .flex small{
     padding: 0.5rem;
+    border: 0.7px solid grey;
 }
 @media screen and (max-width:768px) {
     .grid-container{
@@ -165,6 +167,14 @@ a{
     gap:1rem;
     margin-bottom: 5rem;
 }  
+main{
+    padding: 0 !important;
+    
+}
+button{
+    padding:0 !important;
+    font-size: small !important;
+}
 }
 
 @media screen and (max-width:320px) {
@@ -180,13 +190,21 @@ a{
     display: block;
     margin-bottom: 5rem;
 } 
+main{
+    padding: 0 !important;
+    
+}
+button{
+    padding:0 !important;
+    font-size: small !important;
+}
 }
 </style>
 
 <script>
 
     function deleteConfirm(event){
-            if (confirm('Do you want to delete this Article?.Action is irreversible')){
+            if (confirm('Do you want to delete this Product?.Action is irreversible')){
             }
             else{
                 event.preventDefault();
