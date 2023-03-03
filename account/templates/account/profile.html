@@ -19,9 +19,7 @@
                  <span style="color: #d4c44b !important ; font-size: 1.1rem;"> <i class="fa-solid fa-circle-check"></i></span>
                  {%else%}
                  <span style=" font-size: 1.3rem;"> <i class="fa-regular fa-circle-question"></i></span>
-           
-                 {%endif%}
-                 {%endif%}
+                {%endif%}
                 {% if profile == request.user %}
                 <span class="deletebtnfloat"> <a href="{% url 'editname' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
                 {%endif%}
