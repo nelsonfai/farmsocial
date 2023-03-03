@@ -31,7 +31,7 @@
                                         <small>
                                             <form action="{% url 'delete_product' product.id%}" method="POST" onsubmit="deleteConfirm(event)">
                                                 {% csrf_token %}
-                                               <small> <button> Delete</button> </small>
+                                               <button> Delete</button>
                                             </form>
                                         </small>
                                         <small><a href="{% url 'edit_product' product.id %}"> Edit</a> </small>
