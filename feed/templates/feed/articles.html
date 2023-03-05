@@ -51,7 +51,7 @@
 
 
                             <div> 
-                                {% if article.author == request.user %}
+                                {% if article.author == request.user || if article.company.admin == request.user %}
                                 <div class="dropdown">
                                     <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')">...</span>
                                     <div id="myDropdown{{article.id}}" class="dropdown-content" style="min-width: 0;">
@@ -59,29 +59,29 @@
 
                                     </div>
                                   </div>
-                                  
-                                {% endif %}
+                                {%else%}
+                               
                                 <span>
-                                  {%if articel.article %}
-                                    {% if article.author != request.user %}
+                                  {% if article.author %}
                                       {% if article.author in mynetwork.following.all %}
                                         <a href="{% url 'createchat' article.author.id %}"> <button>Message</button> </a>
                                       {% else %}
                                          <button onclick="network(event,url='follow', profile_id='{{article.author.id}}' ,id='{{article.id}}followbtn{{article.author.id}}')" id="{{article.id}}unfollowbtn{{article.author.id}}">+Follow</button>
                                       {% endif %}
-                                  {% endif %}
-                                  {%else%}
+
+                                  {%elif article.company %}
                                       {% if request.user in article.company.pagefollowers.all %}
                                       <span id='companyfollowbtn'  onclick="networkcompany(event, profile_id='{{article.company.identifier}}',id ='companyfollowbtn' )" style="cursor: pointer;" >Following</span>
-                                  {% else %}
+                                      {% else %}
                                       <span  id='companyunfollowbtn' onclick="networkcompany(event, profile_id='{{article.company.identifier}}', id='companyunfollowbtn' )" style="cursor: pointer;" >Follow</span>
-                                  {% endif %}
+                                      {% endif %}
 
                                   {%endif%}
                                 </span>
+                                {% endif %}
                             </div>
                         </div>
-                       {%if article.title %} <p> <strong>{{article.title|safe}} </strong></p> <br>{%endif%}
+                       {%if article.title %} <p> {{article.title|safe}} </p> <br>{%endif%}
 
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}} </p>
@@ -188,6 +188,9 @@
 </div>
 
 <style>
+  #text{
+    cursor: pointer;
+  }
   main{
     padding: 0 !important;
   }
@@ -302,20 +305,19 @@
 <script>
   const elements = document.getElementsByClassName("toggle-text");
   for (let i = 0; i < elements.length; i++) {
+
     const element = elements[i];
-    
-    const fullText = element.innerHTML + `<span style="color:#d4c44b;cursor: pointer;">... show less </span>`;
-    const shortText = element.innerHTML.substring(0, 100) + `<span style="color:#d4c44b;cursor: pointer;"> ...show more </span>`;
-    element.innerHTML = shortText;
-    
+  const fullText = element.innerText + ' ... SHOW LESS';
+  const shortText = fullText.substring(0, 100) + ' ... SHOW MORE';
+  element.innerText = shortText;
     let isTruncated = false;
     element.addEventListener("click", function() {
      
       if (isTruncated) {
       
-        element.innerHTML = shortText;
+      element.innerText = shortText;
       } else {
-        element.innerHTML = fullText;
+      element.innerText = fullText;
       }
   
       isTruncated = !isTruncated;
