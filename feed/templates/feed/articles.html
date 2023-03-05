@@ -66,14 +66,14 @@
                                       {% if article.author in mynetwork.following.all %}
                                         <a href="{% url 'createchat' article.author.id %}"> <button>Message</button> </a>
                                       {% else %}
-                                         <button onclick="network(event,url='follow', profile_id='{{article.author.id}}' ,id='{{article.id}}followbtn{{article.author.id}}')" id="{{article.id}}unfollowbtn{{article.author.id}}">+Follow</button>
+                                         <button class="button_three" onclick="network(event,url='follow', profile_id='{{article.author.id}}' ,id='{{article.id}}followbtn{{article.author.id}}')" id="{{article.id}}unfollowbtn{{article.author.id}}">+Follow</button>
                                       {% endif %}
                                   {%endif%}
                                   {%if article.company %}
                                       {% if request.user in article.company.pagefollowers.all %}
-                                      <span id='companyfollowbtn'  onclick="networkcompany(event, profile_id='{{article.company.identifier}}',id ='companyfollowbtn' )" style="cursor: pointer;" >Following</span>
+                                      <span class="button_three" id='companyfollowbtn'  onclick="networkcompany(event, profile_id='{{article.company.identifier}}',id ='companyfollowbtn' )" style="cursor: pointer;" >Following</span>
                                       {% else %}
-                                      <span  id='companyunfollowbtn' onclick="networkcompany(event, profile_id='{{article.company.identifier}}', id='companyunfollowbtn' )" style="cursor: pointer;" >Follow</span>
+                                      <span class="button_three" id='companyunfollowbtn' onclick="networkcompany(event, profile_id='{{article.company.identifier}}', id='companyunfollowbtn' )" style="cursor: pointer;" >Follow</span>
                                       {% endif %}
 
                                   {%endif%}
@@ -169,9 +169,9 @@
                 {% if item != request.user %}
                 <span>
                     {% if item in mynetwork.following.all %}
-                        <button onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</button>
+                        <button class="button_three" onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</button>
                     {% else %}
-                        <button onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</button>
+                        <button class="button_three" onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</button>
                     {% endif %}
                 </span>
                 {% endif %}
@@ -252,12 +252,12 @@
               console.log(result)
               if (result.data === 'follow'){
       
-                btn.parentElement.innerHTML = `<button onclick="network(event,url='follow', profile_id='${profile_id}', id='${id}')" > +Follow </button>`;
+                btn.parentElement.innerHTML = `<button class="button_three" onclick="network(event,url='follow', profile_id='${profile_id}', id='${id}')" > +Follow </button>`;
                 btn.remove();
                }
               else{
                 
-                btn.parentElement.innerHTML = `<button onclick="network(event,url='unfollow', profile_id='${profile_id}', id='${id}')"> unfollow </button>`;
+                btn.parentElement.innerHTML = `<button class="button_three" onclick="network(event,url='unfollow', profile_id='${profile_id}', id='${id}')"> unfollow </button>`;
                 btn.remove();
 } 
               }
@@ -368,11 +368,11 @@ function deleteConfirm(event,id,article_id){
               // Handle the success response
               console.log(result)
               if (result.success === 'follow'){
-                btn.parentElement.innerHTML = `<span  id='${id}' onclick="network(event, profile_id='${profile_id}', id='${id}' )" style="cursor: pointer;" >Follow</span>`;
+                btn.parentElement.innerHTML = `<span class="button_three"  id='${id}' onclick="networkcompany(event, profile_id='${profile_id}', id='${id}' )" style="cursor: pointer;" >Follow</span>`;
                 btn.remove();
                }
               else{
-                btn.parentElement.innerHTML = `<span id='${id}'  onclick="network(event, profile_id='${profile_id}',id='${id}' )" style="cursor: pointer;" >Following</span>`;
+                btn.parentElement.innerHTML = `<span  class="button_three" id='${id}'  onclick="networkcompany(event, profile_id='${profile_id}',id='${id}' )" style="cursor: pointer;" >Following</span>`;
                 btn.remove();
 } 
               }
