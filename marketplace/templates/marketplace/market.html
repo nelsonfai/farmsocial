@@ -45,9 +45,9 @@
                                     <div class="product-info">
                                         <p style="font-size: large;">{{ product.product }}</p>
                                         <p class="location"><i class="fa-solid fa-location-dot"></i> {{ product.location }}</p>
-                                        <p class="price">   {{ product.price}}  </p>
+                                        <p class="price">  {{ product.price}}  </p>
                                     </div> 
-                                    <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;position:absolute;bottom:0"> <a href="{% url 'product' slug=product.id %}" > Details</a></div>
+                                    <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;margin-top: 1rem;"> <a href="{% url 'product' slug=product.id %}" > Details</a></div>
 
                             </div>
                             {% endfor%}
