@@ -305,9 +305,10 @@
 <script>
   const elements = document.getElementsByClassName("toggle-text");
   for (let i = 0; i < elements.length; i++) {
+  const element = elements[i];
   const text = element.innerText.trim();
   if (text.length > 100) {
-  const element = elements[i];
+ 
   const fullText = element.innerText + ' ... SHOW LESS';
   const shortText = element.innerText.substring(0, 100) + ' ... SHOW MORE';
   element.innerText = shortText;
