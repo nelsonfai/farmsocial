@@ -51,7 +51,7 @@
 
 
                             <div> 
-                                {% if article.author == request.user or if article.company.user == request.user %}
+                                {% if article.author == request.user or  article.company.user == request.user %}
                                 <div class="dropdown">
                                     <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')">...</span>
                                     <div id="myDropdown{{article.id}}" class="dropdown-content" style="min-width: 0;">
@@ -68,8 +68,8 @@
                                       {% else %}
                                          <button onclick="network(event,url='follow', profile_id='{{article.author.id}}' ,id='{{article.id}}followbtn{{article.author.id}}')" id="{{article.id}}unfollowbtn{{article.author.id}}">+Follow</button>
                                       {% endif %}
-
-                                  {%elif article.company %}
+                                  {%endif%}
+                                  {%if article.company %}
                                       {% if request.user in article.company.pagefollowers.all %}
                                       <span id='companyfollowbtn'  onclick="networkcompany(event, profile_id='{{article.company.identifier}}',id ='companyfollowbtn' )" style="cursor: pointer;" >Following</span>
                                       {% else %}
