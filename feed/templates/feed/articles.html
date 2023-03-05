@@ -62,6 +62,7 @@
                                   
                                 {% endif %}
                                 <span>
+                                  {%if articel.article %}
                                     {% if article.author != request.user %}
                                       {% if article.author in mynetwork.following.all %}
                                         <a href="{% url 'createchat' article.author.id %}"> <button>Message</button> </a>
@@ -69,6 +70,14 @@
                                          <button onclick="network(event,url='follow', profile_id='{{article.author.id}}' ,id='{{article.id}}followbtn{{article.author.id}}')" id="{{article.id}}unfollowbtn{{article.author.id}}">+Follow</button>
                                       {% endif %}
                                   {% endif %}
+                                  {%else%}
+                                      {% if request.user in article.company.pagefollowers.all %}
+                                      <span id='companyfollowbtn'  onclick="networkcompany(event, profile_id='{{article.company.identifier}}',id ='companyfollowbtn' )" style="cursor: pointer;" >Following</span>
+                                  {% else %}
+                                      <span  id='companyunfollowbtn' onclick="networkcompany(event, profile_id='{{article.company.identifier}}', id='companyunfollowbtn' )" style="cursor: pointer;" >Follow</span>
+                                  {% endif %}
+
+                                  {%endif%}
                                 </span>
                             </div>
                         </div>
@@ -76,7 +85,6 @@
 
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}} </p>
-                                    <button id="toggle-button" style="color:#d4c44b"> show less </button>
                         </div>
                       </div>
                         {% if article.article_image %} 
@@ -84,7 +92,6 @@
                         <div class="article_image">     
                             <img src="{{ article.article_image.url }}" alt="article image" width="100%">
                         </div>
-
                         {% endif %}
                         <div class="engagment"> 
                             <span>                                    
@@ -293,28 +300,29 @@
 
 </script>
 <script>
-const elements = document.getElementsByClassName("toggle-text");
-for (let i = 0; i < elements.length; i++) {
-
-  const element = elements[i];
-  const fullText = element.innerText;
-  const shortText = fullText.substring(0, 100) + ' ... show more';
-  element.innerText = shortText;
-  let isTruncated = false;
-  element.addEventListener("click", function() {
-   
-    if (isTruncated) {
+  const elements = document.getElementsByClassName("toggle-text");
+  for (let i = 0; i < elements.length; i++) {
+    const element = elements[i];
     
-      element.innerText = shortText;
-    } else {
-      element.innerText = fullText;
-    }
-
-    isTruncated = !isTruncated;
-  });
-}
-
-</script>
+    const fullText = element.innerHTML + `<span style="color:#d4c44b;cursor: pointer;">... show less </span>`;
+    const shortText = element.innerHTML.substring(0, 100) + `<span style="color:#d4c44b;cursor: pointer;"> ...show more </span>`;
+    element.innerHTML = shortText;
+    
+    let isTruncated = false;
+    element.addEventListener("click", function() {
+     
+      if (isTruncated) {
+      
+        element.innerHTML = shortText;
+      } else {
+        element.innerHTML = fullText;
+      }
+  
+      isTruncated = !isTruncated;
+    });
+  }
+  
+  </script>
 <script>
 
 function deleteConfirm(event,id,article_id){
@@ -342,6 +350,35 @@ function deleteConfirm(event,id,article_id){
 
 </script>
 
+<script>
+  function networkcompany(url,profile_id,id){
+          console.log('logded in')
+          console.log(id)
+          var btn = document.getElementById(id)
+          var link = '/company/followpage/' + profile_id
+          console.log(id)
+
+          console.log(btn)
+          $.ajax({
+              url: link,
+              type: 'GET',
+              success: function(result) {
+              // Handle the success response
+              console.log(result)
+              if (result.success === 'follow'){
+                btn.parentElement.innerHTML = `<span  id='${id}' onclick="network(event, profile_id='${profile_id}', id='${id}' )" style="cursor: pointer;" >Follow</span>`;
+                btn.remove();
+               }
+              else{
+                btn.parentElement.innerHTML = `<span id='${id}'  onclick="network(event, profile_id='${profile_id}',id='${id}' )" style="cursor: pointer;" >Following</span>`;
+                btn.remove();
+} 
+              }
+          });     
+
+}
+
+</script>
 
 
 

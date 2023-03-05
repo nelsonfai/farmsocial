@@ -43,13 +43,11 @@
                             <div class="item">
                                 <div class="product_image" style="background:url('{{ product.main_image.url }}') ;background-position: center; background-size: cover;background-repeat: no-repeat;" loading="lazy"> </div>
                                     <div class="product-info">
-                                        <p>{{ product.product }}</p>
-                                        <p class="price"> <i class="fa-solid fa-hand-holding-dollar"></i>  <u> {{ product.price}}  </u> </p>
-                                        <p><i class="fa-solid fa-cubes-stacked"></i>    {{ product.quantity}} </p>
+                                        <p style="font-size: large;">{{ product.product }}</p>
                                         <p class="location"><i class="fa-solid fa-location-dot"></i> {{ product.location }}</p>
-                                        
+                                        <p class="price">   {{ product.price}}  </p>
                                     </div> 
-                                    <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;margin-top: 0.5rem;"> <a href="{% url 'product' slug=product.id %}" > Details</a></div>
+                                    <div style="background-color: #f5f5f5;color: white;text-align: center;width: 100%;padding: 0.5rem;position:absolute;bottom:0"> <a href="{% url 'product' slug=product.id %}" > Details</a></div>
 
                             </div>
                             {% endfor%}
@@ -129,12 +127,15 @@ padding:0.5rem ;
     width: 100%;
 }
 .price{
-    color:black;
+    color:var(--primary-color);
     margin-top:10px ;
 }
 .location{
     color:grey;
     margin-bottom: 6px;
+}
+.location i{
+    color: grey;
 }
 .item{
    background-color: white;

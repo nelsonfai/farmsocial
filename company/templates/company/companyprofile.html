@@ -44,7 +44,7 @@
                                <a href="{{profile.website}}" target="_blank"> <span  class="button_three" style="cursor: pointer;"> visit Website</span> </a>
                         </span>
                     {% if profile.user == request.user %}
-                    <span class="button_three" style="background-color: #f5f5f5;"><a href="{%  url 'dashboard' profile.identifier  %} " style=" color:#333"> View as Admin</a> </span>
+                    <span class="button_three" style="background-color: #f5f5f5;"><a href="{%  url 'dashboard' profile.identifier  %} " style=" color:#333"> Edit</a> </span>
                     {% endif %}
                
                 </div> 
