@@ -51,7 +51,7 @@
 
 
                             <div> 
-                                {% if article.author == request.user || if article.company.admin == request.user %}
+                                {% if article.author == request.user or if article.company.user == request.user %}
                                 <div class="dropdown">
                                     <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')">...</span>
                                     <div id="myDropdown{{article.id}}" class="dropdown-content" style="min-width: 0;">
