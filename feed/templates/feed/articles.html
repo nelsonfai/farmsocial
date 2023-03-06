@@ -86,7 +86,6 @@
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}} </p>
                         </div>
-                        <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" > </span>
                       </div>
                         {% if article.article_image %} 
 
@@ -305,27 +304,25 @@
 </script>
 <script>
   const elements = document.getElementsByClassName("toggle-text");
-  const showmoreLess = document.getElementById('showmore-less')
   for (let i = 0; i < elements.length; i++) {
   const element = elements[i];
   const text = element.innerText.trim();
   if (text.length > 100) {
  
-  const fullText = element.innerText  ;
-  const shortText = element.innerText.substring(0, 100) ;
-  element.innerText = shortText;
-  showmoreLess.innerText ='...show more'
+  const fullText = element.innerText  + `<span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >...less </span>
+`;
+  const shortText = element.innerText.substring(0, 100) + ` <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >... more </span>
+`;
+  element.innerHTML = shortText;
     let isTruncated = false;
     element.addEventListener("click", function() {
      
       if (isTruncated) {
       
-      element.innerText = shortText;
-      showmoreLess.innerText ='...show more'
+      element.innerHTML = shortText;
 
       } else {
-      element.innerText = fullText;
-      showmoreLess.innerText ='... show less'
+      element.innerHTML = fullText;
 
       }
   
