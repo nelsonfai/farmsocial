@@ -21,7 +21,7 @@
 								
 									<div class="flex" > 
 
-                                            <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain;"> 
+                                            <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain; background-repeat: no-repeat;"> 
                                             </span> 
 
 										<div>
@@ -99,7 +99,6 @@
                                             </div>
                                             </a> 
                                         {% endif %}
-                                        <span></span>
                                          </div>   
                                         <div class="card-body msg_card_body"  id="messagebody">
                                             <!------- messages ------->
@@ -225,7 +224,7 @@
         border-radius: 50%;
     }
 
-    @media screen and (max-width:780px) {
+@media screen and (max-width:780px) {
 
 .card{
 height: 80vh ;
@@ -267,8 +266,7 @@ footer{
         margin-bottom: 15px;
     }
 .card-header{
-    justify-content: space-between;
-    gap: 6rem;
+    gap: 2rem;
     position: sticky;
     top:0;
     background-color: #fff;

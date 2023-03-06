@@ -64,7 +64,7 @@
                                 <span>
                                   {% if article.author %}
                                       {% if article.author in mynetwork.following.all %}
-                                        <a href="{% url 'createchat' article.author.id %}"> <button>Message</button> </a>
+                                        <a href="{% url 'createchat' article.author.id %}"> <button class="button_three">Message</button> </a>
                                       {% else %}
                                          <button class="button_three" onclick="network(event,url='follow', profile_id='{{article.author.id}}' ,id='{{article.id}}followbtn{{article.author.id}}')" id="{{article.id}}unfollowbtn{{article.author.id}}">+Follow</button>
                                       {% endif %}
@@ -86,6 +86,7 @@
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}} </p>
                         </div>
+                        <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" > </span>
                       </div>
                         {% if article.article_image %} 
 
@@ -226,11 +227,11 @@
   }
 
   button{
-    color: #d4c44b;
     color: black;
-    padding: 0.3rem;
-    background-color: rgba(212,196,75,.7);
-
+    background-color:whitesmoke;
+    padding: 0.3rem 0.9rem;
+    border-radius: 4rem;
+    cursor: pointer;
   }
  
 </style>
@@ -304,28 +305,34 @@
 </script>
 <script>
   const elements = document.getElementsByClassName("toggle-text");
+  const showmoreLess = document.getElementById('showmore-less')
   for (let i = 0; i < elements.length; i++) {
   const element = elements[i];
   const text = element.innerText.trim();
   if (text.length > 100) {
  
-  const fullText = element.innerText + ' ... SHOW LESS';
-  const shortText = element.innerText.substring(0, 100) + ' ... SHOW MORE';
+  const fullText = element.innerText  ;
+  const shortText = element.innerText.substring(0, 100) ;
   element.innerText = shortText;
+  showmoreLess.innerText ='...show more'
     let isTruncated = false;
     element.addEventListener("click", function() {
      
       if (isTruncated) {
       
       element.innerText = shortText;
+      showmoreLess.innerText ='...show more'
+
       } else {
       element.innerText = fullText;
+      showmoreLess.innerText ='... show less'
+
       }
   
       isTruncated = !isTruncated;
     });
   }
-}
+} 
   </script>
 <script>
 
