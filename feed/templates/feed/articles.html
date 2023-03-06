@@ -309,9 +309,9 @@
   const text = element.innerText.trim();
   if (text.length > 100) {
  
-  const fullText = element.innerText  + `<span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >...less </span>
+  const fullText = element.innerHTML  + `<span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >...less </span>
 `;
-  const shortText = element.innerText.substring(0, 100) + ` <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >... more </span>
+  const shortText = element.innerHTML.substring(0, 100) + ` <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >... more </span>
 `;
   element.innerHTML = shortText;
     let isTruncated = false;
