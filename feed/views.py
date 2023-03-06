@@ -25,7 +25,6 @@ def add_article(request):
     if request.method=='POST':
             body=request.POST.get('body')
             author = request.POST.get('author')
-            tags=request.POST.get('tag')
             photo= request.FILES.get('article_image')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
             if article_form.is_valid():
@@ -44,7 +43,6 @@ def add_article(request):
                 else:
                      title=''
                 obj.slug = slug_generator(title=title,body=body[:5])
-                obj.tag=tags
                 if photo:
                      obj.article_image =image_commpress(photo)
                      obj.thumpnail = thumpnail(photo)
