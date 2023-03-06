@@ -47,6 +47,7 @@ def add_article(request):
                      obj.article_image =image_commpress(photo)
                      obj.thumpnail = thumpnail(photo)
                 obj.save()
+                article_form.save_m2m()
 
 
                 return redirect('articles')      
