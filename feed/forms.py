@@ -1,6 +1,8 @@
 from .models import Comments,Articles
 from django import forms
 from ckeditor.fields import RichTextField
+from taggit.forms import TagWidget
+
 
 
     
@@ -21,8 +23,7 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Articles
         fields = ['title','article_image','tag']
-        widgets ={
-            
-            'tag': forms.TextInput(attrs={'class':'comment_field','placeholder':'e.g : climate change,soil', 'row':3,})
-        }     
+        widgets = {
+            'tag': TagWidget(attrs={'placeholder': 'e.g: climate change,sustainablity,soil'}),
+        }  
 
