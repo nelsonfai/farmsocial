@@ -29,6 +29,7 @@ def add_article(request):
             article_form = ArticleForm(request.POST or None, request.FILES or None)
             if article_form.is_valid():
                 #print(article_form.tag)
+
                 obj=article_form.save(commit=False)
                 print(author)
                 if author == 'user':
@@ -225,7 +226,7 @@ def delete_annoucement (request,slug):
         messages.success(request,'Announcement has been deleted')
         return redirect('annoucement')
 def filter_article(request,tag):
-        articles = Articles.objects.filter(tag__name=tag)
+        articles = Articles.objects.filter(tag__slug=tag)
         p=Paginator(articles,per_page=3)
         page=request.GET.get('page')
         paginated_article=p.get_page(page)

@@ -148,7 +148,7 @@
       <br>
       {% for tag in tags %}
        
-          <div><a href="{% url 'filter' tag.name %}">{{tag.name}} </a></div>
+          <div><a href="{% url 'filter' tag.slug %}">{{tag.slug}} </a></div>
       
       {%endfor%}
       
