@@ -87,7 +87,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'notification.context_processors.notificationCount',
-                'Friends.context_processors.friendSuggestions'
+                'Friends.context_processors.friendSuggestions',
+                'chat.context_processors.get_unread_messages_count'
                 
 
 

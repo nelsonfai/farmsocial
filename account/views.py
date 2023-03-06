@@ -26,6 +26,7 @@ import uuid
 from PIL import Image
 from company.models import Company
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.utils import timezone
 
 import io
 
@@ -260,17 +261,7 @@ def search_users(request,slug):
     return JsonResponse(data)
 
 def email(subject,message,sendto):
-                # send email
-            """
-            subject = f'Verify your email address'
-            message = f'Hi {new_profile.user.username} Thanks for joining. Activate your email  address by clicking the following link: https://www.pryclet.site/account/verify/{new_profile.token} '
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [new_profile.user.email,]
-            send_mail( subject, message, email_from, recipient_list )
-            print(  'A')
-            context={'email':new_profile.user.email}
-            #return 'done'"""
-
+            # send email
             subject = subject
             message = message
             email_from = settings.EMAIL_HOST_USER
@@ -278,6 +269,18 @@ def email(subject,message,sendto):
             send_mail( subject, message, email_from, recipient_list )
             context={'email':sendto}
             return 'done'
+
+@login_required
+def check_online_status(request):
+    user_id = request.GET.get('user_id')
+    user = CustomUser.objects.get(id=user_id)
+    if user.last_seen:
+        time_diff = timezone.now() - user.last_seen
+        if time_diff.total_seconds() <= 30:
+            return JsonResponse({'is_online': True})
+    return JsonResponse({'is_online': False})
+
+
 
 def verify_email(request,token):
     try:

@@ -61,6 +61,8 @@ class CustomUser(AbstractUser):
     is_active = models.BooleanField( default=True)
     is_verified = models.BooleanField( default=False)
     token = models.CharField(max_length=200,default=1)
+    last_seen = models.DateTimeField(null=True, blank=True)
+
 
     #following = models.ManyToManyField('self', through='Follow', related_name='followed_by', symmetrical=False)
 

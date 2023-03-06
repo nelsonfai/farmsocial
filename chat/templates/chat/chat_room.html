@@ -20,8 +20,10 @@
 								{% if thread.first_person == user %}
 								
 									<div class="flex" > 
+                                            <input type="hidden" id="msg-receiver" value="{{ thread.second_person.id }}">
 
-                                            <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain; background-repeat: no-repeat;"> 
+                                            <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain; background-repeat: no-repeat;position:absolute"> 
+                                                <span id="indicator"> . </span> 
                                             </span> 
 
 										<div>
@@ -35,6 +37,8 @@
 							
 								{% else %}
 								<div class="flex" > 
+                                    <input type="hidden" id="msg-receiver" value="{{ thread.first_person.id }}">
+
 									<span class="roundedprofile" style="background:url('{{ thread.first_person.profilepic}}') ;background-position: center; background-size: contain;"> 
 									</span> 
 
@@ -153,7 +157,27 @@
         <script src="{% static 'scripts/chat.js' %}"></script>
     </main>
 
- 
+ <script>
+
+function checkOnlineStatus() {
+  $.ajax({
+    url: '/check_online_status/',
+    method: 'GET',
+    data: {
+      user_id: user_id
+    },
+    success: function(response) {
+      if (response.is_online) {
+        console.log('User is online');
+      } else {
+        console.log('User is offline');
+      }
+    }
+  });
+}
+
+setInterval(checkOnlineStatus, 30000);
+ </script>
     <script>
         let id = document.getElementById('thread-id').value;
         id = 'thread' + id

@@ -77,7 +77,7 @@ def slug_generator(title,body):
 def articles (request):
     if request.user.is_authenticated:
         articles=Articles.objects.all().order_by('-date')
-        p=Paginator(articles,per_page=3)
+        p=Paginator(articles,per_page=10)
         page=request.GET.get('page')
         paginated_article=p.get_page(page)
         top_n = 10
