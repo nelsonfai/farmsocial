@@ -20,10 +20,8 @@
 								{% if thread.first_person == user %}
 								
 									<div class="flex" > 
-                                            <input type="hidden" id="msg-receiver" value="{{ thread.second_person.id }}">
 
                                             <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain; background-repeat: no-repeat;position:absolute"> 
-                                                <span id="indicator"> . </span> 
                                             </span> 
 
 										<div>
@@ -37,7 +35,6 @@
 							
 								{% else %}
 								<div class="flex" > 
-                                    <input type="hidden" id="msg-receiver" value="{{ thread.first_person.id }}">
 
 									<span class="roundedprofile" style="background:url('{{ thread.first_person.profilepic}}') ;background-position: center; background-size: contain;"> 
 									</span> 
@@ -77,10 +74,14 @@
                                             <button onclick="history.go(-1)" id="backbtn"> <i class="fa-solid fa-arrow-left"> </i> Back </button>
 
                                             {% if thread.first_person == user %}
+                                            <input type="hidden" id="msg-receiver" value="{{ thread.second_person.id }}">
+
                                             <input type="hidden" name="" class="send-to-user" value=" {{thread.second_person.id}} ">
                                             <a href="{% url 'profile' thread.second_person.id %}"> 
                                                 <div class="flex" > 
-                                                <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain;" > </span> 
+                                                <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain;" > 
+                                                    <span id="indicator"> . </span> 
+                                                </span> 
    
                                                 <div>
                                                         <div class="contact-name"> {{ thread.second_person.get_full_name|title }} </div>	
@@ -91,9 +92,13 @@
                                     
                                         {% else %}
                                         <input type="hidden" name="" class="send-to-user" value="{{thread.first_person.id}}">
+                                        <input type="hidden" id="msg-receiver" value="{{ thread.first_person.id }}">
+
                                         <a href="{% url 'profile' thread.first_person.id %}"> 
                                             <div class="flex" > 
                                                 <span class="roundedprofile" style="background:url('{{ thread.first_person.profilepic}}') ;background-position: center; background-size: contain;"> 
+                                                    <span id="indicator"> . </span> 
+
                                                 </span> 
                             
                                                 <div>
@@ -157,27 +162,7 @@
         <script src="{% static 'scripts/chat.js' %}"></script>
     </main>
 
- <script>
 
-function checkOnlineStatus() {
-  $.ajax({
-    url: '/check_online_status/',
-    method: 'GET',
-    data: {
-      user_id: user_id
-    },
-    success: function(response) {
-      if (response.is_online) {
-        console.log('User is online');
-      } else {
-        console.log('User is offline');
-      }
-    }
-  });
-}
-
-setInterval(checkOnlineStatus, 30000);
- </script>
     <script>
         let id = document.getElementById('thread-id').value;
         id = 'thread' + id
