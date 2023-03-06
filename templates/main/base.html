@@ -113,7 +113,7 @@
         <a href="../../../"> <i class="fa-solid fa-house"></i> <small> Home </small></a>
         <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i><small>  Profile</small> </a>
         <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> <small> Notification </small>  </a>
-        <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small> Messages <span class="counter"> {{unread}} </span></small></a>
+        <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small style="position: relative;"> Messages <span class="counter"> {{unread}} </span></small></a>
         <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small>  Market </small> </a>
         <a href="{% url 'ai_room' %}"> <i class="fa-solid fa-circle-info"></i><small> Ai chat </small>  </a>
         <a href="{% url 'create-company' %}"> <i class="fa-sharp fa-solid fa-plus"></i><small> Create page </small>  </a>
@@ -127,8 +127,8 @@
         <footer style="text-align:center;">
      
                 <a href="../../../"> <i class="fa-solid fa-house"></i> <small>Home </small> </a>
-                <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i> <small>Messages <span class="counter"> {{unread}} </span> </small>  </a>
-                <a href="{% url 'add_article'%}" class="yellow"> <i class="fa-solid fa-square-plus yellow" ></i> <small> Post</small> </a>
+                <a href="{% url 'chatlobby' %}"> <span> <i class="fa-solid fa-message notification-wrapper"></i> <span class="counter" style="font-size:small"> {{unread}} </span>  </span> <small>Messages </small>  </a>
+                <a href="{% url 'add_article'%}" class="yellow">  <i class="fa-solid fa-square-plus yellow" ></i>  <small> Post</small> </a>
                 <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small> Market </small>  </a>
                 <a href="{% url 'ai_room' %}"><i class="fa-solid fa-circle-info"></i><small> ai chat </small>  </a>
 
