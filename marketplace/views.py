@@ -132,7 +132,7 @@ def myproducts(request):
 def edit_product (request,slug): 
     productitem=get_object_or_404(ProductItem,id=slug)
 
-    if productitem.user_profile== request.user:
+    if productitem.user_profile == request.user:
 
         if request.method == 'POST':
             form=ProductUpdate(request.POST or None, request.FILES or None, instance=productitem)
@@ -142,16 +142,17 @@ def edit_product (request,slug):
             form.user_profile=request.user
             if form.is_valid():
                 obj= form.save(commit=False)
-                obj.save()
-                productitem = obj
-                messages.success(request,'Product succesfully updated')
-                
                 if mainimage:
                     obj.main_image=thumpnail(mainimage)
                 if image2:
                     obj.image2=thumpnail(image2)
                 if image3:
                     obj.image3=thumpnail(image3)
+                obj.save()
+                productitem = obj
+                messages.success(request,'Product succesfully updated')
+                
+
                 return redirect ('myproducts' )  
         else:    
             form = ProductUpdate(instance=productitem)
