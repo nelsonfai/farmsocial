@@ -26,7 +26,7 @@ def chat_room(request,slug):
     thread_room = Thread.objects.filter(id=slug).prefetch_related('chatmessage_thread').order_by('timestamp')
     threads = Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
     #thread_room = Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
-    for chat in thread_room.chatmessage_thread.filter(is_read=False):
+    for chat in thread_room[0].chatmessage_thread.filter(is_read=False):
         chat.is_read=True
         chat.save()
     context = {
