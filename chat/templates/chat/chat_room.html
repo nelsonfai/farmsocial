@@ -83,7 +83,7 @@
                                             <a href="{% url 'profile' thread.second_person.id %}"> 
                                                 <div class="flex" > 
                                                 <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain; position: relative;" > 
-                                                    <span class="indicator"> </span> 
+                                                    <span class="indicator" id="indicator"> </span> 
                                                 </span> 
    
                                                 <div>
@@ -100,7 +100,7 @@
                                         <a href="{% url 'profile' thread.first_person.id %}"> 
                                             <div class="flex" > 
                                                 <span class="roundedprofile" style="background:url('{{ thread.first_person.profilepic}}') ;background-position: center; background-size: contain; position: relative;"> 
-                                                    <span class="indicator"> </span> 
+                                                    <span class="indicator" id="indicator"> </span> 
 
                                                 </span> 
                             
