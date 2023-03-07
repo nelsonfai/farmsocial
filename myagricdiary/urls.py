@@ -21,12 +21,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import render
 
-def error404(request,exception=None):
-    return render(request,'main/error404.html',status=404)
+def useragreement(request):
+    return render(request,'main/user-agreement.html')
 
-def error500(request,exception=None):
-    return render(request,'main/error505.html',status=500)
-
+def privacy_policy(request):
+    return render(request,'main/privacy.html')
+def cookie_policy(request):
+    return render(request,'main/cookie.html')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,8 +39,10 @@ urlpatterns = [
     path('chat/', include('chat.urls') ),
     path('company/', include('company.urls') ),
     path('ai/', include('myagricai.urls') ),
-    path('error/404/',error404),
-    path('error/500/',error500)
+    path('legal/user_agreement/',useragreement),
+    path('legal/privacypolicy/',privacy_policy),
+    path('legal/cookie_policy/',cookie_policy)
+
 ]
 urlpatterns+=staticfiles_urlpatterns()
 urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
