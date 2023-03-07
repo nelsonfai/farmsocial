@@ -44,10 +44,10 @@ def chat_room(request,slug):
     tuple_list = zip(threads,unread_counts)
 
     context = {
-        'threads': tuple_list,
-        #'unread_counts': unread_counts,
+        'thread_room': thread_room,
+        'unread_counts': unread_counts,
 
-        'threads':threads,
+        'threads':tuple_list,
         'activeuser':request.user,
         'threadid':slug
     }

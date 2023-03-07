@@ -49,8 +49,9 @@
 								</div>
                                 
 								{% endif %}
-                                <p >Unread messages: {{ unread_count }}</p>
-
+								{% if unread_count > 0 %}
+                                	<span style="padding: 0px 5px;background-color:#4ba064; ">{{ unread_count }}</span>
+								{% endif %}
 							</a>
 
 					</div>

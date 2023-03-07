@@ -127,7 +127,15 @@
         <footer style="text-align:center;">
      
                 <a href="../../../"> <i class="fa-solid fa-house"></i> <small>Home </small> </a>
-                <a href="{% url 'chatlobby' %}"> <span class="notification-counter"> <i class="fa-solid fa-message"></i> <span class="counter" style="font-size:small"> {{unread}} </span>  </span> <small>Messages </small>  </a>
+                <a href="{% url 'chatlobby' %}"> 
+                    <span class="notification-counter"> 
+                        <i class="fa-solid fa-message"></i> 
+                        {% if unread > 0 %}
+                            <span class="counter" style="font-size:small"> {{unread}} </span>
+                        {% endif %}
+                    </span>
+                    <small>Messages </small>  
+                </a>
                 <a href="{% url 'add_article'%}" class="yellow">  <i class="fa-solid fa-square-plus yellow" ></i>  <small> Post</small> </a>
                 <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small> Market </small>  </a>
                 <a href="{% url 'ai_room' %}"><i class="fa-solid fa-circle-info"></i><small> ai chat </small>  </a>
