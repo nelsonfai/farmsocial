@@ -16,7 +16,7 @@ def chat (request):
     threads =Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
     unread_counts = []
     for thread in threads:
-        unread_count = thread.chatmessage_thread.filter(read=False).exclude(user= request.user).count()
+        unread_count = thread.chatmessage_thread.filter(is_read=False).exclude(user= request.user).count()
         unread_counts.append(unread_count)
     context = {
         'threads': threads,
@@ -34,7 +34,7 @@ def chat_room(request,slug):
     unread_counts = []
 
     for thread in threads:
-        unread_count = thread.chatmessage_thread.filter(read=False).exclude(user= request.user).count()
+        unread_count = thread.chatmessage_thread.filter(is_read=False).exclude(user= request.user).count()
         unread_counts.append(unread_count)
     for chat in thread_room[0].chatmessage_thread.filter(is_read=False):
         chat.is_read=True
