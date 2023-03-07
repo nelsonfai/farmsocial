@@ -8,7 +8,7 @@
 		{%if not threads %}
 		<p> No Converstions </p>
 		{%endif%}
-		{% for thread, unread_count in threads|zip:unread_counts %}
+		{% for thread, unread_count in threads %}
 		<div class="contact-item">
 							<a href=" {% url 'chatroom' thread.id %}" class="flex" style="justify-content: space-between; position: relative;">
 								{% if thread.first_person == user %}
