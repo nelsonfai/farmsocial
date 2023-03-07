@@ -18,7 +18,7 @@ def chat (request):
     for thread in threads:
         unread_count = thread.chatmessage_thread.filter(is_read=False).exclude(user= request.user).count()
         unread_counts.append(unread_count)
-    tuple_list = zip(threads,unread_count)
+    tuple_list = zip(threads,unread_counts)
     context = {
         'threads': tuple_list,
         #'unread_counts': unread_counts
@@ -41,7 +41,7 @@ def chat_room(request,slug):
         if request.user != chat.user:
             chat.is_read=True
             chat.save()
-    tuple_list = zip(threads,unread_count)
+    tuple_list = zip(threads,unread_counts)
 
     context = {
         'threads': tuple_list,
