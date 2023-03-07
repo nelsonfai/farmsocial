@@ -13,10 +13,10 @@
 <div>
     <div class="chat-sidebar card-body msg_card_body">
 					
-		{% for thread in threads %}
-					<div class="contact-item" id="thread{{thread.id}}">
+        {% for thread, unread_count in zip(threads, unread_counts) %}
+        <div class="contact-item" id="thread{{thread.id}}">
 						 
-							<a href=" {% url 'chatroom' thread.id %}">
+							<a href=" {% url 'chatroom' thread.id %}" class="flex" style="justify-content: space-between; position: relative;">
 								{% if thread.first_person == user %}
 								
 									<div class="flex" > 
@@ -48,7 +48,9 @@
 								</div>
                                 
 								{% endif %}
-					
+                                {% if unread_count > 0 %}
+                                <span class="counter">Unread messages: {{ unread_count }}</span>
+                                {% endif %}
 							</a>
 
 					</div>
@@ -69,7 +71,7 @@
                        
                             <div class="card">
                                 {% for thread in thread_room %}
-                                   <!--  <div class="messages-wrapper  {% if forloop.first %}hide is_active{% else %}hide{% endif %}" chat-id="chat_{{ thread.id }}" other-user-id="{% if thread.first_person == user %} {{ thread.second_person.id }}{% else %} {{ thread.first_person.id }} {% endif %}"></div> -->
+                                <!--  <div class="messages-wrapper  {% if forloop.first %}hide is_active{% else %}hide{% endif %}" chat-id="chat_{{ thread.id }}" other-user-id="{% if thread.first_person == user %} {{ thread.second_person.id }}{% else %} {{ thread.first_person.id }} {% endif %}"></div> -->
                                         <div class="card-header msg_head">
                                             <button onclick="history.go(-1)" id="backbtn"> <i class="fa-solid fa-arrow-left"> </i> Back </button>
 
