@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,logout
 from django.contrib import messages
-from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm
+from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne
 from formtools.wizard.views import SessionWizardView
 from .models import CustomUser
 from django.http import JsonResponse
@@ -56,6 +56,10 @@ def login_view(request):
 
 
     except:
+        form=LogInForm()
+        context={
+        'form':form,
+        }
         messages.error(request,('Oops Something went wrong.Please try again later.'))
         return render(request ,'account/login.html',context)
 
@@ -186,7 +190,7 @@ def edit_education(request):
 
 #signup user 
 class SignupWizard(SessionWizardView):
-    form_list = [EmailForm, PersonalInfoForm]
+    form_list = [EmailForm, PersonalInfoFormOne]
     template_name = 'account/emailform.html'
    
 
