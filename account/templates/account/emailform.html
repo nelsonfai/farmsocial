@@ -19,13 +19,16 @@
 {% if wizard.form.forms %}
     {{ wizard.form.management_form }}
     {% for form in wizard.form.forms %}
-        {{ form.as_p}}
+        {{form.as_p}}
     {% endfor %}
 {% else %}
     {{ wizard.form }}
 {% endif %}
 </table>
+{% if wizard.form.last_name %}
+<p style="text-align:center;color:grey;font-size:small"> By clicking Send, you agree to My AgricDiary's <a href="https://myagricdiary.com/useragreement">User Agreement,</a> <a href="https://myagricdiary.com/privacy">Privacy Policy </a> and <a href="https://myagricdiary.com/cookiepolicy">Cookie Policy </a></p>'
 
+{% endif %}
 <button class="button_one button_fulllength" value="{% trans 'submit' %}">  Send</button>
 </form>
 </div>
