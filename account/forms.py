@@ -51,13 +51,15 @@ class PersonalInfoFormOne(UserCreationForm):
     class Meta:
         model=CustomUser
         fields=('first_name','last_name')
+        last_name = forms.CharField(
+        help_text='<p style="text-align:center;color:grey;font-size:small"> By clicking Send, you agree to My AgricDiary´s <a href="https://myagricdiary.com/useragreement">User Agreement,</a> <a href="https://myagricdiary.com/privacy">Privacy Policy </a> and <a href="https://myagricdiary.com/cookiepolicy">Cookie Policy </a></p>'
+        )
     def __init__(self,*args,**kwargs):
         super(PersonalInfoFormOne,self).__init__(*args,**kwargs)
         del self.fields['password2']
         del self.fields['password1']
         self.fields['first_name'].widget.attrs['class']='form_control'
         self.fields['last_name'].widget.attrs['class']='form_control'
-        self.fields['last_name'].widget.attrs['help_text']='<p style="text-align:center;color:grey;font-size:small"> By clicking Send, you agree to My AgricDiary´s <a href="https://myagricdiary.com/useragreement">User Agreement,</a> <a href="https://myagricdiary.com/privacy">Privacy Policy </a> and <a href="https://myagricdiary.com/cookiepolicy">Cookie Policy </a></p>'
 
       
 
