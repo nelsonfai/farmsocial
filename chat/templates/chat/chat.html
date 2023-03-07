@@ -8,8 +8,8 @@
 		{%if not threads %}
 		<p> No Converstions </p>
 		{%endif%}
-					
-		{% for thread, unread_count in threads %}
+			{{unread_counts}}		
+		{% for thread in threads %}
 					<div class="contact-item">
 						 
 							<a href=" {% url 'chatroom' thread.id %}" class="flex" style="justify-content: space-between; position: relative;">
@@ -42,9 +42,7 @@
 									</div>
 								</div>
 								{% endif %}
-								{% if unread_count > 0 %}									
-									<span class="counter"> {{ unread_count }}</span>
-								{% endif %}
+	
 							</a>
 
 					</div>
