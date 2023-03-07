@@ -18,9 +18,10 @@ def chat (request):
     for thread in threads:
         unread_count = thread.chatmessage_thread.filter(is_read=False).exclude(user= request.user).count()
         unread_counts.append(unread_count)
+    tuple_list = zip(threads,unread_count)
     context = {
-        'threads': threads,
-        'unread_counts': unread_counts
+        'threads': tuple_list,
+        #'unread_counts': unread_counts
 
     }
     return render(request, 'chat/chat.html', context)
@@ -39,11 +40,13 @@ def chat_room(request,slug):
     for chat in thread_room[0].chatmessage_thread.filter(is_read=False):
         chat.is_read=True
         chat.save()
+    tuple_list = zip(threads,unread_count)
+
     context = {
         'thread_room': thread_room,
-        'unread_counts': unread_counts,
+        #'unread_counts': unread_counts,
 
-        'threads':threads,
+        'threads':tuple,
         'activeuser':request.user,
         'threadid':slug
     }
