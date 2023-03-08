@@ -26,8 +26,6 @@
 </script>
 <script>
     $(document).ready(function() {
-    var resultsList = $('<ul class="search-results"></ul>');
-    $('#contenthere').after(resultsList);
     $('#contenthere').text('');
     $('#search-box').keyup(function() {
     var query = $(this).val();
@@ -44,8 +42,6 @@
 });
 
 $(document).ready(function() {
-    var resultsList = $('<ul class="search-results"></ul>');
-    $('#contenthere').after(resultsList);
     $('#search-form').submit(function() {
     event.preventDefault();
     var query = $('#search-box').val();
@@ -54,7 +50,9 @@ $(document).ready(function() {
     });
 });
 
-        function ajaxcall(query){    
+        function ajaxcall(query){   
+            var resultsList = $('<ul class="search-results"></ul>');
+            $('#contenthere').after(resultsList); 
             $.ajax({
                 url: `/account/queryusers/${query}`,
                 success: function(data) {
