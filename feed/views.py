@@ -141,7 +141,6 @@ def comment(request,article_slug):
                 else:
                      name = obj.companyauthor.name
                      img_url= obj.companyauthor.logopic()
-                     url = '/company/companyprofile/' + obj.companyauthor.identifier + '/' + obj.companyauthor.name
                 return JsonResponse({'comment':obj.comment,'name':name ,'img':img_url})
 
 
