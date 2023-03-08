@@ -26,8 +26,8 @@
 </script>
 <script>
     $(document).ready(function() {
-    $('#contenthere').text('');
     $('#search-box').keyup(function() {
+    $('#contenthere').text('');
     var query = $(this).val();
         if (query.length >= 2) {
             ajaxcall(query);
@@ -53,6 +53,8 @@ $(document).ready(function() {
         function ajaxcall(query){   
             var resultsList = $('<ul class="search-results"></ul>');
             $('#contenthere').after(resultsList); 
+            resultsList.hide();
+
             $.ajax({
                 url: `/account/queryusers/${query}`,
                 success: function(data) {
