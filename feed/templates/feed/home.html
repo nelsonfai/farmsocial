@@ -29,7 +29,7 @@
 
 
 
-<section class="about-us">
+<section class="about-us" id="about-us">
   <div class="about-us-wrapper">
      <h2 class="section-title"> What we offer ! <span> <img src="https://img.icons8.com/doodle/50/000000/plant-under-sun--v1.png"/></span></h2>
      <br>
@@ -113,17 +113,60 @@
 </div>
 </section>
 
-<section style="text-align: center;"> 
-  <p><a href="mailto:contact@myagricdiary.com"> <i class="fa-solid fa-envelope"></i> contact@myagricdiary.com </a></p>
-<p > &#169; All copyrights reserved | myagricdiary 2023 </p>
+<section > 
+<div id="section-footer">
+  <div> 
+      <h3> Contact Us</h3>
+      <li class="flex">
+        <i class="fa fa-envelope"></i><a href="mailto:yourmail@gmail.com">yourmail@gmail.com</a></li>
+      </li>
 
-</section>
+  </div>
+  <div>
+      <h3>Links</h3>
+      <ul>
+          <li><a href="">Home</a></li>
+          <li><a href="#about-us">About</a></li>
+          <li><a href="/legal/user_agreement/">User Agreement</a></li>
+          <li><a href="/legal/privacypolicy/">Privacy Policy</a></li>
+          <li><a href="/legal/cookie_policy/">Cookie Policy</a></li>
+
+       </ul>
+   </div>
+  <div>
+      <h3>Social</h3>
+    <li class="flex">
+        <a href=""><i class="fa-brands fa-instagram"></i></a>
+       <a href=""><i class="fa-brands fa-facebook"></i></a>
+        <a href=""><i class="fa-brands fa-linkedin"></i></a>
+        </li>
+   </div>
+  </div> 
+   <hr>
+   <p style="text-align: center;"> &#169; All copyrights reserved | myagricdiary 2023 </p>
+
+  </section>
+
 
 
 </div>
 
 </div>
+<style>
+  hr{
+    border: .8px solid grey;
+  }
+  #section-footer{
+      display: flex;
+      flex-wrap: wrap;
+      gap:3rem;
+  }
+  #section-footer div{
+      width: 150px;
+      
+  }
 
+</style>
 <style>
   @media screen and (max-width: 780px){
 .flex-container {
