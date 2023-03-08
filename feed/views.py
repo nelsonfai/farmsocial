@@ -81,7 +81,7 @@ def articles (request):
         page=request.GET.get('page')
         paginated_article=p.get_page(page)
         top_n = 10
-        most_used_tags = Tag.objects.annotate(num_times=Count('taggit_taggeditem_items')).order_by('-num_times')[:top_n]
+        most_used_tags = Tag.objects.annotate(num_times=Count('taggit_taggeditem_items')).filter(num_times__gte=1).order_by('-num_times')[:top_n]
         options = request.user.company_admin.all()
 
         context={

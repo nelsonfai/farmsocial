@@ -7,7 +7,7 @@
     <main>
         <div class="wrapper"> 
             <div>
-                <form style="display: flex;">
+                <form style="display: flex;" id="search-form">
                     <input type="search" name="" id="search-box" placeholder="Search Users or Pages">
                     <button class="button_one"> <i class="fa-solid fa-magnifying-glass"  ></i></button>
                 </form>
@@ -20,15 +20,41 @@
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
 
+
+</script>
 <script>
     $(document).ready(function() {
     var resultsList = $('<ul class="search-results"></ul>');
     $('#contenthere').after(resultsList);
-    
+    $('#contenthere').text('');
     $('#search-box').keyup(function() {
-        var query = $(this).val();
+    var query = $(this).val();
         if (query.length >= 2) {
+            ajaxcall(query);
+        } else {
+            resultsList.hide();
+        }
+    });
+    
+    $(document).on('click', '.search-results li a', function() {
+        resultsList.hide();
+    });
+});
+
+$(document).ready(function() {
+    var resultsList = $('<ul class="search-results"></ul>');
+    $('#contenthere').after(resultsList);
+    $('#search-form').submit(function() {
+    event.preventDefault();
+    var query = $('#search-box').val();
+    $('#contenthere').text(`Your search results for : ${query}`);
+    ajaxcall(query);
+    });
+});
+
+        function ajaxcall(query){    
             $.ajax({
                 url: `/account/queryusers/${query}`,
                 success: function(data) {
@@ -75,15 +101,10 @@
                     resultsList.show();
                 }
             });
-        } else {
-            resultsList.hide();
         }
-    });
-    
-    $(document).on('click', '.search-results li a', function() {
-        resultsList.hide();
-    });
-});
+
+
+
 </script>
 <style>
 
