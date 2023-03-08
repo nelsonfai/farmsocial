@@ -20,6 +20,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
 from django.shortcuts import render
+from django.views.generic.base import RedirectView
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
 
 def useragreement(request):
     return render(request,'main/user-agreement.html')
@@ -41,7 +43,9 @@ urlpatterns = [
     path('ai/', include('myagricai.urls') ),
     path('legal/user_agreement/',useragreement),
     path('legal/privacypolicy/',privacy_policy),
-    path('legal/cookie_policy/',cookie_policy)
+    path('legal/cookie_policy/',cookie_policy),
+    path('favicon.ico', favicon_view),
+
 
 ]
 urlpatterns+=staticfiles_urlpatterns()
