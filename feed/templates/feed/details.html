@@ -66,7 +66,7 @@
       <div class="roundedprofile" style="background:url('{{comment.companyauthor.logopic}}') ;background-position: center; background-size: contain;" >  </div> 
     </div>
     <div> 
-      <div> <a href="{%  url 'companyprofile' comment.companyauthor.identifier comment.companyauthor.name %}" style="color: #333;">{{comment.companypage.name}} </a></div> 
+      <div> <a href="{%  url 'companyprofile' comment.companyauthor.identifier comment.companyauthor.name %}" style="color: #333;">{{comment.companyauthor.name}} </a></div> 
     {%endif%}
 
         <div class="comment">   
@@ -89,7 +89,8 @@
             <select name="author" id="articleauthor" required class="form_control">
                 <option value=""> select one</option>
                 <option value='user'>
-                      {{request.user.get_full_name}}</option>
+                      {{request.user.get_full_name}}
+                </option>
                 {%for item in options %}
                 <option value={{item.identifier}}>
                     {{item.name}}</option>

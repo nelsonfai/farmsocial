@@ -124,7 +124,6 @@ def comment(request,article_slug):
                 obj.article = article
 
                 if author == 'user':
-                    
                     obj.author = request.user
                 else:
                      companypage = Company.objects.get(identifier= author)
@@ -140,8 +139,9 @@ def comment(request,article_slug):
 
                     notification_signal.send(message =message,target=obj.author,trigger=request.user,sender=None,url=url)
                 else:
-                     name= obj.companyauthor.name
+                     name = obj.companyauthor.name
                      img_url= obj.companyauthor.logopic()
+                     url = '/company/companyprofile/' + obj.companyauthor.identifier + '/' + obj.companyauthor.name
                 return JsonResponse({'comment':obj.comment,'name':name ,'img':img_url})
 
 

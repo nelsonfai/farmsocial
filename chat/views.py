@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from chat.models import Thread,ChatMessage
 from django.db.models import Q
 from django.http import JsonResponse
+from django.db.models import Max
 
 
 from account.models import CustomUser
@@ -13,7 +14,7 @@ from account.models import CustomUser
 
 @login_required
 def chat (request):
-    threads =Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
+    threads =Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').annotate(last_message=Max('chatmessage_thread__timestamp')).order_by('-last_message')
     unread_counts = []
     for thread in threads:
         unread_count = thread.chatmessage_thread.filter(is_read=False).exclude(user= request.user).count()
@@ -30,7 +31,7 @@ def chat (request):
 def chat_room(request,slug):
     #
     thread_room = Thread.objects.filter(id=slug).prefetch_related('chatmessage_thread').order_by('timestamp')
-    threads = Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
+    threads =Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').annotate(last_message=Max('chatmessage_thread__timestamp')).order_by('-last_message')
     #thread_room = Thread.objects.by_user(user=request.user).prefetch_related('chatmessage_thread').order_by('timestamp')
     unread_counts = []
 
