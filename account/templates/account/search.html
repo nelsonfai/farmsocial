@@ -25,10 +25,13 @@
 
 </script>
 <script>
-    $(document).ready(function() {
+ $(document).ready(function() {
+    var resultsList = $('<ul class="search-results"></ul>');
+    $('#contenthere').after(resultsList);
+    
     $('#search-box').keyup(function() {
-    $('#contenthere').text('');
-    var query = $(this).val();
+        $('#contenthere').text('');
+        var query = $(this).val();
         if (query.length >= 2) {
             ajaxcall(query);
         } else {
@@ -42,68 +45,62 @@
 });
 
 $(document).ready(function() {
-    $('#search-form').submit(function() {
-    event.preventDefault();
-    var query = $('#search-box').val();
-    $('#contenthere').text(`Your search results for : ${query}`);
-    ajaxcall(query);
+    $('#search-form').submit(function(event) {
+        event.preventDefault();
+        var resultsList = $('<ul class="search-results"></ul>');
+        $('#contenthere').text('');
+        $('#contenthere').after(resultsList);
+        var query = $('#search-box').val();
+        $('#contenthere').text(`Your search results for : ${query}`);
+        ajaxcall(query, resultsList);
     });
 });
 
-        function ajaxcall(query){   
-            var resultsList = $('<ul class="search-results"></ul>');
-            $('#contenthere').after(resultsList); 
-            resultsList.hide();
+function ajaxcall(query, resultsList){   
+    $.ajax({
+        url: `/account/queryusers/${query}`,
+        success: function(data) {
+            var results = data.results;
+            resultsList.empty();
+            $.each(results, function(index, result) {
+                if(result.type =='user'){
+                    var link = $('<a></a>');
+                    link.text(result.text);
+                    link.attr('href', '/account/profile/' + result.id);
 
-            $.ajax({
-                url: `/account/queryusers/${query}`,
-                success: function(data) {
-                    var results = data.results;
-                    resultsList.empty();
-                    $.each(results, function(index, result) {
-                        if(result.type =='user'){
-                        var link = $('<a></a>');
-                        link.text(result.text);
-                        link.attr('href', '/account/profile/' + result.id);
+                    var span = $('<span></span>')
+                    span.css('background-image', 'url(' + result.profilepic + ')');
+                    span.addClass('roundedprofile')
 
-                        var span = $('<span></span>')
-                        span.css('background-image', 'url(' + result.profilepic + ')');
-                        span.addClass('roundedprofile')
+                    var option = $('<li></li>');
+                    option.append(span);
+                    option.append(link);
+                    option.addClass('flex')
 
-                        var option = $('<li></li>');
-                        option.append(span);
-                        option.append(link);
-                        option.addClass('flex')
-
-                    
-                        resultsList.append(option);
-
-                        }
-                        else{
-                            var link = $('<a></a>');
-                        link.text(result.text);
-                        link.attr('href', '/company/companyprofile/' + result.id + '/'+ result.text);
-
-                        var span = $('<span></span>')
-                        span.css('background-image', 'url(' + result.profilepic + ')');
-                        span.addClass('roundedprofile')
-
-                        var option = $('<li></li>');
-                        option.append(span);
-                        option.append(link);
-                        option.addClass('flex')
-
-                    
-                        resultsList.append(option);
-                        }
-
-                    });
-                    resultsList.show();
+                    resultsList.append(option);
                 }
+                else{
+                    var link = $('<a></a>');
+                    link.text(result.text);
+                    link.attr('href', '/company/companyprofile/' + result.id + '/'+ result.text);
+
+                    var span = $('<span></span>')
+                    span.css('background-image', 'url(' + result.profilepic + ')');
+                    span.addClass('roundedprofile')
+
+                    var option = $('<li></li>');
+                    option.append(span);
+                    option.append(link);
+                    option.addClass('flex')
+
+                    resultsList.append(option);
+                }
+
             });
+            resultsList.show();
         }
-
-
+    });
+}
 
 </script>
 <style>
