@@ -404,7 +404,7 @@ function deleteConfirm(event,id,article_id){
 
 <script>
 if (window.innerWidth < 768) {
-  const div =     `<div class="inner_networksugestion">
+  const div = `<div class="inner_networksugestion">
           
         {% for item in friendsuggestions%}
             <div class="inner_item"> 
@@ -432,7 +432,9 @@ if (window.innerWidth < 768) {
     const itemElements = parentElement.querySelectorAll('.article-item');
 
     for (let i = 7; i < itemElements.length; i += 8) {
-    parentElement.insertBefore(div, itemElements[i + 1]);
+    const innerProfiles= document.createRange().createContextualFragment(div);
+ 
+    parentElement.insertBefore(innerProfiles, itemElements[i + 1]);
   }
 }
 
