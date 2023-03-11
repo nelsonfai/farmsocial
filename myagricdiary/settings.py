@@ -59,7 +59,11 @@ INSTALLED_APPS = [
     'marketplace',
     'myagricai',
     'company',
-
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     
 ]
 
@@ -75,6 +79,7 @@ MIDDLEWARE = [
 ]
 
 #ROOT_URLCONF = 'myagricdiary.urls'
+SITE_ID = 1
 
 TEMPLATES = [
     {
@@ -124,6 +129,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Google authentication settings
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =config('client_id')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('client-secret')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = '/accounts/google/login/callback/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -169,9 +179,23 @@ CHANNEL_LAYERS = {
         },
     },
 }
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'}
+    }
+}
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 
 LOGIN_URL='/account/login/'
+LOGIN_REDIRECT_URL = '/'
+
 TAGGIT_FORCE_LOWERCASE = True
 
 

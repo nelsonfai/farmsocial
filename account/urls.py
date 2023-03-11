@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from allauth.account.views import LoginView
 
 
 
@@ -25,6 +26,11 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
+    path('google/login/', LoginView.as_view(
+        template_name='google_login.html', 
+        authentication_method='google',
+        extra_context={'title': 'Google Login'}
+    ), name='google_login'),
     
   
 ]
