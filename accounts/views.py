@@ -191,7 +191,7 @@ def edit_education(request):
 #signup user 
 class SignupWizard(SessionWizardView):
     form_list = [EmailForm, PersonalInfoFormOne]
-    template_name = 'account/emailform.html'
+    template_name = 'accounts/emailform.html'
    
 
     def done(self, form_list, **kwargs):
