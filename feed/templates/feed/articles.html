@@ -86,7 +86,7 @@
 
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}}  </p>
-                                    <p> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}" style="color: var(--primary-color);">#{{tag.slug}} </a> {%endfor%}</p>
+                                    <p style="margin-block:0.7rem"> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}" style="color: var(--primary-color); font-size: small;">#{{tag.slug}} </a> {%endfor%}</p>
                         </div>
 
                       </div>
@@ -118,20 +118,18 @@
           </div>
         <div style="margin-block:20px 40px"> 
                 <p style="text-align:center;"> Page  {{ articles.number }} of  {{ articles.paginator.num_pages }} </p> 
-            <div class="pagination11"> 
-                <p> {% if articles.has_previous %}
-                    <span style="text-align:left;padding-left:1rem;"> 
+            <div class="pagination11" style="display: flex; justify-content: space-between;align-items: center; padding-inline: 1rem;"> 
+                <span> 
+                  {% if articles.has_previous %}
                             <a href="?page={{ articles.previous_page_number }}"> &laquo; Previous</a>
-                    </span > 
-                  {%else%}
                 {% endif %}
+                </span> 
+                <span>
                     {% if articles.has_next %}
-                    <span style="text-align: right; display: block; padding-right:1rem;" >
                         <a href="?page={{ articles.next_page_number }}" >Next <i> &raquo;</i> </a>
-                    </span>
                     {% endif%}
-                </p>
-                </div>  
+                </span>
+            </div>  
         </div>   
         {% else %}
             <p style="text-align: center; background-color: #fff; padding: 1rem;"> No Articles at the moment </p>
