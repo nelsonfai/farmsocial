@@ -329,11 +329,11 @@
   for (let i = 0; i < elements.length; i++) {
   const element = elements[i];
   const text = element.innerText.trim();
-  if (text.length > 100) {
+  if (text.length > 200) {
  
   const fullText = element.innerHTML  + `<span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >...less </span>
 `;
-  const shortText = element.innerHTML.substring(0, 100) + ` <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >... more </span>
+  const shortText = element.innerHTML.substring(0, 200) + ` <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >... more </span>
 `;
   element.innerHTML = shortText;
     let isTruncated = false;
@@ -438,7 +438,7 @@ if (window.innerWidth < 768) {
     const parentElement = document.querySelector('#articles_container');
     const itemElements = parentElement.querySelectorAll('.article-item');
 
-    for (let i = 7; i < itemElements.length; i += 8) {
+    for (let i = 6; i < itemElements.length; i += 7) {
     const innerProfiles= document.createRange().createContextualFragment(div);
  
     parentElement.insertBefore(innerProfiles, itemElements[i + 1]);
