@@ -25,10 +25,10 @@
             </div>                           
             <div class="header-right">
                     {% if request.user.is_authenticated %}
-                            <span style="width: 250px;" id="searchusertop">
+                            <span style="width: 250px" id="searchusertop">
                                 <a href="{% url 'searchpage' %}">
                                 <form>
-                                    <input type="search" name="" id="" placeholder="Search Users or Pages">
+                                    <input type="search" name="search" id="search" placeholder="Search Users or Pages">
                                   </form>
                                   </a>
                             </span>
