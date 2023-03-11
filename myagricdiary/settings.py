@@ -59,8 +59,6 @@ INSTALLED_APPS = [
     'marketplace',
     'myagricai',
     'company',
-
-    
 ]
 
 MIDDLEWARE = [
@@ -75,7 +73,7 @@ MIDDLEWARE = [
 ]
 
 #ROOT_URLCONF = 'myagricdiary.urls'
-SITE_ID = 1
+
 
 TEMPLATES = [
     {
@@ -91,8 +89,6 @@ TEMPLATES = [
                 'notification.context_processors.notificationCount',
                 'Friends.context_processors.friendSuggestions',
                 'chat.context_processors.get_unread_messages_count'
-                
-
 
             ],
         },
@@ -124,13 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-""" 
-# Google authentication settings
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =config('client_id')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('client-secret')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
-SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = '/accounts/google/login/callback/'
-"""
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -152,12 +142,7 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
-"""
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-"""
+
 """CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
@@ -182,13 +167,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {'access_type': 'online'}
     }
 }
-
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
 
 LOGIN_URL='/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
