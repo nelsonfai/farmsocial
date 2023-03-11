@@ -30,7 +30,7 @@ urlpatterns = [
         template_name='accounts/google_login.html', 
         #authentication_method='google',
         extra_context={'title': 'Google Login'}
-    ), name='google_login'),
+    ), name='account_signup'),
     
   
 ]
