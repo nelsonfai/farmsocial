@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from.models import ProductItem
 from .forms import ProductitemForm,ProductUpdate
 from django.contrib import messages
-from account.models import CustomUser
+from accounts.models import CustomUser
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from PIL import Image

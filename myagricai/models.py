@@ -3,7 +3,7 @@ from django.db.models import  Manager
 
 
 # Create your models here.
-from account.models import CustomUser
+from accounts.models import CustomUser
 
 class UserQA(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
