@@ -243,13 +243,19 @@
     display: flex;
     overflow-x: scroll;
     gap: 0.5rem;
+    padding:5px
   }
  .inner_item{
-  width:110px;
-  height: 100px;
-  font-size: small;
-  padding: 5px;
-  border: 0.6px solid grey;
+    width: 150px;
+    height: 170px;
+    font-size: small;
+    padding: 1rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 10px;
 
  }
 </style>
@@ -352,7 +358,7 @@
 <script>
 
 function deleteConfirm(event,id,article_id){
-        if (confirm('Do you want to delete this tracker.Action is irreversible')){
+        if (confirm('Do you want to delete this Article.Action is irreversible')){
             event.preventDefault();
             var post = document.getElementById(id)
             console.log(id)
@@ -411,7 +417,7 @@ if (window.innerWidth < 768) {
   const div = `<div class="inner_networksugestion">
         {% for item in friendsuggestions%}
             <div class="inner_item"> 
-                <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain; width:50px !important;height:50px !important;margin-inline:auto" > </span> </a>
+                <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain; width:70px !important;height:70px !important;margin-inline:auto" > </span> </a>
                   <p>
                         <a href="{% url 'profile' item.id %}">{{ item.get_full_name|title }} </a>
                   </p>
@@ -419,9 +425,10 @@ if (window.innerWidth < 768) {
                 {% if item != request.user %}
                 <span>
                     {% if item in mynetwork.following.all %}
-                        <button class="button_three" onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</button>
+                        <a href="{% url 'createchat' item.id %}"> <button class="button_three" style="background-color:#d4c44b">Message</button> </a>
+
                     {% else %}
-                        <button class="button_three" onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</button>
+                        <button class="button_three" onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" style="background-color:#d4c44b">Follow</button>
                     {% endif %}
                 </span>
                 {% endif %}
