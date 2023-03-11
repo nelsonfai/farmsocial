@@ -15,7 +15,7 @@
         </div>
         <div class="profile-name">
             <h2 class="name"> {{ profile.get_full_name|title}} 
-                {% if request.user.is_verified %}
+                {% if profile.is_verified %}
                  <span class="tooltip"> 
                     <i class="fa-solid fa-circle-check" style="color: #d4c44b !important ; font-size: 1.1rem;"></i>
                     <span class="tooltiptext"> Verified user </span>
