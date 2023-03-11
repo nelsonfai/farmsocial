@@ -59,11 +59,7 @@ INSTALLED_APPS = [
     'marketplace',
     'myagricai',
     'company',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+
     
 ]
 
@@ -128,13 +124,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+""" 
 # Google authentication settings
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =config('client_id')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('client-secret')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = '/accounts/google/login/callback/'
-
+"""
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -156,11 +152,12 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+"""
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-
+"""
 """CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',
