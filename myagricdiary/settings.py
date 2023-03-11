@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'account',
+    'accounts',
     'feed',
     'myagricdiary',
     'ckeditor',
@@ -75,7 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'account.middleware.UpdateLastActivityMiddleware',
+    'accounts.middleware.UpdateLastActivityMiddleware',
 ]
 
 #ROOT_URLCONF = 'myagricdiary.urls'
@@ -155,7 +155,7 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'account.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
@@ -193,7 +193,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-LOGIN_URL='/account/login/'
+LOGIN_URL='/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 TAGGIT_FORCE_LOWERCASE = True

@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import CustomUser
+from accounts.models import CustomUser
 from django.core.validators import FileExtensionValidator
 #from network.models import Follow
 import uuid

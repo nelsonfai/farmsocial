@@ -2,7 +2,7 @@ from unicodedata import category
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from company.models import Company
-from account.models import CustomUser
+from accounts.models import CustomUser
 
 
 from django.utils.translation import gettext_lazy as _

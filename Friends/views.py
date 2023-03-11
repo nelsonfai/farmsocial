@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import Network
-from account.models import CustomUser
+from accounts.models import CustomUser
 from notification.signals import notification_signal
 
 # Create your views here.
@@ -14,7 +14,7 @@ def follow(request,slug):
     # add user to my following list
     my_network.following.add(targetuser)
     message= f'{request.user.get_full_name() } started Following you'
-    url ='/account/profile/' + str(request.user.id)
+    url ='/accounts/profile/' + str(request.user.id)
     notification_signal.send(message =message,target=targetuser,trigger=request.user,sender=None,url=url)
     print('followed ....')
     return JsonResponse({'data':'unfollow'})

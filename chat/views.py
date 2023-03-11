@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Max
 
 
-from account.models import CustomUser
+from accounts.models import CustomUser
 #from django.contrib.auth.models import User
 
 # Create your views here.

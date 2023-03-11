@@ -1,6 +1,6 @@
 
 from Friends.models import Network
-from account.models import CustomUser
+from accounts.models import CustomUser
 from django.db.models import Q
 
 

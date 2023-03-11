@@ -1,8 +1,8 @@
 from django.db import models
 # Create your models here.
-from account.models import CustomUser
+from accounts.models import CustomUser
 from ckeditor.fields import RichTextField
-from account.models import CustomUser
+from accounts.models import CustomUser
 from django.utils import timezone
 from taggit.managers import TaggableManager
 from django.core.validators import FileExtensionValidator

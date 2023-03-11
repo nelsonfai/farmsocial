@@ -1,6 +1,6 @@
 from .models import Notification,NotificationUser
 from celery import Celery
-from account.models import CustomUser
+from accounts.models import CustomUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from feed.models import Articles

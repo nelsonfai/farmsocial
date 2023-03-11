@@ -52,7 +52,7 @@ $(document).ready(function() {
 
         function ajaxcall(query){   
             $.ajax({
-                url: `/account/queryusers/${query}`,
+                url: `/accounts/queryusers/${query}`,
                 success: function(data) {
                     var results = data.results;
                     resultsList.empty();
@@ -60,7 +60,7 @@ $(document).ready(function() {
                         if(result.type =='user'){
                         var link = $('<a></a>');
                         link.text(result.text);
-                        link.attr('href', '/account/profile/' + result.id);
+                        link.attr('href', '/accounts/profile/' + result.id);
 
                         var span = $('<span></span>')
                         span.css('background-image', 'url(' + result.profilepic + ')');

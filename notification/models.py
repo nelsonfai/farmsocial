@@ -1,7 +1,7 @@
 
 import math
 from django.db import models
-from account.models import CustomUser
+from accounts.models import CustomUser
 from django.utils import timezone
 from company.models import Company
 

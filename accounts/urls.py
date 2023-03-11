@@ -28,7 +28,7 @@ urlpatterns = [
 
     path('google/login/', LoginView.as_view(
         template_name='google_login.html', 
-        authentication_method='google',
+        #authentication_method='google',
         extra_context={'title': 'Google Login'}
     ), name='google_login'),
     

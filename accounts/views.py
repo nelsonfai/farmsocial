@@ -52,7 +52,7 @@ def login_view(request):
                     'form':form,
 
         }
-        return render(request ,'account/login.html',context)
+        return render(request ,'accounts/login.html',context)
 
 
     except:
@@ -61,7 +61,7 @@ def login_view(request):
         'form':form,
         }
         messages.error(request,('Oops Something went wrong.Please try again later.'))
-        return render(request ,'account/login.html',context)
+        return render(request ,'accounts/login.html',context)
 
 def logout_view(request):
         try:
@@ -87,11 +87,11 @@ def profile(request,slug):
                     'articles':articles,
                     'network':followers
                 }
-        return render(request ,'account/profile.html',context)
+        return render(request ,'accounts/profile.html',context)
 
     except:
             messages.error(request,('Oops Something went wrong.Please try again later.'))
-            return render(request ,'account/profile.html',context)
+            return render(request ,'accounts/profile.html',context)
     
 @login_required   
 def edit_profile(request):
@@ -103,7 +103,7 @@ def edit_profile(request):
                 }
 
  
-        return render (request,'account/editprofile.html',context)
+        return render (request,'accounts/editprofile.html',context)
 @login_required           
 def edit_name(request):
     
@@ -119,7 +119,7 @@ def edit_name(request):
             else:
                 user = request.user
                 form = PersonalInfoForm(instance=user)
-                return render (request,'account/editprofile.html',{'form':form})
+                return render (request,'accounts/editprofile.html',{'form':form})
         else:
             user = request.user
             form = PersonalInfoForm(instance=user)
@@ -127,7 +127,7 @@ def edit_name(request):
             context={
                         'profile':profile,
                     }
-            return render (request,'account/editprofile.html',context)
+            return render (request,'accounts/editprofile.html',context)
 
 @login_required       
 def edit_bio(request):
@@ -148,7 +148,7 @@ def edit_bio(request):
             else:
                 user = request.user
                 form = ProfileInfo(instance=user)
-                return render (request,'account/editprofile.html',{'form':form})
+                return render (request,'accounts/editprofile.html',{'form':form})
         else:
             user = request.user
             form = ProfileInfo(instance=user)
@@ -156,7 +156,7 @@ def edit_bio(request):
             context={
                         'profile':profile,
                     }
-            return render (request,'account/editprofile.html',context)
+            return render (request,'accounts/editprofile.html',context)
 
 @login_required       
 def edit_education(request):
@@ -176,7 +176,7 @@ def edit_education(request):
             else:
                 user = request.user
                 form = EducationForm(instance=user)
-                return render (request,'account/editprofile.html',{'form':form})
+                return render (request,'accounts/editprofile.html',{'form':form})
         else:
             user = request.user
             form = EducationForm(instance=user)
@@ -184,7 +184,7 @@ def edit_education(request):
             context={
                         'profile':profile,
                     }
-            return render (request,'account/editprofile.html',context)
+            return render (request,'accounts/editprofile.html',context)
 
     
 
@@ -209,7 +209,7 @@ class SignupWizard(SessionWizardView):
 
         login(self.request ,user)
         subject = 'Account Verification My agric Diary'
-        message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/account/verify/{token}'
+        message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/accounts/verify/{token}'
         sendto = user.email
         email(subject=subject,message=message,sendto=sendto)
         return redirect('firstProfile')
@@ -218,7 +218,7 @@ class FirstProfile(SessionWizardView):
     file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'media'))
 
     form_list = [ProfileInfo,EducationForm]
-    template_name = 'account/emailform.html'
+    template_name = 'accounts/emailform.html'
     
     def done(self, form_list, **kwargs):
         user = self.request.user
@@ -239,7 +239,7 @@ class FirstProfile(SessionWizardView):
         return redirect('articles')
 def searchpage(request):
     
-     return render (request,'account/search.html',)
+     return render (request,'accounts/search.html',)
 
      
 def search_users(request,slug):

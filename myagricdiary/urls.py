@@ -35,7 +35,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('my_notification' ,include('notification.urls')),
     path('friends/' ,include('Friends.urls')),
-    path('account/', include('account.urls') ),
+    path('accounts/', include('accounts.urls') ),
     path('', include('feed.urls') ),
     path('market/', include('marketplace.urls') ),
     path('chat/', include('chat.urls') ),
