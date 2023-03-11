@@ -45,6 +45,8 @@ urlpatterns = [
     path('legal/privacypolicy/',privacy_policy),
     path('legal/cookie_policy/',cookie_policy),
     path('favicon.ico', favicon_view),
+    path('account/', include('allauth.urls')),
+
 
 
 ]

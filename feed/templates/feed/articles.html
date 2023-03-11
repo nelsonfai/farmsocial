@@ -26,6 +26,7 @@
             <div class="article-item" style="text-align: center;font-size: larger; "> Your search results for: {{query}} </div>
             {%endif%}
             {% if articles %}
+            <div id="articles_container"> 
             {% for article in articles %}
                     <div class="article-item" id="article{{article.id}}"> 
                       <div class="article-top"> 
@@ -84,8 +85,10 @@
                        {%if article.title %} <p> {{article.title|safe}} </p> <br>{%endif%}
 
                         <div class="article-body toggle-text">
-                                    <p id ='text'>{{article.body|safe}} </p>
+                                    <p id ='text'>{{article.body|safe}}  </p>
+                                    <p> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}" style="color: var(--primary-color);">#{{tag.slug}} </a> {%endfor%}</p>
                         </div>
+
                       </div>
                         {% if article.article_image %} 
 
@@ -112,7 +115,7 @@
                     </div>
                     
             {% endfor %}
-            
+          </div>
         <div style="margin-block:20px 40px"> 
                 <p style="text-align:center;"> Page  {{ articles.number }} of  {{ articles.paginator.num_pages }} </p> 
             <div class="pagination11"> 
@@ -235,14 +238,22 @@
     border-radius: 4rem;
     cursor: pointer;
   }
- 
+  .inner_networksugestion{
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+  }
+ .inner_item{
+  width:110px;
+  height: 100px;
+  font-size: small;
+ }
 </style>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script>
   function network(event,url,profile_id,id){
-          console.log('logded in')
           event.preventDefault();
           var btn = document.getElementById(id)
           var link = '/friends/' + url + '/' + profile_id
@@ -391,6 +402,40 @@ function deleteConfirm(event,id,article_id){
 
 </script>
 
+<script>
+if (window.innerWidth < 768) {
+  const div =     `<div class="inner_networksugestion">
+          
+        {% for item in friendsuggestions%}
+            <div class="inner_item"> 
+                <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain; width:100px;height:100px" > </span> </a>
+                  <p>
+                        <a href="{% url 'profile' item.id %}">{{ item.get_full_name|title }} </a>
+                  </p>
+           
+            <div> 
+                {% if item != request.user %}
+                <span>
+                    {% if item in mynetwork.following.all %}
+                        <button class="button_three" onclick="network(event,url='unfollow', profile_id='{{item.id}}',id='itembtn')" >Unfollow</button>
+                    {% else %}
+                        <button class="button_three" onclick="network(event,url='follow', profile_id='{{item.id}}' ,id='itembtn')" >Follow</button>
+                    {% endif %}
+                </span>
+                {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+       
+    </div>`
+    const parentElement = document.querySelector('.articles_container');
+    const itemElements = parentElement.querySelectorAll('.article-item');
 
+    for (let i = 7; i < itemElements.length; i += 8) {
+    parentElement.insertBefore(div, itemElements[i + 1]);
+  }
+}
+
+</script>
 
 {% endblock %}
