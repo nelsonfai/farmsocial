@@ -27,7 +27,7 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('google/login/', LoginView.as_view(
-        template_name='google_login.html', 
+        template_name='accounts/google_login.html', 
         #authentication_method='google',
         extra_context={'title': 'Google Login'}
     ), name='google_login'),
