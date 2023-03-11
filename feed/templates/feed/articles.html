@@ -137,7 +137,7 @@
 </main>
 
 <div class="sidebar sidebar_right">
-    <div class="filter">
+    <div class="filter" style="max-height: 50vh;overflow: scroll;">
       <form action="{% url 'search-article' %}" method="post">
         {% csrf_token%}
         <input type="search" name="search-query" id="search-query" placeholder="Search article">
@@ -155,7 +155,7 @@
       
     </div> 
     {% if friendsuggestions %}
-    <div class="networksugestion">
+    <div class="networksugestion" style="max-height: 50vh;overflow-y: scroll;">
         <p> People you may Know </p>
           <br>
         {% for item in friendsuggestions%}
@@ -244,8 +244,8 @@
     padding:5px
   }
  .inner_item{
-    width: 250px;
-    height: 220px;
+    min-width: 180px;
+    height: 190px;
     font-size: small;
     padding: 0.8rem;
     background-color: white;
@@ -415,7 +415,7 @@ if (window.innerWidth < 768) {
   const div = `<div class="inner_networksugestion">
         {% for item in friendsuggestions%}
             <div class="inner_item"> 
-                <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain; width:70px !important;height:70px !important;margin-inline:auto" > </span> </a>
+                <a href="{% url 'profile' item.id %}"> <span class="roundedprofile" style="background:url('{{ item.profilepic}}') ;background-position: center; background-size: contain; width:80px !important;height:80px !important;margin-inline:auto" > </span> </a>
                   <p>
                         <a href="{% url 'profile' item.id %}">{{ item.get_full_name|title }} </a>
                   </p>
