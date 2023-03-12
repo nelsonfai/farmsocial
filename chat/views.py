@@ -71,7 +71,7 @@ def createchat(request,slug):
         second_user=CustomUser.objects.get(id=slug)
         new_thread= Thread(first_person=request.user, second_person=second_user)
         new_thread.save()
-        return redirect('chatlobby')
+        return redirect('chatroom', slug=new_thread.id)
 
 def search_chat(request):
     if request.method=='POST':
