@@ -214,8 +214,12 @@ class SignupWizard(SessionWizardView):
        )
         
         user.save()
-
-        login(self.request ,user)
+        if user.phonenumber:
+            email_or_phone= user.phonenumber
+        if user.email:
+            email_or_phone= user.email
+        loginuser = authenticate(email_or_phone=email_or_phone, password=user.password, backend='django.contrib.auth.backends.ModelBackend')
+        login(self.request,loginuser)
         if email:
             subject = 'Account Verification My agric Diary'
             message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/accounts/verify/{token}'
