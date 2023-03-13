@@ -31,8 +31,8 @@ class EmailForm(UserCreationForm):
         super(EmailForm,self).__init__(*args,**kwargs)
         del self.fields['password2']
         self.fields['password1'].help_text = None
-        self.fields['email'].label = 'Email:( <span onclick="toggleField(show="id_0-email",hide="id_0-phonenumber")" style="cursor:pointer;color:var(--primary-color)">Sign up with phone number </span>)'
-        self.fields['email'].label = 'Phone Number:( <span onclick="toggleField(hide="id_0-email",show="id_0-phonenumber")" style="cursor:pointer;color:var(--primary-color)">Sign up with Email </span>)'
+        self.fields['email'].label = 'Email: <span onclick="toggleField(\'id_0-email\', \'id_0-phonenumber\')" style="cursor:pointer;color:var(--primary-color)">Sign up with phone number</span>'
+        self.fields['email'].label = 'Phone Number: <span onclick="toggleField( \'id_0-phonenumber\',\'id_0-email\',)" style="cursor:pointer;color:var(--primary-color)">Sign up with Email </span>'
 
 
     def cleaned_data(self):
