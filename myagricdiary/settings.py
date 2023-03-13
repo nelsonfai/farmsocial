@@ -60,13 +60,7 @@ INSTALLED_APPS = [
     'myagricai',
     'company',
       "phonenumber_field",
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-
-    
+ 
 ]
 
 MIDDLEWARE = [
