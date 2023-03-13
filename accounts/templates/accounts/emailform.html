@@ -19,11 +19,13 @@
 {% if wizard.form.forms %}
     {{ wizard.form.management_form }}
     {% for form in wizard.form.forms %}
-    <p style="margin-block: 1rem;">                     
-      {% for field, error in form.errors.items %}
-      {% if field != '__all__' %}{{ field }}{% endif %}
-      {{ error | striptags }}
+    <p style="margin-block: 1rem; text-align: center;">                     
+      {% for field, error_list in form.errors.items %}
+      {% for error in error_list %}
+          {{ field }}: {{ error }}<br>
       {% endfor %}
+  {% endfor %}
+
   </p>
         {{form.as_p}}
     {% endfor %}
