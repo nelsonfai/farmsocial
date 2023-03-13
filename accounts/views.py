@@ -199,7 +199,9 @@ class SignupWizard(SessionWizardView):
     def done(self, form_list, **kwargs):
 
         token = str(uuid.uuid4())
-        if not form_list[0].cleaned_data['email'] or form_list[0].cleaned_data['phonenumber']:
+        if form_list[0].cleaned_data['email'] or form_list[0].cleaned_data['phonenumber']:
+            pass
+        else:
             raise forms.ValidationError('At least one of email or phone number must be provided')
         user = CustomUser.objects.create_user(
         email=form_list[0].cleaned_data['email'],
