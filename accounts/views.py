@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
-from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne
+from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,NumberForm,PasswordForm
 from formtools.wizard.views import SessionWizardView
 from .models import CustomUser
 from django.http import JsonResponse
@@ -192,7 +192,7 @@ def edit_education(request):
 
 #signup user 
 class SignupWizard(SessionWizardView):
-    form_list = [EmailForm, PersonalInfoFormOne]
+    form_list = [EmailForm,NumberForm,PasswordForm, PersonalInfoFormOne]
     template_name = 'accounts/emailform.html'
    
 
@@ -201,19 +201,21 @@ class SignupWizard(SessionWizardView):
         print(form_list[0]['password1'].value())
         user = CustomUser.objects.create_user(
         email=form_list[0].cleaned_data['email'],
-        password=form_list[0].cleaned_data['password1'],
-        first_name=form_list[1].cleaned_data['first_name'],
-        last_name=form_list[1].cleaned_data['last_name'],
+        phonenumber=form_list[1].cleaned_data['phonenumber'],
+        password=form_list[2].cleaned_data['password1'],
+        first_name=form_list[3].cleaned_data['first_name'],
+        last_name=form_list[3].cleaned_data['last_name'],
         token = token
        )
         
         user.save()
 
         login(self.request ,user)
-        subject = 'Account Verification My agric Diary'
-        message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/accounts/verify/{token}'
-        sendto = user.email
-        email(subject=subject,message=message,sendto=sendto)
+        if email:
+            subject = 'Account Verification My agric Diary'
+            message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/accounts/verify/{token}'
+            sendto = user.email
+            email(subject=subject,message=message,sendto=sendto)
         return redirect('firstProfile')
 
 class FirstProfile(SessionWizardView):
