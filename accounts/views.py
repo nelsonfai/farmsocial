@@ -36,11 +36,9 @@ import io
 def login_view(request):
     try:
         if request.method == 'POST':
-            form =LogInForm(request,data=request.POST)
+            form =LogInForm(request.POST)
             if form.is_valid():
-                user = authenticate(email_or_phone=form.cleaned_data.get('email_or_phone'), password=form.cleaned_data.get('password'))
-                if user is not None:
-                    login(request,user)
+                    login(request, form.user)
                     if 'next' in request.POST:
                         messages.success(request, ("You were succesfully logged in"))
                         return redirect(request.POST.get('next'))

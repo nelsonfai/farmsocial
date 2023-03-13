@@ -3,25 +3,22 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django import forms
 from accounts.models import CustomUser
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 
 
-class LogInForm(forms.ModelForm):
+class LogInForm(forms.Form):
     email_or_phone = forms.CharField(label='Email or phone number', max_length=255)
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
-
-    class Meta:
-        model=CustomUser
-        password = forms.CharField(label='Password', widget=forms.PasswordInput)
-
-        fields=('email_or_phone','password' )
-
-    def __init__(self,*args,**kwargs):
-        super(LogInForm,self).__init__(*args,**kwargs)
-        #self.fields['username'].widget.attrs['class']='form_control'
-        #self.fields['username'].widget.attrs['placeholder']='e.g mail@myagricdiary.com'
-        self.fields['password'].widget.attrs['class']='form_control'
-        self.fields['password'].widget.attrs['placeholder']='**********'
+    def clean(self):
+        email_or_phone = self.cleaned_data.get('email_or_phone')
+        password = self.cleaned_data.get('password')
+         # authenticate user
+        user = authenticate(email_or_phone=email_or_phone, password=password)
+        if not user:
+            raise forms.ValidationError('Invalid login credentials')
+        self.user = user
+        return self.cleaned_data
 
 class EmailForm(UserCreationForm):
     class Meta:
