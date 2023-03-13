@@ -8,12 +8,13 @@ from django.contrib.auth import get_user_model
 
 class LogInForm(forms.ModelForm):
     email_or_phone = forms.CharField(label='Email or phone number', max_length=255)
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     class Meta:
         model=CustomUser
-        #password = forms.CharField(label='Password', widget=forms.PasswordInput)
+        password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
-        fields=('password','email_or_phone' )
+        fields=('email_or_phone','password' )
 
     def __init__(self,*args,**kwargs):
         super(LogInForm,self).__init__(*args,**kwargs)

@@ -38,7 +38,7 @@ def login_view(request):
         if request.method == 'POST':
             form =LogInForm(request,data=request.POST)
             if form.is_valid():
-                user = authenticate(email_or_phone=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
+                user = authenticate(email_or_phone=form.cleaned_data.get('email_or_phone'), password=form.cleaned_data.get('password'))
                 if user is not None:
                     login(request,user)
                     if 'next' in request.POST:
