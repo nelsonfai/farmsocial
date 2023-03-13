@@ -205,9 +205,9 @@ class SignupWizard(SessionWizardView):
         email=form_list[0].cleaned_data['email'],
         phonenumber=form_list[0].cleaned_data['phonenumber'],
        
-        password=form_list[2].cleaned_data['password1'],
-        first_name=form_list[3].cleaned_data['first_name'],
-        last_name=form_list[3].cleaned_data['last_name'],
+        password=form_list[1].cleaned_data['password1'],
+        first_name=form_list[2].cleaned_data['first_name'],
+        last_name=form_list[2].cleaned_data['last_name'],
         token = token
        )
         
