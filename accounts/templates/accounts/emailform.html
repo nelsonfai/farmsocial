@@ -22,7 +22,7 @@
         {{form.as_p}}
     {% endfor %}
 {% else %}
-    {{ wizard.form }}
+    {{ wizard.form|safe }}
 {% endif %}
 </table>
 {% if wizard.form.last_name %}
