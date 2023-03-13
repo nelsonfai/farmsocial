@@ -8,22 +8,22 @@ from django.contrib.auth import authenticate
 
 
 class LogInForm(forms.Form):
-    email_or_phone = forms.CharField(label='Email or phone number', max_length=255)
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    email_or_phone = forms.CharField(placeholder='Mobile Number or Email address', max_length=255)
+    password = forms.CharField(placeholder='Password', widget=forms.PasswordInput)
     def clean(self):
         email_or_phone = self.cleaned_data.get('email_or_phone')
         password = self.cleaned_data.get('password')
          # authenticate user
         user = authenticate(email_or_phone=email_or_phone, password=password)
         if not user:
-            raise forms.ValidationError('Invalid login credentials')
+            raise forms.ValidationError('Invalid login credentials.Keep in my password is case sensitive')
         self.user = user
         return self.cleaned_data
 
 class EmailForm(UserCreationForm):
     class Meta:
         model=CustomUser
-        fields=('email',)
+        fields=('email','phonenumber')
  
     def __init__(self,*args,**kwargs):
         super(EmailForm,self).__init__(*args,**kwargs)
@@ -33,28 +33,12 @@ class EmailForm(UserCreationForm):
     def cleaned_data(self):
         cleaned_data = super().clean()
         email = cleaned_data.get("email")
-
-        if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError("Email already in use.")
-
-
-class NumberForm(UserCreationForm):
-    class Meta:
-        model=CustomUser
-        fields=('phonenumber',)
- 
-    def __init__(self,*args,**kwargs):
-        super(NumberForm,self).__init__(*args,**kwargs)
-        del self.fields['password2']
-        del self.fields['password1']
-    def cleaned_data(self):
-        cleaned_data = super().clean()
         phonenumber = cleaned_data.get("phonenumber")
 
         if CustomUser.objects.filter(phonenumber=phonenumber).exists():
             raise forms.ValidationError("Phone number already in use.")
-
-
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already in use.")
 
 class PasswordForm(UserCreationForm):
     class Meta:

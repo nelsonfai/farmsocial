@@ -192,7 +192,7 @@ def edit_education(request):
 
 #signup user 
 class SignupWizard(SessionWizardView):
-    form_list = [EmailForm,NumberForm,PasswordForm,PersonalInfoFormOne]
+    form_list = [EmailForm,PasswordForm,PersonalInfoFormOne]
     template_name = 'accounts/emailform.html'
    
 
@@ -203,7 +203,7 @@ class SignupWizard(SessionWizardView):
             raise forms.ValidationError('At least one of email or phone number must be provided')
         user = CustomUser.objects.create_user(
         email=form_list[0].cleaned_data['email'],
-        phonenumber=form_list[1].cleaned_data['phonenumber'],
+        phonenumber=form_list[0].cleaned_data['phonenumber'],
        
         password=form_list[2].cleaned_data['password1'],
         first_name=form_list[3].cleaned_data['first_name'],
