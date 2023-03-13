@@ -22,6 +22,14 @@
             <option value='user'> {{request.user.get_full_name}}</option>
         </select>
         {%endif%}
+
+        {% if request.user.is_superuser %}
+        <select name="post-type" id="post-type" required>
+            <option value=""> select one</option>
+            <option value="News"> select one</option>
+            <option value="Post"> select one</option>
+        </select>
+        {%endif%}
         {{form.as_p}}
         <br>
         <label for="body">Body</label>
@@ -56,6 +64,7 @@
         border: 1px solid grey;
         background-color: white;
         margin-top: 1rem;
+        font-size: medium;
     }
     h2{
         color:var(--primary-color);

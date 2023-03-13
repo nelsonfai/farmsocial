@@ -8,6 +8,7 @@ from django.core.validators import FileExtensionValidator
 
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 def validate_file_size(value):
@@ -41,7 +42,9 @@ class UserManager(BaseUserManager):
     
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(null=True, blank=True,unique=True)
+    phone = PhoneNumberField(null=True, blank=True,unique=True)
+
     first_name = models.CharField( max_length=100 , blank=False)
     last_name= models.CharField( max_length=100 , blank=False )
 
@@ -62,6 +65,7 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField( default=False)
     token = models.CharField(max_length=200,default=1)
     last_seen = models.DateTimeField(null=True, blank=True)
+
 
 
     #following = models.ManyToManyField('self', through='Follow', related_name='followed_by', symmetrical=False)

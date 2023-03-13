@@ -1,7 +1,7 @@
 import os
 from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login,logout
+from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne
 from formtools.wizard.views import SessionWizardView
@@ -34,19 +34,21 @@ import io
 def login_view(request):
     try:
         if request.method == 'POST':
-            form =LogInForm(data=request.POST)
+            form =AuthenticationForm(request,data=request.POST)
             if form.is_valid():
-                user=form.get_user()
-                login(request,user)
-                if 'next' in request.POST:
-                    messages.success(request, ("You were succesfully logged in"))
-                    return redirect(request.POST.get('next'))
-                else:
-                    messages.success(request, ("You were succesfully logged in"))
-                    return redirect('articles')
+                user = authenticate(email_or_phone=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
+                if user is not None:
+                    login(request,user)
+                    if 'next' in request.POST:
+                        messages.success(request, ("You were succesfully logged in"))
+                        return redirect(request.POST.get('next'))
+                    else:
+                        messages.success(request, ("You were succesfully logged in"))
+                        return redirect('articles')
+                
                 
         else:
-            form=LogInForm()
+            form=AuthenticationForm()
 
         context={
                     'form':form,

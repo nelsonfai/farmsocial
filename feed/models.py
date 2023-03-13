@@ -10,6 +10,8 @@ from company.models import Company
 import math
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from django_countries.fields import CountryField
+
 
 
 def validate_file_size(value):
@@ -85,7 +87,8 @@ def timefuntion(date):
             else:
                 return str(years) + " years ago"
 
-
+categories=(
+    ('News','News'), ('Post','Post'))
 class Articles (models.Model):
     author=models.ForeignKey(CustomUser, related_name='profile' ,on_delete= models.CASCADE ,blank=True, null=True)
     company = models.ForeignKey(Company,related_name='companyprofile' ,on_delete= models.CASCADE, blank=True, null=True)
@@ -99,8 +102,9 @@ class Articles (models.Model):
     likes =models.ManyToManyField(CustomUser, default=None,blank=True, related_name='liked')
     #tagline=models.CharField(max_length=100 ,blank=True,null=True)
     tag = TaggableManager(blank=True)
+    country  = CountryField(blank_label='(select country)', blank=True, null= True)
+    category = models.CharField(choices =categories, default='Post', max_length=10)
 
-  
    
     def __str__(self):
         if self.title:

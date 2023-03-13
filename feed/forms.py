@@ -27,3 +27,7 @@ class ArticleForm(forms.ModelForm):
             'tag': TagWidget(attrs={'placeholder': 'e.g: climate change,sustainablity,soil'}),
         }  
 
+    def __init__(self,*args,**kwargs):
+        super(ArticleForm,self).__init__(*args,**kwargs)
+
+        self.fields['title'].widget.attrs['placeholder']='*** Optional'

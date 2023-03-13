@@ -2,26 +2,28 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django import forms
 from accounts.models import CustomUser
+from django.contrib.auth import get_user_model
 
-class LogInForm(AuthenticationForm):
+
+
+class LogInForm(forms.ModelForm):
 
     class Meta:
-        model=AuthenticationForm
-        fields=('username','password' )
+        model=CustomUser
+        email_or_phone = forms.CharField(label='Email or phone number', max_length=255)
+        fields=('password','email_or_phone' )
 
     def __init__(self,*args,**kwargs):
         super(LogInForm,self).__init__(*args,**kwargs)
-        self.fields['username'].widget.attrs['class']='form_control'
-        self.fields['username'].widget.attrs['placeholder']='e.g mail@myagricdiary.com'
+        #self.fields['username'].widget.attrs['class']='form_control'
+        #self.fields['username'].widget.attrs['placeholder']='e.g mail@myagricdiary.com'
         self.fields['password'].widget.attrs['class']='form_control'
         self.fields['password'].widget.attrs['placeholder']='**********'
-
-
 
 class EmailForm(UserCreationForm):
     class Meta:
         model=CustomUser
-        fields=('email','password1')
+        fields=('email','phonenumber','password1')
  
     def __init__(self,*args,**kwargs):
         super(EmailForm,self).__init__(*args,**kwargs)
