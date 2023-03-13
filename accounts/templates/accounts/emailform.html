@@ -31,7 +31,7 @@
 
 {% if wizard.form.email %}
 <p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;cursor: pointer;" id="id_0-email-button"><span onclick="toggleField(show='id_0-phonenumber',hide='id_0-email')" style="color:var(--primary-color);">Signup With Phone Phone number</span></p>
-<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem; cursor: pointer;" id="id_0-phonenumber-button"><span onclick="toggleField(hide='id_0-phonenumber',show='id_0-email')" style="color:var(--primary-color);">Signup with Email</span> </p>
+<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem; cursor: pointer;" id="id_0-phonenumber-button"><span onclick="toggleField(show='id_0-email',hide='id_0-phonenumber')" style="color:var(--primary-color);">Signup with Email</span> </p>
 {%endif%}
 
 <button class="button_one button_fulllength" value="{% trans 'submit' %}">  Send</button>
