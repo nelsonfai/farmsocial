@@ -32,6 +32,13 @@ class EmailForm(UserCreationForm):
         del self.fields['password2']
         del self.fields['password1']
 
+    def cleaned_data(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already in use.")
+
 
 class NumberForm(UserCreationForm):
     class Meta:
@@ -42,6 +49,13 @@ class NumberForm(UserCreationForm):
         super(NumberForm,self).__init__(*args,**kwargs)
         del self.fields['password2']
         del self.fields['password1']
+    def cleaned_data(self):
+        cleaned_data = super().clean()
+        phonenumber = cleaned_data.get("phonenumber")
+
+        if CustomUser.objects.filter(phonenumber=phonenumber).exists():
+            raise forms.ValidationError("Phone number already in use.")
+
 
 
 class PasswordForm(UserCreationForm):
@@ -53,17 +67,6 @@ class PasswordForm(UserCreationForm):
         super(PasswordForm,self).__init__(*args,**kwargs)
         del self.fields['password2']
         self.fields['password1'].help_text = None
-
-
-
-
-    def cleaned_data(self):
-        cleaned_data = super().clean()
-        email = cleaned_data.get("email")
-
-        if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError("Email already in use.")
-
 
 class PersonalInfoForm(UserCreationForm):
     class Meta:

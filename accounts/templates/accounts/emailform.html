@@ -11,7 +11,6 @@
 
 <div class="container">
 
-<p >Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
 <form   method="POST" enctype="multipart/form-data">
   {% csrf_token %}
 
@@ -31,11 +30,11 @@
 {% endif %}
 
 {% if wizard.steps.step1 == 1 %}
-<p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="1">{% trans "Signup With Phone Phone number" %}</button></p>
+<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="1" style="color:var(--primary-color);">{% trans "Signup With Phone Phone number" %}</button></p>
 {%endif%}
 
 {% if wizard.steps.step1 == 2 %}
-<p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "Signup with Email" %}</button>
+<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" style="color:var(--primary-color);">{% trans "Signup with Email" %}</button>
 </p>
 
 {%endif%}
