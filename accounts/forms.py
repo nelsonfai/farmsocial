@@ -32,8 +32,6 @@ class EmailForm(UserCreationForm):
         del self.fields['password2']
         del self.fields['password1']
 
-        self.fields['password1'].help_text = None
-
 
 class NumberForm(UserCreationForm):
     class Meta:
@@ -45,7 +43,6 @@ class NumberForm(UserCreationForm):
         del self.fields['password2']
         del self.fields['password1']
 
-        self.fields['password1'].help_text = None
 
 class PasswordForm(UserCreationForm):
     class Meta:
