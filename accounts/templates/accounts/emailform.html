@@ -30,7 +30,7 @@
 {% endif %}
 
 {% if wizard.steps.step1 == 1 %}
-<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="1" style="color:var(--primary-color);">{% trans "Signup With Phone Phone number" %}</button></p>
+<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><button onclick="toggleField(show='id_0-phonenumber',hide='id_0-email')" style="color:var(--primary-color);">{% trans "Signup With Phone Phone number" %}</button></p>
 {%endif%}
 
 {% if wizard.steps.step1 == 2 %}
