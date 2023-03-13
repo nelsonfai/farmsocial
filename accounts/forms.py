@@ -8,8 +8,9 @@ from django.contrib.auth import authenticate
 
 
 class LogInForm(forms.Form):
-    email_or_phone = forms.CharField(placeholder='Mobile Number or Email address', max_length=255)
-    password = forms.CharField(placeholder='Password', widget=forms.PasswordInput)
+    email_or_phone = forms.CharField( max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Mobile Number or Email address'}))
+    password = forms.CharField( widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
     def clean(self):
         email_or_phone = self.cleaned_data.get('email_or_phone')
         password = self.cleaned_data.get('password')
