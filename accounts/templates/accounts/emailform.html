@@ -30,11 +30,11 @@
 {% endif %}
 
 {% if wizard.steps.step1 == 1 %}
-<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><button onclick="toggleField(show='id_0-phonenumber',hide='id_0-email')" style="color:var(--primary-color);">{% trans "Signup With Phone Phone number" %}</button></p>
+<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><span onclick="toggleField(show='id_0-phonenumber',hide='id_0-email')" style="color:var(--primary-color);">Signup With Phone Phone number</span></p>
 {%endif%}
 
 {% if wizard.steps.step1 == 2 %}
-<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}" style="color:var(--primary-color);">{% trans "Signup with Email" %}</button>
+<p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem;"><span onclick="toggleField(hide='id_0-phonenumber',show='id_0-email')" style="color:var(--primary-color);">Signup with Email</span>
 </p>
 
 {%endif%}
