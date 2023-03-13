@@ -29,12 +29,12 @@
 <p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"> By clicking Send, you agree to My AgricDiary's <a href="https://myagricdiary.com/legal/user_agreement/">User Agreement,</a> <a href="https://myagricdiary.com/legal/privacypolicy/">Privacy Policy </a> and <a href="https://myagricdiary.com/legal/cookie_policy/">Cookie Policy </a></p>
 {% endif %}
 
-{% if wizard.step0%}
+{% if wizard.steps.step1 == 1 %}
 <p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><a href="{% url 'SignupWizard' %}?wizard_goto_step=1">Signup With Phone Number</a></p>
 
 {%endif%}
 
-{% if wizard.step1%}
+{% if wizard.steps.step1 == 2 %}
 <p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><a href="{% url 'SignupWizard' %}?wizard_goto_step=1">Signup With Email </a></p>
 
 {%endif%}

@@ -30,6 +30,10 @@ class EmailForm(UserCreationForm):
     def __init__(self,*args,**kwargs):
         super(EmailForm,self).__init__(*args,**kwargs)
         del self.fields['password2']
+        del self.fields['password1']
+
+        self.fields['password1'].help_text = None
+
 
 class NumberForm(UserCreationForm):
     class Meta:
@@ -37,15 +41,19 @@ class NumberForm(UserCreationForm):
         fields=('phonenumber',)
  
     def __init__(self,*args,**kwargs):
-        super(EmailForm,self).__init__(*args,**kwargs)
+        super(NumberForm,self).__init__(*args,**kwargs)
         del self.fields['password2']
+        del self.fields['password1']
+
+        self.fields['password1'].help_text = None
+
 class PasswordForm(UserCreationForm):
     class Meta:
         model=CustomUser
         fields=('password1',)
  
     def __init__(self,*args,**kwargs):
-        super(EmailForm,self).__init__(*args,**kwargs)
+        super(PasswordForm,self).__init__(*args,**kwargs)
         del self.fields['password2']
         self.fields['password1'].help_text = None
 
