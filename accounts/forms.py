@@ -25,7 +25,7 @@ class LogInForm(forms.ModelForm):
 class EmailForm(UserCreationForm):
     class Meta:
         model=CustomUser
-        fields=('email')
+        fields=('email',)
  
     def __init__(self,*args,**kwargs):
         super(EmailForm,self).__init__(*args,**kwargs)
@@ -34,7 +34,7 @@ class EmailForm(UserCreationForm):
 class NumberForm(UserCreationForm):
     class Meta:
         model=CustomUser
-        fields=('phonenumber')
+        fields=('phonenumber',)
  
     def __init__(self,*args,**kwargs):
         super(EmailForm,self).__init__(*args,**kwargs)
@@ -42,7 +42,7 @@ class NumberForm(UserCreationForm):
 class PasswordForm(UserCreationForm):
     class Meta:
         model=CustomUser
-        fields=('password1')
+        fields=('password1',)
  
     def __init__(self,*args,**kwargs):
         super(EmailForm,self).__init__(*args,**kwargs)
