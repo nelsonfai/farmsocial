@@ -48,7 +48,7 @@
                                       <a href="{%  url 'companyprofile' article.company.identifier article.company.name %} "><span> {{ article.company.name|title}}  </span></a> 
                                       <p> {{ article.whenpublished }}</p>
                                       {% if article.category == 'News'%}
-                                      <span style="background-color: var(--primary-color); color:rgb(212, 196, 75)" class="button_three"> News </span>
+                                      <span class="button_three" style="margin-top: 0.5rem;"> # News </span>
                                       {%endif%}
                                   </div>
                                 {%endif%}

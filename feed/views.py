@@ -26,12 +26,12 @@ def add_article(request):
             body=request.POST.get('body')
             author = request.POST.get('author')
             photo= request.FILES.get('article_image')
-            category= request.Post.get('post-type')
+            category=request.POST.get('post-type')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
             if article_form.is_valid():
                 #print(article_form.tag)
                 if category:
-                    obj.category =category
+                    obj.category=category
                 obj=article_form.save(commit=False)
                 obj.country= request.user.location
                 if author == 'user':

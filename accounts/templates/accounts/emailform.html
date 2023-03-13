@@ -39,7 +39,23 @@ select,textarea{
 }
 
 </style>
+<script>
+document.getElementById('id_0-phonenumber').style.display='none';
+document.querySelector('label[for="id_0-phonenumber"]').style.display='none';
+function toggleField(show,hide){
+  var showelt = document.getElementById(show)
+  var showeltLabel = document.querySelector(`label[for= ${show}]`);
+  var hideelt = document.getElementById(hide)
+  var hideeltLabel = document.querySelector(`label[for= ${hide}]`);
 
+showelt.style.display='block';
+showeltLabel.style.display='block';
+hideelt.style.display='none';
+hideeltLabel.style.display='none';
+
+}
+
+</script>
 <script>
     // JavaScript function
     var checkbox = document.getElementById("checked");

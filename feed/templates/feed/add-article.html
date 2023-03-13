@@ -24,10 +24,11 @@
         {%endif%}
 
         {% if request.user.is_superuser %}
+        <label for="post-type"> Article type</label>
         <select name="post-type" id="post-type" required>
             <option value=""> select one</option>
-            <option value="News"> select one</option>
-            <option value="Post"> select one</option>
+            <option value="News"> News Article</option>
+            <option value="Post"> Post</option>
         </select>
         {%endif%}
         {{form.as_p}}
