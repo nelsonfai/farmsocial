@@ -43,7 +43,7 @@ class UserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     email = models.EmailField(null=True, blank=True,unique=True)
-    phone = PhoneNumberField(null=True, blank=True,unique=True)
+    phonenumber = PhoneNumberField(null=True, blank=True,unique=True)
 
     first_name = models.CharField( max_length=100 , blank=False)
     last_name= models.CharField( max_length=100 , blank=False )
