@@ -19,6 +19,12 @@
 {% if wizard.form.forms %}
     {{ wizard.form.management_form }}
     {% for form in wizard.form.forms %}
+    <p style="margin-block: 1rem;">                     
+      {% for field, error in form.errors.items %}
+      {% if field != '__all__' %}{{ field }}{% endif %}
+      {{ error | striptags }}
+      {% endfor %}
+  </p>
         {{form.as_p}}
     {% endfor %}
 {% else %}
@@ -46,6 +52,9 @@ li{
     list-style: none;
 }
 ul{text-align: center;}
+.errorlist{
+  display: none;
+}
 </style>
 
 <script>
