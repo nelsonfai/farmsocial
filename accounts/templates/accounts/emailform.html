@@ -12,7 +12,8 @@
 <div class="container">
 
 <p >Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}</p>
-<form   method="POST" enctype="multipart/form-data">{% csrf_token %}
+<form   method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
 
 <table>
 {{ wizard.management_form }}
@@ -30,12 +31,12 @@
 {% endif %}
 
 {% if wizard.steps.step1 == 1 %}
-<p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><a href="{% url 'SignupWizard' %}?wizard_goto_step=1">Signup With Phone Number</a></p>
-
+<p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="1">{% trans "Signup With Phone Phone number" %}</button></p>
 {%endif%}
 
 {% if wizard.steps.step1 == 2 %}
-<p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><a href="{% url 'SignupWizard' %}?wizard_goto_step=1">Signup With Email </a></p>
+<p style="text-align:center;color:grey;font-size:small;margin-bottom: 1rem;"><button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "Signup with Email" %}</button>
+</p>
 
 {%endif%}
 
