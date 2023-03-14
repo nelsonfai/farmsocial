@@ -103,7 +103,19 @@ class EducationForm(UserCreationForm):
     class Meta:
         model=CustomUser
         fields=('is_student','course','instituition','profession','company')
-        labels = {'is_student': 'I am a student'}
+        labels = {
+            'is_student': 'I am a student',
+            'course': 'Course Name',
+            'instituition': 'Instituition Name',
+            'profession': 'Profession',
+            'company': 'Company Name',
+        }
+        attrs = {
+            'course': {'class': 'studentlabel'},
+            'instituition': {'class': 'studentlabel'},
+            'profession': {'class': 'proflabel'},
+            'company': {'class': 'proflabel'},
+        }
 
     def __init__(self,*args,**kwargs):
             super(EducationForm,self).__init__(*args,**kwargs)
@@ -113,17 +125,13 @@ class EducationForm(UserCreationForm):
             self.fields['is_student'].widget.attrs['id']='checked'
 
             self.fields['course'].widget.attrs['class']='form_control studentinput'
-            self.fields['course'].label_widget.attrs.update({'class':'studentlabel'})
 
             self.fields['instituition'].widget.attrs['class']='form_control studentinput'
-            self.fields['is_student'].label_widget.attrs.update({'class': 'studentlabel'})
 
 
             self.fields['profession'].widget.attrs['class']='form_control profinput'
-            self.fields['profession'].label_widget.attrs.update({'class': 'proflabel'})
 
             self.fields['company'].widget.attrs['class']='form_control profinput'
-            self.fields['company'].label_widget.attrs.update({'class': 'proflabel'})
 
 
   
