@@ -9,7 +9,10 @@ from PIL import Image
 from company.models import Company
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import io
-# Create your view
+from django.views.decorators.cache import cache_page
+
+# Create your views here.
+@cache_page(60 * 5) # cache for 5 minutes
 @login_required   
 def market (request):
     productitems=ProductItem.objects.all()

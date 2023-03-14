@@ -87,10 +87,8 @@ hideelt.required =false;
     var checkbox = document.getElementById("checked");
     if (checkbox){
       var students = document.getElementsByClassName("studentinput");
-      var studentlabel = document.getElementsByClassName("studentlabel");
 
       var prof = document.getElementsByClassName("profinput");
-      var proflabel = document.getElementsByClassName("proflabel");
     checkbox.addEventListener("change", function() {
         console.log('change')
         console.log(students)
@@ -99,32 +97,19 @@ hideelt.required =false;
         for (var i = 0; i < students.length; i++) {
         students[i].style.display = "block";
       }
-      for (var i = 0; i < studentlabel.length; i++) {
-        studentlabel[i].style.display = "block";
-      }
+   
       for (var i = 0; i < prof.length; i++) {
         prof[i].style.display = "none";
       }
-      for (var i = 0; i < proflabel.length; i++) {
-        proflabel[i].style.display = "none";
-      }
+   
       } else {
         for (var i = 0; i < students.length; i++) {
         students[i].style.display = "none";
         }
-        for (var i = 0; i < studentlabel.length; i++) {
-        studentlabel[i].style.display = "none";
-      }
-
-
-
         for (var i = 0; i < prof.length; i++) {
         prof[i].style.display = "block";
       }
 
-      for (var i = 0; i < proflabel.length; i++) {
-        proflabel[i].style.display = "block";
-      }
     }});}
   </script>
 {% endblock %}

@@ -103,19 +103,7 @@ class EducationForm(UserCreationForm):
     class Meta:
         model=CustomUser
         fields=('is_student','course','instituition','profession','company')
-        labels = {
-            'is_student': 'I am a student',
-            'course': 'Course Name',
-            'instituition': 'Instituition Name',
-            'profession': 'Profession',
-            'company': 'Company Name',
-        }
-        attrs = {
-            'course': {'class': 'studentlabel'},
-            'instituition': {'class': 'studentlabel'},
-            'profession': {'class': 'proflabel'},
-            'company': {'class': 'proflabel'},
-        }
+        labels = {'is_student': 'I am a student'}
 
     def __init__(self,*args,**kwargs):
             super(EducationForm,self).__init__(*args,**kwargs)
@@ -123,14 +111,9 @@ class EducationForm(UserCreationForm):
             del self.fields['password2']
             self.fields['is_student'].widget.attrs['class']='form_control'
             self.fields['is_student'].widget.attrs['id']='checked'
-
             self.fields['course'].widget.attrs['class']='form_control studentinput'
-
             self.fields['instituition'].widget.attrs['class']='form_control studentinput'
-
-
             self.fields['profession'].widget.attrs['class']='form_control profinput'
-
             self.fields['company'].widget.attrs['class']='form_control profinput'
 
 
