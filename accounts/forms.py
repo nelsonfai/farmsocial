@@ -113,17 +113,17 @@ class EducationForm(UserCreationForm):
             self.fields['is_student'].widget.attrs['id']='checked'
 
             self.fields['course'].widget.attrs['class']='form_control studentinput'
-            self.fields['course'].label_attr = {'class': 'studentlabel'}
+            self.fields['course'].widget.attrs.update({'class': 'studentlabel'})
 
             self.fields['instituition'].widget.attrs['class']='form_control studentinput'
-            self.fields['is_student'].label_attr = {'class': 'studentlabel'}
+            self.fields['is_student'].widget.attrs.update({'class': 'studentlabel'})
 
 
             self.fields['profession'].widget.attrs['class']='form_control profinput'
-            self.fields['profession'].label_attr = {'class': 'proflabel'}
+            self.fields['profession'].widget.attrs.update({'class': 'proflabel'})
 
             self.fields['company'].widget.attrs['class']='form_control profinput'
-            self.fields['company'].label_attr = {'class': 'proflabel'}
+            self.fields['company'].widget.attrs.update({'class': 'proflabel'})
 
 
   
