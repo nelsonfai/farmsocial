@@ -259,3 +259,16 @@ CELERY_RESULT_EXPIRES = 60 * 60 * 24  # 1 day
 CELERYD_CONCURRENCY = 1
 CELERYD_MAX_TASKS_PER_CHILD = 1
 
+REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
+CACHES = {
+    "redis": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": REDIS_URL,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+    }
+}
