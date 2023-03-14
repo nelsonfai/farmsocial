@@ -18,8 +18,11 @@ from PIL import Image
 from company.models import Company
 import io
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
+@cache_page(60 * 5) # cache for 5 minutes
+
 @login_required   
 def add_article(request):
     if request.method=='POST':
