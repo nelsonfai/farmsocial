@@ -19,7 +19,7 @@
 {% if wizard.form.forms %}
     {{ wizard.form.management_form }}
     {% for form in wizard.form.forms %}
-      {{form.errors}}
+      p:{{form.errors.items}}
         {{form.as_p}}
     {% endfor %}
 {% else %}
@@ -47,9 +47,7 @@ li{
     list-style: none;
 }
 ul{text-align: center;}
-.errorlist{
-  display: none;
-}
+
 </style>
 
 <script>
@@ -62,6 +60,7 @@ function toggleField(show,hide){
   var showeltLabel = document.querySelector(`label[for= ${show}]`);
   var showBtn = document.querySelector(`#${show}-button`)
 
+
   var hideelt = document.getElementById(hide)
   var hideeltLabel = document.querySelector(`label[for= ${hide}]`);
   var hideBtn = document.querySelector(`#${hide}-button`)
@@ -70,11 +69,12 @@ function toggleField(show,hide){
 showelt.style.display='block';
 showeltLabel.style.display='block';
 showBtn.style.display='block';
+showelt.required =true;
 
 hideBtn.style.display='none';
 hideelt.style.display='none';
 hideeltLabel.style.display='none';
-
+hideelt.required =false;
 }
 
 </script>
