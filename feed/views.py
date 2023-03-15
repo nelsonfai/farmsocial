@@ -231,8 +231,12 @@ def delete_annoucement (request,slug):
         messages.success(request,'Announcement has been deleted')
         return redirect('annoucement')
 def filter_article(request,tag):
-        articles = Articles.objects.filter(tag__slug=tag)
-        p=Paginator(articles,per_page=3)
+        filter_by = request.GET.get('filter_by')
+        if filter_by == 'tag':
+            articles = Articles.objects.filter(tag__slug=tag)
+        if filter_by == 'category':
+            articles = Articles.objects.filter(category=tag)
+        p=Paginator(articles,per_page=10)
         page=request.GET.get('page')
         paginated_article=p.get_page(page)
         top_n = 10

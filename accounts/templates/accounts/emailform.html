@@ -11,6 +11,7 @@
 
 <div class="container">
 
+
 <form   method="POST" enctype="multipart/form-data">
   {% csrf_token %}
 
@@ -46,7 +47,9 @@ li{
     list-style: none;
 }
 ul{text-align: center;}
-
+#checked{
+  width: auto !important;
+}
 </style>
 
 <script>
@@ -96,18 +99,27 @@ hideelt.required =false;
       if (this.checked) {
         for (var i = 0; i < students.length; i++) {
         students[i].style.display = "block";
+        students[i].closest('tr').querySelector('label');
+        label.style.display = 'block';
+
       }
    
       for (var i = 0; i < prof.length; i++) {
         prof[i].style.display = "none";
+        prof[i].closest('tr').querySelector('label');
+        label.style.display = 'none';
       }
    
       } else {
         for (var i = 0; i < students.length; i++) {
         students[i].style.display = "none";
+        students[i].closest('tr').querySelector('label');
+        label.style.display = 'none';
         }
         for (var i = 0; i < prof.length; i++) {
         prof[i].style.display = "block";
+        prof[i].closest('tr').querySelector('label');
+        label.style.display = 'block';
       }
 
     }});}
