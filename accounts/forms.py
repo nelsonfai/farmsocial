@@ -104,10 +104,6 @@ class EducationForm(UserCreationForm):
         model=CustomUser
         fields=('is_student','course','instituition','profession','company')
         labels = {'is_student': 'I am a student',
-                  'course': '',
-                  'institution': '',
-                  'profession': '',
-                  'company': ''
                   }
 
     def __init__(self,*args,**kwargs):
