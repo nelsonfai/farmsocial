@@ -41,21 +41,22 @@ width: 100%;
       if (this.checked) {
         for (var i = 0; i < students.length; i++) {
         students[i].style.display = "block";
-        students[i].closest('label').style.display = 'block';
+        students[i].closest('p').querySelector('label').style.display = 'block';
+
       }
       for (var i = 0; i < prof.length; i++) {
         prof[i].style.display = "none";
-        prof[i].closest('label').style.display = 'none';
+        prof[i].closest('p').querySelector('label').style.display = 'none';
       }
    
       } else {
         for (var i = 0; i < students.length; i++) {
         students[i].style.display = "none";
-        students[i].closest('label').style.display = 'none';
+        students[i].closest('p').querySelector('label').style.display = 'none';
         }
         for (var i = 0; i < prof.length; i++) {
         prof[i].style.display = "block";
-        prof[i].closest('label').style.display = 'block';
+        prof[i].closest('p').querySelector('label').style.display = 'block';
       }
 
     }});}
