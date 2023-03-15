@@ -38,18 +38,18 @@
                               <div> 
                                     <a href="{%  url 'profile' article.author.id %}"><span> {{ article.author.first_name|title}} {{ article.author.last_name|title }} </span></a> 
                                     {% if article.category == 'News'%}
-                                    <a href="{% url 'filter' article.category %}&quot;category&quot;">
+                                    <a href="{% url 'filter' article.category %}?filter_by=&quot;category&quot;">
                                     <button class="button_three" style="background-color: var(--primary-color); color:rgb(212, 196, 75);margin-top: 0.5rem;" class="button_three"> # News </button></a>
                                     {%endif%}
                                     <p> {{ article.whenpublished }}</p>
                                 </div>
                                 {%else%}
                                 <span class="roundedprofile" style="background:url('{{article.company.logopic}}') ;background-position: center; background-size: contain;">  </span> 
-                              
+                                <div>
                                       <a href="{%  url 'companyprofile' article.company.identifier article.company.name %} "><span> {{ article.company.name|title}}  </span></a> 
                                      
                                       {% if article.category == 'News'%}
-                                      <a href="{% url 'filter' article.category %}&quot;category&quot;">
+                                      <a href="{% url 'filter' article.category %}?filter_by=&quot;category&quot;">
                                       <button class="button_three" style="background-color: var(--primary-color); color:rgb(212, 196, 75);margin-top: 0.5rem;" class="button_three"> # News </button></a>
                                       {%endif%}
                                       <p> {{ article.whenpublished }}</p>
@@ -95,7 +95,7 @@
 
                         <div class="article-body toggle-text">
                                     <p id ='text'>{{article.body|safe}}  </p>
-                                    <p style="margin-block:0.7rem"> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}&quot;tag&quot; style="color: var(--primary-color); font-size: small;">#{{tag.slug}} </a> {%endfor%}</p>
+                                    <p style="margin-block:0.7rem"> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}?filter_by=&quot;tag&quot; style="color: var(--primary-color); font-size: small;">#{{tag.slug}} </a> {%endfor%}</p>
 
                       </div>
                         {% if article.article_image %} 
