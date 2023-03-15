@@ -32,7 +32,7 @@
 </div> 
 <br>
 <div> {{article.body|safe}} </div>
-<p style="margin-block:0.7rem"> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}?filter_by=&quot;tag&quot;" style="color: var(--primary-color); font-size: small;">#{{tag.slug}} </a> {%endfor%}</p>
+<p style="margin-block:0.7rem"> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}?filter_by=tag;" style="color: var(--primary-color); font-size: small;">#{{tag.slug}} </a> {%endfor%}</p>
 
 <div class="engagment"> 
   <span>                                    
