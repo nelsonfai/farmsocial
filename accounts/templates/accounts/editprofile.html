@@ -23,7 +23,43 @@
 .button_one{
 width: 100%;
 }
-
+#checked{
+  width: auto !important;
+}
 </style>
+
+
+  <script>
+    // JavaScript function
+    var checkbox = document.getElementById("checked");
+    if (checkbox){
+      var students = document.getElementsByClassName("studentinput");
+
+      var prof = document.getElementsByClassName("profinput");
+    checkbox.addEventListener("change", function() {
+
+      if (this.checked) {
+        for (var i = 0; i < students.length; i++) {
+        students[i].style.display = "block";
+        students[i].closest('tr').querySelector('label').style.display = 'block';
+
+      }
+      for (var i = 0; i < prof.length; i++) {
+        prof[i].style.display = "none";
+        prof[i].closest('tr').querySelector('label').style.display = 'none';
+      }
+   
+      } else {
+        for (var i = 0; i < students.length; i++) {
+        students[i].style.display = "none";
+        students[i].closest('tr').querySelector('label').style.display = 'none';
+        }
+        for (var i = 0; i < prof.length; i++) {
+        prof[i].style.display = "block";
+        prof[i].closest('tr').querySelector('label').style.display = 'block';
+      }
+
+    }});}
+  </script>
 
 {% endblock %}
