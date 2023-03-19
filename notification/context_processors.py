@@ -1,10 +1,8 @@
 from .models import NotificationUser
 from Friends.models import Network
 
-from django.views.decorators.cache import cache_page
 
 # Create your views here.
-@cache_page(60 * 5) # cache for 5 minutes
 
 def notificationCount(request):
         if  request.user.is_authenticated:
