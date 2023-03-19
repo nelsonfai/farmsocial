@@ -45,8 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'accounts',
+'django.contrib.auth' ,
+'django.contrib.contenttypes',
+  'accounts',
     'feed',
     'myagricdiary',
     'ckeditor',
