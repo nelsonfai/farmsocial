@@ -309,7 +309,7 @@ class CustomPasswordResetView(PasswordResetView):
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
-        phone = request.POST.get('phone_number')
+        phone = request.POST.get('phonenumber')
         if email:
             email_or_phone = email
             is_email= True
