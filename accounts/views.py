@@ -367,11 +367,13 @@ class CustomPasswordResetView(PasswordResetView):
                             "TemplateLanguage": True,
                             "Subject": "Password reset on www.myagricdiary.com",
                             "Variables": { 
-                                "nachname": f'"{str(reset_url)}"'}
+                                "nachname": f'{str(reset_url)}'}
                         }
                     ]
                 }
                 result = mailjet.send.create(data=data)
+                return HttpResponse(f"Email sent. Status code: {result.status_code} {str(reset_url)}")
+
                 
             else:
                 # Sendinf link via twilio
