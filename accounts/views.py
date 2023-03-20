@@ -302,8 +302,8 @@ def check_online_status(request):
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'accounts/passwordreset.html'
     def get(self, request, *args, **kwargs):
-        form= PassReset()
-        return render(request, self.template_name, {'form':form})
+        myform= PassReset()
+        return render(request, self.template_name, {'form':myform})
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
@@ -343,7 +343,7 @@ class CustomPasswordResetView(PasswordResetView):
                 # Use Django's built-in password reset email functionality
                 self.request = request
                 self.reset_form = self.get_form()
-                self.send_mail(
+                super().send_mail(
                     self.reset_form.get_users(email_or_phone),
                     email_template_name='registration/password_reset_email.html',
                     subject_template_name='registration/password_reset_subject.txt',
