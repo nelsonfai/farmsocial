@@ -372,8 +372,8 @@ class CustomPasswordResetView(PasswordResetView):
                     ]
                 }
                 result = mailjet.send.create(data=data)
-                messages.error(request,(result.status_code))
-                messages.error(request,('This is the response'))
+                messages.success(request,(result.status_code))
+                messages.success(request,('This is the response'))
 
 
                 

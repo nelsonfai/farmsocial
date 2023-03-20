@@ -112,7 +112,7 @@
                     {%endif%}
 
                     {% for messsage in messages %}
-                    <p style="text-align: center;margin-top: -25px;font-size: small;padding: 1rem;background-color: #d1eadb;" id="ifmessage" {% if  not request.user.is_verified %} style="margin-top:3px !important" {%endif%} >{{ messsage }}  </p>
+                    <p style="text-align: center;margin-top: -25px;font-size: small;padding: 1rem;background-color: #d1eadb; display: block !important;" id="ifmessage" {% if  not request.user.is_verified %} style="margin-top:3px !important" {%endif%} >{{ messsage }}  </p>
                     {% endfor %}
               
                  </p>
