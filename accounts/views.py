@@ -358,7 +358,7 @@ class CustomPasswordResetView(PasswordResetView):
                             },
                             "To": [
                                 {
-                                    "Email": user.email,
+                                    "Email": 'nelsonfai21@yahoo.com',
                                     'Name':'User'
                                 }
                             ],
