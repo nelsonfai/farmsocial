@@ -121,8 +121,10 @@ class EducationForm(UserCreationForm):
 
 class PassReset(forms.Form):
     email = forms.EmailField(label='Email address', required=False)
-    phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(attrs={'placeholder': '+1'}), 
-                                    label='Phone number (including country code)', 
-                                    help_text='Enter phone number in international format (e.g. +1 650-555-1234)', 
+    phone_number = PhoneNumberField(
                                     required=False)
     fields=('email','phone_number')
+    def __init__(self,*args,**kwargs):
+        super(PassReset,self).__init__(*args,**kwargs)
+        self.fields['phone_number'].widget.attrs['placeholder']='e.g. +2376505551234'
+        
