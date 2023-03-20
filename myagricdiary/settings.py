@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'myagricai',
     'company',
       "phonenumber_field",
+      'mailjet_rest'
  
 ]
 

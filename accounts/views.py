@@ -35,6 +35,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.template.loader import render_to_string
+from mailjet_rest import Client
 
 import io
 from twilio.rest import Client
@@ -302,20 +303,6 @@ def check_online_status(request):
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'accounts/passwordreset.html'
-    def send_mail(self, subject_template_name, email_template_name,
-                  context, from_email, to_email, html_email_template_name=None):
-        
-        subject = render_to_string(subject_template_name, context)
-        # Remove any newlines from subject
-        subject = ''.join(subject.splitlines())
-        message = render_to_string(email_template_name, context)
-        send_mail(
-            subject=subject,
-            message=message,
-            from_email=from_email,
-            recipient_list=to_email,
-            html_message=html_email_template_name and render_to_string(html_email_template_name, context),
-        )
     def get(self, request, *args, **kwargs):
         myform= PassReset()
         return render(request, self.template_name, {'form':myform})
@@ -358,22 +345,36 @@ class CustomPasswordResetView(PasswordResetView):
                 # Use Django's built-in password reset email functionality
                 self.request = request
                 self.reset_form = self.get_form()
-                self.send_mail(
-                    self.reset_form.get_users(email_or_phone),
-                    email_template_name='registration/password_reset_email.html',
-                    subject_template_name='registration/password_reset_subject.txt',
-                    from_email=None,
-                    to_email=[user.email],
-
-                    html_email_template_name=None,
-                    extra_email_context=None,
-                    context = {
-                        'user': user,
-                        'reset_link': reset_url}
-                )
+                
+                api_key = '21317274a0d427832c87f18986347e67'
+                api_secret = '92af22870a6032d3f021a6708b71987d'
+                mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+                data = {
+                'Messages': [
+                        {
+                            "From": {
+                                "Email": "contact@myagricdiary.com",
+                                "Name": "My AgricDiary"
+                            },
+                            "To": [
+                                {
+                                    "Email": "passenger1@example.com",
+                                    "Name": "passenger 1"
+                                }
+                            ],
+                            "TemplateID": 4667671,
+                            "TemplateLanguage": True,
+                            "Subject": "Password reset on www.myagricdiary.com",
+                            "Variables": {
+                    "reset-link": reset_url
+                }
+                        }
+                    ]
+                }
+                result = mailjet.send.create(data=data)
+                
             else:
                 # Sendinf link via twilio
-
                 account_sid = 'AC55caa897055964cd534f89f4b9487323'
                 auth_token = '9f836c911f264eb60d9a1e7131a1379e'
                 client = Client(account_sid, auth_token)
