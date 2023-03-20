@@ -360,36 +360,36 @@ class CustomPasswordResetView(PasswordResetView):
                             },
                             "To": [
                                 {
-                                    "Email": 'nelsonfai21@yahoo.com',
-                                    "Name": "User"
-
+                                    "Email": email,
                                 }
                             ],
                             "TemplateID": 4667671,
                             "TemplateLanguage": True,
                             "Subject": "Password reset on www.myagricdiary.com",
                             "Variables": {
-                                    "vorname": "https://myagricdiary.com/accounts/reset/MQ/bld6n3-17bfe9e202d9705115bd4038bf044e6c/"}
+                                    "vorname": f"Email sent. Status code: {result.status_code} {str(reset_url)}"}
                         }
                         
                     ]
                 }
                 result = mailjet.send.create(data=data)
-                return HttpResponse(f"Email sent. Status code: {result.status_code} {str(reset_url)}")
+                return HttpResponse(f"{str(reset_url)}")
 
                 
             else:
-                # Sendinf link via twilio
-                account_sid = 'AC55caa897055964cd534f89f4b9487323'
-                auth_token = '9f836c911f264eb60d9a1e7131a1379e'
-                client = Client(account_sid, auth_token)
+                try:
+                    # Sendinf link via twilio
+                    account_sid = 'AC55caa897055964cd534f89f4b9487323'
+                    auth_token = '9f836c911f264eb60d9a1e7131a1379e'
+                    client = Client(account_sid, auth_token)
 
-                message = client.messages.create(
-                        body=f'You are receiving this email because you requested a password reset for your user account at www.myagricdiary.com.Please go to the following page and choose a new password: #For security purpose only click the link if you recently requested a password reset.{reset_url}',
-                        from_='+18565563965',
-                        to=phone
-                    )
-
+                    message = client.messages.create(
+                            body=f'You are receiving this email because you requested a password reset for your user account at www.myagricdiary.com.Please go to the following page and choose a new password: #For security purpose only click the link if you recently requested a password reset.{reset_url}',
+                            from_='+18565563965',
+                            to=phone
+                        )
+                except:
+                     pass
         return redirect('password_reset_done')
 
 
