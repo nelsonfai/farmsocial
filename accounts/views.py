@@ -346,8 +346,8 @@ class CustomPasswordResetView(PasswordResetView):
                 self.request = request
                 self.reset_form = self.get_form()
                 
-                api_key = '21317274a0d427832c87f18986347e67'
-                api_secret = '92af22870a6032d3f021a6708b71987d'
+                api_key ='21317274a0d427832c87f18986347e67'
+                api_secret ='92af22870a6032d3f021a6708b71987d'
                 mailjet = MailClient(auth=(api_key, api_secret), version='v3.1')
                 data = {
                 'Messages': [
@@ -359,7 +359,6 @@ class CustomPasswordResetView(PasswordResetView):
                             "To": [
                                 {
                                     "Email": 'nelsonfai21@yahoo.com',
-                                    'Name':'User'
                                 }
                             ],
                             "TemplateID": 4667671,
@@ -372,10 +371,7 @@ class CustomPasswordResetView(PasswordResetView):
                     ]
                 }
                 result = mailjet.send.create(data=data)
-                messages.success(request,(result.status_code))
-                messages.success(request,('This is the response'))
-
-
+                return HttpResponse(f"Email sent. Status code: {result.status_code}")
                 
             else:
                 # Sendinf link via twilio
