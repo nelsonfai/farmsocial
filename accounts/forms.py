@@ -125,5 +125,4 @@ class PassReset(forms.Form):
     fields=('email','phone_number')
     def __init__(self,*args,**kwargs):
         super(PassReset,self).__init__(*args,**kwargs)
-        self.fields['phone_number'].widget.attrs['placeholder']='e.g. +2376505551234'
         
