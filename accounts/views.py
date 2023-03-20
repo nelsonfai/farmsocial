@@ -335,6 +335,10 @@ class CustomPasswordResetView(PasswordResetView):
             token_generator = default_token_generator
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             token = token_generator.make_token(user)
+            subject = 'Password Reset on www.myagricdiary.com'
+            email_template_name = "main/password/password_reset_email.txt"
+            from_email=None,
+
 
             # Construct the password reset URL
             reset_url = request.build_absolute_uri(reverse_lazy('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token}))
@@ -357,20 +361,16 @@ class CustomPasswordResetView(PasswordResetView):
                             },
                             "To": [
                                 {
-                                    "Email": 'nelsonfai21@yahoo.com',
-                                    "Name": "User"
-
-                                }
+                                    "Email": email,
+					}
                             ],
                             "TemplateID": 4667671,
                             "TemplateLanguage": True,
                             "Subject": "Password reset on www.myagricdiary.com",
-                            "Variables": { }
-                            }
-                        
-                    ]
-                }
-
+                            "Variables": {
+                                    "vorname": f"{str(reset_url)}"}
+                        }
+                ]}
             else:
                 try:
                     # Sendinf link via twilio

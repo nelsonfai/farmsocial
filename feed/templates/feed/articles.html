@@ -31,7 +31,7 @@
                     <div class="article-item" id="article{{article.id}}"> 
                       {% if article.category == 'News'%}
                         <p style="margin-left: 3rem;margin-bottom: 1rem;margin-top: -1rem;">
-                          <a href="{% url 'filter' article.category %}?filter_by=category;">
+                          <a href="{% url 'filter' article.category %}?filter_by=category">
                           <button class="button_three" style="background-color: var(--primary-color); color:rgb(212, 196, 75);margin-top: 0.5rem;" class="button_three"> # News </button></a>
                         </p>
                       {%endif%}
