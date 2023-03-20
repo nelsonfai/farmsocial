@@ -385,7 +385,7 @@ class CustomPasswordResetView(PasswordResetView):
                 message = client.messages.create(
                         body=f'You are receiving this email because you requested a password reset for your user account at www.myagricdiary.com.Please go to the following page and choose a new password: #For security purpose only click the link if you recently requested a password reset.{reset_url}',
                         from_='+18565563965',
-                        to=user.phonenumber
+                        to=phone
                     )
 
         return redirect('password_reset_done')
