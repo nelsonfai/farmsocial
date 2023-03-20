@@ -365,9 +365,8 @@ class CustomPasswordResetView(PasswordResetView):
                             "TemplateID": 4667671,
                             "TemplateLanguage": True,
                             "Subject": "Password reset on www.myagricdiary.com",
-                            "Variables": {
-                                    "vorname": "https://myagricdiary.com/accounts/reset/MQ/bld6n3-17bfe9e202d9705115bd4038bf044e6c/"}
-                        }
+                            "Variables": { }
+                            }
                         
                     ]
                 }
