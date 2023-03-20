@@ -3,12 +3,13 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
-from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm
+from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm,PassReset
 from formtools.wizard.views import SessionWizardView
 from .models import CustomUser
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from django import forms
+from django.utils.encoding import force_bytes, force_text
 
 from feed.models import Articles
 from marketplace.models import ProductItem
@@ -29,8 +30,13 @@ from PIL import Image
 from company.models import Company
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils import timezone
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
 
 import io
+from twilio.rest import Client
 
 # Create your views here.
 def login_view(request):
@@ -293,6 +299,72 @@ def check_online_status(request):
             return JsonResponse({'is_online': True})
     return JsonResponse({'is_online': False})
 
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'accounts/passwordreset.html'
+    def get(self, request, *args, **kwargs):
+        form= PassReset()
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        phone = request.POST.get('phone_number')
+        if email:
+            email_or_phone = email
+            is_email= True
+
+        else:
+            email_or_phone = phone
+            is_email=False
+
+        if email_or_phone:
+            # Check if email_or_phone corresponds to an existing user account
+            try:
+                user = CustomUser.objects.get(email=email_or_phone)
+            except CustomUser.DoesNotExist:
+                try:
+                    user =CustomUser.objects.get(phonenumber=email_or_phone)
+
+                except CustomUser.DoesNotExist:
+                    # Handle invalid input or non-existent user account
+                        pass
+
+
+        if user:
+            # Generate a password reset token for the user
+            token_generator = default_token_generator
+            uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
+            token = token_generator.make_token(user)
+
+            # Construct the password reset URL
+            reset_url = request.build_absolute_uri(reverse_lazy('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token}))
+
+            # Send the password reset link to the user via email or SMS
+            if is_email:
+                # Use Django's built-in password reset email functionality
+                self.request = request
+                self.reset_form = self.get_form()
+                self.send_mail(
+                    self.reset_form.get_users(email_or_phone),
+                    email_template_name='registration/password_reset_email.html',
+                    subject_template_name='registration/password_reset_subject.txt',
+                    from_email=None,
+                    html_email_template_name=None,
+                    extra_email_context=None,
+                )
+            else:
+                # Sendinf link via twilio
+
+                account_sid = 'AC55caa897055964cd534f89f4b9487323'
+                auth_token = '9f836c911f264eb60d9a1e7131a1379e'
+                client = Client(account_sid, auth_token)
+
+                message = client.messages.create(
+                        body=f'You are receiving this email because you requested a password reset for your user account at www.myagricdiary.com.Please go to the following page and choose a new password: #For security purpose only click the link if you recently requested a password reset.{reset_url}',
+                        from_='+18565563965',
+                        to=user.phonenumber
+                    )
+
+        return redirect('password_reset_done')
 
 
 def verify_email(request,token):

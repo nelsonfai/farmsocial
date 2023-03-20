@@ -4,7 +4,8 @@ from django import forms
 from accounts.models import CustomUser
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
-
+from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
 
 class LogInForm(forms.Form):
@@ -118,4 +119,10 @@ class EducationForm(UserCreationForm):
             self.fields['company'].widget.attrs['class']='form_control profinput'
 
 
-  
+class PassReset(forms.Form):
+    email = forms.EmailField(label='Email address', required=False)
+    phone_number = PhoneNumberField(widget=PhoneNumberPrefixWidget(attrs={'placeholder': '+1'}), 
+                                    label='Phone number (including country code)', 
+                                    help_text='Enter phone number in international format (e.g. +1 650-555-1234)', 
+                                    required=False)
+    fields=('email','phone_number')
