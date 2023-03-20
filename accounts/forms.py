@@ -121,8 +121,7 @@ class EducationForm(UserCreationForm):
 
 class PassReset(forms.Form):
     email = forms.EmailField(label='Email address', required=False)
-    phone_number = PhoneNumberField(
-                                    required=False)
+    phone_number = PhoneNumberField()
     fields=('email','phone_number')
     def __init__(self,*args,**kwargs):
         super(PassReset,self).__init__(*args,**kwargs)
