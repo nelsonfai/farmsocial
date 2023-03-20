@@ -34,6 +34,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
+from django.template.loader import render_to_string
 
 import io
 from twilio.rest import Client
@@ -301,6 +302,20 @@ def check_online_status(request):
 
 class CustomPasswordResetView(PasswordResetView):
     template_name = 'accounts/passwordreset.html'
+    def send_mail(self, subject_template_name, email_template_name,
+                  context, from_email, to_email, html_email_template_name=None):
+        
+        subject = render_to_string(subject_template_name, context)
+        # Remove any newlines from subject
+        subject = ''.join(subject.splitlines())
+        message = render_to_string(email_template_name, context)
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=from_email,
+            recipient_list=to_email,
+            html_message=html_email_template_name and render_to_string(html_email_template_name, context),
+        )
     def get(self, request, *args, **kwargs):
         myform= PassReset()
         return render(request, self.template_name, {'form':myform})
@@ -343,7 +358,7 @@ class CustomPasswordResetView(PasswordResetView):
                 # Use Django's built-in password reset email functionality
                 self.request = request
                 self.reset_form = self.get_form()
-                super().send_mail(
+                self.send_mail(
                     self.reset_form.get_users(email_or_phone),
                     email_template_name='registration/password_reset_email.html',
                     subject_template_name='registration/password_reset_subject.txt',
