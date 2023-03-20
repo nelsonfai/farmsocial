@@ -35,7 +35,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.template.loader import render_to_string
-from mailjet_rest import Client
+from mailjet_rest import Client as MailClient
 
 import io
 from twilio.rest import Client
@@ -348,7 +348,7 @@ class CustomPasswordResetView(PasswordResetView):
                 
                 api_key = '21317274a0d427832c87f18986347e67'
                 api_secret = '92af22870a6032d3f021a6708b71987d'
-                mailjet = Client(api_key, api_secret)
+                mailjet = MailClient(auth=(api_key, api_secret), version='v3.1')
                 data = {
                 'Messages': [
                         {
