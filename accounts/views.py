@@ -366,9 +366,10 @@ class CustomPasswordResetView(PasswordResetView):
                             "TemplateID": 4667671,
                             "TemplateLanguage": True,
                             "Subject": "Password reset on www.myagricdiary.com",
-                            "Variables": { 
-                                "nachname": f'{str(reset_url)}'}
+                            "Variables": {
+                                    "reset-link": f'"{str(reset_url)}"'}
                         }
+                        
                     ]
                 }
                 result = mailjet.send.create(data=data)
