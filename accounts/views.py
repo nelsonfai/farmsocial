@@ -348,7 +348,7 @@ class CustomPasswordResetView(PasswordResetView):
                 
                 api_key = '21317274a0d427832c87f18986347e67'
                 api_secret = '92af22870a6032d3f021a6708b71987d'
-                mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+                mailjet = Client(api_key, api_secret)
                 data = {
                 'Messages': [
                         {

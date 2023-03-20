@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-  'accounts',
+    'accounts',
     'feed',
     'myagricdiary',
     'ckeditor',
@@ -59,8 +58,7 @@ INSTALLED_APPS = [
     'marketplace',
     'myagricai',
     'company',
-      "phonenumber_field",
- 
+    "phonenumber_field", 
 ]
 
 MIDDLEWARE = [
