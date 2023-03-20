@@ -363,8 +363,13 @@ class CustomPasswordResetView(PasswordResetView):
                     email_template_name='registration/password_reset_email.html',
                     subject_template_name='registration/password_reset_subject.txt',
                     from_email=None,
+                    to_email=[user.email],
+
                     html_email_template_name=None,
                     extra_email_context=None,
+                    context = {
+                        'user': user,
+                        'reset_link': reset_url}
                 )
             else:
                 # Sendinf link via twilio
