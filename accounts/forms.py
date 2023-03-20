@@ -4,8 +4,9 @@ from django import forms
 from accounts.models import CustomUser
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
-from phonenumber_field.modelfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
+from phonenumber_field.formfields import PhoneNumberField
+
 
 
 class LogInForm(forms.Form):
@@ -121,8 +122,8 @@ class EducationForm(UserCreationForm):
 
 class PassReset(forms.Form):
     email = forms.EmailField(label='Email address', required=False)
-    phone_number = PhoneNumberField()
-    fields=('email','phone_number')
+    phonenumber = PhoneNumberField()
+    fields=('email','phonenumber')
     def __init__(self,*args,**kwargs):
         super(PassReset,self).__init__(*args,**kwargs)
         
