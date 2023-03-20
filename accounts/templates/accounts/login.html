@@ -6,7 +6,7 @@
 
 <div class="container">
 
-    <h1 class="form-title" style="text-align: center;"> Login </h1>
+    <h2 class="form-title" style="text-align: center;"> Login </h2>
     <form action="{% url 'login'%}" method="post">
         {% csrf_token %}
                 {% if request.GET.next %}
@@ -25,7 +25,9 @@
 li{
     list-style: none;
 }
-ul{text-align: center;}
+ul{text-align: center;
+    margin-block: 1rem;
+}
 </style>
 
 {% endblock %}
