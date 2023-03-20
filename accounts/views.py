@@ -365,7 +365,7 @@ class CustomPasswordResetView(PasswordResetView):
                             "TemplateLanguage": True,
                             "Subject": "Password reset on www.myagricdiary.com",
                             "Variables": {
-                            "reset-link": reset_url
+                            "nachname": reset_url
                 }
                         }
                     ]
