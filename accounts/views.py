@@ -313,7 +313,6 @@ class CustomPasswordResetView(PasswordResetView):
         if email:
             email_or_phone = email
             is_email= True
-
         else:
             email_or_phone = phone
             is_email=False
@@ -322,16 +321,19 @@ class CustomPasswordResetView(PasswordResetView):
             # Check if email_or_phone corresponds to an existing user account
             try:
                 user = CustomUser.objects.get(email=email_or_phone)
+                got_user = True
             except CustomUser.DoesNotExist:
+                got_user = False
                 try:
                     user =CustomUser.objects.get(phonenumber=email_or_phone)
-
+                    got_user = True
                 except CustomUser.DoesNotExist:
                     # Handle invalid input or non-existent user account
-                        pass
+                    got_user = False
 
 
-        if user:
+
+        if got_user:
             # Generate a password reset token for the user
             token_generator = default_token_generator
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
