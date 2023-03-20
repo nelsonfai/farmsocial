@@ -371,7 +371,6 @@ class CustomPasswordResetView(PasswordResetView):
                     ]
                 }
                 result = mailjet.send.create(data=data)
-                return HttpResponse(f"Email sent. Status code: {result.status_code}")
                 
             else:
                 # Sendinf link via twilio
