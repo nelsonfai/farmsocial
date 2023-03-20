@@ -359,6 +359,8 @@ class CustomPasswordResetView(PasswordResetView):
                             "To": [
                                 {
                                     "Email": 'nelsonfai21@yahoo.com',
+                                    "Name": "User"
+
                                 }
                             ],
                             "TemplateID": 4667671,
