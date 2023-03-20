@@ -330,9 +330,6 @@ class CustomPasswordResetView(PasswordResetView):
                 except CustomUser.DoesNotExist:
                     # Handle invalid input or non-existent user account
                     got_user = False
-
-
-
         if got_user:
             # Generate a password reset token for the user
             token_generator = default_token_generator
@@ -360,14 +357,16 @@ class CustomPasswordResetView(PasswordResetView):
                             },
                             "To": [
                                 {
-                                    "Email": email,
+                                    "Email": 'nelsonfai21@yahoo.com',
+                                    "Name": "User"
+
                                 }
                             ],
                             "TemplateID": 4667671,
                             "TemplateLanguage": True,
                             "Subject": "Password reset on www.myagricdiary.com",
                             "Variables": {
-                                    "vorname": f"{str(reset_url)}"}
+                                    "vorname": "https://myagricdiary.com/accounts/reset/MQ/bld6n3-17bfe9e202d9705115bd4038bf044e6c/"}
                         }
                         
                     ]
