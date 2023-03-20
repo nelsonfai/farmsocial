@@ -346,8 +346,8 @@ class CustomPasswordResetView(PasswordResetView):
                 self.request = request
                 self.reset_form = self.get_form()
                 
-                api_key ='21317274a0d427832c87f18986347e67'
-                api_secret ='92af22870a6032d3f021a6708b71987d'
+                api_key ='4d241f132c3c42e6a6c10cdfac9c80b1'
+                api_secret ='d64e97e6c10bf3b335f128acb46c383d'
                 mailjet = MailClient(auth=(api_key, api_secret), version='v3.1')
                 data = {
                 'Messages': [
