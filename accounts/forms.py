@@ -150,22 +150,3 @@ class ChangeEmailForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['email'].initial = self.user.email
         self.fields['phonenumber'].initial = self.user.phonenumber
-""" 
-    def clean_password(self):
-        password = self.cleaned_data.get('password')
-        if password:
-            if not self.user.check_password(password):
-                raise forms.ValidationError(_('Invalid password'))
-        return password
-
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-
-        return email
-    def clean_phone_number(self):
-        phonenumber = self.cleaned_data.get('phonenumber')
-        if not phonenumber.isdigit():
-            raise forms.ValidationError(_('Invalid phone number. Only digits are allowed.'))
-        return phonenumber
-
-"""
