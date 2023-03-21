@@ -201,7 +201,7 @@ def edit_education(request):
 def change_email(request):
     user = request.user
     if request.method == 'POST':
-        form = ChangeEmailForm(request.POST, user=user)
+        form = ChangeEmailForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phonenumber']
