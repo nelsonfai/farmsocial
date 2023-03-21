@@ -146,7 +146,25 @@ class ChangeEmailForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(ChangeEmailForm,self).__init__(*args,**kwargs)
+        self.user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['email'].initial = self.user.email
+        self.fields['phone_number'].initial = self.user.phone_number
 
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if password:
+            if not self.user.check_password(password):
+                raise forms.ValidationError(_('Invalid password'))
+        return password
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and email != self.user.email and CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError(_('This email address is already in use.'))
+        return email
 
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        if not phone_number.isdigit():
+            raise forms.ValidationError(_('Invalid phone number'))

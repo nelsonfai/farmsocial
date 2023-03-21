@@ -202,16 +202,12 @@ def edit_education(request):
 def change_email(request):
     user = request.user
     if request.method == 'POST':
-        form = ChangeEmailForm(request.POST or None ,instance=request.user)
+        form = ChangeEmailForm(request.POST or None ,user=request.user)
 
         if form.is_valid():
-            password = form['password'].value()
-            if password:
-                if not user.check_password(password):
-                    raise forms.ValidationError(_('Invalid password'))
-                else:
-                    email = form['email'].value()
-                    phone_number = form['phonenumber'].value()
+                    password = form.clean_password
+                    email = form.clean_email
+                    phone_number = form.clean_password
                     if email:
                         if email != user.email:
                             user.email = email
@@ -224,7 +220,7 @@ def change_email(request):
                     else:
                         pass
     else:
-        form = ChangeEmailForm(instance=user)
+        form = ChangeEmailForm(user=user)
     return render(request, 'accounts/editprofile.html', {'profile': form})
 
 #signup user 
