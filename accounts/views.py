@@ -37,6 +37,7 @@ from django.contrib.auth.views import PasswordResetView
 from django.template.loader import render_to_string
 from mailjet_rest import Client as MailClient
 from django.contrib.auth import update_session_auth_hash
+from django.utils.translation import gettext_lazy as _
 
 import io
 from twilio.rest import Client
@@ -203,19 +204,26 @@ def change_email(request):
     if request.method == 'POST':
         form = ChangeEmailForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
-            phone_number = form.cleaned_data['phonenumber']
-            if not email == user.email:
-                user.email = email
-                user.save()
-            if not phone_number == user.phonenumber:
-                user.phonenumber = phone_number
-                user.save()
-                messages.success(request, 'Your email and phone number have been updated.')
-            else:
-                 pass
+            password = form.cleaned_data.get('password')
+            if password:
+                if not form.user.check_password(password):
+                    raise forms.ValidationError(_('Invalid password'))
+                else:
+
+                    email = form.cleaned_data['email']
+                    phone_number = form.cleaned_data['phonenumber']
+                    
+                    if not email == user.email:
+                        user.email = email
+                        user.save()
+                    if not phone_number == user.phonenumber:
+                        user.phonenumber = phone_number
+                        user.save()
+                        messages.success(request, 'Your email and phone number have been updated.')
+                    else:
+                        pass
     else:
-        form = ChangeEmailForm(user=user)
+        form = ChangeEmailForm(instance=user)
     return render(request, 'accounts/editprofile.html', {'profile': form})
 
 #signup user 
