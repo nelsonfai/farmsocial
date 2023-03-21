@@ -205,15 +205,17 @@ def change_email(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phonenumber']
-            if email != user.email or phone_number != user.phonenumber:
+            if not email == user.email:
                 user.email = email
+                user.save()
+            if not phone_number == user.phonenumber:
                 user.phonenumber = phone_number
-                #user.save()
+                user.save()
                 messages.success(request, 'Your email and phone number have been updated.')
             else:
                  pass
     else:
-        form = ChangeEmailForm(user=user)
+        form = ChangeEmailForm(instance=user)
     return render(request, 'accounts/editprofile.html', {'profile': form})
 
 #signup user 

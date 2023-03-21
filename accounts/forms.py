@@ -140,7 +140,7 @@ class ChangeEmailForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'phonenumber')
+        fields = ('email','phonenumber')
         labels = {
             'email': _('New email'),
         }
@@ -150,3 +150,12 @@ class ChangeEmailForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['email'].initial = self.user.email
         self.fields['phonenumber'].initial = self.user.phonenumber
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if password:
+            if not self.user.check_password(password):
+                raise forms.ValidationError(_('Invalid password'))
+        return password
+
+
