@@ -146,6 +146,7 @@ class ChangeEmailForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
+        super(ChangeEmailForm,self).__init__(*args,**kwargs)
+
 
 
