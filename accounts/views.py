@@ -208,7 +208,7 @@ def change_email(request):
             password = form['password'].value()
             if password:
                 if not user.check_password(password):
-                    raise forms.ValidationError(_('Invalid password'))
+                    pass
                 else:
                     email = form['email'].value()
                     phone_number = form['phonenumber'].value()
