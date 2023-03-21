@@ -215,7 +215,7 @@ def change_email(request):
             else:
                  pass
     else:
-        form = ChangeEmailForm(instance=user)
+        form = ChangeEmailForm(user=user)
     return render(request, 'accounts/editprofile.html', {'profile': form})
 
 #signup user 
