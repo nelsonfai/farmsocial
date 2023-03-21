@@ -366,9 +366,6 @@ class CustomPasswordResetView(PasswordResetView):
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
             token = token_generator.make_token(user)
             subject = 'Password Reset on www.myagricdiary.com'
-            email_template_name = "main/password/password_reset_email.txt"
-            from_email=None,
-
 
             # Construct the password reset URL
             reset_url = request.build_absolute_uri(reverse_lazy('password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token}))
@@ -376,31 +373,12 @@ class CustomPasswordResetView(PasswordResetView):
             # Send the password reset link to the user via email or SMS
             if is_email:
                 # Use Django's built-in password reset email functionality
-                self.request = request
-                self.reset_form = self.get_form()
-                
-                api_key ='4d241f132c3c42e6a6c10cdfac9c80b1'
-                api_secret ='d64e97e6c10bf3b335f128acb46c383d'
-                mailjet = MailClient(auth=(api_key, api_secret), version='v3.1')
-                data = {
-                'Messages': [
-                        {
-                            "From": {
-                                "Email": "contact@myagricdiary.com",
-                                "Name": "My AgricDiary"
-                            },
-                            "To": [
-                                {
-                                    "Email": email,
-					}
-                            ],
-                            "TemplateID": 4667671,
-                            "TemplateLanguage": True,
-                            "Subject": "Password reset on www.myagricdiary.com",
-                            "Variables": {
-                                    "vorname": f"{str(reset_url)}"}
-                        }
-                ]}
+                subject = subject
+                message = f'You are receiving this email because you requested a password reset for your user account at www.myagricdiary.com.Please go to the following page and choose a new password: #For security purpose only click the link if you recently requested a password reset. {reset_url}'
+                sendto=email
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [sendto,]
+                send_mail( subject, message, email_from, recipient_list )
             else:
                 try:
                     # Sendinf link via twilio
