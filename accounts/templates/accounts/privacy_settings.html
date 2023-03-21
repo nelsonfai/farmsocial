@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="grid-container"> 
+
+<ul>
+    <li> <a href="{% url 'privacy-settings' %}"> Change Email or Phone Number  </a></li> 
+    <li> <a href="{% url 'privacy-settings' %}"> Change Password  </a></li> 
+    <li> <a href="{% url 'useragreement' %}"> User Agreement  </a></li> 
+    <li> <a href="{% url 'privacypolicy' %}"> Privacy Policy </a></li> 
+    <li> <a href="{% url 'cookiepolicy' %}">Cookie Policy</a></li> 
+
+</ul>
+
+</div>
+<style>
+.grid-container{
+  padding: 1rem;
+}
+
+li{
+    list-style: none;
+    padding-block:1rem ;
+    border-bottom: 1px solid whitesmoke;
+}
+.flex-container{
+  padding-top: 40px;
+}
+@media screen and (max-width: 780px){
+.flex-container {
+
+    padding-top: 140px;
+
+}}
+</style>
+
+
+{% endblock %}

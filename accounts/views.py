@@ -416,7 +416,8 @@ class CustomPasswordResetView(PasswordResetView):
                 except:
                      pass
         return redirect('password_reset_done')
-
+def privacy_settings(request):
+     return render(request,('accounts/privacy_settings.html'))
 
 def verify_email(request,token):
     try:
