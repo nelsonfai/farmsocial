@@ -3,10 +3,11 @@
 {% block content %}
 <div class="grid-container"> 
 
-  {% for messsage in messages %}
-  <p style="text-align: center;margin-top: -25px;font-size: small;padding: 1rem;background-color: #d1eadb; display: block !important;"  >{{ messsage }}  </p>
-  {% endfor %}
+ 
  <form method="POST"  enctype="multipart/form-data">
+  {% for messsage in messages %}
+  <p style="text-align: center;margin-top: -25px;font-size: small;padding: 1rem;background-color: #d1eadb; display: block !important; margin-bottom: 3rem;"  >{{ messsage }}  </p>
+  {% endfor %}
   {% csrf_token %}
     {{profile.as_p}}
   <br>
