@@ -205,7 +205,7 @@ def change_email(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phonenumber']
-            if email != user.email or phone_number != user.phone_number:
+            if email != user.email or phone_number != user.phonenumber:
                 user.email = email
                 user.phonenumber = phone_number
                 user.save()
