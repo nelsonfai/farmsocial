@@ -20,7 +20,7 @@ urlpatterns = [
     path('searchpage/',views.searchpage, name='searchpage'),
     path('queryusers/<slug:slug>',views.search_users, name='search_users'),
     path('change_email/', views.change_email, name='change_email'),
-    path('change_password/', auth_views.PasswordChangeView.as_view(template_name='accounts/editprofile.html',success_url=reverse_lazy('feed:articles')), name='change_password'),
+    path('change_password/', auth_views.PasswordChangeView.as_view(template_name='accounts/editprofile.html',success_url=reverse_lazy('articles')), name='change_password'),
 
 
 
