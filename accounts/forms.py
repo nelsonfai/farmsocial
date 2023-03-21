@@ -158,14 +158,3 @@ class ChangeEmailForm(forms.ModelForm):
                 raise forms.ValidationError(_('Invalid password'))
         return password
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if email and email != self.user.email and CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError(_('This email address is already in use.'))
-        return email
-
-    def clean_phone_number(self):
-        phone_number = self.cleaned_data.get('phonenumber')
-        if phone_number and  CustomUser.objects.filter(phonenumber=phone_number).exists():
-            raise forms.ValidationError(_('Phone number already in use'))
-        return phone_number
