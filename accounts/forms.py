@@ -137,24 +137,13 @@ class ChangeEmailForm(forms.ModelForm):
         widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}),
         strip=False,
     )
-
     class Meta:
         model = CustomUser
         fields = ('email','phonenumber')
         labels = {
             'email': _('New email'),
         }
+    def __init__(self,*args,**kwargs):
+        super(ChangeEmailForm,self).__init__(*args,**kwargs)
 
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
-        super().__init__(*args, **kwargs)
-        self.fields['email'].initial = self.user.email
-        self.fields['phonenumber'].initial = self.user.phonenumber
-
-    def clean_password(self):
-        password = self.cleaned_data.get('password')
-        if password:
-            if not self.user.check_password(password):
-                raise forms.ValidationError(_('Invalid password'))
-        return password
 

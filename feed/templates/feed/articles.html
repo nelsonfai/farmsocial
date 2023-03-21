@@ -116,9 +116,8 @@
                             <a href=" {% url 'details' article_slug=article.slug %}"><span> Comment ({{ article.comments.all.count }})</span></a>
                          </div>
                     </div>
-                    
+                  </div> 
             {% endfor %}
-          </div>
           </div>
         <div style="margin-block:20px 40px"> 
                 <p style="text-align:center;"> Page  {{ articles.number }} of  {{ articles.paginator.num_pages }} </p> 

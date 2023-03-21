@@ -202,7 +202,7 @@ def edit_education(request):
 def change_email(request):
     user = request.user
     if request.method == 'POST':
-        form = ChangeEmailForm(request.POST or None ,user=request.user)
+        form = ChangeEmailForm(request.POST or None ,instance=request.user)
 
         if form.is_valid():
             password = form['password'].value()
@@ -213,18 +213,18 @@ def change_email(request):
                     email = form['email'].value()
                     phone_number = form['phonenumber'].value()
                     if email:
-                        if email != user.email:
+                        if email != user.email and CustomUser.objects.filter(email=email).exist():
                             user.email = email
                             user.save()
 
-                    if phone_number and phone_number != user.phonenumber:
+                    if phone_number and phone_number != user.phonenumber and CustomUser.objects.filter(phonenumber=phone_number).exist():
                         user.phonenumber = phone_number
                         user.save()
                         messages.success(request, 'Your email and phone number have been updated.')
                     else:
                         pass
     else:
-        form = ChangeEmailForm(user=user)
+        form = ChangeEmailForm(instance=user)
     return render(request, 'accounts/editprofile.html', {'profile': form})
 
 #signup user 
