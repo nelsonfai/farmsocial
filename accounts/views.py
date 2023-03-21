@@ -209,7 +209,7 @@ def change_email(request):
             messages.success(request, 'Your email and phone number have been updated.')
     else:
         form = ChangeEmailForm(user=user)
-    return render(request, 'accounts/editprofile.html', {'form': form})
+    return render(request, 'accounts/editprofile.html', {'profile': form})
 
 #signup user 
 class SignupWizard(SessionWizardView):
