@@ -9,7 +9,7 @@
   <p style="text-align: center;margin-top: -25px;font-size: small;padding: 1rem;background-color: #d1eadb; display: block !important; margin-bottom: 3rem;"  >{{ messsage }}  </p>
   {% endfor %}
   {% csrf_token %}
-    {{profile.as_p}}
+    {{form.as_p}}
   <br>
 <button type="submit" class="button_one">Update</button>
 </form>

@@ -111,7 +111,7 @@ def edit_profile(request):
         form = PersonalInfoForm(instance=user)
         profile=form
         context={
-                    'profile':profile,
+                    'form':profile,
                 }
 
  
@@ -137,7 +137,7 @@ def edit_name(request):
             form = PersonalInfoForm(instance=user)
             profile=form
             context={
-                        'profile':profile,
+                        'form':profile,
                     }
             return render (request,'accounts/editprofile.html',context)
 
@@ -194,7 +194,7 @@ def edit_education(request):
             form = EducationForm(instance=user)
             profile=form
             context={
-                        'profile':profile,
+                        'form':profile,
                     }
             return render (request,'accounts/editprofile.html',context)
 
@@ -226,7 +226,7 @@ def change_email(request):
                         pass
     else:
         form = ChangeEmailForm(instance=user)
-    return render(request, 'accounts/editprofile.html', {'profile': form})
+    return render(request, 'accounts/editprofile.html', {'form': form})
 
 #signup user 
 class SignupWizard(SessionWizardView):
