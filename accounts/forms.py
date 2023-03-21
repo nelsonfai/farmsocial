@@ -149,7 +149,7 @@ class ChangeEmailForm(forms.ModelForm):
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         self.fields['email'].initial = self.user.email
-        self.fields['phone_number'].initial = self.user.phone_number
+        self.fields['phonenumber'].initial = self.user.phone_number
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
@@ -165,6 +165,7 @@ class ChangeEmailForm(forms.ModelForm):
         return email
 
     def clean_phone_number(self):
-        phone_number = self.cleaned_data.get('phone_number')
-        if not phone_number.isdigit():
-            raise forms.ValidationError(_('Invalid phone number'))
+        phone_number = self.cleaned_data.get('phonenumber')
+        if phone_number and  CustomUser.objects.filter(phonenumber=phone_number).exists():
+            raise forms.ValidationError(_('Phone number already in use'))
+        return phone_number
