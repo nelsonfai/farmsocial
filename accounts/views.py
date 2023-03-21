@@ -211,10 +211,12 @@ def change_email(request):
                 else:
                     email = request.POST.get('email')
                     phone_number = request.POST.get('phonenumber')
-                    if email != user.email:
-                        user.email = email
-                        user.save()
-                    if phone_number != user.phonenumber:
+                    if email:
+                        if email != user.email:
+                            user.email = email
+                            user.save()
+
+                    if phone_number and phone_number != user.phonenumber:
                         user.phonenumber = phone_number
                         user.save()
                         messages.success(request, 'Your email and phone number have been updated.')
