@@ -172,7 +172,7 @@ class ChangeEmailForm(forms.ModelForm):
 
     def save(self, commit=True):
         self.user.email = self.cleaned_data['email']
-        self.user.phonenumber = self.cleaned_data['phone_number']
+        self.user.phonenumber = self.cleaned_data['phonenumber']
         if commit:
             self.user.save()
         return self.user
