@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 from phonenumber_field.formfields import PhoneNumberField
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -126,4 +127,52 @@ class PassReset(forms.Form):
     fields=('email','phonenumber')
     def __init__(self,*args,**kwargs):
         super(PassReset,self).__init__(*args,**kwargs)
-        
+
+
+
+class ChangeEmailForm(forms.ModelForm):
+    #phone_number = forms.CharField(label=_('Phone number'))
+    password = forms.CharField(
+        label=_('Password'),
+        widget=forms.PasswordInput,
+        strip=False,
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'phonenumber')
+        labels = {
+            'email': _('New email'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['email'].initial = self.user.email
+        self.fields['phonenumber'].initial = self.user.phonenumber
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if password:
+            if not self.user.check_password(password):
+                raise forms.ValidationError(_('Invalid password'))
+        return password
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if email and email == self.user.email:
+            raise forms.ValidationError(_('This email address is already in use.'))
+        return email
+
+    def clean_phone_number(self):
+        phonenumber = self.cleaned_data.get('phonenumber')
+        if not phonenumber.isdigit():
+            raise forms.ValidationError(_('Invalid phone number. Only digits are allowed.'))
+        return phonenumber
+
+    def save(self, commit=True):
+        self.user.email = self.cleaned_data['email']
+        self.user.phonenumber = self.cleaned_data['phone_number']
+        if commit:
+            self.user.save()
+        return self.user

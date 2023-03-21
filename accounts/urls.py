@@ -19,6 +19,7 @@ urlpatterns = [
     path('editprofile/education/',views.edit_education, name='editeducation'),
     path('searchpage/',views.searchpage, name='searchpage'),
     path('queryusers/<slug:slug>',views.search_users, name='search_users'),
+    path('change_email/', views.change_email, name='change_email'),
 
     path('reset_password/', views.CustomPasswordResetView.as_view(), name='reset_password'),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="accounts/change_password.html"), name='password_reset_done'),

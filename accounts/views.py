@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
-from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm,PassReset
+from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm,PassReset,ChangeEmailForm
 from formtools.wizard.views import SessionWizardView
 from .models import CustomUser
 from django.http import JsonResponse
@@ -36,6 +36,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.template.loader import render_to_string
 from mailjet_rest import Client as MailClient
+from django.contrib.auth import update_session_auth_hash
 
 import io
 from twilio.rest import Client
@@ -196,7 +197,19 @@ def edit_education(request):
                     }
             return render (request,'accounts/editprofile.html',context)
 
-    
+@login_required
+def change_email(request):
+    user = request.user
+    if request.method == 'POST':
+        form = ChangeEmailForm(request.POST, user=user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your email and phone number have been updated.')
+    else:
+        form = ChangeEmailForm(user=user)
+    return render(request, 'accounts/editprofile.html', {'form': form})
 
 #signup user 
 class SignupWizard(SessionWizardView):
