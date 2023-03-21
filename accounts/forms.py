@@ -134,7 +134,7 @@ class ChangeEmailForm(forms.ModelForm):
     #phone_number = forms.CharField(label=_('Phone number'))
     password = forms.CharField(
         label=_('Password'),
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}),
         strip=False,
     )
 
