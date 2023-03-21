@@ -149,7 +149,7 @@ class ChangeEmailForm(forms.ModelForm):
         self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         self.fields['email'].initial = self.user.email
-        self.fields['phonenumber'].initial = self.user.phone_number
+        self.fields['phonenumber'].initial = self.user.phonenumber
 
     def clean_password(self):
         password = self.cleaned_data.get('password')
