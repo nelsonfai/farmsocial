@@ -160,13 +160,25 @@ class ChangeEmailForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
+        if email and email != self.user.email and CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError(_('This email address is already in use.'))
         return email
     def clean_phone_number(self):
         phonenumber = self.cleaned_data.get('phonenumber')
+        if not phonenumber.isdigit():
+            raise forms.ValidationError(_('Invalid phone number. Only digits are allowed.'))
         return phonenumber
 
     def save(self, commit=True):
-
+        email = self.clean_email
+        phone_number = self.clean_phone_number
+        if email == self.user.email and phone_number == self.user.phone_number:
+            return self.user
+        else:
+            if email != self.user.email:
+                self.user.email = email
+            if phone_number != self.user.phonenumber:
+                self.user.phonenumber = phone_number
         if commit:
             self.user.save()
         return self.user
