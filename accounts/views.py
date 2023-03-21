@@ -213,11 +213,11 @@ def change_email(request):
                     email = form['email'].value()
                     phone_number = form['phonenumber'].value()
                     if email:
-                        if email != user.email and CustomUser.objects.filter(email=email).exist():
+                        if email != user.email and  not CustomUser.objects.filter(email=email).exist():
                             user.email = email
                             user.save()
 
-                    if phone_number and phone_number != user.phonenumber and CustomUser.objects.filter(phonenumber=phone_number).exist():
+                    if phone_number and phone_number != user.phonenumber and  not CustomUser.objects.filter(phonenumber=phone_number).exist():
                         user.phonenumber = phone_number
                         user.save()
                         messages.success(request, 'Your email and phone number have been updated.')
