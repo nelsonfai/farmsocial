@@ -166,13 +166,7 @@ class ChangeEmailForm(forms.ModelForm):
         return phonenumber
 
     def save(self, commit=True):
-        email = self.cleaned_data['email']
-        phone_number = self.cleaned_data['phone_number']
 
-        if email != self.user.email:
-            self.user.email = email
-        if phone_number != self.user.phonenumber:
-            self.user.phonenumber = phone_number
         if commit:
             self.user.save()
         return self.user
