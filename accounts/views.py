@@ -208,7 +208,7 @@ def change_email(request):
             if email != user.email or phone_number != user.phonenumber:
                 user.email = email
                 user.phonenumber = phone_number
-                user.save()
+                #user.save()
                 messages.success(request, 'Your email and phone number have been updated.')
             else:
                  pass
