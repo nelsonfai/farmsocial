@@ -204,16 +204,14 @@ def change_email(request):
     if request.method == 'POST':
         form = ChangeEmailForm(request.POST)
         if form.is_valid():
-            password = form.cleaned_data.get('password')
+            password = request.POST.get('password')
             if password:
-                if not form.user.check_password(password):
+                if not user.check_password(password):
                     raise forms.ValidationError(_('Invalid password'))
                 else:
-
-                    email = form.cleaned_data['email']
-                    phone_number = form.cleaned_data['phonenumber']
-                    
-                    if not email == user.email:
+                    email = request.POST.get('email')
+                    phone_number = request.POST.get('phonenumber')
+                    if email != user.email:
                         user.email = email
                         user.save()
                     if not phone_number == user.phonenumber:
