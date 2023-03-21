@@ -203,10 +203,15 @@ def change_email(request):
     if request.method == 'POST':
         form = ChangeEmailForm(request.POST, user=user)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, 'Your email and phone number have been updated.')
+            email = form.cleaned_data['email']
+            phone_number = form.cleaned_data['phonenumber']
+            if email != user.email or phone_number != user.phone_number:
+                user.email = email
+                user.phonenumber = phone_number
+                user.save()
+                messages.success(request, 'Your email and phone number have been updated.')
+            else:
+                 pass
     else:
         form = ChangeEmailForm(user=user)
     return render(request, 'accounts/editprofile.html', {'profile': form})
