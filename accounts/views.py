@@ -219,6 +219,8 @@ def change_email(request):
                                 user.email = email
                                 user.save()
                                 messages.success(request, 'Email Updated Succesfully')
+                    else:
+                        messages.error(request,('No email gotten'))
 
 
                     if phone_number:
@@ -228,7 +230,8 @@ def change_email(request):
                                 user.save()
                                 messages.success(request, 'Phone Number Updated Succesfully')
                     else:
-                        pass
+                                                 messages.error(request,('No phone gotten'))
+
     else:
         form = ChangeEmailForm(instance=user)
     return render(request, 'accounts/editprofile.html', {'form': form})
