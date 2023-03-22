@@ -202,7 +202,7 @@ def edit_education(request):
 def change_email(request):
     user = request.user
     if request.method == 'POST':
-        form = ChangeEmailForm(request.POST or None ,instance=request.user)
+        form = ChangeEmailForm(request.POST or None)
 
         if form.is_valid():
             password = form['password'].value()
