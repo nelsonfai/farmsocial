@@ -205,42 +205,37 @@ def change_email(request):
         form = ChangeEmailForm(request.POST or None)
 
         if form.is_valid():
-            user= request.user
-            password = form['password'].value()
+            user = request.user
+            password = request.POST.get('password')
             if password:
-                if not user.check_password(password):
-                    messages.error(request,('Invalid Password'))
-
-                else:
-                    email = form['email'].value()
-                    phone_number = form['phonenumber'].value()
+                if user.check_password(password):
+                    email = request.POST.get('email')
+                    phone_number = request.POST.get('phonenumber')
 
                     if email:
-                        if email == user.email:
+                        if email == request.user.email:
                             messages.error(request,('Email  equal'))
                         else:
-                            if not CustomUser.objects.filter(email=email).exists():
+                            if CustomUser.objects.filter(email=email).exists():
+                                messages.error(request,('Email exist'))
+                            else:
                                 user.email = email
                                 user.save()
                                 messages.success(request, 'Email Updated Succesfully')
-                            else:
-                                    messages.error(request,('Email exist'))
-
-
-
-
                     else:
                         messages.error(request,('No email gotten'))
 
 
                     if phone_number:
-                        if phone_number != user.phonenumber:
-                            if not CustomUser.objects.filter(phonenumber=phone_number).exists():
+                        if phone_number != request.user.phonenumber:
+                            if CustomUser.objects.filter(phonenumber=phone_number).exists():
+                                   messages.error(request,('Phone exist'))
+                            else:
                                 user.phonenumber = phone_number
                                 user.save()
-                                messages.success(request, 'Phone Number Updated Succesfully')
-                    else:
-                                                 messages.error(request,('No phone gotten'))
+                                messages.success(request, 'Phone Number Updated Succesfully')                                               
+                else:
+                    messages.error(request,('Invalid Password'))
 
     else:
         form = ChangeEmailForm(instance=user)
