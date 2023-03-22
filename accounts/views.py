@@ -202,7 +202,7 @@ def edit_education(request):
 def change_email(request):
     user = request.user
     if request.method == 'POST':
-        form = ChangeEmailForm(request.POST or None)
+        form = ChangeEmailForm(request.POST or None,user=user)
 
         if form.is_valid():
             user = request.user
