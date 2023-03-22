@@ -214,16 +214,18 @@ def change_email(request):
                     email = form.cleaned_data['email']
                     phone_number = form.cleaned_data['phonenumber']
                     if email:
-                        if email != user.email:
+                        if email == user.email:
+                                                                                  messages.error(request,('Email  equal'))
+                        else:
                             if not CustomUser.objects.filter(email=email).exist():
                                 user.email = email
                                 user.save()
                                 messages.success(request, 'Email Updated Succesfully')
                             else:
-                                                         messages.error(request,('Emsil exist'))
+                                    messages.error(request,('Email exist'))
 
-                        else:
-                                                     messages.error(request,('Email not equal'))
+
+
 
                     else:
                         messages.error(request,('No email gotten'))
