@@ -211,8 +211,8 @@ def change_email(request):
                     messages.error(request,('Invalid Password'))
 
                 else:
-                    email = form['email'].value()
-                    phone_number = form['phonenumber'].value()
+                    email = form.cleaned_data['email']
+                    phone_number = form.cleaned_data['phonenumber']
                     if email:
                         if email != user.email:
                             if not CustomUser.objects.filter(email=email).exist():
