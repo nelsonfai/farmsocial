@@ -10,5 +10,5 @@ class UpdateLastActivityMiddleware:
             # Update last_seen field of user
             user = request.user
             user.last_seen = timezone.now()
-            #user.save()
+            user.save()
         return response
