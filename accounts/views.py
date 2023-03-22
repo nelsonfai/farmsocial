@@ -214,20 +214,32 @@ def change_email(request):
                     email = form.cleaned_data['email']
                     phone_number = form.cleaned_data['phonenumber']
                     if email:
-                        if email != user.email:
+                        if email == user.email:
+                                                                                  messages.error(request,('Email  equal'))
+                        else:
                             if not CustomUser.objects.filter(email=email).exists():
                                 user.email = email
                                 user.save()
-                                messages.success(request, 'Email Updated Succesfully.')
+                                messages.success(request, 'Email Updated Succesfully')
+                            else:
+                                    messages.error(request,('Email exist'))
 
 
-                    if phone_number and phone_number != user.phonenumber and  not CustomUser.objects.filter(phonenumber=phone_number).exists():
+
+
+                    else:
+                        messages.error(request,('No email gotten'))
+
+
+                    if phone_number:
+                        if phone_number != user.phonenumber:
+                            if not CustomUser.objects.filter(phonenumber=phone_number).exists():
                                 user.phonenumber = phone_number
                                 user.save()
-                                messages.success(request, 'Phone Number Updated Succesfully.')
+                                messages.success(request, 'Phone Number Updated Succesfully')
                     else:
-                        pass
-        return redirect('change_email')
+                                                 messages.error(request,('No phone gotten'))
+
     else:
         form = ChangeEmailForm(instance=user)
     return render(request, 'accounts/editprofile.html', {'form': form})
