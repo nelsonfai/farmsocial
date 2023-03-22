@@ -146,16 +146,5 @@ class ChangeEmailForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super(ChangeEmailForm,self).__init__(*args,**kwargs)
 
-
-    def cleaned_data(self):
-        cleaned_data = super().clean()
-        email= self.cleaned_data.get("email")
-        phonenumber = self.cleaned_data.get("phonenumber")
-        password=self.cleaned_data.get(password)
-
-        if CustomUser.objects.filter(phonenumber=phonenumber).exists():
-            raise forms.ValidationError("Phone number already in use.")
-        if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError("Email already in use.")
       
      
