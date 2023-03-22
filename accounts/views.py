@@ -224,7 +224,6 @@ def change_email(request):
                                 messages.success(request, 'Email Updated Succesfully')
                     else:
                         pass
-
                     if phone_number:
                         if phone_number != request.user.phonenumber:
                             if CustomUser.objects.filter(phonenumber=phone_number).exists():
@@ -232,12 +231,15 @@ def change_email(request):
                             else:
                                 user.phonenumber = phone_number
                                 user.save()
-                                messages.success(request, 'Phone Number Updated Succesfully')                                               
+                                messages.success(request, 'Phone Number Updated Succesfully')      
+                                                     
                 else:
                     messages.error(request,('Invalid Password'))
+                
+                return redirect('change_email') 
 
     else:
-        form = ChangeEmailForm()
+        form = ChangeEmailForm(user=user)
     return render(request, 'accounts/editprofile.html', {'form': form})
 
 #signup user 
