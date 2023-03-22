@@ -219,6 +219,12 @@ def change_email(request):
                                 user.email = email
                                 user.save()
                                 messages.success(request, 'Email Updated Succesfully')
+                            else:
+                                                         messages.error(request,('Emsil exist'))
+
+                        else:
+                                                     messages.error(request,('Email not equal'))
+
                     else:
                         messages.error(request,('No email gotten'))
 
