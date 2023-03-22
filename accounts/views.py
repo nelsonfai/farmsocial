@@ -214,7 +214,8 @@ def change_email(request):
                     email = form.cleaned_data['email']
                     phone_number = form.cleaned_data['phonenumber']
                     if email:
-                        if email != user.email and  not CustomUser.objects.filter(email=email).exists():
+                        if email != user.email:
+                            if not CustomUser.objects.filter(email=email).exists():
                                 user.email = email
                                 user.save()
                                 messages.success(request, 'Email Updated Succesfully.')
@@ -226,6 +227,7 @@ def change_email(request):
                                 messages.success(request, 'Phone Number Updated Succesfully.')
                     else:
                         pass
+        return redirect('change_email')
     else:
         form = ChangeEmailForm(instance=user)
     return render(request, 'accounts/editprofile.html', {'form': form})
