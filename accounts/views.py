@@ -214,22 +214,21 @@ def change_email(request):
 
                     if email:
                         if email == request.user.email:
-                            messages.error(request,('Email  equal'))
+                             pass
                         else:
                             if CustomUser.objects.filter(email=email).exists():
-                                messages.error(request,('Email exist'))
+                                 pass
                             else:
                                 user.email = email
                                 user.save()
                                 messages.success(request, 'Email Updated Succesfully')
                     else:
-                        messages.error(request,('No email gotten'))
-
+                        pass
 
                     if phone_number:
                         if phone_number != request.user.phonenumber:
                             if CustomUser.objects.filter(phonenumber=phone_number).exists():
-                                   messages.error(request,('Phone exist'))
+                                   pass
                             else:
                                 user.phonenumber = phone_number
                                 user.save()

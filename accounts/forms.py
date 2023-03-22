@@ -142,9 +142,20 @@ class ChangeEmailForm(forms.ModelForm):
         fields = ('email','phonenumber')
         labels = {
             'email': _('New email'),
+            'phonenumber':_('New phone Number')
         }
-    def __init__(self,*args,**kwargs):
-        super(ChangeEmailForm,self).__init__(*args,**kwargs)
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['email'].label =f'Current Email :{self.user.email}'
+        self.fields['phonenumber'].label =f'Current Phone number: {self.user.phonenumber}'
+        self.fields['email'].widget.attrs['placeholder']='Enter New Email '
+        self.fields['phonenumber'].widget.attrs['placeholder']='Enter New Phone number '
+
+
+
+
 
       
      
