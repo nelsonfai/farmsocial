@@ -238,7 +238,7 @@ def change_email(request):
                     messages.error(request,('Invalid Password'))
 
     else:
-        form = ChangeEmailForm(instance=user)
+        form = ChangeEmailForm()
     return render(request, 'accounts/editprofile.html', {'form': form})
 
 #signup user 
