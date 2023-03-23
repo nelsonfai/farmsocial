@@ -32,7 +32,7 @@ def cookie_policy(request):
     return render(request,'main/cookie.html')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('myadmin/main/', admin.site.urls),
     path('my_notification' ,include('notification.urls')),
     path('friends/' ,include('Friends.urls')),
     path('accounts/', include('accounts.urls') ),
