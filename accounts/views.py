@@ -38,6 +38,7 @@ from django.template.loader import render_to_string
 from mailjet_rest import Client as MailClient
 from django.contrib.auth import update_session_auth_hash
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.cache import cache_page
 
 import io
 from twilio.rest import Client
@@ -84,7 +85,7 @@ def logout_view(request):
             messages.error(request,('Oops Something went wrong.Please try again later.'))
             return redirect('articles')
 
-        
+@cache_page(60 * 5) # cache for 5 minutes        
 @login_required()     
 def profile(request,slug):
     try:    

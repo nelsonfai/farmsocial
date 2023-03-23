@@ -22,7 +22,6 @@ from django.views.decorators.cache import cache_page
 
 # Create your views here.
 @cache_page(60 * 5) # cache for 5 minutes
-
 @login_required   
 def add_article(request):
     if request.method=='POST':
@@ -80,6 +79,7 @@ def slug_generator(title,body):
     print(slug)
     return slug
 
+@cache_page(60 * 5) # cache for 5 minutes
 def articles (request):
     if request.user.is_authenticated:
         articles=Articles.objects.all().order_by('-date')
@@ -230,6 +230,8 @@ def delete_annoucement (request,slug):
         annoucemnt.delete()
         messages.success(request,'Announcement has been deleted')
         return redirect('annoucement')
+    
+@cache_page(60 * 5) # cache for 5 minutes
 def filter_article(request,tag):
         filter_by = request.GET.get('filter_by')
         if filter_by == 'tag':
