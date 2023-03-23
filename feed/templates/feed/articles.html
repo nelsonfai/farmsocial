@@ -131,11 +131,10 @@
                   {% if articles.has_previous %}
                             <a href="?filter_by={{pagefilter}}&page={{ articles.previous_page_number }}"> &laquo; Previous</a>
                 {% endif %}
-                https://www.myagricdiary.com/?filter_by=category&page=2
                 </span> 
                 <span>
                     {% if articles.has_next %}
-                        <a href="?page={{ articles.next_page_number }}" >Next <i> &raquo;</i> </a>
+                        <a href="?filter_by={{pagefilter}}&page={{ articles.next_page_number }}" >Next <i> &raquo;</i> </a>
                     {% endif%}
                 </span>
             </div>  
