@@ -236,6 +236,8 @@ def filter_article(request,tag):
             articles = Articles.objects.filter(tag__slug=tag)
         if filter_by == 'category':
             articles = Articles.objects.filter(category=tag)
+
+         
         p=Paginator(articles,per_page=10)
         page=request.GET.get('page')
         paginated_article=p.get_page(page)
