@@ -26,7 +26,7 @@ def productnotify(created ,instance ,**kwargs):
 def notify(instance):
     if instance.author:
         followers= instance.author.myfollowing.follower.all()
-        message= f'{instance.author.get_full_name()} posted an article just now check it out'
+        message= f'{instance.author.get_full_name()} posted a new article'
         url = f'/{instance.slug}'
         if followers:
             new_notification=Notification.objects.create(message=message,url=url,trigger=instance.author)
@@ -35,7 +35,7 @@ def notify(instance):
 
     elif instance.company:
         followers= instance.company.pagefollowers.all()
-        message= f'{instance.company.name} posted an article just now check it out'
+        message= f'{instance.company.name} posted a new article'
         url = f'/{instance.slug}'
         if followers:
             new_notification=Notification.objects.create(message=message,url=url,trigger_page=instance.company)
@@ -48,7 +48,7 @@ def notify(instance):
 def productnotify(instance):
     if instance.user_profile:
         followers= instance.user_profile.myfollowing.follower.all()
-        message= f'{instance.user_profile.get_full_name()} posted a new product check it out'
+        message= f'{instance.user_profile.get_full_name()} posted a new product '
         url = f'/market/product/{instance.id}'
         if followers:
             new_notification=Notification.objects.create(message=message,url=url,trigger=instance.user_profile)
@@ -57,7 +57,7 @@ def productnotify(instance):
 
     elif instance.companypage:
         followers= instance.companypage.pagefollowers.all()
-        message= f'{instance.companypage.name} posted a new product check it out'
+        message= f'{instance.companypage.name} posted a new product'
         url = f'/market/product/{instance.id}'
         if followers:
             new_notification=Notification.objects.create(message=message,url=url,trigger_page=instance.companypage)
