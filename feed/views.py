@@ -237,7 +237,6 @@ def filter_article(request,tag):
         if filter_by == 'category':
             articles = Articles.objects.filter(category=tag)
 
-         
         p=Paginator(articles,per_page=10)
         page=request.GET.get('page')
         paginated_article=p.get_page(page)
@@ -247,7 +246,9 @@ def filter_article(request,tag):
         context={
             'articles':paginated_article,
             'stylesheet':'styles/feed.css',
-            'tags':most_used_tags
+            'tags':most_used_tags,
+            'pagefilter':filter_by
+
         }
 
         return render (request, 'feed/articles.html', context)

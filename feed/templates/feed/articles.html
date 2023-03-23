@@ -129,8 +129,9 @@
             <div class="pagination11" style="display: flex; justify-content: space-between;align-items: center; padding-inline: 1rem;"> 
                 <span> 
                   {% if articles.has_previous %}
-                            <a href="?page={{ articles.previous_page_number }}"> &laquo; Previous</a>
+                            <a href="?filter_by={{pagefilter}}&page={{ articles.previous_page_number }}"> &laquo; Previous</a>
                 {% endif %}
+                https://www.myagricdiary.com/?filter_by=category&page=2
                 </span> 
                 <span>
                     {% if articles.has_next %}
