@@ -120,12 +120,12 @@
                             </span> 
 
                             <span>
-                              <span class="share-button">
+                              <div class="share-button">
                                     <span href="#" class="social-toggle" onclick='share("{{article.slug}}")'>Share</span>
-                                      <span class="social-networks" id='{{article.slug}}'>
+                                      <div class="social-networks" id='{{article.slug}}'>
                                           <ul>
                                               <li class="social-twitter">
-                                                {% post_to_twitter  'https://www.myagricdiary.com/accounts/profile/7'  %}
+                                                {% post_to_twitter  'https://www.myagricdiary.com/accounts/profile/7' "Twitter " %}
                                               </li>
 
                                               <li class="social-facebook">
@@ -144,8 +144,8 @@
                                                   {% copy_to_clipboard 'https://www.myagricdiary.com/accounts/profile/7' "C" %}
                                               </li>
                                         </ul>
-                                  </span>
-                                 </span>                   
+                                  </div>
+                                 </div>                   
                             </span>
 
                             <span> <a href=" {% url 'details' article_slug=article.slug %}"> Comment ({{ article.comments.all.count }})</a></span>
@@ -227,17 +227,23 @@
 </div>
 <style>
   share-button { 
+  margin: auto;
   position: absolute; 
   top: 0; 
   left: 0;
   bottom: 0;
   right: 0;
-
+  width:6em;
+  height:2em;
+  line-height:2em;
  }
 
 .social-toggle {
   display:block;
+  font-weight:bold;
+  font-size:90%;
   text-align:center;
+  text-transform:uppercase;
   transition:all 0.25s;
   color:rgb(200,200,200);
   background:rgba(200,200,200,.05);
@@ -322,10 +328,12 @@
   
 .social-networks li {
   font-size: 90%;
+  width: 60px;
   margin: 0;
   text-align: center;
   float: left;
   display: block;
+  height: 40px;
   line-height:40px;
   position: relative;
   z-index: 2;
@@ -333,7 +341,6 @@
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   transition: all .3s ease;
-  padding:1rem;
 }
 
 .share-button a {
