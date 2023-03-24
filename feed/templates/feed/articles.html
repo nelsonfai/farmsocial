@@ -1,6 +1,8 @@
 {% extends 'main/base.html'%}
 {% block content %}
 {% load static %}
+{% load social_share %}
+
 <link rel="stylesheet" href="{% static 'styles/feed.css' %}">
 <div class="grid-container">
 
@@ -117,7 +119,36 @@
                                 <span class="likes">{{article.likes.all.count}} </span>
                             </span> 
 
-                            <a href=" {% url 'details' article_slug=article.slug %}"><span> Share </span></a>
+                            <span>
+                              <div class="share-button">
+                                <span href="#" class="social-toggle" onclick='share("{{article.slug}}")'>Share</span>
+                              <div class="social-networks" id='{{article.slug}}'>
+                                <ul>
+
+                                  <li class="social-twitter">
+                                    {% post_to_twitter  'www.myagricdiary.com/{{article.slug}}' "<i class="fa-brands fa-twitter">" %}
+                                  </li>
+
+                                  <li class="social-facebook">
+                                    {% post_to_facebook 'www.myagricdiary.com/{{article.slug}}' "<i class="fa-brands fa-facebook-f"></i>" %}
+                                  </li>
+
+                                  <li class="social-insta">
+                                        {% post_to_linkedin 'www.myagricdiary.com/{{article.slug}}' '<i class="fa-brands fa-instagram"></i>' %}
+                                  </li>
+
+                                  <li class="social-whatsapp">
+                                      {% post_to_whatsapp 'www.myagricdiary.com/{{article.slug}}' "<i class="fa-brands fa-whatsapp"></i>" %}
+                                  </li>
+
+                                  <li class="social-gplus">
+                                      {% copy_to_clipboard 'www.myagricdiary.com/{{article.slug}}' "<i class="fa-light fa-copy"></i>" %}
+                                  </li>
+                                </ul>
+                              </div>
+                                 </div>                  
+                            </span>
+
                             <a href=" {% url 'details' article_slug=article.slug %}"><span> Comment ({{ article.comments.all.count }})</span></a>
                          </div>
                     </div>
@@ -469,6 +500,11 @@ if (window.innerWidth < 768) {
   }
 }
 
+</script>
+<script>
+  function share(id){
+  document.getElementById(id).classList.toggle("open-menu");
+}
 </script>
 
 {% endblock %}

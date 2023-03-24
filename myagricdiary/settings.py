@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'marketplace',
     'myagricai',
     'company',
-    "phonenumber_field", 
+    "phonenumber_field",
+    'django_social_share'
 ]
 
 MIDDLEWARE = [
