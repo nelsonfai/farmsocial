@@ -121,11 +121,11 @@
 
                             <span>
                               <div class="share-button">
-                                    <span href="#" class="social-toggle" onclick='share("{{article.slug}}")'>Share</span>
+                                    <span href="#" class="social-toggle" onclick='share("{{article.slug}}")'>Share <i class="fa-sharp fa-regular fa-share"></i></span>
                                       <div class="social-networks" id='{{article.slug}}'>
                                           <ul>
                                               <li class="social-twitter">
-                                                {% post_to_twitter  'https://www.myagricdiary.com/accounts/profile/7' "Twitter " %}
+                                                {% post_to_twitter  'https://www.myagricdiary.com/accounts/profile/7' '<i class="fa-brands fa-twitter fa-2x"></i>' %}
                                               </li>
 
                                               <li class="social-facebook">
@@ -137,7 +137,7 @@
                                               </li>
 
                                               <li class="social-whatsapp">
-                                                  {% post_to_whatsapp 'https://www.myagricdiary.com/accounts/profile/7' "W" %}
+                                                  {% post_to_whatsapp 'https://www.myagricdiary.com/accounts/profile/7' '<i class="fa-brands fa-whatsapp fa-2x"></i>' %}
                                               </li>
 
                                               <li class="social-gplus">
@@ -239,16 +239,11 @@
  }
 
 .social-toggle {
-  display:block;
-  font-weight:bold;
-  font-size:90%;
-  text-align:center;
-  text-transform:uppercase;
-  transition:all 0.25s;
-  color:rgb(200,200,200);
-  background:rgba(200,200,200,.05);
-  border: 2px solid rgb(200,200,200);
-  cursor:pointer;
+  display: inline-block;
+    text-align: center;
+    transition: all 0.25s;
+    cursor: pointer;
+    padding: 0.4rem;
 }
 
 .social-toggle:hover {
@@ -299,14 +294,15 @@
   position:relative;
   top:0;
   left:0;
-  width: 180px;
+  width: 250px;
   height: 40px;
   color: #fff;
   background: #3b5998;
   margin: auto;
   padding: 0;
   list-style: none;
-  display:flex
+  display:flex;
+  justify-content:space-evenly
 }
 
 .social-networks ul:after {
@@ -327,13 +323,11 @@
 }
   
 .social-networks li {
-  font-size: 90%;
-  width: 60px;
-  margin: 0;
+  width: 50px;
   text-align: center;
   float: left;
   display: block;
-  height: 40px;
+  height: 50px;
   line-height:40px;
   position: relative;
   z-index: 2;
