@@ -126,23 +126,23 @@
                                 <ul>
 
                                   <li class="social-twitter">
-                                    {% post_to_twitter  '{{article.slug}}' "Twitter " %}
+                                    {% post_to_twitter  'https://www.myagricdiary.com/accounts/profile/7' "Twitter " %}
                                   </li>
 
                                   <li class="social-facebook">
-                                    {% post_to_facebook '{{article.slug}}' "F" %}
+                                    {% post_to_facebook 'https://www.myagricdiary.com/accounts/profile/7' "F" %}
                                   </li>
 
                                   <li class="social-insta">
-                                        {% post_to_linkedin '{{article.slug}}' 'I' %}
+                                        {% post_to_linkedin 'https://www.myagricdiary.com/accounts/profile/7' 'I' %}
                                   </li>
 
                                   <li class="social-whatsapp">
-                                      {% post_to_whatsapp '{{article.slug}}' "W" %}
+                                      {% post_to_whatsapp 'https://www.myagricdiary.com/accounts/profile/7' "W" %}
                                   </li>
 
                                   <li class="social-gplus">
-                                      {% copy_to_clipboard '{{article.slug}}' "C" %}
+                                      {% copy_to_clipboard 'https://www.myagricdiary.com/accounts/profile/7' "C" %}
                                   </li>
                                 </ul>
                               </div>
@@ -226,7 +226,139 @@
 </div>
 
 </div>
+<style>
+  share-button { 
+  margin: auto;
+  position: absolute; 
+  top: 0; 
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width:6em;
+  height:2em;
+  line-height:2em;
+ }
 
+.social-toggle {
+  display:block;
+  font-weight:bold;
+  font-size:90%;
+  text-align:center;
+  text-transform:uppercase;
+  transition:all 0.25s;
+  color:rgb(200,200,200);
+  background:rgba(200,200,200,.05);
+  border: 2px solid rgb(200,200,200);
+  cursor:pointer;
+}
+
+.social-toggle:hover {
+  background:rgb(200,200,200);
+  color:#333;
+}
+
+.no-js .social-toggle, .no-js .social-toggle:hover {
+  cursor: default;
+  border:none;
+  background:transparent;
+  color:rgb(200,200,200);
+  pointer-events:none;
+}
+
+.social-networks {
+  -webkit-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  -webkit-transform: scale(0) translateY(-190px);
+  transform: scale(0) translateY(-190px);
+  opacity: 0;
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+  margin-left: -45%;
+  /* stops flickering */
+  -webkit-backface-visibility: hidden;
+}
+
+.social-insta {
+  background: #8a3ab9;
+}
+
+.social-twitter {
+  background: #6cdfea;
+}
+.social-whatsapp {
+  background: #25D366;
+}
+.social-networks.open-menu, .no-js .social-networks {
+  -webkit-transform: scale(1) translateY(-90px);
+  transform: scale(1) translateY(-90px);
+  opacity:1;
+}
+
+
+.social-networks ul {
+  position:relative;
+  top:0;
+  left:0;
+  width: 180px;
+  height: 40px;
+  color: #fff;
+  background: #3b5998;
+  margin: auto;
+  padding: 0;
+  list-style: none;
+  display:flex
+}
+
+.social-networks ul:after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+
+.social-networks.open-menu ul:after, .no-js .social-networks ul:after {
+  margin: 35px auto;
+  border-top: 12px solid #3b5998;
+}
+  
+.social-networks li {
+  font-size: 90%;
+  width: 60px;
+  margin: 0;
+  text-align: center;
+  float: left;
+  display: block;
+  height: 40px;
+  line-height:40px;
+  position: relative;
+  z-index: 2;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  transition: all .3s ease;
+}
+
+.share-button a {
+  text-decoration:none;
+}
+
+.social-networks a {
+  display:block;
+  color:white;
+}
+
+.social-networks a:hover {
+  color:#222;
+}
+
+
+</style>
 <style>
   pre{
     white-space: break-spaces !important;
@@ -312,7 +444,11 @@
   color:whitesmoke
  }
 </style>
-
+<script>
+  function share(id){
+  document.getElementById(id).classList.toggle("open-menu");
+}
+</script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script>
