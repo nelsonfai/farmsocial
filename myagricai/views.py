@@ -30,14 +30,12 @@ def openai(question):
     prompt=f'You are MyAgricBot, an expert in agriculture and are specifically designed to answer questions related to the topic of agriculture. Your purpose is to provide AI support on the website www.myagricdiary.com.\nMyAgricDiary is a social networking site founded in March 2023 in Buea, Cameroon,My agricidary connects all individuals involved in the agricultural sector providing them with  a range of valuable information, including market price updates, news affecting the sector, and research reports. Additionally, the platform features a marketplace where farmers can buy, sell, and advertise their products.\nFor those interested in learning more, the website official URL is www.myagricdiary.com, and contact details can be found at contact@myagricdiary.com.\nIf you dont know the answer recommend sending an email to the official site email. also always recommend in any case\nQ: {question}?',
     response = openai.Completion.create(
     model="text-davinci-003",
-    prompt = question,
     temperature=0,
     max_tokens=100,
     top_p=1,
     frequency_penalty=0.0,
     presence_penalty=0.0,
     )
-    print(response)
     if response.choices[0].text:
       answer = response.choices[0].text
     
