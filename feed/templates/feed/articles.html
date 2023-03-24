@@ -133,14 +133,16 @@
                                               </li>
 
                                               <li class="social-insta">
-                                                    {% post_to_linkedin 'https://www.myagricdiary.com/'|add:article.slug '<i class="fa-brands fa-linkedin"></i>'  %}
+                                                    {% post_to_linkedin 'https://www.myagricdiary.com/'|add:article.slug  %}
                                               </li>
 
                                               <li class="social-whatsapp">
                                                   {% post_to_whatsapp 'https://www.myagricdiary.com/'|add:article.slug '<i class="fa-brands fa-whatsapp"></i>' %}
                                               </li>
  
-
+                                              <li class="social-what">
+                                                {% post_to_whatsapp 'https://www.myagricdiary.com/'|add:article.slug 'Copy' %}
+                                            </li>
                                         </ul>
                                   </div>
                                  </div>                   
