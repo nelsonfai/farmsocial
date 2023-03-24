@@ -126,23 +126,23 @@
                                 <ul>
 
                                   <li class="social-twitter">
-                                    {% post_to_twitter  'www.myagricdiary.com/{{article.slug}}' "Twitter " %}
+                                    {% post_to_twitter  '{{article.slug}}' "Twitter " %}
                                   </li>
 
                                   <li class="social-facebook">
-                                    {% post_to_facebook 'www.myagricdiary.com/{{article.slug}}' "F" %}
+                                    {% post_to_facebook '{{article.slug}}' "F" %}
                                   </li>
 
                                   <li class="social-insta">
-                                        {% post_to_linkedin 'www.myagricdiary.com/{{article.slug}}' 'I' %}
+                                        {% post_to_linkedin '{{article.slug}}' 'I' %}
                                   </li>
 
                                   <li class="social-whatsapp">
-                                      {% post_to_whatsapp 'www.myagricdiary.com/{{article.slug}}' "W" %}
+                                      {% post_to_whatsapp '{{article.slug}}' "W" %}
                                   </li>
 
                                   <li class="social-gplus">
-                                      {% copy_to_clipboard 'www.myagricdiary.com/{{article.slug}}' "C" %}
+                                      {% copy_to_clipboard '{{article.slug}}' "C" %}
                                   </li>
                                 </ul>
                               </div>
