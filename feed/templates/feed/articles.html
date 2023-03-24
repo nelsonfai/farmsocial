@@ -120,20 +120,20 @@
                             </span> 
 
                             <span>
-                              <div class="share-button">
+                              <div class="share-button" style="text-align: center;">
                                     <span href="#" class="social-toggle" onclick='share("{{article.slug}}")'>Share <i class="fa-sharp fa-regular fa-share"></i></span>
                                       <div class="social-networks" id='{{article.slug}}'>
                                           <ul>
                                               <li class="social-twitter">
-                                                {% post_to_twitter  'https://www.myagricdiary.com/accounts/profile/7' '<i class="fa-brands fa-twitter fa-2x"></i>' %}
+                                                {% post_to_twitter "New Post: Check it out!" 'https://www.myagricdiary.com/accounts/profile/7' '<i class="fa-brands fa-twitter fa-2x"></i>' %}
                                               </li>
 
                                               <li class="social-facebook">
-                                                {% post_to_facebook 'https://www.myagricdiary.com/accounts/profile/7' "F" %}
+                                                {% post_to_facebook 'https://www.myagricdiary.com/accounts/profile/7' '<i class="fa-brands fa-facebook-f"></i>' %}
                                               </li>
 
                                               <li class="social-insta">
-                                                    {% post_to_linkedin 'https://www.myagricdiary.com/accounts/profile/7' 'I' %}
+                                                    {% post_to_linkedin 'https://www.myagricdiary.com/accounts/profile/7' '<i class="fa-brands fa-instagram"></i>' %}
                                               </li>
 
                                               <li class="social-whatsapp">
@@ -141,7 +141,7 @@
                                               </li>
 
                                               <li class="social-gplus">
-                                                  {% copy_to_clipboard 'https://www.myagricdiary.com/accounts/profile/7' "C" %}
+                                                  {% copy_to_clipboard 'https://www.myagricdiary.com/accounts/profile/7' '<i class="fa-solid fa-copy"></i>' %}
                                               </li>
                                         </ul>
                                   </div>
@@ -268,7 +268,6 @@
   opacity: 0;
   -webkit-transition: all .4s ease;
   transition: all .4s ease;
-  margin-left: -45%;
   /* stops flickering */
   -webkit-backface-visibility: hidden;
 }
@@ -295,7 +294,7 @@
   top:0;
   left:0;
   width: 250px;
-  height: 40px;
+  height: 50px;
   color: #fff;
   background: #3b5998;
   margin: auto;
@@ -328,7 +327,7 @@
   float: left;
   display: block;
   height: 50px;
-  line-height:40px;
+  line-height:50px;
   position: relative;
   z-index: 2;
   -webkit-box-sizing: content-box;
