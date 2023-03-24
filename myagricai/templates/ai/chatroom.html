@@ -67,8 +67,7 @@
       $(document).ready(function(){
     let message_body = $('#messagebody')
 message_body.animate({
-    scrollTop: $(document).height()
-}, 100);
+    scrollTop: message_body.prop("scrollHeight") }, 100);
   
 });
 </script>
@@ -97,15 +96,14 @@ message_body.animate({
             </div>                                     
             </div>`
         let replydiv =`<div class="msg_cotainer">
-            <p>A: ${data.response}</p>
+            <p> ${data.response}</p>
             <div class="msg_time">now</div>
         </div>`    
         bodymessage.append(questiondiv)
         bodymessage.append(replydiv)
         $('#input-message').val("") ;
         bodymessage.animate({
-    scrollTop: $(document).height()
-}, 100);
+    scrollTop: message_body.prop("scrollHeight") }, 100);
     }
       
     });
