@@ -92,12 +92,12 @@ message_body.animate({
       success:function(data) {
        let questiondiv = `<div class=" replied">
             <div class="msg_cotainer_send">
-            <p> ${question}</p>  
-            <div class="msg_time_send msg_time">11:39</div>                                                   
+            <p>Q: ${question}</p>  
+            <div class="msg_time_send msg_time">now</div>                                                   
             </div>                                     
             </div>`
         let replydiv =`<div class="msg_cotainer">
-            <p> ${data.response}</p>
+            <p>A: ${data.response}</p>
             <div class="msg_time">now</div>
         </div>`    
         bodymessage.append(questiondiv)
