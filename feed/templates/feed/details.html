@@ -216,6 +216,17 @@ $('#id_comment').val(null)
 
 
 </script>
+<script>
+  function share(id){
+  document.getElementById(id).classList.toggle("open-menu");
+}
+</script>
+<script>
+  function copy(copy,button) {
+    navigator.clipboard.writeText(copy);
+        button.innerHTML = '✓'
+  }
+  </script>
 </div>
 </div>
 
