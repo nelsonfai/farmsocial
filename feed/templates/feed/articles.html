@@ -141,7 +141,8 @@
                                               </li>
  
                                               <li class="social-what">
-                                                {% post_to_whatsapp 'https://www.myagricdiary.com/'|add:article.slug 'Copy' %}
+                                                {% post_to_whatsapp 'https://www.myagricdiary.com/'|add:article.slug '<i class="fa-regular fa-clone"></i>' %}
+                                                {% add_copy_script %}
                                             </li>
                                         </ul>
                                   </div>
@@ -293,9 +294,9 @@
 
 
 .social-networks ul {
-  position:relative;
+  position:absolute;
   top:0;
-  left:0;
+  right:-75px;
   width: 250px;
   height: 50px;
   color: #fff;
