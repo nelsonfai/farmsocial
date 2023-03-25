@@ -55,7 +55,7 @@
                             </span>
                         <span>
                             
-                            <a href="{% url 'profile' request.user.id %}">
+                            <a href="{% url 'profile' request.user.ui %}">
                                 <div class="roundedprofile" style="background:url('{{request.user.profilepic}}') ;background-position: center; background-size: contain;">
                              </div> 
                             </a>   
@@ -125,15 +125,16 @@
 
         <div class="flex-container">
             <div class="bodynav_right">
+                {% if request.user.is_authenticated %}
                 <a href="{% url 'articles' %}"> <i class="fa-solid fa-house"></i> <small> Home </small></a>
+                <a href="{% url 'profile'  request.user.ui %}"> <i class="fa-solid fa-user"></i><small>  Profile</small> </a>
                 <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> <small> Notification </small>  </a>
                 <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small style="position: relative;"> Messages <span class="counter"> {{unread}} </span></small></a>
                 <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small>  Market </small> </a>
                 <a href="{% url 'ai_room' %}"> <i class="fa-solid fa-circle-info"></i><small> Ai chat </small>  </a>
                 <a href="{% url 'create-company' %}"> <i class="fa-sharp fa-solid fa-plus"></i><small> Create page </small>  </a>
-
                 <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout  </small></a>
-
+                {%endif%}
             </div>
         {% block content %}
         {% endblock%}

@@ -18,7 +18,7 @@
                 
                     <div class="flex" > 
                         {% if obj.trigger %}
-                       <a href="{% url 'profile' obj.trigger.id%}"> <span class="roundedprofile" style="background:url('{{ obj.trigger.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
+                       <a href="{% url 'profile' obj.trigger.ui%}"> <span class="roundedprofile" style="background:url('{{ obj.trigger.profilepic}}') ;background-position: center; background-size: contain;" > </span> </a>
                        {% else %}
                        <a href="{%  url 'companyprofile' obj.trigger_page.identifier obj.trigger_page.name %}"> <span class="roundedprofile" style="background:url('{{ obj.trigger_page.logopic}}') ;background-position: center; background-size: contain;" > </span> </a>
                        {%endif%}
