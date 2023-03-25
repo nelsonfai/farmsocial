@@ -252,6 +252,7 @@ class SignupWizard(SessionWizardView):
     def done(self, form_list, **kwargs):
 
         token = str(uuid.uuid4())
+        unique_id=str(uuid.uuid4().hex)[:8]
         if form_list[0].cleaned_data['email'] or form_list[0].cleaned_data['phonenumber']:
             pass
         else:
@@ -263,6 +264,8 @@ class SignupWizard(SessionWizardView):
         password=form_list[1].cleaned_data['password1'],
         first_name=form_list[2].cleaned_data['first_name'],
         last_name=form_list[2].cleaned_data['last_name'],
+        
+        id=f"{first_name}-{last_name}-{unique_id}",
         token = token
        )
         
@@ -296,10 +299,7 @@ class FirstProfile(SessionWizardView):
         user.instituition=form_list[1].cleaned_data['instituition']
         user.profession =form_list[1].cleaned_data['profession']
         user.company=form_list[1].cleaned_data['company']
-        print(user.profile_pic)
-
         user.save()
-        print('updated')
         return redirect('articles')
 def searchpage(request):
     

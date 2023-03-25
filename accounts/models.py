@@ -65,6 +65,7 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField( default=False)
     token = models.CharField(max_length=200,default=1)
     last_seen = models.DateTimeField(null=True, blank=True)
+    id=models.CharField(max_length=200,default='admin', unique=True,primary_key=True)
 
 
 
