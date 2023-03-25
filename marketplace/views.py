@@ -153,9 +153,10 @@ def edit_product (request,slug):
                 obj.save()
                 productitem = obj
                 messages.success(request,'Product succesfully updated')
-                
-
-                return redirect ('myproducts' )  
+            else:
+                messages.error(request,'Somehting went wrong try again later')
+                return render (request,'marketplace/edit_product.html',context)
+            return redirect ('myproducts' )  
         else:    
             form = ProductUpdate(instance=productitem)
 
