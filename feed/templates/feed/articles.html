@@ -129,8 +129,7 @@
                                               </li>
 
                                               <li class="social-facebook">
-                                                {% assign fb_link = 'https://www.myagricdiary.com/' | append: article.slug %}
-                                                {% post_to_facebook fb_link '<i class="fa-brands fa-facebook-f"></i>' %}
+                                                {% post_to_facebook 'https://www.myagricdiary.com/{{article.slug}}' '<i class="fa-brands fa-facebook-f"></i>' %}
                                               </li>
 
                                               <li class="social-insta">
