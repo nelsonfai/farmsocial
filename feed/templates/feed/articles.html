@@ -129,7 +129,8 @@
                                               </li>
 
                                               <li class="social-facebook">
-                                                {% post_to_facebook 'https://www.myagricdiary.com/' '<i class="fa-brands fa-facebook-f"></i>' %}
+                                                {% assign fb_link = 'https://www.myagricdiary.com/' | append: article.slug %}
+                                                {% post_to_facebook fb_link '<i class="fa-brands fa-facebook-f"></i>' %}
                                               </li>
 
                                               <li class="social-insta">
@@ -141,7 +142,7 @@
                                               </li>
  
                                               <li class="social-what">
-                                                <button onclick="copy('https://www.myagricdiary.com/{{article.slug}}',this)"><i class="fa-regular fa-clone"></i></button>
+                                                <button onclick="copy('https://www.myagricdiary.com/{{article.slug}}',this)" style="background-color: none;"><i class="fa-regular fa-clone"></i></button>
                                             </li>
                                         </ul>
                                   </div>
