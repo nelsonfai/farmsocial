@@ -133,7 +133,7 @@
                                               </li>
 
                                               <li class="social-insta">
-                                                    {% post_to_linkedin 'https://www.myagricdiary.com/'|add:article.slug  %}
+                                                    {% post_to_linkedin 'https://www.myagricdiary.com/'|add:article.slug  
                                               </li>
 
                                               <li class="social-whatsapp">
@@ -141,7 +141,7 @@
                                               </li>
  
                                               <li class="social-what">
-                                                <button onclick="copy('https://www.myagricdiary.com/{{article.slug}}',this)" style="background-color: none;"><i class="fa-regular fa-clone"></i></button>
+                                                <span onclick="copy('https://www.myagricdiary.com/{{article.slug}}',this)" style="background-color: none;"><i class="fa-regular fa-clone"></i></span>
                                             </li>
                                         </ul>
                                   </div>

@@ -111,7 +111,10 @@ def article_details(request,article_slug):
      #comment form
     comment_form = CommentForm()
     comments=article.comments.all().order_by('-date')[0:5]
-    options = request.user.company_admin.all()
+    if request.user.is_authenticated:
+        options = request.user.company_admin.all()
+    else:
+         options=None
 
     context={
         'article':article,
