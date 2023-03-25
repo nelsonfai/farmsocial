@@ -39,6 +39,7 @@ from mailjet_rest import Client as MailClient
 from django.contrib.auth import update_session_auth_hash
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import cache_page
+from django.utils.text import slugify
 
 import io
 from twilio.rest import Client
@@ -263,12 +264,10 @@ class SignupWizard(SessionWizardView):
         user = CustomUser.objects.create_user(
         email=form_list[0].cleaned_data['email'],
         phonenumber=form_list[0].cleaned_data['phonenumber'],
-       
         password=form_list[1].cleaned_data['password1'],
         first_name=form_list[2].cleaned_data['first_name'],
         last_name=form_list[2].cleaned_data['last_name'],
-        
-        ui=f"{first_name[0]}-{last_name[0]}-{unique_id}",
+        ui=slugify(f"{first_name} {last_name} {unique_id}") ,
         token = token
        )
         
