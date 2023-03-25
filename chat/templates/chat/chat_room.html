@@ -78,7 +78,7 @@
                                             <input type="hidden" id="msg-receiver" value="{{ thread.second_person.id }}">
 
                                             <input type="hidden" name="" class="send-to-user" value=" {{thread.second_person.id}} ">
-                                            <a href="{% url 'profile' thread.second_person.id %}"> 
+                                            <a href="{% url 'profile' thread.second_person.ui %}"> 
                                                 <div class="flex" > 
                                                 <span class="roundedprofile" style="background:url('{{ thread.second_person.profilepic}}') ;background-position: center; background-size: contain; position: relative;" > 
                                                     <span class="indicator" id="indicator"> </span> 
@@ -95,7 +95,7 @@
                                         <input type="hidden" name="" class="send-to-user" value="{{thread.first_person.id}}">
                                         <input type="hidden" id="msg-receiver" value="{{ thread.first_person.id }}">
 
-                                        <a href="{% url 'profile' thread.first_person.id %}"> 
+                                        <a href="{% url 'profile' thread.first_person.ui %}"> 
                                             <div class="flex" > 
                                                 <span class="roundedprofile" style="background:url('{{ thread.first_person.profilepic}}') ;background-position: center; background-size: contain; position: relative;"> 
                                                     <span class="indicator" id="indicator"> </span> 

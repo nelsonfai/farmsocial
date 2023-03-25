@@ -25,7 +25,7 @@
 
 <div>
   {%if article.author %}
-  <a href=" {% url 'profile' article.author.id %} ">  Post by: {{article.author.first_name}}  {{article.author.last_name}} </a>
+  <a href=" {% url 'profile' article.author.ui %} ">  Post by: {{article.author.first_name}}  {{article.author.last_name}} </a>
   {%else%}
   <a href="{%  url 'companyprofile' article.company.identifier article.company.name %}"> Post by: {{article.company.name}}</a>
  {%endif%}
@@ -90,7 +90,7 @@
       <div class="roundedprofile" style="background:url('{{comment.author.profilepic}}') ;background-position: center; background-size: contain;" >  </div> 
     </div>
     <div> 
-      <div> <a href=" {% url 'profile' comment.author.id %}" style="color: #333;">{{comment.author.get_full_name}} </a></div> 
+      <div> <a href=" {% url 'profile' comment.author.ui %}" style="color: #333;">{{comment.author.get_full_name}} </a></div> 
     {%else%}
     <div style="width:30px"> 
       <div class="roundedprofile" style="background:url('{{comment.companyauthor.logopic}}') ;background-position: center; background-size: contain;" >  </div> 
@@ -197,7 +197,7 @@ success:function(data) {
               <div class="roundedprofile" style="background:url('${data.img}') ;background-position: center; background-size: contain;">  </div> 
             </div>
             <div> 
-              <div> <a href=" {% url 'profile' request.user.id %}" style="color: #333;> ${data.name} </a> </div> 
+              <div> <a href=" {% url 'profile' request.user.ui%}" style="color: #333;> ${data.name} </a> </div> 
               <div class="comment">   
                 ${data.comment}
               </div> 

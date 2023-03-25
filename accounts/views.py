@@ -89,7 +89,7 @@ def logout_view(request):
 @login_required()     
 def profile(request,slug):
     try:    
-        profile=CustomUser.objects.get(id = slug )
+        profile=CustomUser.objects.get(ui = slug )
         products=ProductItem.objects.filter(user_profile=profile)
         articles=Articles.objects.filter(author=profile)
         followers = Network.objects.get(user=profile)
@@ -128,7 +128,7 @@ def edit_name(request):
                 user.last_name=form.cleaned_data['last_name']
                 print(user.profile)
                 user.save()
-                return redirect('profile',request.user.id)
+                return redirect('profile',request.user.ui)
             else:
                 user = request.user
                 form = PersonalInfoForm(instance=user)
@@ -157,7 +157,7 @@ def edit_bio(request):
                    user.profile_pic = thumpnail_image
 
                 user.save()
-                return redirect('profile',request.user.id)
+                return redirect('profile',request.user.ui)
             else:
                 user = request.user
                 form = ProfileInfo(instance=user)
@@ -185,7 +185,7 @@ def edit_education(request):
                 user.profession=form['profession'].value()
                 user.company=form['company'].value()
                 user.save()
-                return redirect('profile',request.user.id)
+                return redirect('profile',request.user.ui)
             else:
                 user = request.user
                 form = EducationForm(instance=user)
@@ -265,7 +265,7 @@ class SignupWizard(SessionWizardView):
         first_name=form_list[2].cleaned_data['first_name'],
         last_name=form_list[2].cleaned_data['last_name'],
         
-        id=f"{first_name}-{last_name}-{unique_id}",
+        ui=f"{first_name}-{last_name}-{unique_id}",
         token = token
        )
         
@@ -315,7 +315,7 @@ def search_users(request,slug):
     for user in users:
         data['results'].append({
             'type':'user',
-            'id': user.id,
+            'id': user.ui,
             'text': user.get_full_name(),
             'profilepic':user.profilepic()
         })

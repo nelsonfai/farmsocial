@@ -64,7 +64,7 @@
                                 <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')"> <i class="fa-solid fa-caret-down"></i></span>
                                 <div id="myDropdown{{article.id}}" class="dropdown-content">
                                   
-                                    <li> <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i> Profile</a> </li>
+                                    <li> <a href="{% url 'profile'  request.user.ui %}"> <i class="fa-solid fa-user"></i> Profile</a> </li>
                                     <li>  <a href="{% url 'myproducts'   %}"> <i class="fa-solid fa-cubes-stacked"></i> My products</a></li>
                                     <li> <a href="{% url 'privacy-settings' %}"><i class="fa-sharp fa-solid fa-gear"></i> Privacy Settings  </a></li> 
 
@@ -126,7 +126,7 @@
    <div class="flex-container">
     <div class="bodynav_right">
         <a href="{% url 'articles' %}"> <i class="fa-solid fa-house"></i> <small> Home </small></a>
-        <a href="{% url 'profile'  request.user.id %}"> <i class="fa-solid fa-user"></i><small>  Profile</small> </a>
+        <a href="{% url 'profile'  request.user.ui %}"> <i class="fa-solid fa-user"></i><small>  Profile</small> </a>
         <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> <small> Notification </small>  </a>
         <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small style="position: relative;"> Messages <span class="counter"> {{unread}} </span></small></a>
         <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small>  Market </small> </a>
