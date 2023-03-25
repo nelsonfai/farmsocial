@@ -37,7 +37,7 @@ urlpatterns = [
     path('friends/' ,include('Friends.urls')),
     path('accounts/', include('accounts.urls') ),
     path('', include('feed.urls') ),
-    path('market/', include('marketplace.urls') ),
+    path('market', include('marketplace.urls') ),
     path('chat/', include('chat.urls') ),
     path('company/', include('company.urls') ),
     path('ai/', include('myagricai.urls') ),

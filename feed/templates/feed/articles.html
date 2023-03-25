@@ -129,11 +129,11 @@
                                               </li>
 
                                               <li class="social-facebook">
-                                                {% post_to_facebook 'https://www.myagricdiary.com/{{article.slug}}' '<i class="fa-brands fa-facebook-f"></i>' %}
+                                                {% post_to_facebook 'https://www.myagricdiary.com/'|add:article.slug '<i class="fa-brands fa-facebook-f"></i>' %}
                                               </li>
 
                                               <li class="social-insta">
-                                                    {% post_to_linkedin 'https://www.myagricdiary.com/'|add:article.slug  
+                                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//www.myagricdiary.com/{{article.slug}}"><i class="fa-brands fa-linkedin-in"></i> </a>
                                               </li>
 
                                               <li class="social-whatsapp">
@@ -266,7 +266,6 @@
   -webkit-transform: scale(0) translateY(-190px);
   transform: scale(0) translateY(-190px);
   opacity: 0;
-  -webkit-transition: all .4s ease;
   transition: all .4s ease;
   /* stops flickering */
   -webkit-backface-visibility: hidden;

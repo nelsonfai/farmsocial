@@ -13,7 +13,6 @@ from django.views.decorators.cache import cache_page
 
 # Create your views here.
 @cache_page(60 * 5) # cache for 5 minutes
-@login_required   
 def market (request):
     productitems=ProductItem.objects.all()
     p=Paginator(productitems,per_page=8)
