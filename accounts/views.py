@@ -253,6 +253,9 @@ class SignupWizard(SessionWizardView):
 
         token = str(uuid.uuid4())
         unique_id=str(uuid.uuid4().hex)[:8]
+        first_name=form_list[2].cleaned_data['first_name'],
+        last_name=form_list[2].cleaned_data['last_name'],
+        
         if form_list[0].cleaned_data['email'] or form_list[0].cleaned_data['phonenumber']:
             pass
         else:
