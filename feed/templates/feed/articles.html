@@ -141,8 +141,7 @@
                                               </li>
  
                                               <li class="social-what">
-                                                {% copy_to_clipboard 'https://www.myagricdiary.com/'|add:article.slug '<i class="fa-regular fa-clone"></i>' %}
-                                                {% add_copy_script %}
+                                                <button onclick="copy('https://www.myagricdiary.com/{{article.slug}}',this)"><i class="fa-regular fa-clone"></i></button>
                                             </li>
                                         </ul>
                                   </div>
@@ -640,5 +639,10 @@ if (window.innerWidth < 768) {
   document.getElementById(id).classList.toggle("open-menu");
 }
 </script>
-
+<script>
+  function share(copy,button) {
+    navigator.clipboard.writeText(copy);
+        button.innerHTML = '&check;'
+  }
+  </script>
 {% endblock %}
