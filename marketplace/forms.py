@@ -33,7 +33,6 @@ class ProductUpdate(forms.ModelForm):
             'product_description': forms.Textarea(attrs={ 'row':5,})
         } 
     def __init__(self, *args, **kwargs):
-        print('Init calles----------------------------------')
         super().__init__(*args, **kwargs)
         for field in self.fields:
             

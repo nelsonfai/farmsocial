@@ -155,7 +155,7 @@ def edit_product (request,slug):
                 messages.success(request,'Product succesfully updated')
             else:
                 messages.error(request,'Somehting went wrong try again later')
-                return render (request,'marketplace/edit_product.html',context)
+                return  redirect('edit_product',slug)
             return redirect ('myproducts' )  
         else:    
             form = ProductUpdate(instance=productitem)
