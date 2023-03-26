@@ -35,13 +35,13 @@
 <p style="text-align:center;color:var(--primary-color);margin-bottom: 1rem; cursor: pointer;" id="id_0-phonenumber-button"><span onclick="toggleField(show='id_0-email',hide='id_0-phonenumber')" style="color:var(--primary-color);">Signup with Email</span> </p>
 {%endif%}
 
-{% if wizard.steps.prev %}
+{% if wizard.steps.next %}
     <button class="button_one button_fulllength" value="{% trans 'submit' %}">Continue</button>
 {%else%}
     {% if wizard.form.last_name %}
           <button class="button_one button_fulllength" value="{% trans 'submit' %}">  Agree & Join </button>
     {%else%}
-          <button class="button_one button_fulllength" value="{% trans 'submit' %}">Send </button>
+          <button class="button_one button_fulllength" value="{% trans 'submit' %}">Send</button>
     {%endif%}
 {%endif%}
 
