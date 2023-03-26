@@ -8,8 +8,8 @@
 
 <main> 
   <div class="menubar">  
-    <span id="spannews"><a href="{% url 'filter' 'News' %}?filter_by=category"> News </a></span>
-    <span id="spanpost"><a href="{% url 'filter' 'Post' %}?filter_by=category"> Articles </a></span>
+    <div id="spannews"><a href="{% url 'filter' 'News' %}?filter_by=category"> News </a></div>
+    <div id="spanpost"><a href="{% url 'filter' 'Post' %}?filter_by=category"> Articles </a></div>
   </div>
 
             <div style="margin-bottom:20px">
@@ -36,12 +36,6 @@
             <div id="articles_container"> 
             {% for article in articles %}
                     <div class="article-item" id="article{{article.id}}"> 
-                      {% if article.category == 'News'%}
-                        <p style="margin-left: .8rem;margin-bottom: 1rem;margin-top: -1rem;">
-                          <a href="{% url 'filter' article.category %}?filter_by=category">
-                          <button class="button_three" style="background-color: var(--primary-color); color:rgb(212, 196, 75);margin-top: 0.5rem;" class="button_three"> # News </button></a>
-                        </p>
-                      {%endif%}
                       <div class="article-top" style="align-items: flex-start !important;"> 
                         <div class="author-info">
                           
@@ -302,10 +296,14 @@
   background-color: #d4c44b;
     margin-right: 0.5rem;
     padding: 0.4rem 0.9rem;
+    width: 50%;
+    text-align: center;
  }
  .menubar #spanpost{
   background-color: var(--primary-color);
     padding: 0.4rem 0.9rem;
+    width: 50%;
+    text-align: center;
  }
  #spanpost a,#spannews a{
   color:whitesmoke

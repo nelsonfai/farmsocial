@@ -279,6 +279,20 @@ class SignupWizard(SessionWizardView):
             message =f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/accounts/verify/{token}'
             sendto = user.email
             email(subject=subject,message=message,sendto=sendto)
+        if user.phonenumber:
+            try:
+                        # Sendinf link via twilio
+                        account_sid = 'AC55caa897055964cd534f89f4b9487323'
+                        auth_token = '9f836c911f264eb60d9a1e7131a1379e'
+                        client = Client(account_sid, auth_token)
+
+                        message = client.messages.create(
+                                body=f'Thank you for registering with us!  Activate your email  address by clicking the following link: https://www.myagricdiary.com/accounts/verify/{token}',
+                                from_='+18565563965',
+                                to=user.phonenumber
+                            )
+            except:
+                        pass
         return redirect('firstProfile')
 
 class FirstProfile(SessionWizardView):

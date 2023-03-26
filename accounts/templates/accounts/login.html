@@ -6,7 +6,6 @@
 
 <div class="container">
 
-    <h2 class="form-title" style="text-align: center;"> Login </h2>
     <form action="{% url 'login'%}" method="post">
         {% csrf_token %}
                 {% if request.GET.next %}
@@ -27,6 +26,9 @@ li{
 }
 ul{text-align: center;
     margin-block: 1rem;
+}
+label{
+    display: none;
 }
 </style>
 
