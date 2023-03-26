@@ -59,7 +59,7 @@
                             <div> 
                                 {% if article.author == request.user or  article.company.user == request.user %}
                                 <div class="dropdown">
-                                    <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')">...</span>
+                                    <span class="dropbtn" onclick="myFunction(data='myDropdown{{article.id}}')" style="cursor:pointer;">...</span>
                                     <div id="myDropdown{{article.id}}" class="dropdown-content" style="min-width: 0;">
                                       <span><button onclick="deleteConfirm(event,id='article{{article.id}}', article_id='{{article.id}}' )">Delete</button></span>
 
