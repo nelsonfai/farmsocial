@@ -187,6 +187,9 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+CKEDITOR_UPLOAD_PATH = 'uploads/'  # define the path where uploaded images will be saved
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'  # set the URL for jQuery
+
 
 
 LOGIN_URL='/accounts/login/'

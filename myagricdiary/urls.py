@@ -45,8 +45,7 @@ urlpatterns = [
     path('legal/privacypolicy/',privacy_policy, name='privacypolicy'),
     path('legal/cookie_policy/',cookie_policy, name='cookiepolicy'),
     path('favicon.ico', favicon_view),
-
-
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 urlpatterns+=staticfiles_urlpatterns()
