@@ -93,7 +93,6 @@ class Articles (models.Model):
     author=models.ForeignKey(CustomUser, related_name='profile' ,on_delete= models.CASCADE ,blank=True, null=True)
     company = models.ForeignKey(Company,related_name='companyprofile' ,on_delete= models.CASCADE, blank=True, null=True)
     title = models.CharField( max_length=400, blank=True, null=True)
-    #body = models.TextField()
     body = RichTextField( blank=True, null=True ,db_index=True)
     slug = models.SlugField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
