@@ -105,7 +105,7 @@ class Articles (models.Model):
     tag = TaggableManager(blank=True)
     country  = CountryField(blank_label='(select country)', blank=True, null= True)
     category = models.CharField(choices =categories, default='Post', max_length=10)
-    status=models.CharField(choices =categories, default='Publish', max_length=20)
+    status=models.CharField(choices =statusChoices, default='Publish', max_length=20)
 
    
     def __str__(self):
