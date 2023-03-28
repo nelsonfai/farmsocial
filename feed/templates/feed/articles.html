@@ -8,8 +8,8 @@
 
 <main> 
   <div class="menubar">  
-    <div id="spannews"><a href="{% url 'filter' 'News' %}?filter_by=category"> News </a></div>
-    <div id="spanpost"><a href="{% url 'filter' 'Post' %}?filter_by=category"> Articles </a></div>
+   <a href="{% url 'filter' 'News' %}?filter_by=category" style="color:whitesmoke"> <div id="spannews">  News </div> </a>
+   <a href="{% url 'filter' 'Post' %}?filter_by=category" style="color:whitesmoke"> <div id="spanpost"> Articles </div></a>
   </div>
 
             <div style="margin-bottom:20px">
@@ -306,9 +306,7 @@
     width: 50%;
     text-align: center;
  }
- #spanpost a,#spannews a{
-  color:whitesmoke
- }
+
 </style>
 <script>
   function share(id){
