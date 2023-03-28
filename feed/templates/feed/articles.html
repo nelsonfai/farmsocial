@@ -8,8 +8,8 @@
 
 <main> 
   <div class="menubar">  
-   <a href="{% url 'filter' 'News' %}?filter_by=category" style="color:whitesmoke"> <div id="spannews">  News </div> </a>
-   <a href="{% url 'filter' 'Post' %}?filter_by=category" style="color:whitesmoke"> <div id="spanpost"> Articles </div></a>
+   <a href="{% url 'filter' 'News' %}?filter_by=category"> <div id="spannews">  News </div> </a>
+   <a href="{% url 'filter' 'Post' %}?filter_by=category"> <div id="spanpost"> Articles </div></a>
   </div>
 
             <div style="margin-bottom:20px">
@@ -297,14 +297,15 @@
   background-color: #d4c44b;
     margin-right: 0.5rem;
     padding: 0.4rem 0.9rem;
-    width: 50%;
     text-align: center;
+    color:whitesmoke
+
  }
  .menubar #spanpost{
   background-color: var(--primary-color);
     padding: 0.4rem 0.9rem;
-    width: 50%;
     text-align: center;
+    color:whitesmoke
  }
 
 </style>
