@@ -83,7 +83,7 @@ def slug_generator(title,body):
 @cache_page(60 * 5) # cache for 5 minutes
 def articles (request):
     if request.user.is_authenticated:
-        articles=Articles.objects.all().order_by('-date')
+        articles=Articles.objects.filter(status='Publish').order_by('-date')
         p=Paginator(articles,per_page=10)
         page=request.GET.get('page')
         paginated_article=p.get_page(page)
@@ -239,9 +239,9 @@ def delete_annoucement (request,slug):
 def filter_article(request,tag):
         filter_by = request.GET.get('filter_by')
         if filter_by == 'tag':
-            articles = Articles.objects.filter(tag__slug=tag)
+            articles = Articles.objects.filter(tag__slug=tag).filter(status='Publish').order_by('-date')
         if filter_by == 'category':
-            articles = Articles.objects.filter(category=tag)
+            articles = Articles.objects.filter(category=tag).filter(status='Publish').order_by('-date')
 
         p=Paginator(articles,per_page=10)
         page=request.GET.get('page')

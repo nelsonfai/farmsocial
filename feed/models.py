@@ -89,6 +89,8 @@ def timefuntion(date):
 
 categories=(
     ('News','News'), ('Post','Post'))
+statusChoices=(
+    ('Publish','Publish'), ('Draft','Draft'))
 class Articles (models.Model):
     author=models.ForeignKey(CustomUser, related_name='profile' ,on_delete= models.CASCADE ,blank=True, null=True)
     company = models.ForeignKey(Company,related_name='companyprofile' ,on_delete= models.CASCADE, blank=True, null=True)
@@ -103,6 +105,7 @@ class Articles (models.Model):
     tag = TaggableManager(blank=True)
     country  = CountryField(blank_label='(select country)', blank=True, null= True)
     category = models.CharField(choices =categories, default='Post', max_length=10)
+    status=models.CharField(choices =categories, default='Publish', max_length=20)
 
    
     def __str__(self):
