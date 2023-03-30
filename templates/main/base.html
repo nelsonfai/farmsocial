@@ -175,6 +175,32 @@
             }
         </script>
 <script>
+// get all form elements on the page
+const forms = document.querySelectorAll('form');
+
+// loop through each form
+for (let i = 0; i < forms.length; i++) {
+  const form = forms[i];
+
+  // add submit event listener to the form
+  form.addEventListener('submit', (event) => {
+    // get all file input fields in the form
+    const fileInputs = form.querySelectorAll('input[type="file"]');
+
+    // loop through each file input and check the file size
+    for (let j = 0; j < fileInputs.length; j++) {
+      const file = fileInputs[j].files[0];
+      if (file && file.size > 10 * 1024 * 1024) { // 10MB in bytes
+        // display alert message
+        alert('File size should not exceed 10MB.');
+
+        // prevent form submission
+        event.preventDefault();
+        return false;
+      }
+    }
+  });
+}
 
 </script>
 

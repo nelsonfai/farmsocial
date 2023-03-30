@@ -55,17 +55,17 @@ def add_product (request):
             obj.save()
             messages.success(request,'Product added succesfully')
             return redirect ('market')
-        """ 
+        
         else:
             options = request.user.company_admin.all()
-            messages.success(request,'Product add failed Try again')
+            messages.success(request,'Product add failed Try again.Make sure file type is png or jpg format')
             form = ProductitemForm()
             context={
             "form":form,
             'options':options
               }
             return render (request,'marketplace/newproduct.html',context)
-        """
+    
     else:
         profile=request.user
         initial_data={
