@@ -12,6 +12,47 @@
         </form>
 </div>
 </div>
+
+<script>
+    // get all form elements on the page
+const forms = document.querySelectorAll('form');
+
+// loop through each form
+for (let i = 0; i < forms.length; i++) {
+  const form = forms[i];
+
+  // add submit event listener to the form
+  form.addEventListener('submit', (event) => {
+    // get all file input fields in the form
+    const fileInputs = form.querySelectorAll('input[type="file"]');
+
+    // loop through each file input and check the file size and type
+    for (let j = 0; j < fileInputs.length; j++) {
+      const file = fileInputs[j].files[0];
+      if (file) {
+        const fileType = file.type.split('/')[1]; // get file extension
+
+        if (file.size > 10 * 1024 * 1024) { // 10MB in bytes
+          // display alert message
+          alert('File size should not exceed 10MB.');
+
+          // prevent form submission
+          event.preventDefault();
+          return false;
+        } else if (!(fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg')) {
+          // display alert message
+          alert('Please select a JPEG, PNG, or JPG file.');
+
+          // prevent form submission
+          event.preventDefault();
+          return false;
+        }
+      }
+    }
+  });
+}
+
+</script>
 <style>
 .edit-product-container{
     width:100%;
