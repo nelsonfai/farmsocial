@@ -1,6 +1,6 @@
 from .models import ProductItem
 from django import forms
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, MaxValueValidator
 
     
 class ProductitemForm(forms.ModelForm):
@@ -14,7 +14,18 @@ class ProductitemForm(forms.ModelForm):
             
             'product_description': forms.Textarea(attrs={'placeholder':'Enter Product description here...', 'row':3,})
         } 
-        validators = [FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
+    main_image = forms.FileField(validators=[
+        FileExtensionValidator(['jpg', 'png', 'jpeg']),
+        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
+    ])
+    image2 = forms.FileField(validators=[
+        FileExtensionValidator(['jpg', 'png', 'jpeg']),
+        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
+    ])    
+    image3 = forms.FileField(validators=[
+        FileExtensionValidator(['jpg', 'png', 'jpeg']),
+        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
+     ])    
 
 
     def __init__(self, *args, **kwargs):
@@ -35,8 +46,21 @@ class ProductUpdate(forms.ModelForm):
             
             'product_description': forms.Textarea(attrs={ 'row':5,})
         } 
-        validators = [FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
 
+    main_image = forms.FileField(validators=[
+        FileExtensionValidator(['jpg', 'png', 'jpeg']),
+        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
+    ])
+    image2 = forms.FileField(validators=[
+        FileExtensionValidator(['jpg', 'png', 'jpeg']),
+        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
+    ])    
+    image3 = forms.FileField(validators=[
+        FileExtensionValidator(['jpg', 'png', 'jpeg']),
+        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
+     ])    
+
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
