@@ -34,7 +34,7 @@ def add_product (request):
             'user_profile':profile
         }
         form = ProductitemForm(request.POST, request.FILES)
-        if form.is_valid:
+        if form.is_valid():
             obj = form.save(commit=False)
             mainimage= request.FILES.get('main_image')
             image2= request.FILES.get('image2')
