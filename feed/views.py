@@ -141,9 +141,9 @@ def comment(request,article_slug):
                     obj.comment = comment
                     obj.article_id = article.id
                     obj.save()
-                    if request.user == article.author or request.user == article.company.user:
+                if request.user == article.author or request.user == article.company.user:
                         pass
-                    else:
+                else:
                         message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
                         if obj.author :
                             name=obj.author.get_full_name()

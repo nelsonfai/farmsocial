@@ -60,7 +60,7 @@
                         {%endif%}
                     </span>
             </div>
-       <p> <span onclick="closepopup();shownetwork('following22','followers22')"  style="cursor: pointer;margin-right: 07rem;">   Followers {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')"  style="cursor: pointer">  Following {{profile.myfollowing.following.count}}</span> </p>
+       <p> <span onclick="closepopup();shownetwork('following22','followers22')"  style="cursor: pointer;margin-right: 0.7rem;">   Followers {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')"  style="cursor: pointer">  Following {{profile.myfollowing.following.count}}</span> </p>
             {% if user.is_authenticated %}
                 <br>
                     {% if profile != request.user %}
