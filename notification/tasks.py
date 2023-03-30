@@ -84,9 +84,9 @@ def create_network(created ,instance ,**kwargs):
 
 @receiver(post_delete, sender=Articles)  # replace Article with the appropriate model
 def delete_related_notifications(sender, instance, **kwargs):
-    Notification.objects.filter(url=instance.get_absolute_url()).delete()
+    Notification.objects.filter(url=instance.get_absolute_url).delete()
 
 @receiver(post_delete, sender=ProductItem)  # replace Article with the appropriate model
 def delete_related_notifications(sender, instance, **kwargs):
-    Notification.objects.filter(url=instance.get_absolute_url()).delete()
+    Notification.objects.filter(url=instance.get_absolute_url).delete()
 
