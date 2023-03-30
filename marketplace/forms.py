@@ -14,20 +14,7 @@ class ProductitemForm(forms.ModelForm):
             
             'product_description': forms.Textarea(attrs={'placeholder':'Enter Product description here...', 'row':3,})
         } 
-    main_image = forms.FileField(validators=[
-        FileExtensionValidator(['jpg', 'png', 'jpeg']),
-        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
-    ])
-    image2 = forms.FileField(validators=[
-        FileExtensionValidator(['jpg', 'png', 'jpeg']),
-        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
-    ])    
-    image3 = forms.FileField(validators=[
-        FileExtensionValidator(['jpg', 'png', 'jpeg']),
-        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
-     ])    
-
-
+ 
     def __init__(self, *args, **kwargs):
         print('Init calles----------------------------------')
         super().__init__(*args, **kwargs)
@@ -46,20 +33,6 @@ class ProductUpdate(forms.ModelForm):
             
             'product_description': forms.Textarea(attrs={ 'row':5,})
         } 
-
-    main_image = forms.FileField(validators=[
-        FileExtensionValidator(['jpg', 'png', 'jpeg']),
-        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
-    ])
-    image2 = forms.FileField(validators=[
-        FileExtensionValidator(['jpg', 'png', 'jpeg']),
-        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
-    ])    
-    image3 = forms.FileField(validators=[
-        FileExtensionValidator(['jpg', 'png', 'jpeg']),
-        MaxValueValidator(10 * 1024 * 1024) # file size must be less than 10MB
-     ])    
-
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
