@@ -53,14 +53,14 @@
                         <p>{{ profile.company }} </p>
                     {% endif %}
                 {% endif %}
-                <p> <small> <i class="fa-solid fa-location-dot"></i> {{profile.location}} </small></p>
+                <p> <small> <i class="fa-solid fa-location-dot"></i> {{profile.location.name}} </small></p>
                     <span class="deletebtnfloat"> 
                         {% if profile == request.user %}
                         <span class="deletebtnfloat"> <a href="{% url 'editeducation' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
                         {%endif%}
                     </span>
             </div>
-       <p> <span onclick="closepopup();shownetwork('following22','followers22')" >   Followers- {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')" >  Following {{profile.myfollowing.following.count}}</span> </p>
+       <p> <span onclick="closepopup();shownetwork('following22','followers22')"  style="cursor: pointer;margin-right: 07rem;">   Followers {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')"  style="cursor: pointer">  Following {{profile.myfollowing.following.count}}</span> </p>
             {% if user.is_authenticated %}
                 <br>
                     {% if profile != request.user %}
@@ -164,12 +164,12 @@
 
 <div id="popup22">
     <div class="popuphead">
-        <div> <span onclick="shownetwork('followers22','following22')" id="followers22Indicate"> Followers</span> <span onclick="shownetwork('following22','followers22')" id="following22Indicate">Following</span></div>
-        <span onclick="closepopup()">Close</span>
+        <div style="display:flex;"> <span onclick="shownetwork('followers22','following22')" id="followers22Indicate"> Followers</span> <span onclick="shownetwork('following22','followers22')" id="following22Indicate">Following</span></div>
+        <span onclick="closepopup()" style="padding: 1rem;">Close</span>
     </div>
     <div class="popupbody">
         <div id="followers22" >
-                <div> 
+                <div > 
                     
                     {% for item in profile.myfollowing.following.all %}
                     <div class="flex flex_outerfollow"> 
