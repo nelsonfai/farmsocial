@@ -1,7 +1,8 @@
 from django.dispatch import Signal
 from django.dispatch import receiver
-from .models import Notification,NotificationUser
 
+
+from .models import Notification
 notification_signal = Signal(providing_args=["message", "trigger", "target","url"])
 
 @receiver(notification_signal)

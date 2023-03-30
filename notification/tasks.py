@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from feed.models import Articles
 from marketplace.models import ProductItem
 from Friends.models import Network
-
+from django.db.models.signals import post_delete
 app = Celery('tasks', broker='redis://localhost:6379/0', result_backend='redis://localhost:6379/0')
 
 @app.task
@@ -79,3 +79,13 @@ def create_notification(created ,instance ,**kwargs):
 def create_network(created ,instance ,**kwargs):
         if created:
             network = Network.objects.create(user=instance)
+
+
+
+@receiver(post_delete, sender=Articles)  # replace Article with the appropriate model
+def delete_related_notifications(sender, instance, **kwargs):
+    Notification.objects.filter(url=instance.get_absolute_url()).delete()
+
+@receiver(post_delete, sender=ProductItem)  # replace Article with the appropriate model
+def delete_related_notifications(sender, instance, **kwargs):
+    Notification.objects.filter(url=instance.get_absolute_url()).delete()
