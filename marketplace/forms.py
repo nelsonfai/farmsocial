@@ -9,9 +9,7 @@ class ProductitemForm(forms.ModelForm):
         model =ProductItem
   
         fields= ('user_profile','product','product_description','quantity','price','location','main_image','image2','image3','product_category')
-        
         widgets ={
-            
             'product_description': forms.Textarea(attrs={'placeholder':'Enter Product description here...', 'row':3,})
         } 
  
@@ -26,11 +24,8 @@ class ProductitemForm(forms.ModelForm):
 class ProductUpdate(forms.ModelForm):
     class Meta:
         model = ProductItem
-
         fields = ('product','product_description','quantity','price','location','product_category','main_image','image2','image3')
-
         widgets ={
-            
             'product_description': forms.Textarea(attrs={ 'row':5,})
         } 
         

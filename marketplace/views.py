@@ -34,15 +34,14 @@ def add_product (request):
             'user_profile':profile
         }
         form = ProductitemForm(request.POST, request.FILES)
-        mainimage= request.FILES.get('main_image')
-        image2= request.FILES.get('image2')
-        image3= request.FILES.get('image3')
-        form.user_profile=request.user
-        company = request.POST.get('company')
-        print(form.user_profile)
-
         if form.is_valid:
             obj = form.save(commit=False)
+            mainimage= request.FILES.get('main_image')
+            image2= request.FILES.get('image2')
+            image3= request.FILES.get('image3')
+            form.user_profile=request.user
+            company = request.POST.get('company')
+            print(form.user_profile)
             if company !='None':
                 companypage = Company.objects.get(identifier=company)
                 obj.companypage = companypage
