@@ -11,6 +11,7 @@ import math
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
+from django.urls import reverse
 
 
 
@@ -128,6 +129,9 @@ class Articles (models.Model):
     @property
     def num_likes(self):
         return self.liked.all().count()
+    @property
+    def get_absolute_url(self):
+        return reverse('details', args=[str(self.slug)])
 
 class Comments (models.Model):
     

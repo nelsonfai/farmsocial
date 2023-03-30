@@ -3,6 +3,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 from company.models import Company
 from accounts.models import CustomUser
+from django.urls import reverse
 
 
 from django.utils.translation import gettext_lazy as _
@@ -45,4 +46,6 @@ class ProductItem(models.Model):
     def __str__(self):
         return self.product
    
-        
+    @property
+    def get_absolute_url(self):
+        return reverse('product', args=[str(self.id)])

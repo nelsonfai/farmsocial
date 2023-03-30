@@ -132,25 +132,28 @@ def comment(request,article_slug):
                 author= request.POST.get('author')
                 obj = Comments()
                 obj.article = article
-
+              
                 if author == 'user':
-                    obj.author = request.user
+                        obj.author = request.user
                 else:
-                     companypage = Company.objects.get(identifier= author)
-                     obj.companyauthor=companypage
-                obj.comment = comment
-                obj.article_id = article.id
-                obj.save()
-                message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
-                if obj.author :
-                    name=obj.author.get_full_name()
-                    img_url = obj.author.profilepic()
-                    url ='/' + obj.article.slug
+                    companypage = Company.objects.get(identifier= author)
+                    obj.companyauthor=companypage
+                    obj.comment = comment
+                    obj.article_id = article.id
+                    obj.save()
+                    if request.user == article.author or request.user == article.company.user:
+                        pass
+                    else:
+                        message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
+                        if obj.author :
+                            name=obj.author.get_full_name()
+                            img_url = obj.author.profilepic()
+                            url ='/' + obj.article.slug
 
-                    notification_signal.send(message =message,target=obj.author,trigger=request.user,sender=None,url=url)
-                else:
-                     name = obj.companyauthor.name
-                     img_url= obj.companyauthor.logopic()
+                            notification_signal.send(message =message,target=obj.author,trigger=request.user,sender=None,url=url)
+                        else:
+                            name = obj.companyauthor.name
+                            img_url= obj.companyauthor.logopic()
                 return JsonResponse({'comment':obj.comment,'name':name ,'img':img_url})
 
 

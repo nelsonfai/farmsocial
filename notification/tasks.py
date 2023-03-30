@@ -89,3 +89,4 @@ def delete_related_notifications(sender, instance, **kwargs):
 @receiver(post_delete, sender=ProductItem)  # replace Article with the appropriate model
 def delete_related_notifications(sender, instance, **kwargs):
     Notification.objects.filter(url=instance.get_absolute_url()).delete()
+
