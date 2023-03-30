@@ -141,17 +141,14 @@ def comment(request,article_slug):
                     obj.comment = comment
                     obj.article_id = article.id
                     obj.save()
-                if request.user == article.author or request.user == article.company.user:
-                        pass
-                else:
-                        message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
-                        if obj.author :
+                    message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
+                    if obj.author :
                             name=obj.author.get_full_name()
                             img_url = obj.author.profilepic()
                             url ='/' + obj.article.slug
 
                             notification_signal.send(message =message,target=obj.author,trigger=request.user,sender=None,url=url)
-                        else:
+                    else:
                             name = obj.companyauthor.name
                             img_url= obj.companyauthor.logopic()
                 return JsonResponse({'comment':obj.comment,'name':name ,'img':img_url})

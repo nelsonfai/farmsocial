@@ -1,5 +1,6 @@
 from .models import ProductItem
 from django import forms
+from django.core.validators import FileExtensionValidator
 
     
 class ProductitemForm(forms.ModelForm):
@@ -13,6 +14,8 @@ class ProductitemForm(forms.ModelForm):
             
             'product_description': forms.Textarea(attrs={'placeholder':'Enter Product description here...', 'row':3,})
         } 
+        validators = [FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
+
 
     def __init__(self, *args, **kwargs):
         print('Init calles----------------------------------')
@@ -32,6 +35,8 @@ class ProductUpdate(forms.ModelForm):
             
             'product_description': forms.Textarea(attrs={ 'row':5,})
         } 
+        validators = [FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'])]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
