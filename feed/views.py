@@ -145,15 +145,13 @@ def comment(request,article_slug):
                 url ='/' + obj.article.slug
 
                 if obj.author :
-                            name=request.user.get_full_name
+                            name=request.user.get_full_name()
                             img_url = obj.author.profilepic()
                             if article.author != request.user:
                                 new_notification=Notification.objects.create(message=message,url=url,trigger=request.user)
                 else:
                             name = obj.companyauthor.name
                             img_url= obj.companyauthor.logopic()
-                            notification_signal.send(message=message,target=article.author,trigger=request.user,sender=None,url=url)
-                            
                             new_notification=Notification.objects.create(message=message,url=url,trigger_page=obj.company)
 
                 return JsonResponse({'comment':obj.comment,'name':name,'img':img_url})
