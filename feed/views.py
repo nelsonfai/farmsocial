@@ -19,7 +19,7 @@ from company.models import Company
 import io
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.views.decorators.cache import cache_page
-
+from notification.models import Notification
 # Create your views here.
 @cache_page(60 * 5) # cache for 5 minutes
 @login_required   
@@ -121,7 +121,6 @@ def article_details(request,article_slug):
         'comment_form':comment_form,
         'comments':comments,
         'options':options
-
     }
     return render(request, 'feed/details.html',context)
 @login_required   
@@ -131,26 +130,31 @@ def comment(request,article_slug):
                 author= request.POST.get('author')
                 obj = Comments()
                 obj.article = article
-              
                 if author == 'user':
                         obj.author = request.user
+                        messagename=request.user.get_full_name()
                 else:
-                    companypage = Company.objects.get(identifier= author)
+                    companypage = Company.objects.get(identifier=author)
                     obj.companyauthor=companypage
-                    obj.comment = comment
-                    obj.article_id = article.id
-                    obj.save()
-                    message =f'{request.user.get_full_name()} Commented on your post {article.body[5:30]}...'
-                    if obj.author :
-                            name=obj.author.get_full_name()
-                            img_url = obj.author.profilepic()
-                            url ='/' + obj.article.slug
+                    messagename=companypage.name
 
-                            notification_signal.send(message =message,target=obj.author,trigger=request.user,sender=None,url=url)
-                    else:
+                obj.comment = comment
+                obj.article_id = article.id
+                obj.save()
+                message =f'{messagename} Commented on your post {article.body[5:30]}...'
+                url ='/' + obj.article.slug
+
+                if obj.author :
+                            name=request.user.get_full_name
+                            img_url = obj.author.profilepic()
+                            new_notification=Notification.objects.create(message=message,url=url,trigger=request.user)
+                else:
                             name = obj.companyauthor.name
                             img_url= obj.companyauthor.logopic()
-                return JsonResponse({'comment':obj.comment,'name':name ,'img':img_url})
+                            notification_signal.send(message=message,target=article.author,trigger=request.user,sender=None,url=url)
+                            new_notification=Notification.objects.create(message=message,url=url,trigger_page=obj.company)
+
+                return JsonResponse({'comment':obj.comment,'name':name,'img':img_url})
 
 
 @login_required   
