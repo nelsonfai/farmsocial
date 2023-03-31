@@ -2,8 +2,9 @@
 {% extends 'main/base.html'%}
 {% block content %}
 {% load static %}
+{% block title %}Messages | My AgricDiary{% endblock %} 
+
 <div class="grid-container">
-	{% block title %}Messages | My AgricDiary{% endblock %} 
 
 <main> 
 		{%if not threads %}
