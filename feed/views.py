@@ -128,6 +128,7 @@ def comment(request,article_slug):
                 article=Articles.objects.get(slug=article_slug)
                 comment = request.POST['comment']
                 author= request.POST.get('author')
+                article_author=article.author
                 obj = Comments()
                 obj.article = article
                 if author == 'user':
@@ -153,6 +154,7 @@ def comment(request,article_slug):
                             name = str(messagename)
                             img_url= obj.companyauthor.logopic()
                             new_notification=Notification.objects.create(message=message,url=url,trigger_page=companypage)
+                article_author.usernotification.mynotification.add(new_notification)
 
                 return JsonResponse({'comment':obj.comment,'name':name,'img':img_url})
 
