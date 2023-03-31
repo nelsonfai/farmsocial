@@ -145,12 +145,12 @@ def comment(request,article_slug):
                 url ='/' + obj.article.slug
 
                 if obj.author :
-                            name=request.user.get_full_name()
+                            name=str(request.user.get_full_name())
                             img_url = obj.author.profilepic()
                             if article.author != request.user:
                                 new_notification=Notification.objects.create(message=message,url=url,trigger=request.user)
                 else:
-                            name = obj.companyauthor.name
+                            name = str(messagename)
                             img_url= obj.companyauthor.logopic()
                             new_notification=Notification.objects.create(message=message,url=url,trigger_page=obj.company)
 
