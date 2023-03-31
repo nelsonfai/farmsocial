@@ -152,7 +152,7 @@ def comment(request,article_slug):
                 else:
                             name = str(messagename)
                             img_url= obj.companyauthor.logopic()
-                            new_notification=Notification.objects.create(message=message,url=url,trigger_page=obj.company)
+                            new_notification=Notification.objects.create(message=message,url=url,trigger_page=companypage)
 
                 return JsonResponse({'comment':obj.comment,'name':name,'img':img_url})
 
