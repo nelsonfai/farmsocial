@@ -24,7 +24,8 @@ class CommentForm(forms.ModelForm):
 
 class ArticleForm(forms.ModelForm):
     body= RichTextField()
-    postimages = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    postimages = forms.FileField(required=False,
+                widget=forms.ClearableFileInput(attrs={'multiple': True,'required':False}))
 
     class Meta:
         model = Articles
