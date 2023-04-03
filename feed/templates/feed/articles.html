@@ -96,14 +96,14 @@
 
                       </div>
                       article-images
-                        {% if article.images %} 
+                        {% if article.article_image %} 
                           <div class="article_image">     
                             <img src="{{ article.article_image.0.image.url }}" alt="article image" width="100%">
                         </div>
                         <div class="flex"> 
                         {% for image in article.article_image.all|slice:"1:" %}
                         <div class="article_image">     
-                          <img src="{{ image.url }}" alt="article image" width="100%">
+                          <img src="{{ image.image.url }}" alt="article image" width="100%">
                         </div>
                       {% endfor %}
                     </div>
