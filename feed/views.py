@@ -276,7 +276,7 @@ def image_commpress(images):
             output = io.BytesIO()
             img.save(output,format='png', quality=65)
             output.seek(0)
-            compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+            compressed_image = InMemoryUploadedFile(output, 'ImageField', f"{image.name.split('.')[0]}_compressed.jpg", 'image/jpeg', output.getbuffer().nbytes, None)
             compressed_images.append(compressed_image)
         return compressed_images
 
