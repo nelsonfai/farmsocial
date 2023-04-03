@@ -28,7 +28,7 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Articles
-        fields = ['title','article_image','tag','postimages','video']
+        fields = ['title','tag','postimages','video']
         widgets = {
             'tag': TagWidget(attrs={'placeholder': 'e.g: climate change,sustainablity,soil'}),
         }  
