@@ -12,6 +12,13 @@
 <div> <h1 style="word-wrap: break-word;"> {{article.title|capfirst}} </h1></div>
 <br>
 {% endif %}
+
+{% if article.video %}
+<video width="100%" controls poster="{{ article.video.url }}#t3">
+  <source src="{{ article.video.url }}" type="{{ article.video.content_type }}">
+  Your browser does not support the video tag.
+</video>
+{% else%}
     {% if article.article_images %} 
 
     <div class="product-item-left carousel-slides">
@@ -27,7 +34,7 @@
 
   </div>
      {% endif %}
-
+     {% endif %}
 <br>
 
 <div>

@@ -95,18 +95,18 @@
                                     <p style="margin-block:0.7rem"> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}?filter_by=tag" style="color: var(--primary-color); font-size: small;">#{{tag.slug}} </a> {%endfor%}</p>
 
                       </div>
+                      {% if article.video %}
+                      <video width="100%" controls poster="{{ article.video.url }}#t3">
+                        <source src="{{ article.video.url }}" type="{{ article.video.content_type }}">
+                        Your browser does not support the video tag.
+                      </video>
+                    {% else%}
                         {% if article.article_images.all %} 
                         <a href=" {% url 'details' article_slug=article.slug %}">
-                          {% if article.video %}
-                              <video width="320" height="240" controls>
-                                <source src="{{ article.video.url }}" type="{{ article.video.content_type }}">
-                                Your browser does not support the video tag.
-                              </video>
-                          {% else%}
+
                               <div class="article_image">     
                                 <img src="{{ article.article_images.all.0.image.url}}" alt="article image" width="100%">
                               </div>
-                          {%endif%}
                           <div class="flex" style="gap:2px;overflow: scroll;"> 
                               {% for image in article.article_images.all|slice:"1:" %}
                                   <div class="article_image" style="width: auto;">     
@@ -116,6 +116,8 @@
                           </div>
                         </a>
                         {% endif %}
+                      {%endif%}
+
                         <div class="engagment"> 
                             <span>                                    
                                 <span class="like-button" data-id="{{ article.id }}" >
