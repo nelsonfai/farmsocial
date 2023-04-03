@@ -99,12 +99,12 @@
                         {% if 1 %} 
                         in
                           <div class="article_image">     
-                            <img src="{{ article.article_images.0.image.url }}" alt="article image" width="100%">
+                            <img src="{{ article.article_images.0.image.url}}" alt="article image" width="100%">
                         </div>
                         <div class="flex" > 
                         {% for image in article.article_images.all|slice:"1:" %}
                         <div class="article_image">     
-                          <img src="{{ image.image.url }}" alt="article image" width='300px' style="width: 300px;height: 300px;object-fit: contain;">
+                          <img src="{{ image.image.url }}" alt="article image" width='300px' style="width: 150px;height: 150px;object-fit: contain;">
                         </div>
                       {% endfor %}
                     </div>
