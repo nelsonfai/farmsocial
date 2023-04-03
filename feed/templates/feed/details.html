@@ -14,7 +14,7 @@
 {% endif %}
 
 {% if article.video %}
-<video width="100%" controls poster="{{ article.video.url }}#t3" playsinline webkit-playsinline>
+<video width="100%" controls poster="{{ article.video.url }}#t3" playsinline webkit-playsinline data-autopause>
   <source src="{{ article.video.url }}" type="{{ article.video.content_type }}">
   Your browser does not support the video tag.
 </video>
@@ -230,6 +230,33 @@ $('#id_comment').val(null)
 
 
 </script>
+<script>
+
+// Get all the videos with the data-autopause attribute
+const videos = document.querySelectorAll('video[data-autopause]');
+
+// Set up the Intersection Observer
+const observer = new IntersectionObserver(entries => {
+  // Loop through the entries
+  entries.forEach(entry => {
+    // Check if the video is in the viewport
+    if (entry.intersectionRatio > 0) {
+      // If it is, play the video
+      entry.target.play();
+    } else {
+      // If it's not, pause the video
+      entry.target.pause();
+    }
+  });
+});
+
+// Loop through the videos and observe them
+videos.forEach(video => {
+  observer.observe(video);
+});
+</script>
+
+
 <script>
 
   const carouselSlides = document.querySelectorAll('.carousel-item');
