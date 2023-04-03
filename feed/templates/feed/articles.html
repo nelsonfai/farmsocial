@@ -95,19 +95,20 @@
                                     <p style="margin-block:0.7rem"> {% for tag in article.tag.all %} <a href="{% url 'filter' tag.slug %}?filter_by=tag" style="color: var(--primary-color); font-size: small;">#{{tag.slug}} </a> {%endfor%}</p>
 
                       </div>
-                      article-images
-                        {% if 1 %} 
-                        in
+                        {% if article.article_images.all %} 
+                        <a href=" {% url 'details' article_slug=article.slug %}">
+
                           <div class="article_image">     
                             <img src="{{ article.article_images.all.0.image.url}}" alt="article image" width="100%">
-                        </div>
-                        <div class="flex" style="gap: 2px;overflow: scroll;"> 
-                        {% for image in article.article_images.all|slice:"1:" %}
-                        <div class="article_image" style="width: auto;">     
-                          <img src="{{ image.image.url }}" alt="article image"  style="width: 150px !important;height:100px;object-fit:fit !important;">
-                        </div>
-                      {% endfor %}
-                    </div>
+                          </div>
+                          <div class="flex" style="gap:2px;overflow: scroll;"> 
+                              {% for image in article.article_images.all|slice:"1:" %}
+                                  <div class="article_image" style="width: auto;">     
+                                      <img src="{{ image.image.url }}" alt="article image"  style="width: 150px !important;height:100px;object-fit:fit !important;">
+                                  </div>
+                              {% endfor %}
+                          </div>
+                        </a>
                         {% endif %}
                         <div class="engagment"> 
                             <span>                                    

@@ -12,14 +12,24 @@
 <div> <h1 style="word-wrap: break-word;"> {{article.title|capfirst}} </h1></div>
 <br>
 {% endif %}
-
-
-
     {% if article.article_image %} 
      <div class="article_image" > 
       <img src="{{article.article_image.url}}" alt=""> 
       
     </div> 
+
+    <div class="product-item-left carousel-slides">
+      <div id="carouselExampleIndicators" class="carousel-slides" data-ride="carousel">
+          <div class="carousel-inner">
+          {% for image in article.article_images.all %}
+              <div class="carousel-item" style="width:100%; height:400px;background:url('{{ image.image.url }}') ;background-position: center; background-size: cover;background-repeat: no-repeat;" loading="lazy"> </div>
+          {% endif %} 
+          </div>
+          <button class="prev-btn carousel-nav ">&gt;</button>
+          <button class="carousel-nav-left next-btn carousel-nav ">&lt;</button>
+      </div>
+
+  </div>
      {% endif %}
 
 <br>
@@ -218,6 +228,39 @@ $('#id_comment').val(null)
 
 </script>
 <script>
+
+  const carouselSlides = document.querySelectorAll('.carousel-item');
+  let currentSlide = 0;
+  
+  // hide all slides except the first one
+  for (let i = 0; i < carouselSlides.length; i++) {
+    if (i !== 0) {
+      carouselSlides[i].style.display = 'none';
+    }
+  }
+  
+  // show next slide
+  function showNextSlide() {
+    carouselSlides[currentSlide].style.display = 'none';
+    currentSlide = (currentSlide + 1) % carouselSlides.length;
+    carouselSlides[currentSlide].style.display = 'block';
+  }
+  
+  // show previous slide
+  function showPrevSlide() {
+    carouselSlides[currentSlide].style.display = 'none';
+    currentSlide = (currentSlide + carouselSlides.length - 1) % carouselSlides.length;
+    carouselSlides[currentSlide].style.display = 'block';
+  }
+  
+  // add event listeners to next and prev buttons
+  const nextBtn = document.querySelector('.next-btn');
+  const prevBtn = document.querySelector('.prev-btn');
+  nextBtn.addEventListener('click', showNextSlide);
+  prevBtn.addEventListener('click', showPrevSlide)
+  
+  </script>
+<script>
   function share(id){
   document.getElementById(id).classList.toggle("open-menu");
 }
@@ -265,6 +308,25 @@ main{
 .flex{
   align-items: flex-start;
   margin-bottom: 1rem;
+}
+
+.carousel-slides{
+    position: relative;
+}
+.carousel-nav{
+    position: absolute;
+    right: 1rem;
+    top:50%;
+    background-color: black;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1rem;
+}
+.carousel-nav-left{
+    left: 1rem;
+    right: 100%;
 }
   @media screen and (max-width:768px) {
 
