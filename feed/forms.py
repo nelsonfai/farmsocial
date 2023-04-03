@@ -2,7 +2,11 @@ from .models import Comments,Articles
 from django import forms
 from ckeditor.fields import RichTextField
 from taggit.forms import TagWidget
+import io
 
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
     
@@ -22,7 +26,7 @@ class ArticleForm(forms.ModelForm):
     body= RichTextField()
     class Meta:
         model = Articles
-        fields = ['title','article_image','tag']
+        fields = ['title','article_image','tag','images']
         widgets = {
             'tag': TagWidget(attrs={'placeholder': 'e.g: climate change,sustainablity,soil'}),
         }  
@@ -31,3 +35,4 @@ class ArticleForm(forms.ModelForm):
         super(ArticleForm,self).__init__(*args,**kwargs)
 
         self.fields['title'].widget.attrs['placeholder']='*** Optional'
+

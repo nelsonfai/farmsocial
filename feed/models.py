@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
 from django.urls import reverse
 
+from django.contrib.postgres.fields import ArrayField
 
 
 def validate_file_size(value):
@@ -100,7 +101,16 @@ class Articles (models.Model):
     slug = models.SlugField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
     article_image = models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size])
-    thumpnail = models.ImageField( upload_to='articlepics/thumbnails/',blank=True, null=True )
+    images = ArrayField(
+        models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size]),
+        null=True,
+        blank=True
+    )
+    thumpnails = ArrayField(
+        models.ImageField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size]),
+        null=True,
+        blank=True
+    )
     likes =models.ManyToManyField(CustomUser, default=None,blank=True, related_name='liked')
     #tagline=models.CharField(max_length=100 ,blank=True,null=True)
     tag = TaggableManager(blank=True)

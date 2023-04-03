@@ -28,6 +28,7 @@ def add_article(request):
             body=request.POST.get('body')
             author = request.POST.get('author')
             photo= request.FILES.get('article_image')
+            images =request.FILES.getlist('images')
             categorytype=request.POST.get('post-type')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
             if article_form.is_valid():
@@ -49,9 +50,9 @@ def add_article(request):
                 else:
                      title=''
                 obj.slug = slug_generator(title=title,body=body[:5])
-                if photo:
-                     obj.article_image =image_commpress(photo)
-                     obj.thumpnail = thumpnail(photo)
+                if images:
+                     obj.images =image_commpress(images)
+                     obj.thumpnail = thumpnail(images)
                 obj.save()
                 article_form.save_m2m()
 
@@ -266,24 +267,28 @@ def filter_article(request,tag):
         return render (request, 'feed/articles.html', context)
 
 
-def image_commpress(image):
+def image_commpress(images):
+        compressed_images = []
+        for image in images:
+            img = Image.open(image)
+            max_size = (1280, 720)
+            img.thumbnail(max_size,Image.ANTIALIAS)
+            output = io.BytesIO()
+            img.save(output,format='png', quality=65)
+            output.seek(0)
+            compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+            compressed_images.append(compressed_image)
+        return compressed_images
 
-    img = Image.open(image)
-    max_size = (1280, 720)
-    img.thumbnail(max_size,Image.ANTIALIAS)
-    output = io.BytesIO()
-    img.save(output,format='png', quality=70)
-    output.seek(0)
-    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
-    return compressed_image
-
-def thumpnail(image):
-
-    img = Image.open(image)
-    max_size = (200, 200)
-    img.thumbnail(max_size,Image.ANTIALIAS)
-    output = io.BytesIO()
-    img.save(output,format='png', quality=65)
-    output.seek(0)
-    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
-    return compressed_image
+def thumpnail(images):
+    compressed_images = []
+    for image in images:
+        img = Image.open(image)
+        max_size = (300, 300)
+        img.thumbnail(max_size,Image.ANTIALIAS)
+        output = io.BytesIO()
+        img.save(output,format='png', quality=65)
+        output.seek(0)
+        compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+        compressed_images.append(compressed_image)
+        return compressed_images
