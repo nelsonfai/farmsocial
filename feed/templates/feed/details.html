@@ -12,11 +12,7 @@
 <div> <h1 style="word-wrap: break-word;"> {{article.title|capfirst}} </h1></div>
 <br>
 {% endif %}
-    {% if article.article_image %} 
-     <div class="article_image" > 
-      <img src="{{article.article_image.url}}" alt=""> 
-      
-    </div> 
+    {% if article.article_images %} 
 
     <div class="product-item-left carousel-slides">
       <div id="carouselExampleIndicators" class="carousel-slides" data-ride="carousel">
