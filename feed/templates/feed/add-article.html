@@ -43,7 +43,7 @@
     </form>
 </div>
 <script>
-// get all form elements on the page
+  // get all form elements on the page
 const forms = document.querySelectorAll('form');
 
 // loop through each form
@@ -64,6 +64,13 @@ for (let i = 0; i < forms.length; i++) {
         if (file.size > 10 * 1024 * 1024) { // 10MB in bytes
           // display alert message
           alert('File size should not exceed 10MB.');
+
+          // prevent form submission
+          event.preventDefault();
+          return false;
+        } else if (fileInputs[j].name === 'video' && !(fileType === 'mp4' || fileType === 'mp3')) {
+          // display alert message
+          alert('Please select an MP4 or MP3 file for the video field.');
 
           // prevent form submission
           event.preventDefault();
