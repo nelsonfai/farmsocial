@@ -100,7 +100,7 @@ class Articles (models.Model):
     body = RichTextField( blank=True, null=True ,db_index=True)
     slug = models.SlugField(max_length=200)
     date = models.DateTimeField(auto_now_add=True)
-    video = models.FileField(upload_to='articlepics/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size])
+    video = models.FileField(upload_to='videos/', blank=True, null=True,validators=[FileExtensionValidator(['mp4']),validate_file_size])
     likes =models.ManyToManyField(CustomUser, default=None,blank=True, related_name='liked')
     tag = TaggableManager(blank=True)
     country  = CountryField(blank_label='(select country)', blank=True, null= True)
