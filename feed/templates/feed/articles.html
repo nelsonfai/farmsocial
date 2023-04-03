@@ -104,7 +104,7 @@
                         <div class="flex" style="gap: 2px;overflow: scroll;"> 
                         {% for image in article.article_images.all|slice:"1:" %}
                         <div class="article_image">     
-                          <img src="{{ image.image.url }}" alt="article image" width='300px' style="width: 150px;height:150px;object-fit:fit;">
+                          <img src="{{ image.image.url }}" alt="article image"  style="width: 150px !important;height:100px;object-fit:fit !important;">
                         </div>
                       {% endfor %}
                     </div>
