@@ -24,11 +24,11 @@ class CommentForm(forms.ModelForm):
 
 class ArticleForm(forms.ModelForm):
     body= RichTextField()
-    images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+    postimages = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     class Meta:
         model = Articles
-        fields = ['title','article_image','tag','images']
+        fields = ['title','article_image','tag','postimages','video']
         widgets = {
             'tag': TagWidget(attrs={'placeholder': 'e.g: climate change,sustainablity,soil'}),
         }  

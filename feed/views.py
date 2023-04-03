@@ -2,7 +2,7 @@
 import secrets
 from django.shortcuts import render,redirect
 
-from .models import Articles,Like,Announcements
+from .models import Articles,Like,Announcements,Images
 from feed.models import CustomUser
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -27,7 +27,7 @@ def add_article(request):
     if request.method=='POST':
             body=request.POST.get('body')
             author = request.POST.get('author')
-            photo= request.FILES.get('article_image')
+            video= request.FILES.get('video')
             imagelist =request.FILES.getlist('images')
             categorytype=request.POST.get('post-type')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
@@ -50,13 +50,15 @@ def add_article(request):
                 else:
                      title=''
                 obj.slug = slug_generator(title=title,body=body[:5])
-                if imagelist:
-                     obj.images =image_commpress(imagelist)
-                     obj.thumpnail = thumpnail(imagelist)
+                if video:
+                     obj.video =video
                 obj.save()
                 article_form.save_m2m()
 
-
+                if imagelist:
+                     for image in imagelist:
+                        compressed_image = image_commpress(image)
+                        Image.object.create(article=obj,image=compressed_image)
                 return redirect('articles')      
             else:
                 article_form =ArticleForm()
@@ -267,29 +269,24 @@ def filter_article(request,tag):
         return render (request, 'feed/articles.html', context)
 
 
+def image_commpress(image):
 
-def image_commpress(images):
-    compressed_images = []
-    for image in images:
-        img = Image.open(io.BytesIO(image.read()))
-        max_size = (1280, 720)
-        img.thumbnail(max_size, Image.ANTIALIAS)
-        output = io.BytesIO()
-        img.save(output, format='png', quality=65)
-        output.seek(0)
-        compressed_image = InMemoryUploadedFile(output, 'ImageField', f"{image.name.split('.')[0]}_compressed.jpg", 'image/jpeg', output.getbuffer().nbytes, None)
-        compressed_images.append(compressed_image)
-    return compressed_images
+    img = Image.open(image)
+    max_size = (1280, 720)
+    img.thumbnail(max_size,Image.ANTIALIAS)
+    output = io.BytesIO()
+    img.save(output,format='png', quality=70)
+    output.seek(0)
+    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+    return compressed_image
 
-def image_commpress(images):
-    compressed_images = []
-    for image in images:
-        img = Image.open(io.BytesIO(image.read()))
-        max_size = (300, 300)
-        img.thumbnail(max_size, Image.ANTIALIAS)
-        output = io.BytesIO()
-        img.save(output, format='png', quality=65)
-        output.seek(0)
-        compressed_image = InMemoryUploadedFile(output, 'ImageField', f"{image.name.split('.')[0]}_thumpnail.jpg", 'image/jpeg', output.getbuffer().nbytes, None)
-        compressed_images.append(compressed_image)
-    return compressed_images
+def thumpnail(image):
+
+    img = Image.open(image)
+    max_size = (200, 200)
+    img.thumbnail(max_size,Image.ANTIALIAS)
+    output = io.BytesIO()
+    img.save(output,format='png', quality=65)
+    output.seek(0)
+    compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+    return compressed_image
