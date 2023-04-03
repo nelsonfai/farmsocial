@@ -145,7 +145,7 @@ def comment(request,article_slug):
                 obj.comment = comment
                 obj.article_id = article.id
                 obj.save()
-                message =f'{messagename} Commented on your post {article.body[5:30]}...'
+                message =f'{messagename} Commented on your post'
                 url ='/' + obj.article.slug
 
                 if obj.author :
