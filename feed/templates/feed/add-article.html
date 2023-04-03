@@ -75,7 +75,7 @@ for (let i = 0; i < forms.length; i++) {
           // prevent form submission
           event.preventDefault();
           return false;
-        } else if (!(fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg')) {
+        } else if (fileInputs[j].name != 'video' &&!(fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg')) {
           // display alert message
           alert('Please select a JPEG, PNG, or JPG file.');
 
