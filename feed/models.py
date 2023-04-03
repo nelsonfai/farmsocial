@@ -168,5 +168,5 @@ class Announcements(models.Model):
         return timefuntion(self)
 
 class Images(models.Model):
-    article = models.ForeignKey(Articles,on_delete=models.CASCADE,blank=True,null=True,related_name='article-images')
+    article = models.ForeignKey(Articles,on_delete=models.CASCADE,blank=True,null=True,related_name='article_images')
     image = models.ImageField(upload_to='articlepics/images/', blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),validate_file_size])
