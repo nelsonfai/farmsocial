@@ -129,7 +129,7 @@ def article_details(request,article_slug):
 @login_required   
 def comment(request,article_slug):
                 article=Articles.objects.get(slug=article_slug)
-                comment = request.POST['comment']
+                comment = request.POST.get['comment']
                 author= request.POST.get('author')
                 article_author=article.author
                 obj = Comments()
