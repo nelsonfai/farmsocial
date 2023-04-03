@@ -153,6 +153,8 @@ def comment(request,article_slug):
                             img_url = obj.author.profilepic()
                             if article.author != request.user:
                                 new_notification=Notification.objects.create(message=message,url=url,trigger=request.user)
+                            else:
+                                 new_notification =False
                 else:
                             name = str(messagename)
                             img_url= obj.companyauthor.logopic()
