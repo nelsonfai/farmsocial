@@ -267,18 +267,19 @@ def filter_article(request,tag):
         return render (request, 'feed/articles.html', context)
 
 
+
 def image_commpress(images):
-        compressed_images = []
-        for image in images:
-            img = Image.open(image)
-            max_size = (1280, 720)
-            img.thumbnail(max_size,Image.ANTIALIAS)
-            output = io.BytesIO()
-            img.save(output,format='png', quality=65)
-            output.seek(0)
-            compressed_image = InMemoryUploadedFile(output, 'ImageField', f"{image.name.split('.')[0]}_compressed.jpg", 'image/jpeg', output.getbuffer().nbytes, None)
-            compressed_images.append(compressed_image)
-        return compressed_images
+    compressed_images = []
+    for image in images:
+        img = Image.open(image)
+        max_size = (1280, 720)
+        img.thumbnail(max_size,Image.ANTIALIAS)
+        output = io.BytesIO()
+        img.save(output,format='png', quality=65)
+        output.seek(0)
+        compressed_image = InMemoryUploadedFile(output, 'ImageField', f"{image.name.split('.')[0]}_compressed.jpg", 'image/jpeg', output.getbuffer().nbytes, None)
+        compressed_images.append(compressed_image)
+    return compressed_images
 
 def thumpnail(images):
     compressed_images = []
