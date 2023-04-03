@@ -271,25 +271,25 @@ def filter_article(request,tag):
 def image_commpress(images):
     compressed_images = []
     for image in images:
-        img = Image.open(image)
+        img = Image.open(io.BytesIO(image.read()))
         max_size = (1280, 720)
-        img.thumbnail(max_size,Image.ANTIALIAS)
+        img.thumbnail(max_size, Image.ANTIALIAS)
         output = io.BytesIO()
-        img.save(output,format='png', quality=65)
+        img.save(output, format='png', quality=65)
         output.seek(0)
         compressed_image = InMemoryUploadedFile(output, 'ImageField', f"{image.name.split('.')[0]}_compressed.jpg", 'image/jpeg', output.getbuffer().nbytes, None)
         compressed_images.append(compressed_image)
     return compressed_images
 
-def thumpnail(images):
+def image_commpress(images):
     compressed_images = []
     for image in images:
-        img = Image.open(image)
+        img = Image.open(io.BytesIO(image.read()))
         max_size = (300, 300)
-        img.thumbnail(max_size,Image.ANTIALIAS)
+        img.thumbnail(max_size, Image.ANTIALIAS)
         output = io.BytesIO()
-        img.save(output,format='png', quality=65)
+        img.save(output, format='png', quality=65)
         output.seek(0)
-        compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
+        compressed_image = InMemoryUploadedFile(output, 'ImageField', f"{image.name.split('.')[0]}_thumpnail.jpg", 'image/jpeg', output.getbuffer().nbytes, None)
         compressed_images.append(compressed_image)
-        return compressed_images
+    return compressed_images
