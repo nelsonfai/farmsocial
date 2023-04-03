@@ -21,7 +21,6 @@ class CommentForm(forms.ModelForm):
             'comment': forms.Textarea(attrs={'class':'comment_field','placeholder':'Leave a comment here...', 'rows':3,})
         }        
 
-
 class ArticleForm(forms.ModelForm):
     body= RichTextField()
     postimages = forms.FileField(required=False,
@@ -31,11 +30,11 @@ class ArticleForm(forms.ModelForm):
         model = Articles
         fields = ['title','tag','postimages','video']
         widgets = {
-            'tag': TagWidget(attrs={'placeholder': 'e.g: climate change,sustainablity,soil'}),
+            'tag': TagWidget(attrs={'placeholder': 'e.g: climate change,sustainablity,soil', 'help_text': ''}),
         }  
 
     def __init__(self,*args,**kwargs):
         super(ArticleForm,self).__init__(*args,**kwargs)
 
-        self.fields['title'].widget.attrs['placeholder']='*** Optional'
+        #self.fields['title'].widget.attrs['placeholder']='*** Optional'
 

@@ -97,10 +97,16 @@
                       </div>
                         {% if article.article_images.all %} 
                         <a href=" {% url 'details' article_slug=article.slug %}">
-
-                          <div class="article_image">     
-                            <img src="{{ article.article_images.all.0.image.url}}" alt="article image" width="100%">
-                          </div>
+                          {% if article.video %}
+                              <video width="320" height="240" controls>
+                                <source src="{{ article.video.url }}" type="{{ article.video.content_type }}">
+                                Your browser does not support the video tag.
+                              </video>
+                          {% else%}
+                              <div class="article_image">     
+                                <img src="{{ article.article_images.all.0.image.url}}" alt="article image" width="100%">
+                              </div>
+                          {%endif%}
                           <div class="flex" style="gap:2px;overflow: scroll;"> 
                               {% for image in article.article_images.all|slice:"1:" %}
                                   <div class="article_image" style="width: auto;">     
