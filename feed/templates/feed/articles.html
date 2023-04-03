@@ -96,7 +96,8 @@
 
                       </div>
                       article-images
-                        {% if article.article_image %} 
+                        {% if article.article_image.all %} 
+                        in
                           <div class="article_image">     
                             <img src="{{ article.article_image.0.image.url }}" alt="article image" width="100%">
                         </div>
