@@ -28,7 +28,7 @@ def add_article(request):
             body=request.POST.get('body')
             author = request.POST.get('author')
             photo= request.FILES.get('article_image')
-            images =request.FILES.getlist('images')
+            imagelist =request.FILES.getlist('images')
             categorytype=request.POST.get('post-type')
             article_form = ArticleForm(request.POST or None, request.FILES or None)
             if article_form.is_valid():
@@ -50,9 +50,9 @@ def add_article(request):
                 else:
                      title=''
                 obj.slug = slug_generator(title=title,body=body[:5])
-                if images:
-                     obj.images =image_commpress(images)
-                     obj.thumpnail = thumpnail(images)
+                if imagelist:
+                     obj.images =image_commpress(imagelist)
+                     obj.thumpnail = thumpnail(imagelist)
                 obj.save()
                 article_form.save_m2m()
 
