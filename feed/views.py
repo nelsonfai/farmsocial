@@ -302,26 +302,18 @@ def thumpnail(image):
     compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
     return compressed_image
 
-
-def compress_video(video_file):
-    # get file name and extension
-    file_name, file_ext = video_file.name.rsplit('.', 1)
-    
-    # set the compressed file name
-    compressed_file_name = f'{file_name}_compressed.mp4'
-    
-    # read the file into memory
-    in_memory_file = BytesIO(video_file.read())
-    
-    # run ffmpeg command to compress the video
-    subprocess.run(['ffmpeg', '-i', '-', '-vcodec', 'libx265', '-crf', '28', '-f', 'mp4', '-'], input=in_memory_file.read(), stdout=open(compressed_file_name, 'wb'), check=True)
-    
-    # create a file object from the compressed file
-    with open(compressed_file_name, 'rb') as f:
-        compressed_file = InMemoryUploadedFile(f, None, compressed_file_name, 'video/mp4', f.tell(), None)
-    
-    # delete the compressed file
-    os.remove(compressed_file_name)
-    
-    # return the compressed file object
-    return compressed_file
+def compress_video(in_memory_file):
+    video_content = in_memory_file.read()
+    result = subprocess.run(
+        ['ffmpeg', '-i', '-', '-vcodec', 'libx265', '-crf', '28', '-f', 'mp4', '-'],
+        input=video_content,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if result.returncode != 0:
+        # handle the error case
+        print(result.stderr.decode('utf-8'))
+    else:
+        # read the compressed video file from the output pipe
+        compressed_video = BytesIO(result.stdout)
+        return compressed_video
