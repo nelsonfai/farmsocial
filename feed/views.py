@@ -1,7 +1,7 @@
 
 import secrets
 from django.shortcuts import render,redirect
-
+from django.conf import settings
 from .models import Articles,Like,Announcements,Images
 from feed.models import CustomUser
 from django.contrib import messages
@@ -20,6 +20,10 @@ import io
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.views.decorators.cache import cache_page
 from notification.models import Notification
+import os
+from django.core.files.base import ContentFile
+import subprocess
+
 # Create your views here.
 @cache_page(60 * 5) # cache for 5 minutes
 @login_required   
@@ -51,7 +55,12 @@ def add_article(request):
                      title=''
                 obj.slug = slug_generator(title=title,body=body[:5])
                 if video:
-                     obj.video =video
+                    compressed_video = compress_video(video)
+                    # Save the compressed video file to the media storage
+                    video_name, video_ext = os.path.splitext(video.name)
+                    compressed_video_name = f'{video_name}-compressed{video_ext}'
+                    obj.video.save(compressed_video_name, ContentFile(compressed_video.read()), save=False)
+            
                 obj.save()
                 article_form.save_m2m()
 
@@ -292,3 +301,15 @@ def thumpnail(image):
     output.seek(0)
     compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
     return compressed_image
+def compress_video(video_file):
+    """
+    Compresses a video file using ffmpeg.
+    """
+    video_path = video_file.temporary_file_path()
+    compressed_path = os.path.join(settings.MEDIA_ROOT, 'videos', f'{os.path.splitext(video_file.name)[0]}-compressed.mp4')
+    cmd = f'ffmpeg -i {video_path} -vcodec libx264 -crf 28 {compressed_path}'
+    subprocess.call(cmd, shell=True)
+    with open(compressed_path, 'rb') as f:
+        compressed_video = f.read()
+    os.remove(compressed_path)
+    return compressed_video
