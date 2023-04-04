@@ -311,7 +311,7 @@ def compress_video(video_file):
     compressed_file_name = file_path + "_compressed" + file_ext
     
     # run ffmpeg command to compress the video
-    subprocess.run(['ffmpeg', '-i', video_file.path, '-vcodec', 'libx265', '-crf', '28', compressed_file_name], check=True)
+    subprocess.run(['ffmpeg', '-i', file_path, '-vcodec', 'libx265', '-crf', '28', compressed_file_name], check=True)
     
     # create a file object from the compressed file
     with open(compressed_file_name, 'rb') as f:
