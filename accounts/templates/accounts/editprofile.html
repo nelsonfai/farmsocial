@@ -102,6 +102,29 @@ label{
       var students = document.getElementsByClassName("studentinput");
 
       var prof = document.getElementsByClassName("profinput");
+    
+      if (checkbox.checked) {
+        for (var i = 0; i < students.length; i++) {
+        students[i].style.display = "block";
+        students[i].closest('p').querySelector('label').style.display = 'block';
+
+      }
+      for (var i = 0; i < prof.length; i++) {
+        prof[i].style.display = "none";
+        prof[i].closest('p').querySelector('label').style.display = 'none';
+      }
+   
+      } else {
+        for (var i = 0; i < students.length; i++) {
+        students[i].style.display = "none";
+        students[i].closest('p').querySelector('label').style.display = 'none';
+        }
+        for (var i = 0; i < prof.length; i++) {
+        prof[i].style.display = "block";
+        prof[i].closest('p').querySelector('label').style.display = 'block';
+      }
+
+    }  
     checkbox.addEventListener("change", function() {
 
       if (this.checked) {
