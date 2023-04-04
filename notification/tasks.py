@@ -103,7 +103,6 @@ import os
 from tempfile import NamedTemporaryFile
 from django.core.files import File
 
-
 @receiver(pre_save, sender=Articles)
 def compress_video(sender, instance, **kwargs):
     if instance.video:  # check if a video file is uploaded
@@ -118,10 +117,11 @@ def compress_video(sender, instance, **kwargs):
 
         # read the compressed video file into memory
         with open(output_file, 'rb') as compressed_file:
-            compressed_video = File(compressed_file)
+            compressed_video_data = compressed_file.read()
 
-        # set the compressed video file as the new video file
-        instance.video.save(instance.video.name, compressed_video, save=False)
+        # replace the original video file with the compressed video file
+        instance.video.delete(save=False)
+        instance.video.save(instance.video.name, File(compressed_video_data), save=False)
 
         # delete the temporary files
         os.remove(tmp_file.name)
