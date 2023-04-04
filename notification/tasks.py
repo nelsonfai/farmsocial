@@ -103,7 +103,7 @@ import os
 from tempfile import NamedTemporaryFile
 from django.core.files import File
 import uuid
-import uuid
+from io import BytesIO
 
 @receiver(pre_save, sender=Articles)
 def compress_video(sender, instance, **kwargs):
@@ -121,14 +121,14 @@ def compress_video(sender, instance, **kwargs):
         with open(output_file, 'rb') as compressed_file:
             compressed_video_data = compressed_file.read()
 
-        # generate a unique file name for the compressed video file
-        compressed_file_name = f"{uuid.uuid4()}.mp4"
+        # create a BytesIO object from the compressed video data
+        compressed_video_data = BytesIO(compressed_video_data)
 
         # replace the original video file with the compressed video file
+        compressed_file_name = f"{instance.video.name.split('.')[0]}_compressed.mp4"
         instance.video.delete(save=False)
         instance.video.save(compressed_file_name, File(compressed_video_data), save=False)
 
         # delete the temporary files
         os.remove(tmp_file.name)
         os.remove(output_file)
-
