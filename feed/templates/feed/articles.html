@@ -104,13 +104,13 @@
                         {% if article.article_images.all %} 
                         
                         <a href=" {% url 'details' article_slug=article.slug %}" style="position: relative !important;display: block;">
-                          {% if article.article_images.all %} 
+                          {% if article.article_images.all.count > 2 %} 
                             <div style="position: absolute;
                             right: 0;
                             padding: 1rem;
                             background: whitesmoke;
                             font-size: small;z-index: 3;">+ {{ article.article_images.all.count|add:"-1" }}</div>
-                            {%endif%}
+                          {%endif%}
                               <div class="article_image">     
                                 <img src="{{ article.article_images.all.0.image.url}}" alt="article image" width="100%">
                               </div>
