@@ -56,7 +56,7 @@ def add_article(request):
                      title=''
                 obj.slug = slug_generator(title=title,body=body[:5])
                 if video:
-                    compressed_video = compress_video(video)
+                    compressed_video = video
                     # Save the compressed video file to the media storage
                     obj.video =compressed_video
 
@@ -303,23 +303,3 @@ def thumpnail(image):
     return compressed_image
 
 
-def compress_video(video_file):
-    # get file path and extension
-    file_path, file_ext = os.path.splitext(video_file.name)
-    
-    # set the compressed file name
-    compressed_file_name = file_path + "_compressed" + file_ext
-    
-    # run ffmpeg command to compress the video
-    subprocess.run(['ffmpeg', '-i', file_path, '-vcodec', 'libx265', '-crf', '28', compressed_file_name], check=True)
-    
-    # create a file object from the compressed file
-    with open(compressed_file_name, 'rb') as f:
-        compressed_file = InMemoryUploadedFile(f, None, compressed_file_name, 'video/mp4', f.tell(), None)
-    
-    # delete the original video file and the compressed file
-    os.remove(video_file.path)
-    os.remove(compressed_file_name)
-    
-    # return the compressed file object
-    return compressed_file

@@ -7,6 +7,8 @@ from feed.models import Articles
 from marketplace.models import ProductItem
 from Friends.models import Network
 from django.db.models.signals import post_delete
+###
+
 app = Celery('tasks', broker='redis://localhost:6379/0', result_backend='redis://localhost:6379/0')
 
 @app.task
@@ -24,6 +26,8 @@ def productnotify(created ,instance ,**kwargs):
 
 @app.task
 def notify(instance):
+    if instance.video:
+         pass
     if instance.author:
         followers= instance.author.myfollowing.follower.all()
         message= f'{instance.author.get_full_name()} posted a new article'
@@ -81,7 +85,6 @@ def create_network(created ,instance ,**kwargs):
             network = Network.objects.create(user=instance)
 
 
-
 @receiver(post_delete, sender=Articles)  # replace Article with the appropriate model
 def delete_related_notifications(sender, instance, **kwargs):
     Notification.objects.filter(url=instance.get_absolute_url).delete()
@@ -90,3 +93,36 @@ def delete_related_notifications(sender, instance, **kwargs):
 def delete_related_notifications(sender, instance, **kwargs):
     Notification.objects.filter(url=instance.get_absolute_url).delete()
 
+
+
+import subprocess
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+import subprocess
+import os
+from tempfile import NamedTemporaryFile
+from django.core.files import File
+
+
+@receiver(pre_save, sender=Articles)
+def compress_video(sender, instance, **kwargs):
+    if instance.video:  # check if a video file is uploaded
+        # create a temporary file to save the original video
+        with NamedTemporaryFile(delete=False) as tmp_file:
+            for chunk in instance.video.chunks():
+                tmp_file.write(chunk)
+
+        # compress the video using FFmpeg
+        output_file = tmp_file.name + '_compressed.mp4'
+        subprocess.run(['ffmpeg', '-i', tmp_file.name, '-vcodec', 'libx265', '-crf', '28', '-f', 'mp4', output_file], check=True)
+
+        # read the compressed video file into memory
+        with open(output_file, 'rb') as compressed_file:
+            compressed_video = File(compressed_file)
+
+        # set the compressed video file as the new video file
+        instance.video.save(instance.video.name, compressed_video, save=False)
+
+        # delete the temporary files
+        os.remove(tmp_file.name)
+        os.remove(output_file)
