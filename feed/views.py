@@ -67,7 +67,7 @@ def add_article(request):
                 if imagelist:
                      for image in imagelist:
                         compressed_image = image_commpress(image)
-                        Image.object.create(article=obj,image=compressed_image)
+                        Images.object.create(article=obj,image=compressed_image)
                 return redirect('articles')      
             else:
                 article_form =ArticleForm()
