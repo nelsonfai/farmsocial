@@ -303,30 +303,13 @@ def thumpnail(image):
     return compressed_image
 
 
-def compress_video(video_file):
-    # Get the file extension and create a new filename for the compressed video
-    filename, ext = os.path.splitext(video_file.name)
-    compressed_filename = f"{filename}_compressed.mp4"
-
-    # Read the video file into memory
-    buffer = BytesIO()
-    for chunk in video_file.chunks():
-        buffer.write(chunk)
-
-    # Compress the video using FFmpeg
-    command = f"ffmpeg -i pipe:0 -codec:v libx264 -crf 23 -preset fast -codec:a libfdk_aac -vbr 3 -movflags +faststart -f mp4 pipe:1"
-    process = subprocess.Popen(command.split(' '), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    compressed_video, err = process.communicate(input=buffer.getvalue())
-
-    # Create an InMemoryUploadedFile from the compressed video data
-    compressed_video_file = InMemoryUploadedFile(
-        file=BytesIO(compressed_video),
-        field_name=None,
-        name=compressed_filename,
-        content_type='video/mp4',
-        size=len(compressed_video),
-        charset=None
-    )
-
-    # Return the compressed video file
-    return compressed_video_file
+def compress_video(video):
+    command = ['ffmpeg', '-i', '-', '-vcodec', 'libx264', '-preset', 'slow', '-crf', '22', '-acodec', 'copy', '-movflags', '+faststart', '-']
+    video_file = BytesIO()
+    for chunk in video.chunks():
+        video_file.write(chunk)
+    video_file.seek(0)
+    p = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate(input=video_file.read())
+    compressed_file = ContentFile(stdout)
+    return compressed_file
