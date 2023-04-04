@@ -41,6 +41,8 @@ urlpatterns = [
     path('chat/', include('chat.urls') ),
     path('company/', include('company.urls') ),
     path('ai/', include('myagricai.urls') ),
+     path('apps/', include('myagricapps.urls') ),
+
     path('legal/user_agreement/',useragreement, name='useragreement'),
     path('legal/privacypolicy/',privacy_policy, name='privacypolicy'),
     path('legal/cookie_policy/',cookie_policy, name='cookiepolicy'),
