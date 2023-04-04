@@ -302,18 +302,15 @@ def thumpnail(image):
     compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
     return compressed_image
 
-def compress_video(in_memory_file):
-    video_content = in_memory_file.read()
+def compress_video(video):
+    video_content = video.read()
     result = subprocess.run(
         ['ffmpeg', '-i', '-', '-vcodec', 'libx265', '-crf', '28', '-f', 'mp4', '-'],
         input=video_content,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
-    if result.returncode != 0:
-        # handle the error case
-        print(result.stderr.decode('utf-8'))
-    else:
+
         # read the compressed video file from the output pipe
-        compressed_video = BytesIO(result.stdout)
-        return compressed_video
+    compressed_video = BytesIO(result.stdout)
+    return compressed_video
