@@ -314,7 +314,7 @@ def compress_video(video_file):
     in_memory_file = BytesIO(video_file.read())
     
     # run ffmpeg command to compress the video
-    subprocess.run(['ffmpeg', '-i', '-', '-vcodec', 'libx265', '-crf', '28', '-f', 'mp4', '-'], input=in_memory_file.read(), stdout=open(compressed_file_name, 'wb'), check=True)
+    subprocess.run(['ffmpeg', '-i', '-', '-vcodec', 'libx264', '-crf', '26', '-f', 'mp4', '-'], input=in_memory_file.read(), stdout=open(compressed_file_name, 'wb'), check=True)
     
     # create a file object from the compressed file
     with open(compressed_file_name, 'rb') as f:
