@@ -23,6 +23,7 @@ from notification.models import Notification
 import os
 from django.core.files.base import ContentFile
 import subprocess
+from io import BytesIO
 
 # Create your views here.
 @cache_page(60 * 5) # cache for 5 minutes
@@ -57,9 +58,8 @@ def add_article(request):
                 if video:
                     compressed_video = compress_video(video)
                     # Save the compressed video file to the media storage
-                    video_name, video_ext = os.path.splitext(video.name)
-                    compressed_video_name = f'{video_name}-compressed{video_ext}'
-                    obj.video.save(compressed_video_name, ContentFile(compressed_video.read()), save=False)
+                    obj.video =compressed_video
+
             
                 obj.save()
                 article_form.save_m2m()
@@ -301,15 +301,32 @@ def thumpnail(image):
     output.seek(0)
     compressed_image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % image.name.split('.')[0], 'image/jpeg', output.getbuffer().nbytes, None)
     return compressed_image
+
+
 def compress_video(video_file):
-    """
-    Compresses a video file using ffmpeg.
-    """
-    video_path = video_file.temporary_file_path()
-    compressed_path = os.path.join(settings.MEDIA_ROOT, 'videos', f'{os.path.splitext(video_file.name)[0]}-compressed.mp4')
-    cmd = f'ffmpeg -i {video_path} -vcodec libx264 -crf 28 {compressed_path}'
-    subprocess.call(cmd, shell=True)
-    with open(compressed_path, 'rb') as f:
-        compressed_video = f.read()
-    os.remove(compressed_path)
-    return compressed_video
+    # Get the file extension and create a new filename for the compressed video
+    filename, ext = os.path.splitext(video_file.name)
+    compressed_filename = f"{filename}_compressed.mp4"
+
+    # Read the video file into memory
+    buffer = BytesIO()
+    for chunk in video_file.chunks():
+        buffer.write(chunk)
+
+    # Compress the video using FFmpeg
+    command = f"ffmpeg -i pipe:0 -codec:v libx264 -crf 23 -preset fast -codec:a libfdk_aac -vbr 3 -movflags +faststart -f mp4 pipe:1"
+    process = subprocess.Popen(command.split(' '), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    compressed_video, err = process.communicate(input=buffer.getvalue())
+
+    # Create an InMemoryUploadedFile from the compressed video data
+    compressed_video_file = InMemoryUploadedFile(
+        file=BytesIO(compressed_video),
+        field_name=None,
+        name=compressed_filename,
+        content_type='video/mp4',
+        size=len(compressed_video),
+        charset=None
+    )
+
+    # Return the compressed video file
+    return compressed_video_file
