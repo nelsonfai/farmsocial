@@ -303,13 +303,23 @@ def thumpnail(image):
     return compressed_image
 
 
-def compress_video(video):
-    command = ['ffmpeg', '-i', '-', '-vcodec', 'libx264', '-preset', 'slow', '-crf', '22', '-acodec', 'copy', '-movflags', '+faststart', '-']
-    video_file = BytesIO()
-    for chunk in video.chunks():
-        video_file.write(chunk)
-    video_file.seek(0)
-    p = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = p.communicate(input=video_file.read())
-    compressed_file = ContentFile(stdout)
+def compress_video(video_file):
+    # get file path and extension
+    file_path, file_ext = os.path.splitext(video_file.name)
+    
+    # set the compressed file name
+    compressed_file_name = file_path + "_compressed" + file_ext
+    
+    # run ffmpeg command to compress the video
+    subprocess.run(['ffmpeg', '-i', video_file.path, '-vcodec', 'libx265', '-crf', '28', compressed_file_name], check=True)
+    
+    # create a file object from the compressed file
+    with open(compressed_file_name, 'rb') as f:
+        compressed_file = InMemoryUploadedFile(f, None, compressed_file_name, 'video/mp4', f.tell(), None)
+    
+    # delete the original video file and the compressed file
+    os.remove(video_file.path)
+    os.remove(compressed_file_name)
+    
+    # return the compressed file object
     return compressed_file
