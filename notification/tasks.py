@@ -102,6 +102,8 @@ import subprocess
 import os
 from tempfile import NamedTemporaryFile
 from django.core.files import File
+import uuid
+import uuid
 
 @receiver(pre_save, sender=Articles)
 def compress_video(sender, instance, **kwargs):
@@ -119,10 +121,14 @@ def compress_video(sender, instance, **kwargs):
         with open(output_file, 'rb') as compressed_file:
             compressed_video_data = compressed_file.read()
 
+        # generate a unique file name for the compressed video file
+        compressed_file_name = f"{uuid.uuid4()}.mp4"
+
         # replace the original video file with the compressed video file
         instance.video.delete(save=False)
-        instance.video.save(instance.video.name, File(compressed_video_data), save=False)
+        instance.video.save(compressed_file_name, File(compressed_video_data), save=False)
 
         # delete the temporary files
         os.remove(tmp_file.name)
         os.remove(output_file)
+
