@@ -304,21 +304,23 @@ def thumpnail(image):
 
 
 def compress_video(video_file):
-    # get file path and extension
-    file_path, file_ext = os.path.splitext(video_file.name)
+    # get file name and extension
+    file_name, file_ext = video_file.name.rsplit('.', 1)
     
     # set the compressed file name
-    compressed_file_name = file_path + "_compressed" + file_ext
+    compressed_file_name = f'{file_name}_compressed.mp4'
+    
+    # read the file into memory
+    in_memory_file = BytesIO(video_file.read())
     
     # run ffmpeg command to compress the video
-    subprocess.run(['ffmpeg', '-i', video_file.path, '-vcodec', 'libx265', '-crf', '28', compressed_file_name], check=True)
+    subprocess.run(['ffmpeg', '-i', '-', '-vcodec', 'libx265', '-crf', '28', '-f', 'mp4', '-'], input=in_memory_file.read(), stdout=open(compressed_file_name, 'wb'), check=True)
     
     # create a file object from the compressed file
     with open(compressed_file_name, 'rb') as f:
         compressed_file = InMemoryUploadedFile(f, None, compressed_file_name, 'video/mp4', f.tell(), None)
     
-    # delete the original video file and the compressed file
-    os.remove(video_file.path)
+    # delete the compressed file
     os.remove(compressed_file_name)
     
     # return the compressed file object
