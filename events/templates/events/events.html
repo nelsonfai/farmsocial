@@ -26,6 +26,7 @@
                <a href=" {% url 'companyprofile' event.page.identifier %}"> <div style="color: grey;margin-bottom: 0.6rem;">by: {{event.page.name}} </div></a>
 
                {%endif%}
+               <p> <i class="fa-solid fa-location-dot"></i>  {{event.location}}</p>
                 <p> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
              
 
