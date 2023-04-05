@@ -31,13 +31,14 @@
 </div>
 <style>
     .wrapper{
-        display: flex;
+        display: grid;
         flex-wrap: wrap;
         gap: 0.5rem;
+        grid-template-columns: repeat(2,50%);
+    grid-auto-rows: 50%;
     }
     .app{
-        width: 150px;
-        height: 150px;
+        height: 160px;
         padding: 1rem;
         background-color: green;
         display: flex;
