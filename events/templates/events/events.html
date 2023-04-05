@@ -12,7 +12,7 @@
         <p> <button class="button_one"><a href="{% url 'create_event' %} "> Create Event</a></button> <button class="button_one"><a href="{% url 'events' %}?category=attending ">Attending</a></button> <button class="button_one"><a href="{% url 'events' %}?category=myevents "> My Event</a></button></p>
            {%for event in events %}
            <div class="event" id="event{{event.id}}">
-            <button class="delete" onclick="deleteEvent(slug='{{event.slug}}',id='event{{event.id}}')"> Delete</button>
+            <button class="delete" onclick="deleteEvent(slug='{{event.slug}}',id='event{{event.id}}')"><i class="fa-solid fa-delete-left"></i></button>
             <div class="date">
                 <div> {{ event.start_date|date:"d" }}</div>
                 <div>{{ event.start_date|date:"M" }}</div>
@@ -26,8 +26,14 @@
 
                 <p class="toggle-text"> {{event.description|safe}} </p>
                 <br>
+                {% if request.user in event.attendees.all %}
                 <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
-                    Interested
+                    {% if request.user in event.attendees.all %}
+                    <span>Attending</span>
+                    {%else%}
+                    <span> Interested</span>
+                    {%endif%}
+
                 </button>
                 <button class="button_one">{{event.attending.all.count}}</button>
             </div>
@@ -43,7 +49,6 @@
         
             $.ajax({
               url: url,
-              method: "DELETE",
               success: function(data) {
                 if (data.comment == "delete") {
                   $("#" + id).remove();
@@ -197,7 +202,9 @@ main{
     margin-top: 20px;
     margin-bottom: 100px;
 }
-
+.delete{
+    margin: 1rem;
+}
     }
 
     </style>
