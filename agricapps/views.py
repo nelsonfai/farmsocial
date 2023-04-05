@@ -13,7 +13,7 @@ def prices (request):
     pass
     return render(request,'template')
 def weather(request):
-    city = None
+    #city = None
     if request.method == 'POST':
         city = request.POST.get('city')
     else:
