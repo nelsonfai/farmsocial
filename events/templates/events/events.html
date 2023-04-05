@@ -20,12 +20,12 @@
             </div>
             <div class="info">
                 <p style="color:var(--primary-color);font-size:larger">{{event.title}}</p>
-               <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:5px;font-size: small;"> {{event.user.get_full_name}} </div></a>
-                <p style="padding-left: 7px;"> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
-                <br>
+               <a href=" {% url 'profile' event.user.ui %}"> <div style="color: grey;margin-bottom: 0.6rem;">by: {{event.user.get_full_name}} </div></a>
+                <p> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
+             
 
                 <div class="toggle-text"> {{event.description|safe}} </div>
-                <br>
+      
                 <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
                     {% if request.user in event.attendees.all %}
                     <span>Attending</span>
@@ -156,7 +156,7 @@
 }
 .toogle-text{
     width: 100%;
-    margin-top: 1rem;
+    margin-block: 0.7rem;
 }
 .delete{
     position: absolute;
