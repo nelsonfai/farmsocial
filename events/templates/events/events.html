@@ -10,19 +10,29 @@
 
 <div class="grid-container">
     <main> 
-           Here are the events
+           {%for event in events %}
+           <div class="event">
+            <div class="date">
+
+            </div>
+            <div class="info">
+                <h3>{{event.title}}</h3>
+                <p>start:{{event.start_date}}</p>
+                <p>End:{{event.end_date}}</p>
+                <p> {{event.description|safe}}</p>
+                <p> Organizer :{{request.user.get_full_name}}</p>
+                <p>Attending:{{event.attending.all.count}}</p>
+            </div>
+            <button>
+                Interested
+            </button>
+           </div>
+           {% endfor %}
         
     </main>
 
  
-<script>
-      $(document).ready(function(){
-    let message_body = $('#messagebody')
-message_body.animate({
-    scrollTop: message_body.prop("scrollHeight") }, 100);
-  
-});
-</script>
+
 
 <script>
 

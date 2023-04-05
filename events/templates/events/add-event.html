@@ -1,0 +1,35 @@
+{% extends 'main/base.html'%}
+{% block title %}Add Article | My AgricDiary{% endblock %} 
+{% block content %}
+
+<div class="grid-container"> 
+
+    <form action="{% url 'create_event' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{form.as_p}}
+        <br>
+        <label for="organizer">Organizer:</label>
+        {% if options %}
+        <select name="organizer" id="user" required>
+            <option value=""> select one</option>
+            <option value='user'>
+                  {{request.user.get_full_name}}</option>
+            {%for item in options %}
+            <option value={{item.identifier}}>
+                {{item.name}}</option>
+            {%endfor%}
+        </select>
+        {%else%}
+        
+        <select name="organizer" id="user" required>
+            <option value='user'> {{request.user.get_full_name}}</option>
+        </select>
+        {%endif%}
+        
+        
+    <br>
+    <button type="submit"  style="width:100%;margin-bottom: 100px;" id="buttonpost" class="button_one" >Create Event </button>
+     
+    </form>
+</div>
