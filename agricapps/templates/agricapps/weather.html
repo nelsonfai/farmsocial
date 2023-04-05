@@ -1,6 +1,9 @@
 {% extends 'main/base.html'%}
 {% block content %}
 {% load static %}
+<div class="grid-container">
+
+    <main>
     {% for messsage in messages %}
     <p style="text-align:center;padding:5px">{{ messsage }}</p>
     {% endfor %} 
@@ -123,26 +126,15 @@
             </div>
         </div> 
         
-</body>
-</html>
+    </main>
+    <div></div>
+</div>
 
 
 <style>
   
 
-  *{
-    font-family: 'Lexend Deca', sans-serif;
-    padding:0;
-margin:0;
-box-sizing: border-box;
-}
-:root{
---primary-color:rgb(0,128,92);
---secondary-color:#008037;
-
-}
 a{
-    text-decoration: none;
     color:white
 }
 .topbanner{
@@ -217,11 +209,11 @@ display: block;
     padding-block: 10px;
 }
 #topwrapper input{
-  width: 75%;
+  width: 100%;
     
 }
  .search{
-    width: 90%;
+    width: 100%;
  }   
 }
 
