@@ -65,7 +65,7 @@ def attending(request):
     slug = request.GET.get('event')
     user = request.user
     event = Events.objects.get(slug=slug)
-    if user in event.attending.all:
+    if event.attending.filter(id=user.id).exists():
         event.attending.add(request.user)
         status = 'added'
     else:
