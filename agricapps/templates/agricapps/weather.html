@@ -1,18 +1,6 @@
+{% extends 'main/base.html'%}
+{% block content %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" src="../../../static/styles/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;500&display=swap" rel="stylesheet">
-
-    <title>My agricDiary-weather app</title>
-</head>
-<body>
     {% for messsage in messages %}
     <p style="text-align:center;padding:5px">{{ messsage }}</p>
     {% endfor %} 
@@ -24,15 +12,17 @@
                         <div class="search">
                             <form  method="POST">
                                 {% csrf_token %}
+                                <div style="display: flex;width: 100%;"> 
                                 <input type="search" name="city" id="city" placeholder="enter location">
                                 <button type="submit">Search</button>
+                            </div>
                             </form>
                         </div>
                 </div>
-                <p style="margin-left:45%;color:white; font-size: large;"> <strong> {{city_2}},{{country}} </strong> </p>
-                <p ><img src="http://openweathermap.org/img/wn/{{icon}}@2x.png"  style="margin-left:45%" alt="" ></p>   
+                <p style="color:white; font-size: large;"> <strong> {{city_2}},{{country}} </strong> </p>
+                <div style="text-align: center;" ><img src="http://openweathermap.org/img/wn/{{icon}}@2x.png"  style="margin-left:45%" alt="" ></div>   
 
-                <p style="margin-left:45%;color:white" > {{weather|title}}</p>
+                <p style="color:white;text-align: center;" > {{weather|title}}</p>
                     <br>
                 <p style="text-align:center; color:white;"> Weather Information for  {{date}} </p>
                 <br>
@@ -236,3 +226,4 @@ display: block;
 }
 
 </style>
+{% block content %}
