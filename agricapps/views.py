@@ -13,14 +13,14 @@ def prices (request):
     pass
     return render(request,'template')
 def weather (request):
-            if request.method=='POST':
+            if request.method == 'POST':
                     city= request.POST.get('city')
             else:
                     country_name = request.user.location.name
-                    response = requests.get(f"https://restcountries.com/v3.1/name/cameroon?fullText=true")
+                    response = requests.get(f"https://restcountries.com/v3.1/name/germany?fullText=true")
                     if response.status_code == 200:
                         # Parse JSON response
-                        country_data = response.json()
+                        #country_data = response.json()
                         # Extract capital city from response
                         #city = country_data[0]["capital"]
                         city = 'yaounde'
