@@ -18,11 +18,11 @@
             </div>
             <div class="info">
                 <h3>{{event.title}}</h3>
-                <p> by : <div class="roundedprofile" style="background: url('{{request.user.profilepic}}');"></div> {{request.user.get_full_name}}</p>
+                <div class="flex"> <a href=" {% url 'profile' event.user.ui %}"></a><div class="roundedprofile" style="background:url('{{event.user.profilepic}}');"></div> {{event.user.get_full_name}}</div>
 
                 <p>start: {{event.start_date}}</p>
                 <p>End: {{event.end_date}}</p>
-                <p class="toggle-text"> {{event.description|safe}}</p>
+                <p class="toggle-text"> {{event.description|safe}} </p>
                 <p>Attending:{{event.attending.all.count}}</p>
                 <button>
                     Interested
@@ -139,8 +139,11 @@
    .date{
     width:30%;
    }
-p{
-    margin-bottom: 1rem;
+.info{
+    width:70% ;
+}
+.toogle-text{
+    width: 100%;
 }
     @media screen and (max-width:780px) {
     .event{
