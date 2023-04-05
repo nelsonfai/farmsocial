@@ -10,22 +10,25 @@
 
 <div class="grid-container">
     <main> 
+        <p> <button class="button_one"><a href="{% url 'create_event' %} "> Create Event</a></button> <button class="button_one">Attending</button></p>
            {%for event in events %}
            <div class="event">
             <div class="date">
-
+                {{ event.start_date|date:"M d" }}
             </div>
             <div class="info">
                 <h3>{{event.title}}</h3>
-                <p>start:{{event.start_date}}</p>
-                <p>End:{{event.end_date}}</p>
-                <p> {{event.description|safe}}</p>
-                <p> Organizer :{{request.user.get_full_name}}</p>
+                <p> by : <div class="roundedprofile" style="background: url('{{request.user.profilepic}}');"></div> {{request.user.get_full_name}}</p>
+
+                <p>start: {{event.start_date}}</p>
+                <p>End: {{event.end_date}}</p>
+                <p class="toggle-text"> {{event.description|safe}}</p>
                 <p>Attending:{{event.attending.all.count}}</p>
+                <button>
+                    Interested
+                </button>
             </div>
-            <button>
-                Interested
-            </button>
+        
            </div>
            {% endfor %}
         
@@ -75,15 +78,34 @@
 </script>
 
 <script>
-
-    $(document).ready(function() {
-
-    let welcome = $(`<div class='msg_cotainer'> <p>Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out </p></div> ;`)
-    $('#messagebody').append($(welcome));
-;
-});
-
-</script>
+    const elements = document.getElementsByClassName("toggle-text");
+    for (let i = 0; i < elements.length; i++) {
+    const element = elements[i];
+    const text = element.innerText.trim();
+    if (text.length > 100) {
+   
+    const fullText = element.innerHTML  + `<span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >...less </span>
+  `;
+    const shortText = element.innerHTML.substring(0, 100) + ` <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >... details </span>
+  `;
+    element.innerHTML = shortText;
+      let isTruncated = false;
+      element.addEventListener("click", function() {
+       
+        if (isTruncated) {
+        
+        element.innerHTML = shortText;
+  
+        } else {
+        element.innerHTML = fullText;
+  
+        }
+    
+        isTruncated = !isTruncated;
+      });
+    }
+  } 
+    </script>
     </div>
     <style>
     .grid-container{
@@ -107,57 +129,28 @@
         top:50px
     }
 
-    .contact-item{
-        padding: .5rem;
-        margin-bottom: 10px;
-        border-bottom: 0.1px solid grey;
-    }
-    .contact-item:hover{
-        background-color: #f5f5f5;
-        border-radius: 20px;
-    
-    }
-    .contact-name{
-    color: black;
-    }
-    .lastmessage{
-        margin-top: 5px;
-    }
-    .msg_time{
-        color: grey;
-        font-size: small;
-        margin-top: -10px;
-    }
-    .chat-sidebar{
-        background-color: #fff;
-        border-radius: 5px;
-        padding: 1rem;
-    }
-    .flex{
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
-    #backbtn{
-        display: none;
-  
-    }
-    .btnsend{
-        font-size: 1rem;
-        background-color: #d4c44b;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-    }
-
+   .event{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+    padding: 1rem;
+   }
+   .date{
+    width:30%;
+   }
+p{
+    margin-bottom: 1rem;
+}
     @media screen and (max-width:780px) {
+    .event{
+    display: block;
 
-        .card{
-  height: 80vh ;
-}
-        body{
-    background-color: #fff;
-}
+   }
+   .date{
+    width:100%;
+    height: 100px;
+   }
 .grid-container{
     display: block;
     width: 100%;
