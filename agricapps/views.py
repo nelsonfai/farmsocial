@@ -32,7 +32,7 @@ def weather (request):
             if city:
                 
                         apikey='7de287427ec7e9a45fbc14c76c1f7e22'
-                        url=f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apikey}"
+                        url=f"http://api.openweathermap.org/data/2.5/weather?q=buea&appid={apikey}"
                         result=requests.get(url)
                         response=result.json()
                         
