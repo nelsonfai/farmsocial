@@ -17,7 +17,7 @@ def weather (request):
                     city= request.POST.get('city')
             else:
                     country_name = request.user.location.name
-                    response = requests.get(f"https://restcountries.com/v3.1/name/{country_name}?fullText=true")
+                    response = requests.get(f"https://restcountries.com/v3.1/name/cameroon?fullText=true")
                     if response.status_code == 200:
                         # Parse JSON response
                         country_data = response.json()
