@@ -8,7 +8,7 @@ from django.contrib import messages
 
 
 def apphome(request):
-                return render(request, 'myagricapps/apphome.html')
+                return render(request, 'agricapps/apphome.html')
 def prices (request):
     pass
     return render(request,'template')
