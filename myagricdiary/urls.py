@@ -36,7 +36,7 @@ urlpatterns = [
     path('my_notification' ,include('notification.urls')),
     path('friends/' ,include('Friends.urls')),
     path('accounts/', include('accounts.urls') ),
-    path('apps/', include('myagricapps.urls') ),
+    #path('apps/', include('myagricapps.urls') ),
 
     path('', include('feed.urls') ),
     path('market/', include('marketplace.urls') ),

@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'company',
     "phonenumber_field",
     'django_social_share',
-    'myagricapps'
 ]
 
 MIDDLEWARE = [
