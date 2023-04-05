@@ -15,21 +15,9 @@ def prices (request):
 def weather(request):
     #city = None
     if request.method == 'POST':
-        #city = request.POST.get('city')
-        city = request.user.location.name
+        city = request.POST.get('city')
     else:
-        country_name = 'cameroon'
-        response = requests.get(f"https://restcountries.com/v3.1/name/{country_name}?fullText=true")
-        if response.status_code == 200:
-            # Parse JSON response
-            country_data = response.json()
-            # Extract capital city from response
-            city = country_data[0]["capital"]
-        else:
-            # Handle error response
-            messages.error(request, 'Unable to get country capital!')
-            return render(request, 'agricapps/weather.html')
-
+        city = request.user.location.name
     if city:
         apikey = '7de287427ec7e9a45fbc14c76c1f7e22'
         url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apikey}"
