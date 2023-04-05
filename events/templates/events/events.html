@@ -1,0 +1,195 @@
+
+{% extends 'main/base.html'%}
+{% block content %}
+{% load static %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'styles/chat.css' %}">
+
+		
+
+<div class="grid-container">
+    <main> 
+           Here are the events
+        
+    </main>
+
+ 
+<script>
+      $(document).ready(function(){
+    let message_body = $('#messagebody')
+message_body.animate({
+    scrollTop: message_body.prop("scrollHeight") }, 100);
+  
+});
+</script>
+
+<script>
+
+    $(document).ready(function(){
+  $('#form').submit(function(e){
+    e.preventDefault();
+   var question = $('#input-message').val();
+   var bodymessage =$('#messagebody')
+   $('#input-message').val("Chat bot typing...") ,
+    $.ajax({
+      url: '/ai/query/',
+      dataType: 'json',
+      method:'POST',
+      data : {
+        'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+      'question' : question,
+    },
+      success:function(data) {
+       let questiondiv = `<div class=" replied">
+            <div class="msg_cotainer_send">
+            <p>Q: ${question}</p>  
+            <div class="msg_time_send msg_time">now</div>                                                   
+            </div>                                     
+            </div>`
+        let replydiv =`<div class="msg_cotainer">
+            <p> ${data.response}</p>
+            <div class="msg_time">now</div>
+        </div>`    
+        bodymessage.append(questiondiv)
+        bodymessage.append(replydiv)
+        $('#input-message').val("") ;
+        bodymessage.animate({
+    scrollTop: bodymessage.prop("scrollHeight") }, 100);
+    }
+      
+    });
+  });
+});
+
+</script>
+
+<script>
+
+    $(document).ready(function() {
+
+    let welcome = $(`<div class='msg_cotainer'> <p>Hello! I am an AI chatbot designed to answer your questions. How may I assist you today? Please feel free to ask me anything and I will do my best to help you out </p></div> ;`)
+    $('#messagebody').append($(welcome));
+;
+});
+
+</script>
+    </div>
+    <style>
+    .grid-container{
+        display: block;
+        grid-template-columns: 35% 1fr;
+        gap: 1rem;
+        min-height: 80vh;
+        padding-inline: 5%;
+        width: 100%;
+        max-width: 1700px;
+    }
+    main{
+        background-color: white;
+        padding: 1rem;
+        border-radius: 20px;
+        margin-bottom: 0;
+        position: relative;
+    }
+    .sidebars{
+        position: sticky;
+        top:50px
+    }
+
+    .contact-item{
+        padding: .5rem;
+        margin-bottom: 10px;
+        border-bottom: 0.1px solid grey;
+    }
+    .contact-item:hover{
+        background-color: #f5f5f5;
+        border-radius: 20px;
+    
+    }
+    .contact-name{
+    color: black;
+    }
+    .lastmessage{
+        margin-top: 5px;
+    }
+    .msg_time{
+        color: grey;
+        font-size: small;
+        margin-top: -10px;
+    }
+    .chat-sidebar{
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 1rem;
+    }
+    .flex{
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+    #backbtn{
+        display: none;
+  
+    }
+    .btnsend{
+        font-size: 1rem;
+        background-color: #d4c44b;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+    }
+
+    @media screen and (max-width:780px) {
+
+        .card{
+  height: 80vh ;
+}
+        body{
+    background-color: #fff;
+}
+.grid-container{
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+}
+header,
+.chat-sidebar{
+    display: none;
+}
+main{
+    width: 100%;
+    border: none;
+    padding: none;
+    background-color: transparent;
+padding: 0rem;
+border-radius: 0px;
+min-height: 80vh;
+
+}
+.profile-container{
+    width: 100%;
+}
+.contact-item:hover{
+background-color: transparent;
+}
+footer{
+    display: none;
+}
+
+#backbtn{
+        display: block;
+    }
+.card-header{
+
+    display:flex;
+    gap: 6rem;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+
+  }
+    }
+
+    </style>
+    {%endblock%}
