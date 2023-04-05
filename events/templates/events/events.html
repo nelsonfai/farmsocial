@@ -31,15 +31,9 @@
 
                 <div class="toggle-text"> {{event.description|safe}} </div>
       
-                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" 
-                {% if request.user in event.attendees.all %}
-                class="button_one attending"
-                {%else%}
-                class="button_one"
-                {%endif%}
-                >
+                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" {% if request.user in event.attendees.all %} class="button_one attending" {% else %} class="button_one" {%endif%}>
 
-                    <span><i class="fa-thin fa-star"></i>  Interested</span>
+                    <span> <i class="fa-regular fa-star"></i>  Interested</span>
                     
 
                 </button>
@@ -183,7 +177,7 @@ pre{
         white-space: break-spaces;
     }
 .button_one{
-    background-color: lightgray;
+    background-color: lightgray !important;
 }
 .attending{
     background-color: rgba(212,196,75,.7);
