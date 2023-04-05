@@ -11,7 +11,8 @@
     <main> 
         <p> <button class="button_one"><a href="{% url 'create_event' %} "> Create Event</a></button> <button class="button_one"><a href="{% url 'events' %}?category=attending ">Attending</a></button> <button class="button_one"><a href="{% url 'events' %}?category=myevents "> My Event</a></button></p>
            {%for event in events %}
-           <div class="event">
+           <div class="event" id="event{{event.id}}">
+            <button class="delete" onclick="deleteEvent(slug='{{event.slug}}',id='event{{event.id}}')"> Delete</button>
             <div class="date">
                 <div> {{ event.start_date|date:"d" }}</div>
                 <div>{{ event.start_date|date:"M" }}</div>
@@ -35,7 +36,26 @@
            {% endfor %}
         
     </main>
-
+    <script>
+        function deleteEvent(slug,id) {
+          if (confirm("Are you sure you want to delete this Event?")) {
+            var url = "delete?event=" + slug;
+        
+            $.ajax({
+              url: url,
+              method: "DELETE",
+              success: function(data) {
+                if (data.comment == "delete") {
+                  $("#" + id).remove();
+                }
+              },
+              error: function() {
+                alert("There was an error deleting the event.");
+              }
+            });
+          }
+        }
+      </script>
  
 <script>
     function updateAttending(slug,id) {
@@ -116,6 +136,7 @@
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
     padding: 1rem;
     margin-top: 10px;
+    position: relative;
    }
    .date{
     width:200px;
@@ -133,6 +154,13 @@
 .toogle-text{
     width: 100%;
     margin-top: 1rem;
+}
+.delete{
+    position: absolute;
+    top:0;
+    right: 0;
+    padding: 0.5rem;
+    background-color: green;
 }
 @media screen and (max-width:780px) {
     body{

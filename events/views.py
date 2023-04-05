@@ -46,7 +46,7 @@ def create(request):
         
     else:
         form= EventForm()
-        return render(request,'feed/add-article.html',{'form':form})
+        return render(request,'events/add-event.html',{'form':form})
 
 
 
@@ -75,7 +75,17 @@ def attending(request):
 
     return JsonResponse({'comment':status})
 
+def delete(request):
+    slug = request.GET.get('event')
+    event= Events.objects.get(slug=slug)
+    if event.user  == request.user:
+        event.delete()
+        status='deleted'
 
+    if event.page.user == request.user:
+        event.delete()
+        status='deleted'
 
-     
+    return JsonResponse({'comment':status})
+
     
