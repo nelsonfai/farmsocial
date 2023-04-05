@@ -19,10 +19,10 @@
         <div class="topbanner">
                 <div id="topwrapper">
                         <div class="logo">
-                            <a href="{% url 'feed'%}"> myagricWeather </a>
+                            <a href="#"> myagricWeather </a>
                         </div>
                         <div class="search">
-                            <form action="{% url 'index' %}" method="POST">
+                            <form  method="POST">
                                 {% csrf_token %}
                                 <input type="search" name="city" id="city" placeholder="enter location">
                                 <button type="submit">Search</button>
