@@ -66,12 +66,12 @@ def attending(request):
     user = request.user
     event = Events.objects.get(slug=slug)
     if event.attending.filter(id=user.id).exists():
-        event.attending.add(request.user)
-        status = 'added'
-    else:
         event.attending.remove(request.user)
         status='removed'
+    else:
 
+        event.attending.add(request.user)
+        status = 'added'
 
     return JsonResponse({'comment':status})
 
