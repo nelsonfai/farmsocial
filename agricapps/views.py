@@ -15,9 +15,10 @@ def prices (request):
 def weather(request):
     #city = None
     if request.method == 'POST':
-        city = request.POST.get('city')
+        #city = request.POST.get('city')
+        city = request.user.location.name
     else:
-        country_name = 'Cameroon'
+        country_name = 'cameroon'
         response = requests.get(f"https://restcountries.com/v3.1/name/{country_name}?fullText=true")
         if response.status_code == 200:
             # Parse JSON response
