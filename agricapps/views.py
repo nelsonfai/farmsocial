@@ -8,32 +8,29 @@ from django.contrib import messages
 
 
 def apphome(request):
-                return render(request, 'agricapps/apphome.html')
+                return render(request, 'myagricapps/apphome.html')
 def prices (request):
     pass
     return render(request,'template')
 def weather (request):
-            if request.method == 'POST':
-                    #city= request.POST.get('city')
-                    pass
+            if request.method=='POST':
+                    city= request.POST.get('city')
             else:
                     country_name = request.user.location.name
-                    response = requests.get(f"https://restcountries.com/v3.1/name/germany?fullText=true")
+                    response = requests.get(f"https://restcountries.com/v3.1/name/{country_name}?fullText=true")
                     if response.status_code == 200:
                         # Parse JSON response
-                        #country_data = response.json()
+                        country_data = response.json()
                         # Extract capital city from response
-                        #city = country_data[0]["capital"]
-                        city = 'yaounde'
+                        city = country_data[0]["capital"]
                         return city
                     else:
                         # Handle error response
                         return None
 
-            if city:
-                
+            if city :
                         apikey='7de287427ec7e9a45fbc14c76c1f7e22'
-                        url=f"http://api.openweathermap.org/data/2.5/weather?q=buea&appid={apikey}"
+                        url=f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={apikey}"
                         result=requests.get(url)
                         response=result.json()
                         
