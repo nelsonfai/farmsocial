@@ -63,9 +63,9 @@ def slug_generator(title):
 
 def attending(request):
     slug = request.GET.get('event')
-
+    user = request.user
     event = Events.objects.get(slug=slug)
-    if request.user in event.attending.all:
+    if user in event.attending.all:
         event.attending.add(request.user)
         status = 'added'
     else:
