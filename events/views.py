@@ -45,7 +45,9 @@ def create(request):
         return redirect('events')
     else:
         form= EventForm()
-        return render(request,'events/add-event.html',{'form':form})
+        options = request.user.company_admin.all()
+
+        return render(request,'events/add-event.html',{'form':form,'options':options})
 
 
 

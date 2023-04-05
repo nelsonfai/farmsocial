@@ -20,7 +20,12 @@
             </div>
             <div class="info">
                 <p style="color:var(--primary-color);font-size:larger">{{event.title}}</p>
+                {%if event.user %}
                <a href=" {% url 'profile' event.user.ui %}"> <div style="color: grey;margin-bottom: 0.6rem;">by: {{event.user.get_full_name}} </div></a>
+               {%else%}
+               <a href=" {% url 'companyprofile' event.page.identifier %}"> <div style="color: grey;margin-bottom: 0.6rem;">by: {{event.page.name}} </div></a>
+
+               {%endif%}
                 <p> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
              
 
