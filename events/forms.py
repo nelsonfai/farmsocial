@@ -9,6 +9,10 @@ class EventForm(forms.ModelForm):
 
         widgets ={
             
-            'description': forms.Textarea(attrs={'class':'description','placeholder':'Event Info ...', 'rows':3,})
+            'description': forms.Textarea(attrs={'class':'description','placeholder':'Event Info ...', 'rows':5,}),
+            'start_date': forms.DateInput(attrs={'type': 'datetime-local'}),
+            'end_date': forms.DateInput(attrs={'type': 'datetime-local'})
+
+
         }        
 

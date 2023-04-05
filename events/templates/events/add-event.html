@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="grid-container"> 
-
+<div class="wrapper"> 
     <form action="{% url 'create_event' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -33,4 +33,17 @@
      
     </form>
 </div>
+</div>
+
+<style>
+    textarea{
+        display: block;
+    width: 100%;
+    padding: 1rem;
+    }
+    .wrapper{
+        padding: 1rem;
+        padding-top: 50px;
+    }
+</style>
 {%endblock%}
