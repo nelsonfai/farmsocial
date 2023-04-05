@@ -81,9 +81,9 @@ def weather (request):
                         'daily':daily,
                     
                     }
-                    return render(request, 'myagricapps/weather.html',context)
+                    return render(request, 'agricapps/weather.html',context)
             else:
                 messages.error(request,'City not found!!')
-                return render(request, 'myagricapps/weather.html')
+                return render(request, 'agricapps/weather.html')
 
         
