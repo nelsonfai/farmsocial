@@ -14,15 +14,15 @@ def events(request):
     if filter:
         if filter == 'attending':
             user=request.user
-            events = Events.objects.filter(attending=user)
+            events = Events.objects.filter(attending=user).order_by('start_date')
 
         elif filter == 'myevents':
             user=request.user
-            events=Events.objects.filter(user=user)
+            events=Events.objects.filter(user=user).order_by('start_date')
         else:
             return redirect('events')
     else:
-        events = Events.objects.filter(expired=False)
+        events = Events.objects.filter(expired=False).order_by('start_date')
   
     return render(request,'events/events.html',{'events':events})
 
