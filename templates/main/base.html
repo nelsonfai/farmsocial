@@ -138,7 +138,7 @@
                 <a href="{% url 'profile'  request.user.ui %}"> <i class="fa-solid fa-user"></i><small>  Profile</small> </a>
                 <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> <small> Notification </small>  </a>
                 <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small style="position: relative;"> Messages <span class="counter"> {{unread}} </span></small></a>
-                <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small>  Market </small> </a>
+                <a href="{% url 'events' %}"> <i class="fa-solid fa-calendar-days"></i><small> Events </small>  </a>
                 <a href="{% url 'ai_room' %}"> <i class="fa-solid fa-circle-info"></i><small> Ai chat </small>  </a>
                 <a href="{% url 'events' %}"> <i class="fa-sharp fa-solid fa-plus"></i><small> Create page </small>  </a>
                 <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout  </small></a>
@@ -160,7 +160,7 @@
                     <small>Messages </small>  
                 </a>
                 <a href="{% url 'add_article'%}" class="yellow">  <i class="fa-solid fa-square-plus yellow" ></i>  <small> Post</small> </a>
-                <a href="{% url 'market' %}"> <i class="fa-solid fa-store"></i><small> Market </small>  </a>
+                <a href="{% url 'events' %}"> <i class="fa-solid fa-calendar-days"></i><small> Events </small>  </a>
                 <a href="{% url 'ai_room' %}"><i class="fa-solid fa-circle-info"></i><small> ai chat </small>  </a>
 
         </footer>
