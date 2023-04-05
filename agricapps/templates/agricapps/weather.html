@@ -22,8 +22,8 @@
                             </form>
                         </div>
                 </div>
-                <p style="color:white; font-size: large;"> <strong> {{city_2}},{{country}} </strong> </p>
-                <div style="text-align: center;" ><img src="http://openweathermap.org/img/wn/{{icon}}@2x.png"  style="margin-left:45%" alt="" ></div>   
+                <p style="color:white; font-size: large; text-align: center;"> <strong> {{city_2}},{{country}} </strong> </p>
+                <div style="text-align: center;" ><img src="http://openweathermap.org/img/wn/{{icon}}@2x.png"   alt="image-weather-icon" ></div>   
 
                 <p style="color:white;text-align: center;" > {{weather|title}}</p>
                     <br>
@@ -34,7 +34,7 @@
 
 
         </div>
-    <div style="padding:5%"> 
+    <div> 
                 <div class="current">
                     <strong style="color:var(--primary-color)">
                         Current weather
@@ -133,7 +133,9 @@
 
 <style>
   
-
+.grid-container{
+    grid-template-columns: 1fr;
+}
 a{
     color:white
 }
@@ -150,11 +152,9 @@ padding: 3%;
 
 }
 .current{
-    
-    border-radius:45px;
-    margin-top:-10px;
+    padding: 1rem;
+    margin-top: 50px;
     background-color: white;
-    
 }
 .logo{
     color:white;
