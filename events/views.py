@@ -28,7 +28,6 @@ def events(request):
 
 def create(request):
     if request.method == 'POST':
-        details=request.POST.get('description')
         organizer = request.POST.get('organizer')
         form = EventForm(request.POST or None)
         if form.is_valid():
@@ -39,11 +38,9 @@ def create(request):
                 else:
                      company = Company.objects.get(identifier = organizer)
                      obj.page= company
-                obj.country= request.user.location
                 obj.slug = slug_generator(title=obj.title[:10])
-                obj.description=f'<pre>{details}</pre>'
                 obj.save()
-        
+        return redirect('events')
     else:
         form= EventForm()
         return render(request,'events/add-event.html',{'form':form})
