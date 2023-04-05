@@ -27,9 +27,10 @@
                 <p>End: {{event.end_date}}</p>
                 <p class="toggle-text"> {{event.description|safe}} </p>
                 <br>
-                <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}"><button class="button_one">{{event.attending.all.count}}</button>
+                <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
                     Interested
                 </button>
+                <button class="button_one">{{event.attending.all.count}}</button>
             </div>
         
            </div>
@@ -158,7 +159,7 @@ main{
     background-color: transparent;
 padding: 0rem;
 border-radius: 0px;
-min-height: 80vh;
+
 
 }
 
