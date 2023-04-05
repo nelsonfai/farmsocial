@@ -8,6 +8,7 @@
         {% csrf_token %}
 
         {{form.as_p}}
+        <textarea name="details" id="details" cols="30" rows="5" placeholder="Enter Event details ..." required></textarea>
         <br>
         <label for="organizer">Organizer:</label>
         {% if options %}

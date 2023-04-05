@@ -29,9 +29,11 @@ def events(request):
 def create(request):
     if request.method == 'POST':
         organizer = request.POST.get('organizer')
+        description =request.POST.get('details')
         form = EventForm(request.POST or None)
         if form.is_valid():
                 obj=form.save(commit=False)
+                obj.description=f'<pre>{description}</pre>'
                 if organizer == "user":
                     user = request.user
                     obj.user=user
