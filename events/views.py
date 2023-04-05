@@ -33,7 +33,7 @@ def create(request):
         
     else:
         form= EventForm()
-        return render(request,'feed/add-article.html')
+        return render(request,'feed/add-article.html',{'form':form})
 
 
 
