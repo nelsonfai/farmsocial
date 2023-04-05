@@ -7,10 +7,24 @@
     <main>
 
         <div class="wrapper"> 
-                <div class="app"><a href="{% url 'price_app'%}"> Price</a></div>  
-                <div class="app"><a href="{% url 'weather_app'%}"> Weather</a></div>    
-                <div class="app"><a href="{% url 'ai_room'%}"> Ai</a></div>    
-  
+            <a href="{% url 'weather_app'%}">
+                 <div class="app">
+                    <i class="fa-solid fa-cloud-sun-rain"></i>
+                    <span>myagricWeather</span> 
+                </div> 
+            </a>
+            <a href="{% url 'ai_room'%}">
+                <div class="app"> 
+                    <i class="fa-solid fa-robot"></i>
+                    <span>myagricBot</span>
+                </div> 
+            </a>
+            <a onclick="alert('Currenly not available')"> 
+                <div class="app"> 
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>myagricPrices </span>
+                </div>
+            </a>
         </div>
     </main>
     <div></div>
@@ -19,12 +33,17 @@
     .wrapper{
         display: flex;
         flex-wrap: wrap;
+        gap: 0.5rem;
     }
     .app{
         width: 150px;
         height: 150px;
         padding: 1rem;
         background-color: green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
 </style>
 {%endblock%}
