@@ -72,12 +72,9 @@
           url: url,
           success: function(data) {
             if (data.comment == 'added') {
-              $(`#${id}`).text('Attending');
               $(`#${id}`).addClass('attending')
 
-              
             } else {
-              $(`#${id}`).text('Interested');
               $(`#${id}`).removeClass('attending');
 
             }
@@ -95,9 +92,9 @@
     const text = element.innerText.trim();
     if (text.length > 100) {
    
-    const fullText = element.innerHTML  + `<span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >...less </span>
+    const fullText = element.innerHTML  + `<span id="showmore-less" style="margin-block: 5px; color:grey ;cursor: pointer;" >...less </span>
   `;
-    const shortText = element.innerHTML.substring(0, 100) + ` <span id="showmore-less" style="margin-block: 5px; color:#d4c44b ;cursor: pointer;" >... details </span>
+    const shortText = element.innerHTML.substring(0, 100) + ` <span id="showmore-less" style="margin-block: 5px; color:grey ;cursor: pointer;" >... details </span>
   `;
     element.innerHTML = shortText;
       let isTruncated = false;
@@ -180,7 +177,7 @@ pre{
     background-color: lightgray !important;
 }
 .attending{
-    background-color: rgba(212,196,75,.7);
+    background-color: rgba(212,196,75,.7) !important;
 }
 @media screen and (max-width:780px) {
     body{
