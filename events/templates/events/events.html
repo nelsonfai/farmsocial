@@ -30,7 +30,7 @@
              
 
                 <div class="toggle-text"> {{event.description|safe}} </div>
-                {% if request.user in event.attendees.all %} 
+                {% if 1 %} 
                     <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" class="button_one attending" >
                         <span> <i class="fa-regular fa-star"></i>  Interested</span>
                     </button>
