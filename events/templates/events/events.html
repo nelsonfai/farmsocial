@@ -31,12 +31,16 @@
 
                 <div class="toggle-text"> {{event.description|safe}} </div>
       
-                <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
-                    {% if request.user in event.attendees.all %}
-                    <span>Attending</span>
-                    {%else%}
-                    <span> Interested</span>
-                    {%endif%}
+                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" 
+                {% if request.user in event.attendees.all %}
+                class="button_one attending"
+                {%else%}
+                class="button_one"
+                {%endif%}
+                >
+
+                    <span><i class="fa-thin fa-star"></i>  Interested</span>
+                    
 
                 </button>
                 <button class="button_one">{{event.attending.all.count}}</button>
@@ -75,9 +79,13 @@
           success: function(data) {
             if (data.comment == 'added') {
               $(`#${id}`).text('Attending');
+              $(`#${id}`).addClass('attending')
+
               
             } else {
               $(`#${id}`).text('Interested');
+              $(`#${id}`).removeClass('attending');
+
             }
           },
           error: function() {
@@ -174,7 +182,12 @@
 pre{
         white-space: break-spaces;
     }
-
+.button_one{
+    background-color: lightgray;
+}
+.attending{
+    background-color: rgba(212,196,75,.7);
+}
 @media screen and (max-width:780px) {
     body{
         background-color: white;
