@@ -10,7 +10,8 @@
 
 <div class="grid-container">
     <main> 
-        <p> <button class="button_one"><a href="{% url 'create_event' %} "> Create Event</a></button> <button class="button_one">Attending</button></p>
+        <p> <button class="button_one"><a href="{% url 'create_event' %} "> Create Event</a></button> <button class="button_one"><a href="{% url 'events' %}?category=attending ">Attending</a></button> <button class="button_one"><a href="{% url 'events' %}?category=myevents "> My Event</a></button></p>
+        <br>
            {%for event in events %}
            <div class="event">
             <div class="date">

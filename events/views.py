@@ -10,7 +10,20 @@ from company.models import Company
 from .models import Events
 
 def events(request):
-    events = Events.objects.filter(expired=False)
+    filter = request.GET.get('category')
+    if filter:
+        if filter == 'attending':
+            user=request.user
+            events = Events.objects.filter(attending=user)
+
+        elif filter == 'myevents':
+            user=request.user
+            events=Events.objects.filter(user=user)
+        else:
+            return redirect('events')
+    else:
+        events = Events.objects.filter(expired=False)
+  
     return render(request,'events/events.html',{'events':events})
 
 def create(request):
@@ -39,7 +52,6 @@ def create(request):
 
 
 def slug_generator(title):
-  
     new_title = title
   
     random_string = secrets.token_hex(5)
@@ -47,3 +59,23 @@ def slug_generator(title):
     slug_string = " ".join([new_title, random_string])
     slug = slugify(slug_string)
     return slug
+
+
+def attending(request):
+    slug = request.GET.get('event')
+
+    event = Events.objects.get(slug=slug)
+    if request.user in event.attending.all:
+        event.attending.add(request.user)
+        status = 'added'
+    else:
+        event.attending.remove(request.user)
+        status='removed'
+
+
+    return JsonResponse({'comment':status})
+
+
+
+     
+    
