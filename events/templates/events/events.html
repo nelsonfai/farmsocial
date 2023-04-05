@@ -25,7 +25,7 @@
                 <p>End: {{event.end_date}}</p>
                 <p class="toggle-text"> {{event.description|safe}} </p>
                 <p>Attending:{{event.attending.all.count}}</p>
-                <button class="button_one">
+                <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
                     Interested
                 </button>
             </div>
@@ -36,48 +36,24 @@
     </main>
 
  
-
-
 <script>
-
-    $(document).ready(function(){
-  $('#form').submit(function(e){
-    e.preventDefault();
-   var question = $('#input-message').val();
-   var bodymessage =$('#messagebody')
-   $('#input-message').val("Chat bot typing...") ,
-    $.ajax({
-      url: '/ai/query/',
-      dataType: 'json',
-      method:'POST',
-      data : {
-        'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
-      'question' : question,
-    },
-      success:function(data) {
-       let questiondiv = `<div class=" replied">
-            <div class="msg_cotainer_send">
-            <p>Q: ${question}</p>  
-            <div class="msg_time_send msg_time">now</div>                                                   
-            </div>                                     
-            </div>`
-        let replydiv =`<div class="msg_cotainer">
-            <p> ${data.response}</p>
-            <div class="msg_time">now</div>
-        </div>`    
-        bodymessage.append(questiondiv)
-        bodymessage.append(replydiv)
-        $('#input-message').val("") ;
-        bodymessage.animate({
-    scrollTop: bodymessage.prop("scrollHeight") }, 100);
-    }
-      
-    });
-  });
-});
-
+    function updateAttending(slug,id) {
+        var url = '/attending/?event=' + slug;
+        $.ajax({
+          url: url,
+          success: function(data) {
+            if (data.comment == 'added') {
+              $(id).text('Attending');
+            } else {
+              $(id).text('Interested');
+            }
+          },
+          error: function() {
+            alert('There was an error updating your attending status.');
+          }
+        });
+      }
 </script>
-
 <script>
     const elements = document.getElementsByClassName("toggle-text");
     for (let i = 0; i < elements.length; i++) {
