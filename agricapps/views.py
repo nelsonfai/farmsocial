@@ -22,7 +22,8 @@ def weather (request):
                         # Parse JSON response
                         country_data = response.json()
                         # Extract capital city from response
-                        city = country_data[0]["capital"]
+                        #city = country_data[0]["capital"]
+                        city = 'yaounde'
                         return city
                     else:
                         # Handle error response
