@@ -18,7 +18,7 @@
             </div>
             <div class="info">
                 <h3>{{event.title}}</h3>
-                <div class="flex" style="gap: 0;"> <a href=" {% url 'profile' event.user.ui %}"><div class="roundedprofile" style="background:url('{{event.user.profilepic}}');"> </div> <div style="margin-left:1rem"> {{event.user.get_full_name}} </div></a></div>
+                <div class="flex" style="gap: 0;"> <div class="roundedprofile" style="background:url('{{event.user.profilepic}}');"> </div> <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:1rem"> {{event.user.get_full_name}} </div></a></div>
 
                 <p>start: {{event.start_date}}</p>
                 <p>End: {{event.end_date}}</p>
