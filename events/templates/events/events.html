@@ -38,7 +38,7 @@
  
 <script>
     function updateAttending(slug,id) {
-        var url = 'events/attending?event=' + slug;
+        var url = 'attending?event=' + slug;
         $.ajax({
           url: url,
           success: function(data) {
