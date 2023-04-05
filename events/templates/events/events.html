@@ -10,21 +10,19 @@
 <div class="grid-container">
     <main> 
         <p> <button class="button_one"><a href="{% url 'create_event' %} "> Create Event</a></button> <button class="button_one"><a href="{% url 'events' %}?category=attending ">Attending</a></button> <button class="button_one"><a href="{% url 'events' %}?category=myevents "> My Event</a></button></p>
-        <br>
            {%for event in events %}
            <div class="event">
             <div class="date">
                 <div> {{ event.start_date|date:"d" }}</div>
                 <div>{{ event.start_date|date:"M" }}</div>
-               
-
+            
             </div>
             <div class="info">
                 <h3>{{event.title}}</h3>
-                <div class="flex" style="gap: 0;margin-bottom: 1rem;"> <div class="roundedprofile" style="background:url('{{event.user.profilepic}}');"> </div> <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:1rem"> {{event.user.get_full_name}} </div></a></div>
+                <div class="flex" style="gap: 0;margin-bottom: 1rem;"> <div class="roundedprofile" style="background:url('{{event.user.profilepic}}');background-position: center; background-size: contain;" > </div> <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:1rem"> {{event.user.get_full_name}} </div></a></div>
+                <p> <i class="fa-solid fa-calendar-days"></i>{{event.start_date}}  to {{event.end_date}}</p>
+                <br>
 
-                <p>start: {{event.start_date}}</p>
-                <p>End: {{event.end_date}}</p>
                 <p class="toggle-text"> {{event.description|safe}} </p>
                 <br>
                 <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
@@ -142,12 +140,17 @@
    }
    .date{
     width:100%;
-    height: 100px;
-   }
+    padding: 1rem;
+    background-color: green;
+    margin-bottom: 1rem;
+    flex-direction: row;
+    justify-content: start;
+}   
 .grid-container{
     display: block;
     width: 100%;
     margin-bottom: 0;
+
 }
 .info{
     width: 100%;
