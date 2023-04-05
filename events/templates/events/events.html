@@ -14,17 +14,20 @@
            {%for event in events %}
            <div class="event">
             <div class="date">
-                {{ event.start_date|date:"M d" }}
+                <div> {{ event.start_date|date:"d" }}</div>
+                <div>{{ event.start_date|date:"M" }}</div>
+               
+
             </div>
             <div class="info">
                 <h3>{{event.title}}</h3>
-                <div class="flex" style="gap: 0;"> <div class="roundedprofile" style="background:url('{{event.user.profilepic}}');"> </div> <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:1rem"> {{event.user.get_full_name}} </div></a></div>
+                <div class="flex" style="gap: 0;margin-bottom: 1rem;"> <div class="roundedprofile" style="background:url('{{event.user.profilepic}}');"> </div> <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:1rem"> {{event.user.get_full_name}} </div></a></div>
 
                 <p>start: {{event.start_date}}</p>
                 <p>End: {{event.end_date}}</p>
                 <p class="toggle-text"> {{event.description|safe}} </p>
-                <p>Attending:{{event.attending.all.count}}</p>
-                <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
+                <br>
+                <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}"><button class="button_one">{{event.attending.all.count}}</button>
                     Interested
                 </button>
             </div>
@@ -115,13 +118,21 @@
     padding: 1rem;
    }
    .date{
-    width:30%;
+    width:200px;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-direction: column;
+
    }
 .info{
-    width:70% ;
+    width:80% ;
 }
 .toogle-text{
     width: 100%;
+    margin-top: 1rem;
 }
     @media screen and (max-width:780px) {
     .event{
@@ -137,7 +148,9 @@
     width: 100%;
     margin-bottom: 0;
 }
-
+.info{
+    width: 100%;
+}
 main{
     width: 100%;
     border: none;
