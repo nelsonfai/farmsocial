@@ -26,7 +26,6 @@
 
                 <p class="toggle-text"> {{event.description|safe}} </p>
                 <br>
-                {% if request.user in event.attendees.all %}
                 <button class="button_one" onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}">
                     {% if request.user in event.attendees.all %}
                     <span>Attending</span>
