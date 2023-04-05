@@ -9,27 +9,24 @@
     {% endfor %} 
         <div class="topbanner">
                 <div id="topwrapper">
-                        <div class="logo">
-                            <a href="#"> myagricWeather </a>
-                        </div>
-                        <div class="search">
+                   
                             <form  method="POST">
                                 {% csrf_token %}
                                 <div style="display: flex;width: 100%;"> 
-                                <input type="search" name="city" id="city" placeholder="enter location">
-                                <button type="submit">Search</button>
-                            </div>
+                                    <input type="search" name="" id="search-box" placeholder="Search Users or Pages">
+                                    <button class="button_one"> <i class="fa-solid fa-magnifying-glass"  ></i></button>
+                                </div>
                             </form>
-                        </div>
                 </div>
-                <p style="color:white; font-size: large; text-align: center;"> <strong> {{city_2}},{{country}} </strong> </p>
-                <div style="text-align: center;" ><img src="http://openweathermap.org/img/wn/{{icon}}@2x.png"   alt="image-weather-icon" ></div>   
+               <div class="city-info">
+                    <p style=" font-size: large; text-align: center;"> <strong> {{city_2}},{{country}} </strong> </p>
+                    <div style="text-align: center;" ><img src="http://openweathermap.org/img/wn/{{icon}}@2x.png"   alt="image-weather-icon" ></div>   
 
-                <p style="color:white;text-align: center;" > {{weather|title}}</p>
+                    <p style="text-align: center;" > {{weather|title}}</p>
+                        <br>
+                    <p style="text-align:center; "> Weather Information for  {{date}} </p>
                     <br>
-                <p style="text-align:center; color:white;"> Weather Information for  {{date}} </p>
-                <br>
-                <br>
+            </div> 
 
 
 
@@ -156,11 +153,9 @@ padding: 3%;
     margin-top: 50px;
     background-color: white;
 }
-.logo{
-    color:white;
-   
-    font-weight: 500;
-    font-size:x-large
+.city-info{
+    padding: 1rem;
+    background-color: whitesmoke;
 }
 
 #topwrapper input,button{
