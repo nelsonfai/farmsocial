@@ -19,8 +19,8 @@
             </div>
             <div class="info">
                 <h3>{{event.title}}</h3>
-                <div class="flex" style="gap: 0;margin-bottom: 1rem;"> <div class="roundedprofile" style="background:url('{{event.user.profilepic}}');background-position: center; background-size: contain;" > </div> <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:1rem"> {{event.user.get_full_name}} </div></a></div>
-                <p> <i class="fa-solid fa-calendar-days"></i>{{event.start_date}}  to {{event.end_date}}</p>
+                <div class="flex" style="gap: 0;margin-top: 0.8rem;"> <div class="roundedprofile" style="background:url('{{event.user.profilepic}}');background-position: center; background-size: contain;" > </div> <a href=" {% url 'profile' event.user.ui %}"> <div style="margin-left:5px"> {{event.user.get_full_name}} </div></a></div>
+                <p> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
                 <br>
 
                 <p class="toggle-text"> {{event.description|safe}} </p>
@@ -134,6 +134,9 @@
     margin-top: 1rem;
 }
     @media screen and (max-width:780px) {
+    body{
+        background-color: white;
+    }
     .event{
     display: block;
 
@@ -141,10 +144,11 @@
    .date{
     width:100%;
     padding: 1rem;
-    background-color: green;
+    background-color: whitesmoke;
     margin-bottom: 1rem;
     flex-direction: row;
     justify-content: start;
+    gap: 5px;
 }   
 .grid-container{
     display: block;
