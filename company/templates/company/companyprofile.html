@@ -16,7 +16,7 @@
                 <div class="roundedprofile" style="background:url('{{profile.logopic}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;">  </div> 
         </div>
         <div class="profile-name">
-            <h2 class="name"> {{ profile.name|title}} </h2>
+            <p class="name"> {{ profile.name|title}} </p>
 
             
             <div class="sector"> 
@@ -25,7 +25,7 @@
                     {% endif %}
 
                     {% if profile.address %}
-                        <p> <small> <i class="fa-solid fa-location-dot"></i> Headquaters: {{profile.address}} </small></p>
+                        <p style="color: grey;">  <i class="fa-solid fa-location-dot"></i> Headquaters: {{profile.address}} </p>
                     {% endif %}
 
             </div>

@@ -15,7 +15,7 @@
                 <div class="roundedprofile" style="background:url('{{profile.profilepic}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;background-color: whitesmoke;">  </div> 
         </div>
         <div class="profile-name">
-            <h2 class="name"> {{ profile.get_full_name|title}} 
+            <p class="name"> {{ profile.get_full_name|title}} 
                 {% if profile.is_verified %}
                  <span class="tooltip"> 
                     <i class="fa-solid fa-circle-check" style="color: #d4c44b !important ; font-size: 1.1rem;"></i>
@@ -34,7 +34,7 @@
                 {% if profile == request.user %}
                 <span class="deletebtnfloat"> <a href="{% url 'editname' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
                 {%endif%}
-            </h2>
+            </p>
             <div class="sector"> 
                 {% if profile.is_student %}
 
@@ -54,14 +54,14 @@
                         <p>{{ profile.company }} </p>
                     {% endif %}
                 {% endif %}
-                <p> <small> <i class="fa-solid fa-location-dot"></i> {{profile.location.name}} </small></p>
+                <p style="color: grey;">  <i class="fa-solid fa-location-dot"></i> {{profile.location.name}} </p>
                     <span class="deletebtnfloat"> 
                         {% if profile == request.user %}
                         <span class="deletebtnfloat"> <a href="{% url 'editeducation' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
                         {%endif%}
                     </span>
             </div>
-       <p> <span onclick="closepopup();shownetwork('following22','followers22')"  style="cursor: pointer;margin-right: 0.7rem;">   Followers {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')"  style="cursor: pointer">  Following {{profile.myfollowing.following.count}}</span> </p>
+       <p> <span onclick="closepopup();shownetwork('following22','followers22')"  style="cursor: pointer;margin-right: 0.7rem;background-color: whitesmoke;" class="button_three"> Followers {{profile.myfollowing.follower.count}} </span> <span onclick="closepopup();shownetwork('followers22','following22')"  style="cursor: pointer whitesmoke;" class="button_three">  Following {{profile.myfollowing.following.count}}</span> </p>
             {% if user.is_authenticated %}
                 <br>
                     {% if profile != request.user %}

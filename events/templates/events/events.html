@@ -9,35 +9,35 @@
 
 <div class="grid-container">
     <main> 
-        <p> <button class="button_one"><a href="{% url 'create_event' %} "> <i class="fa-solid fa-plus"></i> Create Event</a></button> <button class="button_one"><a href="{% url 'events' %}?category=attending "> <i class="fa-solid fa-star"></i> Attending</a></button> <button class="button_one"><a href="{% url 'events' %}?category=myevents "> <i class="fa-solid fa-calendar-days"></i>  My Event</a></button></p>
+        <p style="display: flex;flex-wrap: wrap;gap: 0.3rem;"><button class="button_four"><a href="{% url 'events' %} ">  All </a></button> <button class="button_four"><a href="{% url 'create_event' %} "> <i class="fa-solid fa-plus"></i> Create Event</a></button> <button class="button_four"><a href="{% url 'events' %}?category=attending "> <i class="fa-solid fa-star"></i> Attending</a></button> <button class="button_four"><a href="{% url 'events' %}?category=myevents "> <i class="fa-solid fa-calendar-days"></i>  My Event</a></button></p>
            {%for event in events %}
            <div class="event" id="event{{event.id}}">
             <button class="delete" onclick="deleteEvent(slug='{{event.slug}}',id='event{{event.id}}')"><i class="fa-solid fa-delete-left"></i></button>
             <div class="date">
                 <div> {{ event.start_date|date:"d" }}</div>
                 <div>{{ event.start_date|date:"M" }}</div>
-            
             </div>
             <div class="info">
-                <p style="color:var(--primary-color);font-size:larger">{{event.title}}</p>
+                <p  class="eventname">{{event.title}}</p>
                 {%if event.user %}
-               <a href=" {% url 'profile' event.user.ui %}"> <div style="color: grey;margin-bottom: 0.6rem;">by: {{event.user.get_full_name}} </div></a>
+               <a href=" {% url 'profile' event.user.ui %}"> <div style="color: grey;margin-bottom: 0.6rem;">{{event.user.get_full_name|title}} </div></a>
                {%else%}
-               <a href=" {% url 'companyprofile' event.page.identifier %}"> <div style="color: grey;margin-bottom: 0.6rem;">by: {{event.page.name}} </div></a>
+               <a href=" {% url 'companyprofile' event.page.identifier %}"> <div style="color: grey;margin-bottom: 0.6rem;">{{event.page.name|title}} </div></a>
 
                {%endif%}
-               <p> <i class="fa-solid fa-location-dot"></i>  {{event.location}}</p>
-                <p> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
-             
+               <div class="location"> 
+                  <p> <i class="fa-solid fa-location-dot"></i>  {{event.location}}</p>
+                  <p> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
+              </div>
 
                 <div class="toggle-text"> {{event.description|safe}} </div>
                 {% if request.user in event.attending.all %} 
-                    <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" class="button_one attending" >
+                    <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" class="button_four attending" >
                         <span> <i class="fa-regular fa-star"></i>  Interested</span>
                     </button>
                 <button class="button_one attending"> {{event.attending.all.count}}</button>
                 {% else %}
-                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" class="button_one" >
+                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:80%;" class="button_four" >
                     <span> <i class="fa-regular fa-star"></i>  Interested</span>
                 </button>
                 <button class="button_one"> {{event.attending.all.count}}</button>
@@ -131,7 +131,6 @@
         max-width: 1700px;
     }
     main{
-        background-color: white;
         padding: 1rem;
         margin-bottom: 0;
         position: relative;
@@ -149,6 +148,8 @@
     padding: 1rem;
     margin-top: 10px;
     position: relative;
+    background-color: white;
+
    }
    .date{
     width:200px;
@@ -178,12 +179,27 @@
 pre{
         white-space: break-spaces;
     }
-.button_one{
-    background-color: lightgray !important;
+.button_four{
+  background-color: lightgrey !important;
+    color: white;
+    padding: 0.3rem 0.8rem;
 }
 .attending{
     background-color: rgba(212,196,75,.7) !important;
 }
+.location i{
+  color: grey;
+  margin-right: 0.3rem;
+}
+.location{
+  margin-bottom: 1rem;
+}
+.eventname{
+  width: calc(100% - 30px);
+  color:var(--primary-color);
+  font-size:x-large;
+}
+
 @media screen and (max-width:780px) {
     body{
         background-color: white;
@@ -221,6 +237,10 @@ main{
 }
 .delete{
     margin: 1rem;
+}
+.eventname{
+  width:100%;
+
 }
     }
 

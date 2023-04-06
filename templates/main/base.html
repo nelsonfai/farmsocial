@@ -135,12 +135,14 @@
             <div class="bodynav_right">
                 {% if request.user.is_authenticated %}
                 <a href="{% url 'articles' %}"> <i class="fa-solid fa-house"></i> <small> Home </small></a>
+                <a href="{% url 'add_article'%}" >  <i class="fa-solid fa-square-plus" ></i>  <small>Add Post</small> </a>
+
                 <a href="{% url 'profile'  request.user.ui %}"> <i class="fa-solid fa-user"></i><small>  Profile</small> </a>
                 <a href="{% url 'notification' %}"> <i class="fa-regular fa-bell"></i> <small> Notification </small>  </a>
                 <a href="{% url 'chatlobby' %}"> <i class="fa-solid fa-message"></i>  <small style="position: relative;"> Messages <span class="counter"> {{unread}} </span></small></a>
                 <a href="{% url 'events' %}"> <i class="fa-solid fa-calendar-days"></i><small> Events </small>  </a>
                 <a href="{% url 'myapps' %}"> <i class="fa-solid fa-screwdriver-wrench"></i><small> Apps </small>  </a>
-                <a href="{% url 'events' %}"> <i class="fa-sharp fa-solid fa-plus"></i><small> Create page </small>  </a>
+                <a href="{% url 'create-company' %}">  <i class="fa-sharp fa-solid fa-plus"></i> Create Page  </small></a> 
                 <a href="{% url 'logout' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> <small> Logout  </small></a>
                 {%endif%}
             </div>
