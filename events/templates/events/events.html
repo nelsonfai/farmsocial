@@ -32,12 +32,12 @@
 
                 <div class="toggle-text"> {{event.description|safe}} </div>
                 {% if request.user in event.attending.all %} 
-                    <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:90%;" class="button_four attending" >
+                    <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:80%;  font-size: 1rem;" class="button_four attending" >
                         <span> <i class="fa-regular fa-star"></i>  Interested</span>
                     </button>
                 <button class="button_one attending"> {{event.attending.all.count}}</button>
                 {% else %}
-                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:80%;" class="button_four" >
+                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:80%;  font-size: 1rem;" class="button_four" >
                     <span> <i class="fa-regular fa-star"></i>  Interested</span>
                 </button>
                 <button class="button_one"> {{event.attending.all.count}}</button>
@@ -183,6 +183,7 @@ pre{
   background-color: lightgrey !important;
     color: white;
     padding: 0.3rem 0.8rem;
+  
 }
 .attending{
     background-color: rgba(212,196,75,.7) !important;
@@ -197,7 +198,7 @@ pre{
 .eventname{
   width: calc(100% - 30px);
   color:var(--primary-color);
-  font-size:x-large;
+  font-size:larger;
 }
 
 @media screen and (max-width:780px) {
