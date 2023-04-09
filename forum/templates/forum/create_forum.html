@@ -1,0 +1,33 @@
+{% extends 'main/base.html'%}
+{% block title %}Forums | My AgricDiary{% endblock %} 
+{% block content %}
+{% load static %}
+
+<div class="grid-container">
+
+<main> 
+
+<form method="post">
+	{%csrf_token%}
+	{{form.as_p}}
+	<button type="submit" class="button_one" style="width: 100%;">Submit</button>
+</form>
+</main>
+
+
+
+<div></div>
+<style>
+	label{
+		display: block;	
+		margin-bottom: 0.5rem;
+	}
+	textarea{
+		width: 100%;
+		font-size: medium;
+		padding: 1rem;
+	}
+	
+</style>
+
+{%endblock%}

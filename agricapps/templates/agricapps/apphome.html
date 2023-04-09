@@ -7,24 +7,31 @@
     <main>
 
         <div class="wrapper"> 
-            <a href="{% url 'weather_app'%}">
-                 <div class="app">
-                    <i class="fa-solid fa-cloud-sun-rain"></i>
-                    <span>myagricWeather</span> 
-                </div> 
-            </a>
+            <a href="{% url 'forums' %}">
+                <div class="app">
+                    <i class="fa-solid fa-user-group"></i>
+                   <span>Forums</span> 
+               </div> 
+           </a>
             <a href="{% url 'ai_room'%}">
                 <div class="app"> 
                     <i class="fa-solid fa-robot"></i>
                     <span>myagricBot</span>
                 </div> 
             </a>
-            <a onclick="alert('Currenly not available')"> 
+            <a onclick="alert('Coming Soon')"> 
                 <div class="app"> 
                     <i class="fa-solid fa-chart-line"></i>
                     <span>myagricPrices </span>
                 </div>
             </a>
+            <a href="{% url 'weather_app'%}">
+                <div class="app">
+                   <i class="fa-solid fa-cloud-sun-rain"></i>
+                   <span>myagricWeather</span> 
+               </div> 
+           </a>
+
         </div>
     </main>
     <div></div>

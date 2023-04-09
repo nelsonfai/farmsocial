@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'django_social_share',
     'events',
-    'agricapps'
+    'agricapps',
+    'forum'
 ]
 
 MIDDLEWARE = [

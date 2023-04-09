@@ -1,0 +1,97 @@
+{% extends 'main/base.html'%}
+{% block title %}Forums | My AgricDiary{% endblock %} 
+{% block content %}
+{% load static %}
+{% load forum_tags %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div class="grid-container">
+
+<main> 
+<p style="margin-block: 1rem;"> <button><a href="{% url 'forums' %}">All</a></button> <button><a href="{% url 'createforum' %}"> + Create forum</a></button> <button><a href="{% url 'forums' %}?filter=myforums">My Forums</a></button></p>
+    <div >
+		{%for forum in forums %}
+            <div class="forum">
+                    <div class="info"> 
+                        <div class="flex"> 
+                            <span class="roundedprofile" style="background:url('{{forum.created_by.profilepic}}') ;background-position: center; background-size: contain;width: 25px!important;height: 25px !important;"> </span> 
+                            <div>
+                                <a href="{%  url 'profile' forum.created_by.ui %}"><small> {{ forum.created_by.first_name|title}} {{ forum.created_by.last_name|title }} </small></a>                            
+                                <p><small style="color: gray;">{{forum.whenpublished}}</small></p>
+                            </div>
+
+                        </div>
+                        <div>
+                            {% if not request.user in forum.members.all %}
+                            <button class="join-button" data-forum-id="{{forum.identifier}}"><small>Join</small></button>
+                            {%endif%}
+                        </div>
+                    </div>
+                    <p class="name"><a href="{% url 'forumroom' forum.identifier %}"> {{forum.topic}} </a></p>
+
+                <div class="forum-stats"> 
+                    <span><i class="fa-regular fa-message"></i> {{forum.forum_messages.count}} </span>
+                    <span> <i class="fa-solid fa-up-long"></i> {{forum.total_upvotes}}</span> 
+                    <span> <i class="fa-solid fa-user-group"></i> {{forum.members.count}}</span>
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+</main>
+
+
+</div>
+<script src="../../../static/scripts/forum.js"></script>
+
+<style>
+    .grid-container{
+        grid-template-columns: 1fr;
+    }
+    .forum{
+        padding: 1rem;
+        background-color: white;
+        border-radius: 5px;
+        margin-block: 1rem;
+    }
+    .name{
+        font-size: larger;
+        margin-top: 1rem;
+    }
+    .forums{
+        display:flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+
+    .info{
+        display: flex;
+        justify-content: space-between;
+    }
+    .flex{
+        gap: 5px;
+    }
+    hr{
+        margin-block: 1rem;
+    }
+    button{
+        font-size: medium;
+        background-color: #dacf80;
+        border-radius: 15px;
+        padding: 0.2rem 0.6rem;
+        min-width: 70px;
+    }
+    .forum-stats span,.forum-stats button{
+        padding: 0.2rem 0.7rem;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        margin-inline-end: 1rem;
+        text-align: center;
+    }
+    .forum-stats{
+        margin-block: 1rem;
+    }
+
+</style>
+
+
+{%endblock%}
