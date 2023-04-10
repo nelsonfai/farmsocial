@@ -21,6 +21,9 @@
 
                         </div>
                         <div>
+                            {% if has_unread_messages(forum, user) %}
+                                <span class="unread_indicator"> </span>
+                            {% endif %}
                             {% if not request.user in forum.members.all %}
                             <button class="join-button" data-forum-id="{{forum.identifier}}"><small>Join</small></button>
                             {%endif%}
@@ -89,7 +92,13 @@
     .forum-stats{
         margin-block: 1rem;
     }
-
+    .unread_indicator{
+        width: 15px;
+    background-color: #dacf80;
+    border-radius: 50%;
+    height: 15px;
+    margin-right: 5px;
+    }
 </style>
 
 

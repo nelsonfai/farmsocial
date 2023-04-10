@@ -19,7 +19,7 @@
                             </div>
                     </div>
                     {% if  request.user in forum.members.all %}
-                    <button class="join-button" data-forum-id="{{forum.identifier}}"><small>Joined</small></button>
+                    <button class="join-button button_one" data-forum-id="{{forum.identifier}}" style="font-size: small;background-color: whitesmoke;"><small>Joined</small></button>
                     {%else%}
                     <button class="join-button button_one" data-forum-id="{{forum.identifier}}"><small>Join</small></button>
                     {%endif%}
