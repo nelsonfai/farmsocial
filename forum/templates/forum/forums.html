@@ -21,7 +21,7 @@
 
                         </div>
                         <div>
-                            {% if has_unread_messages(forum, user) %}
+                            {% if has_unread_messages(forum, request.user) %}
                                 <span class="unread_indicator"> </span>
                             {% endif %}
                             {% if not request.user in forum.members.all %}
