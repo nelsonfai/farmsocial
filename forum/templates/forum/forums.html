@@ -23,7 +23,7 @@
                         <div>
                             {% has_unread_messages forum request.user as unread %}
                             {%if unread %}
-                                <span class="unread_indicator"> </span>
+                                <div class="unread_indicator"> </div>
                             {% endif %}
                             {% if not request.user in forum.members.all %}
                             <button class="join-button" data-forum-id="{{forum.identifier}}"><small>Join</small></button>
