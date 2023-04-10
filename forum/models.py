@@ -90,7 +90,11 @@ class Forum(models.Model):
     
     @property
     def total_upvotes(self):
-        return  self.forum_messages.aggregate(Sum('upvote'))['upvote__sum']
+        count = self.forum_messages.aggregate(Sum('upvote'))['upvote__sum']
+        if count:
+            return count
+        else:
+            return 0
 
 class Message(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='forum_messages')

@@ -18,8 +18,11 @@
                                 <p style="color: gray;font-size: small;">{{forum.whenpublished}}</p>
                             </div>
                     </div>
-                        <button class="join-button button_one" data-forum-id="{{forum.identifier}}"><small>Join</small></button>
-
+                    {% if  request.user in forum.members.all %}
+                    <button class="join-button" data-forum-id="{{forum.identifier}}"><small>Joined</small></button>
+                    {%else%}
+                    <button class="join-button button_one" data-forum-id="{{forum.identifier}}"><small>Join</small></button>
+                    {%endif%}
                     </div>
                     <hr>
                         <p class="name"><a href="{% url 'forumroom' forum.identifier %}"></a> {{forum.topic}}</p>
