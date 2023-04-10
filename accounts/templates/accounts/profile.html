@@ -16,21 +16,6 @@
         </div>
         <div class="profile-name">
             <p class="name"> {{ profile.get_full_name|title}} 
-                {% if profile.is_verified %}
-                 <span class="tooltip"> 
-                    <i class="fa-solid fa-circle-check" style="color: #d4c44b !important ; font-size: 1.1rem;"></i>
-                    <span class="tooltiptext"> Verified user </span>
-                </span>
-                 {%else%}
-                 <span style=" font-size: 1.3rem;" class="tooltip"> 
-                    <i class="fa-regular fa-circle-question"></i>
-                    {% if profile == request.user %}
-                    <span class="tooltiptext">Verify account through confirmation email sent on signup </span>
-                    {%else%}
-                    <span class="tooltiptext">Unverified user </span>
-                    {%endif%}
-                </span>
-                {%endif%}
                 {% if profile == request.user %}
                 <span class="deletebtnfloat"> <a href="{% url 'editname' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;top:0;"> <i class="fa-solid fa-pen"></i></a></span>
                 {%endif%}
