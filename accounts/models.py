@@ -45,20 +45,20 @@ class CustomUser(AbstractUser):
     email = models.EmailField(null=True, blank=True,unique=True)
     phonenumber = PhoneNumberField(null=True, blank=True,unique=True)
 
-    first_name = models.CharField( max_length=100 , blank=False,null=False)
-    last_name= models.CharField( max_length=100 , blank=False,null=False )
+    first_name = models.CharField( max_length=300 , blank=False,null=False)
+    last_name= models.CharField( max_length=300 , blank=False,null=False )
 
-    bio=models.CharField(max_length=600,blank=False,null=False)
+    bio=models.CharField(max_length=1000,blank=False,null=False)
     location = CountryField(blank_label='(select country)', blank=False,null=False)
 
 
     profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),  validate_file_size])
     is_student = models.BooleanField(default=False)
-    course = models.CharField(max_length=100 ,blank=True, null=True)
+    course = models.CharField(max_length=200 ,blank=True, null=True)
     instituition = models.CharField(max_length=100 ,blank=True, null=True)
 
-    profession=models.CharField(max_length=100 ,blank=True, null=True)
-    company = models.CharField(max_length=100 ,blank=True, null=True)
+    profession=models.CharField(max_length=200 ,blank=True, null=True)
+    company = models.CharField(max_length=200 ,blank=True, null=True)
 
     date_joined = models.DateTimeField( auto_now_add=True)
     is_active = models.BooleanField( default=True)
