@@ -35,13 +35,13 @@
                     <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:80%;  font-size: 1rem;" class="button_four attending" >
                         <span> <i class="fa-regular fa-star"></i>  Interested</span>
                     </button>
-                <button class="button_one attending"> {{event.attending.all.count}}</button>
+                <button class="button_one attending"> {{event.attending.all.count}} attendess</button>
                 {% else %}
               <div class="interest"> 
                   <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="min-width:70%; font-size: 1rem;" class="button_four" >
                       <span> <i class="fa-regular fa-star"></i>  Interested</span>
                   </button>
-                  <button class="button_one"> {{event.attending.all.count}} Attendess</button>
+                  <button class="button_one"> {{event.attending.all.count}} attendess</button>
               </div>
                 {%endif%}
 
