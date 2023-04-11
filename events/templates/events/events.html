@@ -37,10 +37,12 @@
                     </button>
                 <button class="button_one attending"> {{event.attending.all.count}}</button>
                 {% else %}
-                <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:80%;  font-size: 1rem;" class="button_four" >
-                    <span> <i class="fa-regular fa-star"></i>  Interested</span>
-                </button>
-                <button class="button_one"> {{event.attending.all.count}}</button>
+              <div class="interest"> 
+                  <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="min-width:70%; font-size: 1rem;" class="button_four" >
+                      <span> <i class="fa-regular fa-star"></i>  Interested</span>
+                  </button>
+                  <button class="button_one"> {{event.attending.all.count}} Attendess</button>
+              </div>
                 {%endif%}
 
             </div>
@@ -200,7 +202,10 @@ pre{
   color:var(--primary-color);
   font-size:larger;
 }
+.interest{
+  display: flex;
 
+}
 @media screen and (max-width:780px) {
     body{
         background-color: white;
