@@ -13,13 +13,16 @@ from django.db.models import Sum
 def create_forum(request):
     if request.method == 'POST':
         form = CreateForumForm(request.POST)
+    
         if form.is_valid():
+            description=request.POST.get('room_description')
             forum = form.save(commit=False)
             forum.created_by=request.user
             unique_id=str(uuid.uuid4().hex)[:8]
             name=forum.topic[:20]
             identifier=slugify(f"{name}-{unique_id}") 
             forum.identifier=identifier
+            forum.room_description = f'<pre>{description}<pre>'
             forum.save()
             messages.success(request, 'Forum created successfully!')
             return redirect('forums')
