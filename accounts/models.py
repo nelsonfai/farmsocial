@@ -45,11 +45,11 @@ class CustomUser(AbstractUser):
     email = models.EmailField(null=True, blank=True,unique=True)
     phonenumber = PhoneNumberField(null=True, blank=True,unique=True)
 
-    first_name = models.CharField( max_length=100 , blank=False)
-    last_name= models.CharField( max_length=100 , blank=False )
+    first_name = models.CharField( max_length=100 , blank=False,null=False)
+    last_name= models.CharField( max_length=100 , blank=False,null=False )
 
-    bio=models.CharField(max_length=400,blank=True, null=True)
-    location = CountryField(blank_label='(select country)')
+    bio=models.CharField(max_length=600,blank=False,null=False)
+    location = CountryField(blank_label='(select country)', blank=False,null=False)
 
 
     profile_pic=models.ImageField( upload_to='profilepics/' ,blank=True, null=True,validators=[FileExtensionValidator(['jpg','png','jpeg']),  validate_file_size])
