@@ -102,7 +102,7 @@ class ProfilePic(UserCreationForm):
         model=CustomUser
         fields=('profile_pic',)
     def __init__(self,*args,**kwargs):
-        super(ProfileInfo,self).__init__(*args,**kwargs)
+        super(ProfilePic,self).__init__(*args,**kwargs)
         del self.fields['password2']
         del self.fields['password1']
 
