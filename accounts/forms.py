@@ -84,9 +84,7 @@ class ProfileInfo(UserCreationForm):
         model=CustomUser
         fields=('bio','location','profile_pic')
         labels = {'bio': 'About me'}
-
         widgets ={
-            
             'bio': forms.Textarea(attrs={'class':'form_contol','placeholder':'Write a short self-description to introduce yourself to the community...', 'rows':6,})
         }   
     def __init__(self,*args,**kwargs):
@@ -100,12 +98,11 @@ class ProfileInfo(UserCreationForm):
 class ProfilePic(UserCreationForm):
     class Meta:
         model=CustomUser
-        fields=('profile_pic',)
+        fields=('profile_pic')
     def __init__(self,*args,**kwargs):
         super(ProfilePic,self).__init__(*args,**kwargs)
         del self.fields['password2']
         del self.fields['password1']
-
 
 class EducationForm(UserCreationForm):
     class Meta:
