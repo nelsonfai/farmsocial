@@ -180,7 +180,7 @@ def edit_profilepic(request):
                 return render (request,'accounts/editprofile.html',{'form':form})
         else:
             user = request.user
-            form = ProfilePic(instance=user)
+            form = ProfilePic()
             profile=form
             context={
                         'form':profile,
