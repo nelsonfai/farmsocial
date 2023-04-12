@@ -79,9 +79,6 @@ class PersonalInfoFormOne(UserCreationForm):
         self.fields['first_name'].widget.attrs['class']='form_control'
         self.fields['last_name'].widget.attrs['class']='form_control'
 
-      
-
-
 class ProfileInfo(UserCreationForm):
     class Meta:
         model=CustomUser
@@ -100,6 +97,14 @@ class ProfileInfo(UserCreationForm):
         self.fields['location'].widget.attrs['class']='form_control'
         self.fields['bio'].widget.attrs['placeholder']='Write a short self-description to introduce yourself to the community... '
 
+class ProfilePic(UserCreationForm):
+    class Meta:
+        model=CustomUser
+        fields=('profile_pic')
+    def __init__(self,*args,**kwargs):
+        super(ProfileInfo,self).__init__(*args,**kwargs)
+        del self.fields['password2']
+        del self.fields['password1']
 
 
 class EducationForm(UserCreationForm):
