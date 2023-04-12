@@ -16,7 +16,6 @@ urlpatterns = [
     path('profile/<slug:slug>',views.profile, name='profile'),
     path('editprofile/name/',views.edit_name, name='editname'),
     path('editprofile/bio/',views.edit_bio, name='editbio'),
-    path('editprofile/profile_pic/',views.edit_profilepic, name='editprofilepic'),
     path('editprofile/education/',views.edit_education, name='editeducation'),
     path('searchpage/',views.searchpage, name='searchpage'),
     path('queryusers/<slug:slug>',views.search_users, name='search_users'),
