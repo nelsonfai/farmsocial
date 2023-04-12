@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    
     path('login/',views.login_view, name='login'),
     path('logout/',views.logout_view, name='logout'),
     path('signup/', views.SignupWizard.as_view(), name='signup'),
@@ -21,7 +22,7 @@ urlpatterns = [
     path('queryusers/<slug:slug>',views.search_users, name='search_users'),
     path('change_email/', views.change_email, name='change_email'),
     path('privacy_settings/', views.privacy_settings, name='privacy-settings'),
-
+    path('account_verification/', views.account_verification, name='account_verification'),
     path('change_password/', auth_views.PasswordChangeView.as_view(template_name='accounts/editprofile.html',success_url=reverse_lazy('articles')), name='change_password'),
 
 

@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
-from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm,PassReset,ChangeEmailForm,ProfilePic
+from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm,PassReset,ChangeEmailForm,VerificationForm
 from formtools.wizard.views import SessionWizardView
 from .models import CustomUser
 from django.http import JsonResponse
@@ -57,13 +57,18 @@ def login_view(request):
                     else:
                         messages.success(request, ("You were succesfully logged in"))
                         return redirect('articles')
+                
+                
         else:
             form=LogInForm()
 
         context={
                     'form':form,
+
         }
         return render(request ,'accounts/login.html',context)
+
+
     except:
         form=LogInForm()
         context={
@@ -101,6 +106,7 @@ def profile(request,slug):
     except:
             messages.error(request,('Oops Something went wrong.Please try again later.'))
             return render(request ,'accounts/profile.html',context)
+    
 @login_required   
 def edit_profile(request):
         user = request.user
@@ -109,9 +115,12 @@ def edit_profile(request):
         context={
                     'form':profile,
                 }
+
+ 
         return render (request,'accounts/editprofile.html',context)
 @login_required           
 def edit_name(request):
+    
         if request.method == 'POST':
             form=PersonalInfoForm(request.POST or None,instance =request.user)
             if form.is_valid():
@@ -143,6 +152,7 @@ def edit_bio(request):
                 user = request.user
                 user.bio=form.cleaned_data['bio']
                 user.location=form.cleaned_data['location']
+
                 if  photo:
                    thumpnail_image= thumpnail(photo)
                    user.profile_pic = thumpnail_image
@@ -162,35 +172,9 @@ def edit_bio(request):
                     }
             return render (request,'accounts/editprofile.html',context)
 
-@login_required
-def edit_profilepic(request):
-        if request.method == 'POST':
-            form=ProfilePic(request.POST or None ,request.FILES,instance=request.user)
-            photo= request.FILES.get('profile_pic')
-            if form.is_valid():
-                if  photo:
-                   user= request.user
-                   thumpnail_image= thumpnail(photo)
-                   user.profile_pic = thumpnail_image
-                user.save()
-                return redirect('profile',request.user.ui)
-            else:
-                user = request.user
-                form = ProfilePic(instance=user)
-                return render (request,'accounts/editprofile.html',{'form':form})
-        else:
-            user = request.user
-            form = ProfilePic()
-            profile=form
-            context={
-                        'form':profile,
-                    }
-            return render (request,'accounts/editprofile.html',context)
-
-
-
 @login_required       
 def edit_education(request):
+
         if request.method == 'POST':
             form=EducationForm(request.POST or None ,instance=request.user)
             if form.is_valid:
@@ -264,12 +248,15 @@ def change_email(request):
 class SignupWizard(SessionWizardView):
     form_list = [EmailForm,PasswordForm,PersonalInfoFormOne]
     template_name = 'accounts/emailform.html'
+   
+
     def done(self, form_list, **kwargs):
 
         token = str(uuid.uuid4())
         unique_id=str(uuid.uuid4().hex)[:8]
         first_name=form_list[2].cleaned_data['first_name']
         last_name=form_list[2].cleaned_data['last_name']
+        
         if form_list[0].cleaned_data['email'] or form_list[0].cleaned_data['phonenumber']:
             pass
         else:

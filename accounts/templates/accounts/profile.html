@@ -13,9 +13,6 @@
         <div class="banner"> </div>
         <div class="profile-image">
                 <div class="roundedprofile" style="background:url('{{profile.profilepic}}') ;background-position: center; background-size: contain; width:100% !important; padding-top: 100%;background-color: whitesmoke;">  </div> 
-                {% if profile == request.user %}
-                <span class="deletebtnfloat" style="bottom:1rem; top:revert;"> <a href="{% url 'editprofilepic' %}" style="font-size: 1.1rem;color:grey;font-weight:normal;"> <i class="fa-solid fa-pen"></i></a></span>
-                {%endif%}
         </div>
         <div class="profile-name">
             <p class="name"> {{ profile.get_full_name|title}} 
