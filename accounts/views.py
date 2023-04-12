@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
-from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm,PassReset,ChangeEmailForm
+from .forms import LogInForm,EmailForm,PersonalInfoForm,ProfileInfo,EducationForm,PersonalInfoFormOne,PasswordForm,PassReset,ChangeEmailForm,ProfilePicForm
 from formtools.wizard.views import SessionWizardView
 from .models import CustomUser
 from django.http import JsonResponse
@@ -57,8 +57,6 @@ def login_view(request):
                     else:
                         messages.success(request, ("You were succesfully logged in"))
                         return redirect('articles')
-                
-                
         else:
             form=LogInForm()
 
@@ -173,8 +171,34 @@ def edit_bio(request):
             return render (request,'accounts/editprofile.html',context)
 
 @login_required       
-def edit_education(request):
+def edit_profilepic(request):
+        if request.method == 'POST':
+            form=ProfilePicForm(request.POST or None ,request.FILES,instance=request.user)
+            photo= request.FILES.get('profile_pic')
+            if form.is_valid():
+                if  photo:
+                   user= request.user
+                   thumpnail_image= thumpnail(photo)
+                   user.profile_pic = thumpnail_image
+                user.save()
+                return redirect('profile',request.user.ui)
+            else:
+                user = request.user
+                form = ProfilePicForm(instance=user)
+                return render (request,'accounts/editprofile.html',{'form':form})
+        else:
+            user = request.user
+            form = ProfilePicForm()
+            profile=form
+            context={
+                        'form':profile,
+                    }
+            return render (request,'accounts/editprofile.html',context)
 
+
+
+@login_required       
+def edit_education(request):
         if request.method == 'POST':
             form=EducationForm(request.POST or None ,instance=request.user)
             if form.is_valid:
@@ -244,14 +268,11 @@ def change_email(request):
         form = ChangeEmailForm(user=user)
     return render(request, 'accounts/editprofile.html', {'form': form})
 
-#signup user 
 class SignupWizard(SessionWizardView):
     form_list = [EmailForm,PasswordForm,PersonalInfoFormOne]
     template_name = 'accounts/emailform.html'
    
-
     def done(self, form_list, **kwargs):
-
         token = str(uuid.uuid4())
         unique_id=str(uuid.uuid4().hex)[:8]
         first_name=form_list[2].cleaned_data['first_name']
@@ -270,9 +291,7 @@ class SignupWizard(SessionWizardView):
         ui=slugify(f"{first_name} {last_name} {unique_id}") ,
         token = token
        )
-        
         user.save()
- 
         login(self.request,user,backend='django.contrib.auth.backends.ModelBackend')
         if email:
             subject = 'Account Verification My agric Diary'
@@ -292,12 +311,11 @@ class SignupWizard(SessionWizardView):
                                 to=user.phonenumber
                             )
             except:
-                        pass
+                    pass
         return redirect('firstProfile')
 
 class FirstProfile(SessionWizardView):
     file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'media'))
-
     form_list = [ProfileInfo,EducationForm]
     template_name = 'accounts/emailform.html'
     
@@ -346,13 +364,15 @@ def search_users(request,slug):
 
 def email(subject,message,sendto):
             # send email
-            subject = subject
-            message = message
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [sendto,]
-            send_mail( subject, message, email_from, recipient_list )
-            context={'email':sendto}
-            return 'done'
+            try:
+                subject = subject
+                message = message
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [sendto,]
+                send_mail( subject, message, email_from, recipient_list )
+                context={'email':sendto}
+            except:
+                return 'done'
 
 @login_required
 def check_online_status(request):
