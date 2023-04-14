@@ -28,20 +28,19 @@
                <div class="location"> 
                   <p> <i class="fa-solid fa-location-dot"></i>  {{event.location}}</p>
                   <p> <i class="fa-solid fa-calendar-days"></i>  {{event.start_date}}  to {{event.end_date}}</p>
+                  <p><i class="fa-solid fa-user-group"></i> {{event.attending.all.count}} attendee(s)</p>
               </div>
 
                 <div class="toggle-text"> {{event.description|safe}} </div>
                 {% if request.user in event.attending.all %} 
-                    <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:80%;  font-size: 1rem;" class="button_four attending" >
+                    <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="width:100%;  font-size: 1rem;" class="button_four attending" >
                         <span> <i class="fa-regular fa-star"></i>  Interested</span>
                     </button>
-                <button class="button_one attending"> {{event.attending.all.count}} attendess</button>
                 {% else %}
               <div class="interest"> 
-                  <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="min-width:70%; font-size: 1rem;" class="button_four" >
+                  <button  onclick="updateAttending(slug='{{event.slug}}',id='button{{event.id}}')" id="button{{event.id}}" style="min-width:100%; font-size: 1rem;" class="button_four" >
                       <span> <i class="fa-regular fa-star"></i>  Interested</span>
                   </button>
-                  <button class="button_one"> {{event.attending.all.count}} attendess</button>
               </div>
                 {%endif%}
 
@@ -204,7 +203,7 @@ pre{
 }
 .interest{
   display: flex;
-
+  width: 100%;
 }
 @media screen and (max-width:780px) {
     body{
