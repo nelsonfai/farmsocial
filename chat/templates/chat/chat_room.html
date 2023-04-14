@@ -113,7 +113,7 @@
                                         <div class="card-body msg_card_body"  id="messagebody">
                                             <!------- messages ------->
                                             {% for chat in thread.chatmessage_thread.all %}
-                                                {% if chat.user == user %}
+                                                {% if chat.user == request.user %}
                                                     <div class=" replied">
                                                         <div class="msg_cotainer_send">
                                                           <p> {{ chat.message }} </p>  
@@ -124,7 +124,6 @@
                                                     </div>
                                                 {% else %}
                                                     <div>
-                                                   
                                                     <div class="msg_cotainer">
                                                         <p style="position: relative;">
                                                             {{ chat.message }}
