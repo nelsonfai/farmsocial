@@ -126,7 +126,7 @@
                                                     <div>
                                                    
                                                     <div class="msg_cotainer">
-                                                        <p>
+                                                        <p style="position: relative;">
                                                             {{ chat.message }}
                                                             {% if chat.is_read %}
                                                                 <span class="read_receipt"> <i class="fa-solid fa-check-double"></i> </span>
@@ -214,6 +214,7 @@
     .msg_time{
         color: grey;
         font-size: small;
+        margin-top: -10px;
     }
     .chat-sidebar{
         background-color: #fff;
