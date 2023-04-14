@@ -126,12 +126,16 @@
                                                     <div>
                                                    
                                                     <div class="msg_cotainer">
-                                                        <p>{{ chat.message }} </p> 
-                                                        
+                                                        <p>
+                                                            {{ chat.message }}
+                                                            {% if chat.is_read %}
+                                                                <span class="read_receipt"> <i class="fa-solid fa-check-double"></i> </span>
+                                                            {%endif%}
+                                                        </p>
                                                         <div class="msg_time">{{ chat.timestamp|date:"d D" }}, {{ chat.timestamp|time:"H:i" }}</div>
                                                     </div>
                                                 </div>
-                                                {% endif %}
+                                                {% endif %} 
 
                                             {% endfor %}
         
@@ -210,7 +214,6 @@
     .msg_time{
         color: grey;
         font-size: small;
-        margin-top: -10px;
     }
     .chat-sidebar{
         background-color: #fff;
@@ -231,7 +234,13 @@
         background-color: #d4c44b;
         padding: 1rem;
     }
-
+.read_receipt{
+    font-size: x-small;
+    display: block;
+    position: absolute;
+    right: 0;
+    padding: 5px;
+}
 @media screen and (max-width:780px) {
 
 .card{
