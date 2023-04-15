@@ -48,7 +48,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField( max_length=300 , blank=False,null=False)
     last_name= models.CharField( max_length=300 , blank=False,null=False )
 
-    bio=models.CharField(max_length=1000,blank=False,null=False)
+    bio=models.TextField(blank=False,null=False)
     location = CountryField(blank_label='(select country)', blank=False,null=False)
 
 
@@ -63,11 +63,11 @@ class CustomUser(AbstractUser):
     date_joined = models.DateTimeField( auto_now_add=True)
     is_active = models.BooleanField( default=True)
     is_verified = models.BooleanField( default=False)
+    is_emailverified =models.BooleanField( default=False)
     token = models.CharField(max_length=200,default=1)
     last_seen = models.DateTimeField(null=True, blank=True)
     ui=models.CharField(max_length=200,default='admin', unique=True,primary_key=False)
-
-
+    
 
     #following = models.ManyToManyField('self', through='Follow', related_name='followed_by', symmetrical=False)
 
@@ -87,3 +87,5 @@ class CustomUser(AbstractUser):
         else:
             return 'https://myagricdiary-space.fra1.cdn.digitaloceanspaces.com/agric-static%2Fimages%2Fimages-removebg-preview.png'
     
+
+

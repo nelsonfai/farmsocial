@@ -148,7 +148,7 @@ def edit_bio(request):
             photo= request.FILES.get('profile_pic')
             if form.is_valid():
                 user = request.user
-                user.bio=form.cleaned_data['bio']
+                user.bio=f"<pre> {form.cleaned_data['bio']} </pre>"
                 user.location=form.cleaned_data['location']
 
                 if  photo:
@@ -159,7 +159,8 @@ def edit_bio(request):
                 return redirect('profile',request.user.ui)
             else:
                 user = request.user
-                form = ProfileInfo(instance=user)
+                initial = {'bio': user.bio[5:-7]}
+                form = ProfileInfo(instance=user,initial=initial)
                 return render (request,'accounts/editprofile.html',{'form':form})
         else:
             user = request.user
@@ -322,7 +323,7 @@ class FirstProfile(SessionWizardView):
     def done(self, form_list, **kwargs):
         user = self.request.user
         print(form_list)
-        user.bio=form_list[0].cleaned_data['bio']
+        user.bio=f"<pre> {form_list[0].cleaned_data['bio']} </pre>"
         user.location=form_list[0].cleaned_data['location']
         #user.profile_pic=form_list[0].cleaned_data['profile_pic']
         profilepic= form_list[0].cleaned_data['profile_pic']
@@ -453,7 +454,7 @@ def privacy_settings(request):
 def verify_email(request,token):
     try:
             user=CustomUser.objects.get(token=token)
-            user.is_verified= True
+            user.is_emailverified= True
             user.save()
             messages.success(request, ("Email verified !"))
 
