@@ -164,7 +164,8 @@ def edit_bio(request):
                 return render (request,'accounts/editprofile.html',{'form':form})
         else:
             user = request.user
-            form = ProfileInfo(instance=user)
+            initial = {'bio': user.bio[5:-7]}
+            form = ProfileInfo(instance=user,initial=initial)
             profile=form
             context={
                         'form':profile,
