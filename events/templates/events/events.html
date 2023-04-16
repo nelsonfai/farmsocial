@@ -12,7 +12,9 @@
         <p style="display: flex;flex-wrap: wrap;gap: 0.3rem;"><button class="button_four"><a href="{% url 'events' %} ">  All </a></button> <button class="button_four"><a href="{% url 'create_event' %} "> <i class="fa-solid fa-plus"></i> Create Event</a></button> <button class="button_four"><a href="{% url 'events' %}?category=attending "> <i class="fa-solid fa-star"></i> Attending</a></button> <button class="button_four"><a href="{% url 'events' %}?category=myevents "> <i class="fa-solid fa-calendar-days"></i>  My Event</a></button></p>
            {%for event in events %}
            <div class="event" id="event{{event.id}}">
-            <button class="delete" onclick="deleteEvent(slug='{{event.slug}}',id='event{{event.id}}')"><i class="fa-solid fa-delete-left"></i></button>
+            {%if request.user == event.user %}
+              <button class="delete" onclick="deleteEvent(slug='{{event.slug}}',id='event{{event.id}}')"><i class="fa-solid fa-delete-left"></i></button>
+           {%endif%}
             <div class="date">
                 <div> {{ event.start_date|date:"d" }}</div>
                 <div>{{ event.start_date|date:"M" }}</div>
