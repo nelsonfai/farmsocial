@@ -82,9 +82,9 @@
                                 {% if mypages %}
                                 <li style="margin-top: 10px;"> Manage Pages </li>
                                     {%for pages in mypages %}
-                              
+                        
                                     <li> 
-                                          <a href="{%  url 'dashboard' pages.identifier  %} "><small style="margin-left: 10px;">>  {{ pages.name|title}}  </small></a> 
+                                          <a href="{%  url 'companyprofile' page.identifier page.name %} "><small style="margin-left: 10px;">>  {{ pages.name|title}}  </small></a> 
                                       </li>
                                  
                                     {%endfor%}
