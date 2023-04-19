@@ -84,7 +84,7 @@
                                     {%for pages in mypages %}
                         
                                     <li> 
-                                          <a href="{%  url 'companyprofile' page.identifier page.name %} "><small style="margin-left: 10px;">>  {{ pages.name|title}}  </small></a> 
+                                          <a href="{%  url 'companyprofile' pages.identifier pages.name %} "><small style="margin-left: 10px;">>  {{ pages.name|title}}  </small></a> 
                                       </li>
                                  
                                     {%endfor%}
