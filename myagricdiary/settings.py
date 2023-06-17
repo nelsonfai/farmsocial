@@ -10,6 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+########## settings ini
+DEBUG=False
+SECRET_KEY=django-insecure-vnpbb=4@k=4z6+b1o)gda$e^x2mm1w#6)q$(vbzk=zf$x!^asg
+
+AWS_ACCESS_KEY_ID=DO00CAGEMR3Q8V39ALC9
+AWS_SECRET_ACCESS_KEY=rq+pJo6J+d7GNkGph0yxv9BZFtj6Czvy6zxOh41RS64
+AWS_STORAGE_BUCKET_NAME=myagricdiary-space 
+AWS_S3_ENDPOINT_URL=https://fra1.digitaloceanspaces.com
+AWS_LOCATION=agric-static
+
+DB_NAME=django_db
+DB_USER=django
+DB_PASSWORD=password
+client_id =338662253904-makkgh2rmrm62clctm7555vcnus528f8.apps.googleusercontent.com
+client-secret =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
+
+PROJECT_NAME=myagricdiary 
+
+
+
 from pathlib import Path
 import os
 from decouple import config
