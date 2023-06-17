@@ -51,7 +51,7 @@ ALLOWED_HOSTS = ["46.101.121.242", "myagricdiary.com","www.myagricdiary.com"]
 
 ROOT_URLCONF = f'{config("PROJECT_NAME")}.urls'
 
-WSGI_APPLICATION = f'{config("PROJECT_NAME")}.wsgi.application'
+WSGI_APPLICATION = myagricdiary.wsgi.application
 
 ASGI_APPLICATION = f'{config("PROJECT_NAME")}.asgi.application'
 
